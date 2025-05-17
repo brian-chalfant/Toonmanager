@@ -2,6 +2,7 @@
 
 import argparse
 from toon import Toon, CharacterError
+from background import Background
 from logging_config import setup_logging, get_logger
 import json
 import sys
@@ -57,6 +58,53 @@ def get_subraces(race: str) -> list:
     except Exception:
         return []
 
+def get_available_backgrounds() -> list:
+    """Get list of available backgrounds from data directory"""
+    try:
+        return Background.list_available_backgrounds()
+    except Exception as e:
+        logger.error(f"Failed to get backgrounds: {e}")
+        return []
+
+def prompt_personality_choices(background: Background) -> Dict:
+    """Prompt user for personality choices for a background
+    
+    Args:
+        background: The background to get choices for
+        
+    Returns:
+        Dictionary of personality choices
+    """
+    options = background.get_personality_options()
+    choices = {}
+    
+    # Get personality traits
+    print("\nSelect personality traits:")
+    trait_count = options["personality_traits"]["count"]
+    traits = options["personality_traits"]["suggestions"]
+    choices["traits"] = []
+    for i in range(trait_count):
+        trait = prompt_user(f"Select trait {i+1}/{trait_count}", traits)
+        choices["traits"].append(trait)
+    
+    # Get ideal
+    print("\nSelect an ideal:")
+    ideals = [f"{i['ideal']} ({i['alignment']})" for i in options["ideals"]["suggestions"]]
+    ideal = prompt_user("Select ideal", ideals)
+    choices["ideal"] = ideal.split(" (")[0]  # Remove alignment from choice
+    
+    # Get bond
+    print("\nSelect a bond:")
+    bonds = options["bonds"]["suggestions"]
+    choices["bond"] = prompt_user("Select bond", bonds)
+    
+    # Get flaw
+    print("\nSelect a flaw:")
+    flaws = options["flaws"]["suggestions"]
+    choices["flaw"] = prompt_user("Select flaw", flaws)
+    
+    return choices
+
 def interactive_create_character():
     """Interactive character creation"""
     try:
@@ -77,6 +125,39 @@ def interactive_create_character():
             subrace = prompt_user("Select subrace", subraces)
         
         toon.set_race(race, subrace)
+        
+        # Handle pending choices from race selection
+        pending = toon.get_pending_choices()
+        if "ability_scores" in pending:
+            print("\nChoose ability scores to increase:")
+            ability_choice = pending["ability_scores"]
+            chosen_abilities = []
+            for i in range(ability_choice["count"]):
+                available = [a for a in ability_choice["from"] if a not in chosen_abilities]
+                ability = prompt_user(f"Select ability {i+1}/{ability_choice['count']} to increase by {ability_choice['bonus']}", available)
+                chosen_abilities.append(ability)
+                toon.properties["stats"][ability.lower()] += ability_choice["bonus"]
+            # Remove the pending choice once handled
+            del toon.properties["pending_choices"]["ability_scores"]
+        
+        # Handle skill proficiency choice for Variant Human
+        if any(trait.get("name") == "Skills" for trait in toon.properties.get("traits", [])):
+            skill_choices = [
+                "acrobatics", "animal handling", "arcana", "athletics",
+                "deception", "history", "insight", "intimidation",
+                "investigation", "medicine", "nature", "perception",
+                "performance", "persuasion", "religion", "sleight of hand",
+                "stealth", "survival"
+            ]
+            skill = prompt_user("Choose a skill proficiency", skill_choices)
+            if "skills" not in toon.properties:
+                toon.properties["skills"] = {}
+            toon.properties["skills"][skill] = True
+        
+        # Handle feat choice for Variant Human
+        if any(trait.get("name") == "Feat" for trait in toon.properties.get("traits", [])):
+            print("\nNote: Feat selection will be implemented in a future update")
+            # TODO: Implement feat selection once feat data is available
         
         # Set ability scores
         print("\nEnter ability scores (8-20):")
@@ -109,21 +190,62 @@ def interactive_create_character():
         
         toon.add_class(class_name, level)
         
-        # Save character
+        # Select background
+        backgrounds = get_available_backgrounds()
+        if backgrounds:
+            background_name = prompt_user("Select background", backgrounds)
+            background = Background(background_name)
+            
+            # Get personality choices
+            print("\nSelect personality traits, ideals, bonds, and flaws:")
+            choices = prompt_personality_choices(background)
+            
+            # Apply background with choices
+            toon.set_background(background_name, choices)
+            
+            # Handle any pending choices (like languages)
+            pending = toon.get_pending_choices()
+            if "languages" in pending:
+                print("\nSelect languages:")
+                languages = ["Common", "Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", 
+                           "Halfling", "Orc", "Abyssal", "Celestial", "Draconic", 
+                           "Deep Speech", "Infernal", "Primordial", "Sylvan", "Undercommon"]
+                lang_count = pending["languages"]["count"]
+                chosen_languages = []
+                for i in range(lang_count):
+                    lang = prompt_user(f"Select language {i+1}/{lang_count}", 
+                                     [l for l in languages if l not in chosen_languages])
+                    chosen_languages.append(lang)
+                    toon.properties["proficiencies"]["languages"].extend(chosen_languages)
+        
+        # Save the character
         filename = toon.save()
-        print(f"\nCharacter saved as: {filename}")
+        print(f"Character saved as: {filename}")
         
-        # Export options
-        export_format = prompt_user(
-            "Select export format (or press Enter to skip)",
-            ["text", "json", "html", "pdf"]
-        )
-        
-        if export_format:
-            output = toon.export_character_sheet(format=export_format)
-            print(f"\nCharacter sheet exported in {export_format} format")
-            if export_format == "text":
-                print("\n" + output)
+        # Export options with improved error handling
+        while True:
+            export_format = prompt_user(
+                "Select export format (or press Enter to skip)",
+                ["text", "json", "html", "pdf"]
+            )
+            
+            if not export_format:
+                break
+                
+            try:
+                output = toon.export_character_sheet(format=export_format)
+                print(f"\nCharacter sheet exported in {export_format} format")
+                if export_format == "text":
+                    print("\n" + output)
+                elif export_format == "pdf":
+                    print(f"\nPDF file saved as: {output}")
+                break
+            except Exception as e:
+                logger.error(f"Failed to export as {export_format}: {e}")
+                print(f"\nFailed to export as {export_format}. Error: {str(e)}")
+                retry = prompt_user("Would you like to try a different format? (y/n)").lower()
+                if retry != 'y':
+                    break
         
     except CharacterError as e:
         logger.error(f"Failed to create character: {e}")
@@ -213,6 +335,39 @@ def create_character(args):
         toon.set_name(args.name)
         toon.set_race(args.race, args.subrace)
         
+        # Handle pending choices from race selection
+        pending = toon.get_pending_choices()
+        if "ability_scores" in pending:
+            print("\nChoose ability scores to increase:")
+            ability_choice = pending["ability_scores"]
+            chosen_abilities = []
+            for i in range(ability_choice["count"]):
+                available = [a for a in ability_choice["from"] if a not in chosen_abilities]
+                ability = prompt_user(f"Select ability {i+1}/{ability_choice['count']} to increase by {ability_choice['bonus']}", available)
+                chosen_abilities.append(ability)
+                toon.properties["stats"][ability.lower()] += ability_choice["bonus"]
+            # Remove the pending choice once handled
+            del toon.properties["pending_choices"]["ability_scores"]
+        
+        # Handle skill proficiency choice for Variant Human
+        if any(trait.get("name") == "Skills" for trait in toon.properties.get("traits", [])):
+            skill_choices = [
+                "acrobatics", "animal handling", "arcana", "athletics",
+                "deception", "history", "insight", "intimidation",
+                "investigation", "medicine", "nature", "perception",
+                "performance", "persuasion", "religion", "sleight of hand",
+                "stealth", "survival"
+            ]
+            skill = prompt_user("Choose a skill proficiency", skill_choices)
+            if "skills" not in toon.properties:
+                toon.properties["skills"] = {}
+            toon.properties["skills"][skill] = True
+        
+        # Handle feat choice for Variant Human
+        if any(trait.get("name") == "Feat" for trait in toon.properties.get("traits", [])):
+            print("\nNote: Feat selection will be implemented in a future update")
+            # TODO: Implement feat selection once feat data is available
+        
         # Set ability scores if provided
         if args.abilities:
             try:
@@ -226,17 +381,43 @@ def create_character(args):
         if args.class_name and args.level:
             toon.add_class(args.class_name, args.level)
         
+        # Add background if provided
+        if args.background:
+            try:
+                # If personality choices provided, parse them
+                if args.personality:
+                    try:
+                        choices = json.loads(args.personality)
+                        toon.set_background(args.background, choices)
+                    except json.JSONDecodeError:
+                        logger.error("Invalid personality choices format. Use JSON format.")
+                        sys.exit(1)
+                else:
+                    # Apply background without personality choices
+                    toon.set_background(args.background)
+                    logger.warning("No personality choices provided. Use interactive mode or --personality to set them.")
+            except Exception as e:
+                logger.error(f"Failed to apply background: {e}")
+                sys.exit(1)
+        
         # Save the character
         filename = toon.save()
         print(f"Character saved as: {filename}")
         
-        # Export if requested
+        # Export with improved error handling
         if args.export:
-            output = toon.export_character_sheet(format=args.export)
-            print(f"Character sheet exported in {args.export} format")
-            if args.export == "text":
-                print(output)
-            
+            try:
+                output = toon.export_character_sheet(format=args.export)
+                print(f"Character sheet exported in {args.export} format")
+                if args.export == "text":
+                    print(output)
+                elif args.export == "pdf":
+                    print(f"PDF file saved as: {output}")
+            except Exception as e:
+                logger.error(f"Failed to export as {args.export}: {e}")
+                print(f"Failed to export character sheet. Error: {str(e)}")
+                print("You can try exporting in a different format using the interactive mode (-i)")
+        
     except CharacterError as e:
         logger.error(f"Failed to create character: {e}")
         sys.exit(1)
@@ -329,7 +510,10 @@ def main():
     create_parser.add_argument("--class-name", help="Character class (e.g., wizard, fighter)")
     create_parser.add_argument("--level", type=int, help="Class level (1-20)")
     create_parser.add_argument("--abilities", help="Ability scores in JSON format (e.g., '{\"strength\": 15}')")
-    create_parser.add_argument("--export", choices=["text", "json", "html", "pdf"], help="Export character sheet format")
+    create_parser.add_argument("--background", help="Character background (e.g., acolyte, criminal)")
+    create_parser.add_argument("--personality", help="Personality choices in JSON format (e.g., '{\"traits\": [\"trait1\", \"trait2\"], \"ideal\": \"ideal1\", \"bond\": \"bond1\", \"flaw\": \"flaw1\"}')")
+    create_parser.add_argument("--export", choices=["text", "json", "html", "pdf"], 
+                             help="Export character sheet format (Note: PDF export requires pdftk to be installed)")
     
     # Load character command
     load_parser = subparsers.add_parser("load", help="Load an existing character")

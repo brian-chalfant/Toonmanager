@@ -7,6 +7,7 @@ from file_functions import save_file, open_file, list_files, remove_file
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from collections import defaultdict
+from background import Background
 
 logger = get_logger(__name__)
 
@@ -93,7 +94,26 @@ class Toon:
                 "wisdom": False,
                 "charisma": False
             },
-            "skills": {},
+            "skills": {
+                "acrobatics": False,
+                "animal handling": False,
+                "arcana": False,
+                "athletics": False,
+                "deception": False,
+                "history": False,
+                "insight": False,
+                "intimidation": False,
+                "investigation": False,
+                "medicine": False,
+                "nature": False,
+                "perception": False,
+                "performance": False,
+                "persuasion": False,
+                "religion": False,
+                "sleight of hand": False,
+                "stealth": False,
+                "survival": False
+            },
             "proficiency_bonus": 2,
             "armor_class": 10,
             "initiative": 0,
@@ -128,12 +148,26 @@ class Toon:
             "features": [],
             "traits": [],
             "equipment": [],
+            "currency": {
+                "platinum": 0,
+                "gold": 0,
+                "electrum": 0,
+                "silver": 0,
+                "copper": 0
+            },
             "spells": {
                 "cantrips": [],
                 "spells_known": [],
                 "spell_slots": {},
                 "spellcasting_ability": ""
             },
+            "personality": {
+                "traits": [],
+                "ideals": [],
+                "bonds": [],
+                "flaws": []
+            },
+            "pending_choices": {},
             # Add metadata for character management
             "metadata": {
                 "created_at": datetime.now().isoformat(),
@@ -225,12 +259,14 @@ class Toon:
         """Delete a saved character file
         
         Args:
-            filename: The filename to delete
+            filename: The filename to delete (with or without .json extension)
             
         Returns:
             True if deletion was successful
         """
         try:
+            # Remove .json extension if present, then add it back
+            filename = filename.replace('.json', '')
             return remove_file(f"{filename}.json", self.save_path)
         except Exception as e:
             logger.error(f"Failed to delete character file {filename}: {e}")
@@ -464,8 +500,6 @@ class Toon:
         try:
             # Apply skill proficiencies
             if "skill_proficiencies" in grants:
-                if "skills" not in self.properties:
-                    self.properties["skills"] = {}
                 for skill in grants["skill_proficiencies"]:
                     self.properties["skills"][skill.lower()] = True
 
@@ -549,11 +583,16 @@ class Toon:
             self.properties["size"] = race_data["size"]
             
             # Apply ability score increases
-            for ability, bonus in race_data["ability_scores"].items():
-                self.properties["stats"][ability.lower()] += bonus
+            ability_scores = race_data["ability_scores"]
+            if isinstance(ability_scores, dict) and "choose" not in ability_scores:
+                for ability, bonus in ability_scores.items():
+                    self.properties["stats"][ability.lower()] += bonus
+            elif isinstance(ability_scores, dict) and "choose" in ability_scores:
+                # Store ability score choices in pending_choices
+                self.properties["pending_choices"]["ability_scores"] = ability_scores["choose"]
             
             # Add racial traits and apply their grants
-            for trait in race_data["traits"]:
+            for trait in race_data.get("traits", []):
                 self.properties["traits"].append(trait)
                 if "grants" in trait:
                     self._apply_trait_grants(trait["grants"])
@@ -561,21 +600,45 @@ class Toon:
             
             # Add languages
             self.properties["proficiencies"]["languages"].extend(race_data["languages"]["standard"])
+            if "bonus" in race_data["languages"]:
+                if "choose" in race_data["languages"]["bonus"]:
+                    self.properties["pending_choices"]["languages"] = race_data["languages"]["bonus"]
             
             # Apply subrace if specified
             if subrace:
                 self.properties["subrace"] = subrace
                 subrace_data = next(sr for sr in race_data["subraces"] if sr["name"] == subrace)
                 
-                # Apply subrace ability scores
-                for ability, bonus in subrace_data.get("ability_scores", {}).items():
-                    self.properties["stats"][ability.lower()] += bonus
+                # Handle subrace ability scores
+                if "ability_scores" in subrace_data:
+                    if isinstance(subrace_data["ability_scores"], dict) and "choose" in subrace_data["ability_scores"]:
+                        # Store ability score choices in pending_choices
+                        self.properties["pending_choices"]["ability_scores"] = subrace_data["ability_scores"]["choose"]
+                    elif "replaces" in subrace_data and "ability_scores" in subrace_data["replaces"]:
+                        # Reset base race ability scores if subrace replaces them
+                        for ability in self.properties["stats"]:
+                            self.properties["stats"][ability] -= race_data["ability_scores"].get(ability, 0)
+                        # Apply subrace ability scores
+                        if "choose" not in subrace_data["ability_scores"]:
+                            for ability, bonus in subrace_data["ability_scores"].items():
+                                self.properties["stats"][ability.lower()] += bonus
+                        else:
+                            self.properties["pending_choices"]["ability_scores"] = subrace_data["ability_scores"]["choose"]
+                    else:
+                        # Add subrace ability scores to base scores
+                        for ability, bonus in subrace_data.get("ability_scores", {}).items():
+                            self.properties["stats"][ability.lower()] += bonus
                 
                 # Add subrace traits and apply their grants
                 for trait in subrace_data.get("traits", []):
                     self.properties["traits"].append(trait)
                     if "grants" in trait:
-                        self._apply_trait_grants(trait["grants"])
+                        if any("choose" in grant for grant in trait["grants"].values()):
+                            # Store choices in pending_choices
+                            choice_key = f"trait_{trait['name'].lower()}"
+                            self.properties["pending_choices"][choice_key] = trait["grants"]
+                        else:
+                            self._apply_trait_grants(trait["grants"])
                     self._apply_trait_modifies(trait)
                 
             logger.info(f"Set race to {race}" + (f" ({subrace})" if subrace else ""))
@@ -583,6 +646,27 @@ class Toon:
         except Exception as e:
             logger.error(f"Failed to set race to {race}: {e}")
             raise
+
+    def _calculate_max_hp(self) -> int:
+        """Calculate maximum hit points based on hit dice and Constitution modifier"""
+        if not self.properties['classes']:
+            return 0
+            
+        con_mod = self.get_ability_modifier('constitution')
+        max_hp = 0
+        
+        # First class gets maximum hit points for first level
+        first_class = self.properties['classes'][0]
+        first_hit_die = int(self.properties['hit_dice'][0].split('d')[1])  # Get the die size (e.g., 10 from '1d10')
+        max_hp = first_hit_die + con_mod  # First level gets maximum
+        
+        # Add average hit points for remaining levels
+        remaining_hit_dice = self.properties['hit_dice'][1:]  # Skip first level
+        for hit_die in remaining_hit_dice:
+            die_size = int(hit_die.split('d')[1])
+            max_hp += (die_size // 2 + 1) + con_mod  # Average roll is (die_size/2 + 0.5)
+            
+        return max_hp
 
     def add_class(self, class_name: str, level: int):
         """Add a class level to the character"""
@@ -636,6 +720,9 @@ class Toon:
             # Update proficiency bonus
             self.properties["proficiency_bonus"] = 2 + ((self.properties["level"] - 1) // 4)
             
+            # Update maximum hit points
+            self.properties["hit_points"]["maximum"] = self._calculate_max_hp()
+            
             logger.info(f"Added class {class_name} (level {level})")
             
         except Exception as e:
@@ -674,6 +761,9 @@ class Toon:
         
         # Update unarmored AC (10 + DEX modifier)
         self.properties["armor_class"] = 10 + (self.properties["stats"]["dexterity"] - 10) // 2
+
+        # Update maximum hit points (affected by Constitution modifier)
+        self.properties["hit_points"]["maximum"] = self._calculate_max_hp()
 
     def get_ability_modifier(self, ability: str) -> int:
         """Calculate ability modifier"""
@@ -745,13 +835,72 @@ class Toon:
                 'CharacterName 2': self.properties['name'],  # Character name on page 2
                 'ClassLevel': ', '.join(f"{c['name']} {c['level']}" for c in self.properties['classes']),
                 'Race ': f"{self.properties['race']} {self.properties.get('subrace', '')}".strip(),  # Note the space after 'Race'
-                'Background': self.properties.get('background', ''),
+                'Background': self.properties.get('background', '').capitalize(),  # Capitalize background
                 'Alignment': self.properties.get('alignment', ''),
                 'XP': str(self.properties.get('experience', 0)),
                 'ProfBonus': f"+{self.properties['proficiency_bonus']}",
                 'Inspiration': '1' if self.properties.get('inspiration', False) else '0',
                 
-                # Ability scores and modifiers
+                # Personality
+                'PersonalityTraits ': '\\n'.join(self.properties.get('personality', {}).get('traits', [])),  # Note the space after field name
+                'Ideals': '\\n'.join(self.properties.get('personality', {}).get('ideals', [])),
+                'Bonds': '\\n'.join(self.properties.get('personality', {}).get('bonds', [])),
+                'Flaws': '\\n'.join(self.properties.get('personality', {}).get('flaws', [])),
+                
+                # Features & Traits
+                'Features and Traits': (
+                    'CORE FEATURES:\\n\\n' +
+                    '\\n'.join(
+                        f"{trait['name'].upper()}\\n{trait['description']}" 
+                        for trait in self.properties.get('traits', [])
+                        if not self._is_roleplay_feature(trait) and "Ability Score" not in trait.get('name', '')
+                    ) + '\\n\\n' +
+                    '\\n'.join(
+                        f"{feature['name'].upper()}\\n{feature['description']}"
+                        for feature in self.properties.get('features', [])
+                        if not self._is_roleplay_feature(feature) and "Ability Score" not in feature.get('name', '')
+                    )
+                ),
+                
+                # Additional Features & Traits (Roleplaying focused)
+                'Additional Features and Traits': (
+                    'ROLEPLAY FEATURES:\\n\\n' +
+                    '\\n'.join(
+                        f"{trait['name'].upper()}\\n{trait['description']}" 
+                        for trait in self.properties.get('traits', [])
+                        if self._is_roleplay_feature(trait)
+                    ) + '\\n\\n' +
+                    '\\n'.join(
+                        f"{feature['name'].upper()}\\n{feature['description']}"
+                        for feature in self.properties.get('features', [])
+                        if self._is_roleplay_feature(feature)
+                    )
+                ),
+                
+                # Proficiencies & Languages
+                'ProficienciesLang': (
+                    'LANGUAGES:\\n' + 
+                    ', '.join(self.properties['proficiencies']['languages']) + 
+                    '\\n\\n' +
+                    'ARMOR PROFICIENCIES:\\n' + 
+                    ', '.join(self.properties['proficiencies']['armor']) + 
+                    '\\n\\n' +
+                    'WEAPON PROFICIENCIES:\\n' + 
+                    ', '.join(self.properties['proficiencies']['weapons']) + 
+                    '\\n\\n' +
+                    'TOOL PROFICIENCIES:\\n' + 
+                    ', '.join(self.properties['proficiencies']['tools'])
+                )
+            }
+
+            # Calculate Passive Perception (10 + Wisdom modifier + proficiency if proficient)
+            passive_perception = 10 + self.get_ability_modifier('wisdom')
+            if self.properties['skills'].get('perception', False):
+                passive_perception += 2 + ((self.properties['level'] - 1) // 4)  # Proficiency bonus calculation
+            field_data['Passive'] = str(passive_perception)
+
+            # Ability scores and modifiers
+            field_data.update({
                 'STR': str(self.properties['stats']['strength']),
                 'STRmod': f"{self.get_ability_modifier('strength'):+d}",
                 'DEX': str(self.properties['stats']['dexterity']),
@@ -763,7 +912,7 @@ class Toon:
                 'WIS': str(self.properties['stats']['wisdom']),
                 'WISmod': f"{self.get_ability_modifier('wisdom'):+d}",
                 'CHA': str(self.properties['stats']['charisma']),
-                'CHamod': f"{self.get_ability_modifier('charisma'):+d}",
+                'CHAmod': f"{self.get_ability_modifier('charisma'):+d}",
                 
                 # Saving throws
                 'ST Strength': f"{self.get_saving_throw_bonus('strength'):+d}",
@@ -778,152 +927,132 @@ class Toon:
                 'Initiative': f"{self.get_ability_modifier('dexterity'):+d}",
                 'Speed': str(self.properties.get('speed', 30)),
                 'HPMax': str(self.properties['hit_points'].get('maximum', 0)),
-                'HPCurrent': str(self.properties['hit_points'].get('current', 0)),
-                'HPTemp': str(self.properties['hit_points'].get('temporary', 0)),
-            }
-
-            # Format hit dice by consolidating identical dice
-            hit_dice = self.properties.get('hit_dice', [])
-            if hit_dice:
-                hit_dice_counts = defaultdict(int)
-                for die in hit_dice:
-                    # Extract the die type (e.g., 'd10' from '1d10')
-                    die_type = die.split('d')[1]
-                    hit_dice_counts[die_type] += 1
-                consolidated_hit_dice = []
-                for die_type, count in hit_dice_counts.items():
-                    consolidated_hit_dice.append(f"{count}d{die_type}")
-                field_data['HD'] = ', '.join(consolidated_hit_dice)
-                field_data['HDTotal'] = str(len(hit_dice))
-            
-            # Skills
-            skill_bonuses = defaultdict(lambda: "+0")
-            for skill, proficient in self.properties['skills'].items():
-                # Determine ability modifier for skill
-                ability = self._get_skill_ability(skill)
-                bonus = self.get_ability_modifier(ability)
-                if proficient:
-                    bonus += self.properties['proficiency_bonus']
-                skill_bonuses[skill] = f"{bonus:+d}"
-            
-            # Other proficiencies and languages
-            field_data['ProficienciesLang'] = '\n'.join([
-                'Languages: ' + ', '.join(self.properties['proficiencies']['languages']),
-                'Armor: ' + ', '.join(self.properties['proficiencies']['armor']),
-                'Weapons: ' + ', '.join(self.properties['proficiencies']['weapons']),
-                'Tools: ' + ', '.join(self.properties['proficiencies']['tools'])
-            ])
-            
-            # Features & Traits - Split between pages
-            core_features = []
-            additional_features = []
-
-            # Sort features by importance/frequency of use
-            for trait in self.properties.get('traits', []):
-                if any(keyword in trait['name'].lower() for keyword in ['darkvision', 'resistance', 'proficiency', 'save', 'armor', 'weapon']):
-                    core_features.append(f"{trait['name']}: {trait['description']}")
-                else:
-                    additional_features.append(f"{trait['name']}: {trait['description']}")
-
-            for feature in self.properties.get('features', []):
-                if any(keyword in feature['name'].lower() for keyword in ['spellcasting', 'attack', 'defense', 'proficiency', 'save']):
-                    core_features.append(f"{feature['name']}: {feature['description']}")
-                else:
-                    additional_features.append(f"{feature['name']}: {feature['description']}")
-
-            # Page 1: Core combat and frequently used features
-            field_data['Features and Traits'] = '\n'.join([
-                '=== Core Features ===',
-                *core_features
-            ])
-
-            # Page 2: Additional features and detailed descriptions
-            field_data['Feat+Traits'] = '\n'.join([
-                '=== Additional Features ===',
-                *additional_features
-            ])
-            
-            # Add spellcasting information if the character has spellcasting ability
-            if self.properties['spells']['spellcasting_ability']:
-                ability = self.properties['spells']['spellcasting_ability']
-                modifier = self.get_ability_modifier(ability)
-                spell_save_dc = 8 + self.properties['proficiency_bonus'] + modifier
-                spell_attack_bonus = modifier + self.properties['proficiency_bonus']
+                'HPCurrent': '',
+                'HPTemp': '',
                 
-                # Get the spellcasting class
-                spellcasting_class = next((c['name'] for c in self.properties['classes'] 
-                                        if any('spellcasting' in f.get('name', '').lower() 
-                                              for f in self.properties.get('features', []))), '')
+                # Skills
+                'Acrobatics': f"{self._get_skill_bonus('acrobatics'):+d}",
+                'Animal': f"{self._get_skill_bonus('animal handling'):+d}",
+                'Arcana': f"{self._get_skill_bonus('arcana'):+d}",
+                'Athletics': f"{self._get_skill_bonus('athletics'):+d}",
+                'Deception ': f"{self._get_skill_bonus('deception'):+d}",  # Note: space after name matches PDF field
+                'History ': f"{self._get_skill_bonus('history'):+d}",  # Note: space after name matches PDF field
+                'Insight': f"{self._get_skill_bonus('insight'):+d}",
+                'Intimidation': f"{self._get_skill_bonus('intimidation'):+d}",
+                'Investigation ': f"{self._get_skill_bonus('investigation'):+d}",  # Note: space after name matches PDF field
+                'Medicine': f"{self._get_skill_bonus('medicine'):+d}",
+                'Nature': f"{self._get_skill_bonus('nature'):+d}",
+                'Perception ': f"{self._get_skill_bonus('perception'):+d}",  # Note: space after name matches PDF field
+                'Performance': f"{self._get_skill_bonus('performance'):+d}",
+                'Persuasion': f"{self._get_skill_bonus('persuasion'):+d}",
+                'Religion': f"{self._get_skill_bonus('religion'):+d}",
+                'SleightofHand': f"{self._get_skill_bonus('sleight of hand'):+d}",
+                'Stealth ': f"{self._get_skill_bonus('stealth'):+d}",  # Note: space after name matches PDF field
+                'Survival': f"{self._get_skill_bonus('survival'):+d}",
                 
-                # Add spellcasting fields
-                field_data.update({
-                    'Spellcasting Class 2': spellcasting_class,
-                    'SpellcastingAbility 2': ability.capitalize(),
-                    'SpellSaveDC  2': str(spell_save_dc),
-                    'SpellAtkBonus 2': f"+{spell_attack_bonus}"
-                })
+                # Skill proficiency checkboxes - using exact PDF field names
+                'Check Box 23': 'Yes' if self.properties['skills'].get('acrobatics', False) else 'Off',
+                'Check Box 24': 'Yes' if self.properties['skills'].get('animal handling', False) else 'Off',
+                'Check Box 25': 'Yes' if self.properties['skills'].get('arcana', False) else 'Off',
+                'Check Box 26': 'Yes' if self.properties['skills'].get('athletics', False) else 'Off',
+                'Check Box 27': 'Yes' if self.properties['skills'].get('deception', False) else 'Off',
+                'Check Box 28': 'Yes' if self.properties['skills'].get('history', False) else 'Off',
+                'Check Box 29': 'Yes' if self.properties['skills'].get('insight', False) else 'Off',
+                'Check Box 30': 'Yes' if self.properties['skills'].get('intimidation', False) else 'Off',
+                'Check Box 31': 'Yes' if self.properties['skills'].get('investigation', False) else 'Off',
+                'Check Box 32': 'Yes' if self.properties['skills'].get('medicine', False) else 'Off',
+                'Check Box 33': 'Yes' if self.properties['skills'].get('nature', False) else 'Off',
+                'Check Box 34': 'Yes' if self.properties['skills'].get('perception', False) else 'Off',
+                'Check Box 35': 'Yes' if self.properties['skills'].get('performance', False) else 'Off',
+                'Check Box 36': 'Yes' if self.properties['skills'].get('persuasion', False) else 'Off',
+                'Check Box 37': 'Yes' if self.properties['skills'].get('religion', False) else 'Off',
+                'Check Box 38': 'Yes' if self.properties['skills'].get('sleight of hand', False) else 'Off',
+                'Check Box 39': 'Yes' if self.properties['skills'].get('stealth', False) else 'Off',
+                'Check Box 40': 'Yes' if self.properties['skills'].get('survival', False) else 'Off',
                 
-                # Add spell slots if any
-                spell_slots = self.properties['spells']['spell_slots']
-                if isinstance(spell_slots, dict):
-                    # Get the spell slots from the character's spellcasting class data
-                    for level, slots in spell_slots.items():
-                        try:
-                            level_num = int(level)
-                            field_num = 18 + level_num  # Convert spell level to field number (19 for level 1, 20 for level 2, etc.)
-                            
-                            # Just show the total number in the first field
-                            if slots > 0:
-                                field_data[f'SlotsTotal {field_num}'] = str(slots)
-                            
-                            # Don't populate the SlotsRemaining field - let the user mark off used slots manually
-                            
-                        except (ValueError, TypeError) as e:
-                            logger.warning(f"Failed to process spell slots for level {level}: {e}")
-                            continue
-            
-            # Create a temporary file for the FDF data
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.fdf', delete=False) as fdf_file:
-                fdf_file.write("%FDF-1.2\n")
-                fdf_file.write("1 0 obj\n")
-                fdf_file.write("<<\n")
-                fdf_file.write("/FDF\n")
-                fdf_file.write("<<\n")
-                fdf_file.write("/Fields [\n")
+                # Saving throw proficiency checkboxes
+                'Check Box 11': 'Yes' if self.properties['saving_throws']['strength'] else 'Off',
+                'Check Box 18': 'Yes' if self.properties['saving_throws']['dexterity'] else 'Off',
+                'Check Box 19': 'Yes' if self.properties['saving_throws']['constitution'] else 'Off',
+                'Check Box 20': 'Yes' if self.properties['saving_throws']['intelligence'] else 'Off',
+                'Check Box 21': 'Yes' if self.properties['saving_throws']['wisdom'] else 'Off',
+                'Check Box 22': 'Yes' if self.properties['saving_throws']['charisma'] else 'Off',
+            })
+                
+            # Save the FDF file
+            fdf_path = os.path.join(tempfile.gettempdir(), f"{self.properties['name'].replace(' ', '_')}_sheet.fdf")
+            with open(fdf_path, 'w', encoding='utf-8') as f:
+                f.write("%FDF-1.2\n")
+                f.write("1 0 obj\n")
+                f.write("<<\n")
+                f.write("/FDF\n")
+                f.write("<<\n")
+                f.write("/Fields [\n")
+                
                 for field_name, value in field_data.items():
-                    fdf_file.write("<<\n")
-                    fdf_file.write(f"/T ({field_name})\n")
-                    fdf_file.write(f"/V ({value})\n")
-                    fdf_file.write(">>\n")
-                fdf_file.write("]\n")
-                fdf_file.write(">>\n")
-                fdf_file.write("trailer\n")
-                fdf_file.write("<<\n")
-                fdf_file.write("/Root 1 0 R\n")
-                fdf_file.write(">>\n")
-                fdf_file.write("%%EOF\n")
-                fdf_path = fdf_file.name
+                    # Convert value to string and handle newlines
+                    value_str = str(value)
+                    
+                    # Replace literal \n with actual newlines, then escape for FDF
+                    if '\\n' in value_str:
+                        value_str = value_str.replace('\\n', '\n')
+                    
+                    # Properly escape special characters for FDF
+                    value_str = value_str.replace('\\', '\\\\')
+                    value_str = value_str.replace('(', '\\(')
+                    value_str = value_str.replace(')', '\\)')
+                    value_str = value_str.replace('\n', '\\r')  # Use \r for newlines in FDF
+                    
+                    # Write field entry
+                    f.write("<<\n")
+                    f.write(f"/T ({field_name})\n")
+                    f.write(f"/V ({value_str})\n")
+                    f.write(">>\n")
+                
+                f.write("]\n")
+                f.write(">>\n")
+                f.write(">>\n")  # Close the first dictionary
+                f.write("endobj\n")
+                f.write("trailer\n")
+                f.write("<<\n")
+                f.write("/Root 1 0 R\n")
+                f.write(">>\n")
+                f.write("%%EOF\n")
+                
+                # Ensure file is properly flushed
+                f.flush()
+                os.fsync(f.fileno())
             
-            # Use pdftk to fill the form
-            subprocess.run([
-                'pdftk',
-                template_path,
-                'fill_form',
-                fdf_path,
-                'output',
-                output_path,
-                'flatten'
-            ], check=True)
-            
-            # Clean up the temporary FDF file
-            os.unlink(fdf_path)
-            
-            logger.info(f"Successfully exported character sheet to {output_path}")
-            return output_path
-            
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to run pdftk: {e}")
-            raise CharacterError(f"Failed to export PDF character sheet: {e}")
+            # Run pdftk with error output capture
+            try:
+                result = subprocess.run([
+                    'pdftk',
+                    template_path,
+                    'fill_form',
+                    fdf_path,
+                    'output',
+                    output_path,
+                    'flatten'
+                ], capture_output=True, text=True, check=True)
+                
+                # Clean up the temporary FDF file
+                try:
+                    os.unlink(fdf_path)
+                except Exception as e:
+                    logger.warning(f"Failed to clean up FDF file: {e}")
+                
+                return output_path
+                
+            except subprocess.CalledProcessError as e:
+                logger.error(f"pdftk stderr: {e.stderr}")
+                logger.error(f"pdftk stdout: {e.stdout}")
+                # Try to read the FDF file to log its contents
+                try:
+                    with open(fdf_path, 'r', encoding='utf-8') as f:
+                        logger.error(f"FDF file contents:\n{f.read()}")
+                except Exception as read_error:
+                    logger.error(f"Could not read FDF file: {read_error}")
+                raise
         except Exception as e:
             logger.error(f"Failed to export PDF character sheet: {e}")
             raise CharacterError(f"Failed to export PDF character sheet: {e}")
@@ -937,11 +1066,165 @@ class Toon:
         Returns:
             Total skill bonus including ability modifier and proficiency
         """
+        skill = skill.lower()  # Normalize skill name
         ability = self._get_skill_ability(skill)
         bonus = self.get_ability_modifier(ability)
         if self.properties['skills'].get(skill, False):
             bonus += self.properties['proficiency_bonus']
         return bonus
+
+    def set_background(self, background_name: str, personality_choices: Optional[Dict] = None) -> None:
+        """Set the character's background and apply its benefits
+        
+        Args:
+            background_name: Name of the background to apply
+            personality_choices: Optional dictionary containing chosen personality elements
+                               Format: {
+                                   "traits": List[str],
+                                   "ideal": str,
+                                   "bond": str,
+                                   "flaw": str
+                               }
+        """
+        try:
+            # Load and apply background
+            background = Background(background_name)
+            background.apply_to_character(self)
+            
+            # Apply personality choices if provided
+            if personality_choices:
+                self._apply_personality_choices(background, personality_choices)
+            else:
+                # Store background personality options for later selection
+                self.properties["pending_choices"]["personality"] = background.get_personality_options()
+            
+            logger.info(f"Set background to {background_name}")
+            
+        except Exception as e:
+            logger.error(f"Failed to set background {background_name}: {e}")
+            raise CharacterError(f"Failed to set background: {e}")
+    
+    def _apply_personality_choices(self, background: Background, choices: Dict) -> None:
+        """Apply chosen personality elements from background
+        
+        Args:
+            background: Background object
+            choices: Dictionary of personality choices
+        """
+        try:
+            personality_options = background.get_personality_options()
+            
+            # Validate and apply personality traits
+            if "traits" in choices:
+                if len(choices["traits"]) != personality_options["personality_traits"]["count"]:
+                    raise CharacterError(f"Must choose exactly {personality_options['personality_traits']['count']} personality traits")
+                self.properties["personality"]["traits"] = choices["traits"]
+            
+            # Apply ideal
+            if "ideal" in choices:
+                self.properties["personality"]["ideals"] = [choices["ideal"]]
+            
+            # Apply bond
+            if "bond" in choices:
+                self.properties["personality"]["bonds"] = [choices["bond"]]
+            
+            # Apply flaw
+            if "flaw" in choices:
+                self.properties["personality"]["flaws"] = [choices["flaw"]]
+            
+            # Remove pending personality choices if all are applied
+            if "personality" in self.properties["pending_choices"]:
+                del self.properties["pending_choices"]["personality"]
+            
+        except Exception as e:
+            logger.error(f"Failed to apply personality choices: {e}")
+            raise CharacterError(f"Failed to apply personality choices: {e}")
+
+    def get_available_backgrounds(self) -> List[str]:
+        """Get list of available backgrounds
+        
+        Returns:
+            List of background names
+        """
+        return Background.list_available_backgrounds()
+
+    def has_pending_choices(self) -> bool:
+        """Check if character has pending choices to make
+        
+        Returns:
+            True if there are pending choices, False otherwise
+        """
+        return bool(self.properties.get("pending_choices", {}))
+
+    def get_pending_choices(self) -> Dict:
+        """Get pending choices that need to be made
+        
+        Returns:
+            Dictionary of pending choices
+        """
+        return self.properties.get("pending_choices", {})
+
+    def _is_roleplay_feature(self, feature: Dict) -> bool:
+        """Determine if a feature is roleplay-focused rather than mechanical
+        
+        Args:
+            feature: Feature dictionary containing name and description
+            
+        Returns:
+            True if the feature is roleplay-focused, False if mechanical
+        """
+        # Skip ability score improvements - they should be handled as choices
+        if "Ability Score" in feature.get('name', ''):
+            return False
+            
+        # List of keywords that suggest mechanical features
+        mechanical_keywords = [
+            "proficiency",
+            "attack",
+            "damage",
+            "armor class",
+            "hit points",
+            "saving throw",
+            "spell",
+            "combat",
+            "initiative",
+            "resistance",
+            "immunity",
+            "bonus action",
+            "reaction"
+        ]
+        
+        # Check if feature is explicitly marked
+        if feature.get('roleplay', False):
+            return True
+        if feature.get('mechanical', True):
+            return False
+            
+        # Check feature name and description for mechanical keywords
+        text = (feature.get('name', '') + ' ' + feature.get('description', '')).lower()
+        
+        # If it contains mechanical keywords, it's not a roleplay feature
+        if any(keyword in text for keyword in mechanical_keywords):
+            return False
+            
+        # By default, if it's not clearly mechanical, put it in roleplay
+        return True
+
+    def _handle_ability_score_improvement(self, feature: Dict):
+        """Handle ability score improvement as a choice rather than a feature
+        
+        Args:
+            feature: The ability score improvement feature
+        """
+        if "choose" not in self.properties["pending_choices"]:
+            self.properties["pending_choices"]["choose"] = []
+            
+        self.properties["pending_choices"]["choose"].append({
+            "type": "ability_score_improvement",
+            "count": 2,  # Standard ASI allows two +1s or one +2
+            "options": list(self.properties["stats"].keys()),
+            "description": feature.get('description', 'Choose which ability scores to improve')
+        })
 
 
 

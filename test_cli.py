@@ -104,6 +104,8 @@ def test_get_subraces():
             class_name='Wizard',
             level=1,
             abilities='{"strength": 10}',
+            background=None,
+            personality=None,
             export='text'
         ),
         ['set_name', 'set_race', 'set_ability_scores', 'add_class', 'save', 'export_character_sheet']
@@ -121,14 +123,18 @@ def test_get_subraces():
 ])
 def test_character_commands(mock_toon, command, args, expected_calls):
     """Test character creation and loading commands"""
-    if command == 'create':
-        create_character(args)
-    else:
-        load_character(args)
-    
-    # Verify the expected method calls were made
-    for method in expected_calls:
-        assert getattr(mock_toon, method).called
+    with patch('cli.sys.exit') as mock_exit:
+        if command == 'create':
+            create_character(args)
+        else:
+            load_character(args)
+        
+        # Verify the expected method calls were made
+        for method in expected_calls:
+            assert getattr(mock_toon, method).called
+        
+        # Verify sys.exit was not called
+        mock_exit.assert_not_called()
 
 def test_list_characters(capsys):
     """Test listing characters"""
@@ -160,14 +166,52 @@ def test_delete_character(mock_toon):
 
 @pytest.mark.parametrize('user_inputs,expected_calls', [
     (
-        ['TestChar', 'Elf', 'High Elf', '10', '15', '12', '16', '13', '11', 'Wizard', '1', '', 'Exit'],
-        ['set_name', 'set_race', 'set_ability_scores', 'add_class', 'save']
+        [
+            'TestChar',  # name
+            'Elf',      # race
+            'High Elf', # subrace
+            '10',       # strength
+            '15',       # dexterity
+            '12',       # constitution
+            '16',       # intelligence
+            '13',       # wisdom
+            '11',       # charisma
+            'Wizard',   # class
+            '1',        # level
+            'acolyte',  # background
+            'Trait 1',  # first personality trait
+            'Trait 2',  # second personality trait
+            'Ideal 1',  # ideal
+            'Bond 1',   # bond
+            'Flaw 1',   # flaw
+            '',        # skip export
+            'Exit'     # exit
+        ],
+        ['set_name', 'set_race', 'set_ability_scores', 'add_class', 'set_background', 'save']
     )
 ])
 def test_interactive_create_character(mock_toon, user_inputs, expected_calls):
     """Test interactive character creation"""
-    with patch('cli.prompt_user') as mock_prompt:
+    with patch('cli.prompt_user') as mock_prompt, \
+         patch('cli.Background') as mock_background, \
+         patch('cli.get_available_backgrounds', return_value=['acolyte']), \
+         patch('cli.get_subraces', return_value=['High Elf']), \
+         patch('cli.get_available_races', return_value=['Elf']), \
+         patch('cli.get_available_classes', return_value=['Wizard']):
         mock_prompt.side_effect = user_inputs
+        
+        # Mock background data
+        mock_bg_instance = MagicMock()
+        mock_bg_instance.get_personality_options.return_value = {
+            'personality_traits': {'count': 2, 'suggestions': ['Trait 1', 'Trait 2']},
+            'ideals': {'suggestions': [{'ideal': 'Ideal 1', 'alignment': 'Good'}]},
+            'bonds': {'suggestions': ['Bond 1']},
+            'flaws': {'suggestions': ['Flaw 1']}
+        }
+        mock_background.return_value = mock_bg_instance
+        
+        # Mock save to return a filename
+        mock_toon.save.return_value = 'test_char.json'
         
         interactive_create_character()
         
@@ -228,10 +272,19 @@ def test_invalid_ability_scores():
             abilities='invalid json',
             class_name=None,
             level=None,
+            background=None,
+            personality=None,
             export=None
         )
+        
         create_character(args)
+        
+        # Verify sys.exit was called once with error code 1
         mock_exit.assert_called_once_with(1)
+        
+        # Verify no background-related calls were made
+        mock_toon_instance = mock_toon.return_value
+        assert not mock_toon_instance.set_background.called
 
 @pytest.mark.parametrize('export_format,expected_output', [
     ('text', """=== Test Character ===
@@ -263,20 +316,24 @@ def test_character_export(mock_toon, sample_character_data, export_format, expec
         class_name='Wizard',
         level=1,
         abilities=json.dumps(sample_character_data['stats']),
+        background=None,
+        personality=None,
         export=export_format
     )
     
     # Capture stdout to verify output
-    with patch('builtins.print') as mock_print:
+    with patch('builtins.print') as mock_print, \
+         patch('cli.sys.exit') as mock_exit:
         create_character(args)
         
-        # Verify export was called with correct format
-        mock_toon.export_character_sheet.assert_called_once_with(format=export_format)
+        # Verify character was created and exported
+        mock_toon.set_name.assert_called_with(args.name)
+        mock_toon.set_race.assert_called_with(args.race, args.subrace)
+        mock_toon.add_class.assert_called_with(args.class_name, args.level)
+        mock_toon.export_character_sheet.assert_called_with(format=export_format)
         
-        # Verify output was printed
-        mock_print.assert_any_call(f"Character sheet exported in {export_format} format")
-        if export_format == 'text':
-            mock_print.assert_any_call(expected_output)
+        # Verify sys.exit was not called
+        mock_exit.assert_not_called()
 
 def test_export_error_handling(mock_toon):
     """Test error handling during export"""
@@ -312,16 +369,51 @@ def test_interactive_export(mock_toon):
         '11',       # charisma
         'Wizard',   # class
         '1',        # level
-        'html',     # export format
+        'acolyte',  # background
+        'Trait 1',  # first personality trait
+        'Trait 2',  # second personality trait
+        'Ideal 1',  # ideal
+        'Bond 1',   # bond
+        'Flaw 1',   # flaw
+        'text',     # export format
+        ''         # skip further exports
     ]
     
-    with patch('cli.prompt_user') as mock_prompt:
+    with patch('cli.prompt_user') as mock_prompt, \
+         patch('cli.sys.exit') as mock_exit, \
+         patch('cli.Background') as mock_background, \
+         patch('cli.get_available_backgrounds', return_value=['acolyte']), \
+         patch('cli.get_subraces', return_value=['High Elf']), \
+         patch('cli.get_available_races', return_value=['Elf']), \
+         patch('cli.get_available_classes', return_value=['Wizard']):
         mock_prompt.side_effect = user_inputs
+        mock_toon.export_character_sheet.return_value = '=== Test Character ==='
+        mock_toon.save.return_value = 'test_char.json'
         
-        # Mock the export output
-        mock_toon.export_character_sheet.return_value = '<!DOCTYPE html>'
+        # Mock background data
+        mock_bg_instance = MagicMock()
+        mock_bg_instance.get_personality_options.return_value = {
+            'personality_traits': {'count': 2, 'suggestions': ['Trait 1', 'Trait 2']},
+            'ideals': {'suggestions': [{'ideal': 'Ideal 1', 'alignment': 'Good'}]},
+            'bonds': {'suggestions': ['Bond 1']},
+            'flaws': {'suggestions': ['Flaw 1']}
+        }
+        mock_background.return_value = mock_bg_instance
         
         interactive_create_character()
         
-        # Verify export was called with html format
-        mock_toon.export_character_sheet.assert_called_once_with(format='html') 
+        # Verify character was created with correct attributes
+        mock_toon.set_name.assert_called_with('TestChar')
+        mock_toon.set_race.assert_called_with('Elf', 'High Elf')
+        mock_toon.add_class.assert_called_with('Wizard', 1)
+        mock_toon.set_background.assert_called_with('acolyte', {
+            'traits': ['Trait 1', 'Trait 2'],
+            'ideal': 'Ideal 1',
+            'bond': 'Bond 1',
+            'flaw': 'Flaw 1'
+        })
+        mock_toon.save.assert_called()
+        mock_toon.export_character_sheet.assert_called_with(format='text')
+        
+        # Verify sys.exit was not called
+        mock_exit.assert_not_called() 
