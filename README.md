@@ -1,139 +1,116 @@
-# D&D 5E Character Generator (ToonManager)
+# ToonManager
 
-A comprehensive character generator for D&D 5E with support for the upcoming 2025 expansion.
+ToonManager is a Python-based character management system designed for creating, managing, and exporting character sheets for tabletop role-playing games.
 
-## Project Overview
+## Features
 
-ToonManager is designed to be a flexible and extensible character generator that supports both current D&D 5E rules and will be adaptable for the 2025 expansion. The system will handle character creation, leveling, and management with a focus on maintainability and easy updates for new content.
-
-## Core Features
-
-### 1. Character Creation
-- **Race Selection**
-  - Core races from Player's Handbook
-  - Support for subraces
-  - Racial traits and abilities
-  - Prepared for 2025 changes to race mechanics
-
-- **Class System**
-  - All standard classes
-  - Subclass support
-  - Multi-classing capabilities
-  - Level progression tracking
-  - Class features and abilities
-
-- **Ability Scores**
-  - Multiple generation methods:
-    - Standard Array
-    - Point Buy
-    - Rolling methods (3d6, 4d6 drop lowest)
-  - Racial bonuses
-  - Ability score improvements
-
-- **Background System**
-  - Standard backgrounds
-  - Custom background support
-  - Background features
-  - Skill proficiencies
-  - Starting equipment
-
-### 2. Character Management
-- **Equipment**
-  - Inventory management
-  - Currency tracking
-  - Encumbrance rules
-  - Magic items
-
-- **Spellcasting**
-  - Spell slots tracking
-  - Known/Prepared spells
-  - Spell components
-  - Ritual casting
-
-- **Character Progression**
-  - Experience points tracking
-  - Level-up assistance
-  - Feat selection
-  - ASI management
-
-### 3. Technical Features
-- **Data Storage**
-  - Character data persistence
-  - Import/Export functionality
-  - Character backups
-
-- **Rules Engine**
-  - Flexible rules implementation
-  - Easy updates for 2025 changes
-  - House rules support
-
-- **User Interface**
-  - Character sheet display
-  - Interactive character creation
-  - Digital dice rolling
-  - Character export to PDF
+- Character creation and management
+- Ability score management
+- Race and class selection
+- Character sheet export to PDF and HTML formats
+- Logging system for debugging and tracking
+- Command-line interface for interactive character management
 
 ## Project Structure
 
 ```
 ToonManager/
-├── data/                 # JSON/YAML files for game data
-│   ├── races/
-│   ├── classes/
-│   ├── spells/
-│   └── equipment/
-├── src/
-│   ├── character/       # Character-related classes
-│   ├── rules/          # Rules implementation
-│   ├── dice/           # Dice rolling mechanics
-│   └── ui/             # User interface components
-├── tests/              # Test suite
-└── docs/               # Documentation
+├── characters/          # Directory for storing character data
+├── data/               # Static data files
+├── logs/               # Application logs
+├── templates/          # HTML/PDF templates for character sheets
+├── cli.py             # Command-line interface implementation
+├── file_functions.py   # File handling utilities
+├── logging_config.py   # Logging configuration
+├── main.py            # Main application entry point
+├── requirements.txt    # Project dependencies
+├── test_cli.py        # CLI tests
+├── test_main.py       # Main functionality tests
+└── toon.py            # Core character class implementation
 ```
 
-## Development Phases
+## Requirements
 
-1. **Phase 1: Core Character Creation**
-   - Basic character creation flow
-   - Race and class implementation
-   - Ability score generation
-   - Basic rule implementation
+- Python 3.x
+- PyPDF2 >= 3.0.0
+- Jinja2 >= 3.0.0
 
-2. **Phase 2: Character Management**
-   - Equipment system
-   - Spellcasting
-   - Character progression
-   - Data persistence
+## Installation
 
-3. **Phase 3: User Interface**
-   - Character creation interface
-   - Character sheet display
-   - Digital dice implementation
-   - Export functionality
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/ToonManager.git
+cd ToonManager
+```
 
-4. **Phase 4: 2025 Expansion**
-   - Updates for new rules
-   - Additional content
-   - Migration tools for existing characters
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-## Technical Requirements
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-- Python 3.8+
-- JSON for data storage
-- SQLite for character persistence
-- GUI framework (TBD)
+## Usage
+
+### Command Line Interface
+
+Run the CLI for interactive character management:
+```bash
+python cli.py
+```
+
+### Programmatic Usage
+
+```python
+from toon import Toon
+
+# Create a new character
+character = Toon()
+
+# Set basic information
+character.set_name("Character Name")
+character.set_race("race")
+
+# Set ability scores
+character.set_ability_scores({
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 12,
+    "intelligence": 18,
+    "wisdom": 16,
+    "charisma": 14
+})
+
+# Add class levels
+character.add_class("class_name", level)
+
+# Export character sheet
+character.export_character_sheet(format="pdf")  # or format="html"
+```
+
+## Testing
+
+Run the test suite:
+```bash
+python -m pytest
+```
+
+## Logging
+
+Logs are stored in the `logs/` directory. The logging system is configured in `logging_config.py` and provides detailed information about application operations and errors.
 
 ## Contributing
 
-Guidelines for contributing to the project will be added as the project develops.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
-TBD
-
-## Notes for 2025 Expansion
-
-- Monitor official announcements for rule changes
-- Design systems to be flexible for future modifications
-- Plan for backward compatibility
-- Consider migration tools for existing characters 
+[Add your license information here] 
