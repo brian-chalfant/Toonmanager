@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{character.name}} - Character Sheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Modesto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --parchment: #fbf3e4;
+            --ink: #1a1a1a;
+            --red: #8b0000;
+            --border: #2b1810;
+            --box-bg: #f9f1e1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Modesto Condensed', serif;
+            background: var(--parchment);
+            color: var(--ink);
+            line-height: 1.2;
+            padding: 15px;
+            font-size: 12px;
+        }
+        
+        .sheet {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.25in;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .red-text {
+            color: var(--red);
+            font-weight: bold;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 5px;
+        }
+        
+        .character-name {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .character-info {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+        
+        .main-stats {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .ability-scores {
+            display: grid;
+            gap: 5px;
+        }
+        
+        .ability-box {
+            border: 2px solid var(--ink);
+            text-align: center;
+            position: relative;
+            height: 70px;
+            background: var(--box-bg);
+        }
+        
+        .ability-box::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid var(--ink);
+        }
+        
+        .ability-name {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 1px;
+            border-bottom: 1px solid var(--ink);
+            background: white;
+        }
+        
+        .ability-score {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        
+        .ability-mod {
+            font-size: 14px;
+            background: white;
+            width: 25px;
+            height: 25px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: grid;
+            gap: 8px;
+        }
+        
+        .inspiration-proficiency {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        .box {
+            border: 2px solid var(--ink);
+            padding: 4px;
+            background: var(--box-bg);
+            position: relative;
+        }
+        
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid var(--ink);
+        }
+        
+        .box-label {
+            text-transform: uppercase;
+            font-size: 9px;
+            color: var(--red);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3px;
+        }
+        
+        .saving-throws, .skills {
+            margin-top: 8px;
+        }
+        
+        .prof-item {
+            display: grid;
+            grid-template-columns: 15px 1fr;
+            align-items: center;
+            gap: 3px;
+            margin: 1px 0;
+            font-size: 11px;
+        }
+        
+        .prof-circle {
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .prof-circle.filled {
+            background: var(--ink);
+        }
+        
+        .combat-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .armor-class, .initiative, .speed {
+            text-align: center;
+            border: 2px solid var(--ink);
+            padding: 5px;
+            background: var(--box-bg);
+            position: relative;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .hit-points {
+            border: 2px solid var(--ink);
+            padding: 8px;
+            margin: 10px 0;
+            background: var(--box-bg);
+        }
+        
+        .current-hp {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+        }
+        
+        .death-saves {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 5px;
+        }
+        
+        .save-type {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+        }
+        
+        .save-circles {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .attacks-spellcasting {
+            margin: 10px 0;
+        }
+        
+        .attack {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 8px;
+            margin: 3px 0;
+            padding: 3px;
+            border-bottom: 1px solid var(--ink);
+            font-size: 11px;
+        }
+        
+        .equipment {
+            margin: 10px 0;
+            font-size: 11px;
+        }
+        
+        .personality {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 11px;
+        }
+        
+        .features-traits {
+            margin: 10px 0;
+            font-size: 11px;
+        }
+        
+        .spellcasting {
+            margin: 10px 0;
+            font-size: 11px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .sheet {
+                box-shadow: none;
+                padding: 0.25in;
+            }
+            
+            .no-print {
+                display: none;
+            }
+            
+            @page {
+                size: letter;
+                margin: 0.25in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sheet">
+        <div class="header">
+            <h1 class="character-name">{{character.name}}</h1>
+            <div class="character-info">
+                <div>
+                    <span class="red-text">Class & Level</span><br>
+                    {{character.class_levels}}
+                </div>
+                <div>
+                    <span class="red-text">Background</span><br>
+                    {{character.background}}
+                </div>
+                <div>
+                    <span class="red-text">Player Name</span><br>
+                    &nbsp;
+                </div>
+                <div>
+                    <span class="red-text">Race</span><br>
+                    {{character.race}}
+                </div>
+                <div>
+                    <span class="red-text">Alignment</span><br>
+                    {{character.alignment}}
+                </div>
+                <div>
+                    <span class="red-text">Experience Points</span><br>
+                    {{character.experience}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-stats">
+            <div class="ability-scores">
+                {% for ability, score in character.stats.items() %}
+                <div class="ability-box">
+                    <div class="ability-name">{{ability|upper}}</div>
+                    <div class="ability-score">{{score}}</div>
+                    <div class="ability-mod">{{character.modifiers[ability]}}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="main-content">
+                <div class="inspiration-proficiency">
+                    <div class="box">
+                        <div class="box-label">Inspiration</div>
+                        <div class="prof-circle{% if character.inspiration %} filled{% endif %}"></div>
+                    </div>
+                    <div class="box">
+                        <div class="box-label">Proficiency Bonus</div>
+                        <div class="stat-value">+{{character.proficiency_bonus}}</div>
+                    </div>
+                </div>
+                
+                <div class="saving-throws box">
+                    <div class="box-label">Saving Throws</div>
+                    {% for ability, data in character.saving_throws.items() %}
+                    <div class="prof-item">
+                        <div class="prof-circle{% if data.proficient %} filled{% endif %}"></div>
+                        <div>{{ability|upper}} {{data.bonus}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="skills box">
+                    <div class="box-label">Skills</div>
+                    {% for skill, bonus in character.skills.items() %}
+                    <div class="prof-item">
+                        <div class="prof-circle{% if skill in character.proficiencies.skills %} filled{% endif %}"></div>
+                        <div>{{skill|title}} {{bonus}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="combat-stats">
+            <div class="armor-class">
+                <div class="box-label">Armor Class</div>
+                <div class="stat-value">{{character.armor_class}}</div>
+            </div>
+            <div class="initiative">
+                <div class="box-label">Initiative</div>
+                <div class="stat-value">{{character.initiative}}</div>
+            </div>
+            <div class="speed">
+                <div class="box-label">Speed</div>
+                <div class="stat-value">{{character.speed}}</div>
+            </div>
+        </div>
+        
+        <div class="hit-points box">
+            <div class="box-label">Hit Points</div>
+            <div class="current-hp">
+                {{character.hit_points.current}}/{{character.hit_points.maximum}}
+                {% if character.hit_points.temporary > 0 %}
+                (+{{character.hit_points.temporary}} temp)
+                {% endif %}
+            </div>
+            <div class="box-label">Hit Dice</div>
+            <div>
+                {{character.hit_dice}}
+            </div>
+            <div class="death-saves">
+                <div class="save-type">
+                    <span>Success</span>
+                    <div class="save-circles">
+                        {% for i in range(3) %}
+                        <div class="prof-circle"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="save-type">
+                    <span>Failure</span>
+                    <div class="save-circles">
+                        {% for i in range(3) %}
+                        <div class="prof-circle"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="attacks-spellcasting box">
+            <div class="box-label">Attacks & Spellcasting</div>
+            <div class="attack">
+                <div class="red-text">Name</div>
+                <div class="red-text">ATK Bonus</div>
+                <div class="red-text">Damage/Type</div>
+            </div>
+            {% for weapon in character.equipment %}
+            {% if weapon.type == 'weapon' %}
+            <div class="attack">
+                <div>{{weapon.name}}</div>
+                <div>{{weapon.attack_bonus}}</div>
+                <div>{{weapon.damage}}</div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        <div class="equipment box">
+            <div class="box-label">Equipment</div>
+            {% for item in character.equipment %}
+            {% if item.type != 'weapon' %}
+            <div>{{item.name}} ({{item.quantity}})</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        <div class="personality">
+            <div class="box">
+                <div class="box-label">Personality Traits</div>
+                {{character.personality_traits|default('')}}
+            </div>
+            <div class="box">
+                <div class="box-label">Ideals</div>
+                {{character.ideals|default('')}}
+            </div>
+            <div class="box">
+                <div class="box-label">Bonds</div>
+                {{character.bonds|default('')}}
+            </div>
+            <div class="box">
+                <div class="box-label">Flaws</div>
+                {{character.flaws|default('')}}
+            </div>
+        </div>
+        
+        <div class="features-traits box">
+            <div class="box-label">Features & Traits</div>
+            {% for feature in character.features %}
+            <div>
+                <strong>{{feature.name}}:</strong> {{feature.description}}
+            </div>
+            {% endfor %}
+            {% for trait in character.traits %}
+            <div>
+                <strong>{{trait.name}}:</strong> {{trait.description}}
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if character.spells.ability %}
+        <div class="spellcasting box">
+            <div class="box-label">Spellcasting</div>
+            <div>
+                <strong>Spellcasting Class:</strong> {{character.spells.ability|title}}
+                <br>
+                <strong>Spell Save DC:</strong> {{character.spells.save_dc}}
+                <br>
+                <strong>Spell Attack Bonus:</strong> {{'+' if character.spells.attack_bonus >= 0}}{{character.spells.attack_bonus}}
+            </div>
+            
+            <div class="box-label">Cantrips</div>
+            {% if character.spells.cantrips and character.spells.cantrips|length > 0 %}
+                {{ character.spells.cantrips|join(', ') }}
+            {% else %}
+                None
+            {% endif %}
+            
+            {% for level, slots in character.spells.spell_slots.items() %}
+            <div class="box-label">Level {{level}} Spell Slots: {{slots}}</div>
+            {% endfor %}
+            
+            <div class="box-label">Spells Known</div>
+            {{character.spells.spells_known|join(', ')}}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 
