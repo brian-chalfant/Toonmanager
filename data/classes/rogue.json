@@ -1,0 +1,93 @@
+{
+    "name": "Rogue",
+    "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies.",
+    "hit_dice": "1d8",
+    "primary_ability": ["dexterity"],
+    "saving_throw_proficiencies": ["dexterity", "intelligence"],
+    "armor_proficiencies": [
+        "light armor"
+    ],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "hand crossbows",
+        "longswords",
+        "rapiers",
+        "shortswords"
+    ],
+    "skill_proficiencies": {
+        "choose": 4,
+        "from": [
+            "acrobatics",
+            "athletics",
+            "deception",
+            "insight",
+            "intimidation",
+            "investigation",
+            "perception",
+            "performance",
+            "persuasion",
+            "sleight of hand",
+            "stealth"
+        ]
+    },
+    "tool_proficiencies": [
+        "thieves' tools"
+    ],
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    ["rapier"],
+                    ["shortsword"]
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    ["shortbow", "quiver of 20 arrows"],
+                    ["shortsword"]
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    ["burglar's pack"],
+                    ["dungeoneer's pack"],
+                    ["explorer's pack"]
+                ]
+            }
+        ],
+        "default": [
+            "leather armor",
+            "two daggers",
+            "thieves' tools"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Expertise",
+                "description": "Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+            },
+            {
+                "name": "Sneak Attack",
+                "description": "Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of your target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll."
+            },
+            {
+                "name": "Thieves' Cant",
+                "description": "During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages."
+            }
+        ],
+        "2": [
+            {
+                "name": "Cunning Action",
+                "description": "Your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action."
+            }
+        ]
+    },
+    "subclass_level": 3,
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 94
+} 

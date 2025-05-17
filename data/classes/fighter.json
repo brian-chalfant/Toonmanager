@@ -1,0 +1,110 @@
+{
+    "name": "Fighter",
+    "description": "A master of martial combat, skilled with a variety of weapons and armor.",
+    "hit_dice": "1d10",
+    "primary_ability": ["strength", "dexterity"],
+    "saving_throw_proficiencies": ["strength", "constitution"],
+    "armor_proficiencies": [
+        "light armor",
+        "medium armor",
+        "heavy armor",
+        "shields"
+    ],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "martial weapons"
+    ],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "acrobatics",
+            "animal handling",
+            "athletics",
+            "history",
+            "insight",
+            "intimidation",
+            "perception",
+            "survival"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    ["chain mail"],
+                    ["leather armor", "longbow", "20 arrows"]
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    ["martial weapon", "shield"],
+                    ["two martial weapons"]
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    ["light crossbow", "20 bolts"],
+                    ["two handaxes"]
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    ["dungeoneer's pack"],
+                    ["explorer's pack"]
+                ]
+            }
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Fighting Style",
+                "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options:",
+                "choices": [
+                    {
+                        "name": "Archery",
+                        "description": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+                    },
+                    {
+                        "name": "Defense",
+                        "description": "While you are wearing armor, you gain a +1 bonus to AC."
+                    },
+                    {
+                        "name": "Dueling",
+                        "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+                    },
+                    {
+                        "name": "Great Weapon Fighting",
+                        "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2."
+                    },
+                    {
+                        "name": "Protection",
+                        "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield."
+                    },
+                    {
+                        "name": "Two-Weapon Fighting",
+                        "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                    }
+                ]
+            },
+            {
+                "name": "Second Wind",
+                "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again."
+            }
+        ],
+        "2": [
+            {
+                "name": "Action Surge",
+                "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again."
+            }
+        ]
+    },
+    "subclass_level": 3,
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 70
+} 

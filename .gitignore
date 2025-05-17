@@ -2,4 +2,3 @@ logs/
 testing/
 venv/
 __pycache__
-*.json

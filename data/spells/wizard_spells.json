@@ -1,0 +1,328 @@
+{
+    "cantrips": [
+        {
+            "name": "Fire Bolt",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+            "at_higher_levels": {
+                "5": "2d10",
+                "11": "3d10",
+                "17": "4d10"
+            }
+        },
+        {
+            "name": "Minor Illusion",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": false,
+                "somatic": true,
+                "material": {
+                    "items": ["a bit of fleece"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again. If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends. If you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it."
+        },
+        {
+            "name": "Mage Hand",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 minute",
+            "description": "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again. You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it. The hand can't attack, activate magical items, or carry more than 10 pounds."
+        },
+        {
+            "name": "Prestidigitation",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Up to 1 hour",
+            "description": "This spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range: You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor. You instantaneously light or snuff out a candle, a torch, or a small campfire. You instantaneously clean or soil an object no larger than 1 cubic foot. You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour. You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour. You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn. If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+        }
+    ],
+    "level_1": [
+        {
+            "name": "Magic Missile",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Shield",
+            "school": "abjuration",
+            "casting_time": "1 reaction",
+            "casting_time_note": "which you take when you are hit by an attack or targeted by the magic missile spell",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 round",
+            "description": "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile."
+        },
+        {
+            "name": "Mage Armor",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a piece of cured leather"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "You touch a willing creature who isn't wearing armor, and a protective magical force surrounds it until the spell ends. The target's base AC becomes 13 + its Dexterity modifier. The spell ends if the target dons armor or if you dismiss the spell as an action."
+        },
+        {
+            "name": "Find Familiar",
+            "school": "conjuration",
+            "casting_time": "1 hour",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["10 gp worth of charcoal, incense, and herbs"],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of a beast."
+        }
+    ],
+    "level_2": [
+        {
+            "name": "Misty Step",
+            "school": "conjuration",
+            "casting_time": "1 bonus action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see."
+        },
+        {
+            "name": "Invisibility",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["an eyelash encased in gum arabic"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person. The spell ends for a target that attacks or casts a spell.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd."
+            }
+        },
+        {
+            "name": "Web",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a bit of spiderweb"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You conjure a mass of thick, sticky webbing at a point of your choice within range. The webs fill a 20-foot cube from that point for the duration. The webs are difficult terrain and lightly obscure their area. If the webs aren't anchored between two solid masses (such as walls or trees) or layered across a floor, wall, or ceiling, the conjured web collapses on itself, and the spell ends at the start of your next turn. Each creature that starts its turn in the webs or that enters them during its turn must make a Dexterity saving throw. On a failed save, the creature is restrained as long as it remains in the webs or until it breaks free."
+        }
+    ],
+    "level_3": [
+        {
+            "name": "Fireball",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a tiny ball of bat guano and sulfur"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd."
+            }
+        },
+        {
+            "name": "Counterspell",
+            "school": "abjuration",
+            "casting_time": "1 reaction",
+            "casting_time_note": "which you take when you see a creature within 60 feet of you casting a spell",
+            "range": "60 feet",
+            "components": {
+                "verbal": false,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a success, the creature's spell fails and has no effect.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 4th level or higher, the interrupted spell has no effect if its level is less than or equal to the level of the spell slot you used."
+            }
+        }
+    ],
+    "level_4": [
+        {
+            "name": "Greater Invisibility",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You or a creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person."
+        },
+        {
+            "name": "Dimension Door",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "500 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You teleport yourself from your current location to any other spot within range. You arrive at exactly the spot desired. It can be a place you can see, one you can visualize, or one you can describe by stating distance and direction, such as '200 feet straight downward' or 'upward to the northwest at a 45-degree angle, 300 feet.'"
+        }
+    ],
+    "level_5": [
+        {
+            "name": "Wall of Force",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of powder made by crushing a clear gemstone"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "An invisible wall of force springs into existence at a point you choose within range. The wall appears in any orientation you choose, as a horizontal or vertical barrier or at an angle. It can be free floating or resting on a solid surface. You can form it into a hemispherical dome or a sphere with a radius of up to 10 feet, or you can shape a flat surface made up of ten 10-foot-by-10-foot panels. Each panel must be contiguous with another panel. In any form, the wall is 1/4 inch thick. It lasts for the duration. If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (your choice which side)."
+        }
+    ],
+    "level_6": [
+        {
+            "name": "Disintegrate",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a lodestone and a pinch of dust"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "A thin green ray springs from your pointing finger to a target that you can see within range. The target can be a creature, an object, or a creation of magical force, such as the wall created by wall of force. A creature targeted by this spell must make a Dexterity saving throw. On a failed save, the target takes 10d6 + 40 force damage. The target is disintegrated if this damage leaves it with 0 hit points.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 7th level or higher, the damage increases by 3d6 for each slot level above 6th."
+            }
+        }
+    ],
+    "level_7": [
+        {
+            "name": "Teleport",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "This spell instantly transports you and up to eight willing creatures of your choice that you can see within range, or a single object that you can see within range, to a destination you select. If you target an object, it must be able to fit entirely inside a 10-foot cube, and it can't be held or carried by an unwilling creature."
+        }
+    ],
+    "level_8": [
+        {
+            "name": "Power Word Stun",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You speak a word of power that can overwhelm the mind of one creature you can see within range, leaving it dumbfounded. If the target has 150 hit points or fewer, it is stunned. Otherwise, the spell has no effect. The stunned target must make a Constitution saving throw at the end of each of its turns. On a successful save, this stunning effect ends."
+        }
+    ],
+    "level_9": [
+        {
+            "name": "Wish",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "The most powerful spell a mortal creature can cast. By simply speaking aloud, you can alter the very foundations of reality in accord with your desires. The basic use of this spell is to duplicate any other spell of 8th level or lower. You don't need to meet any requirements in that spell, including costly components. The spell simply takes effect. Alternatively, you can create one of the following effects of your choice: • You create one object of up to 25,000 gp in value that isn't a magic item. The object can be no more than 300 feet in any dimension, and it appears in an unoccupied space you can see on the ground. • You allow up to twenty creatures that you can see to regain all hit points, and you end all effects on them described in the greater restoration spell. • You grant up to ten creatures that you can see resistance to a damage type you choose. • You grant up to ten creatures you can see immunity to a single spell or other magical effect for 8 hours. • You undo a single recent event by forcing a reroll of any roll made within the last round (including your last turn). Reality reshapes itself to accommodate the new result. For example, a wish spell could undo an opponent's successful save, a foe's critical hit, or a friend's failed save. You can force the reroll to be made with advantage or disadvantage, and you can choose whether to use the reroll or the original roll."
+        }
+    ]
+} 

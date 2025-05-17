@@ -1,0 +1,77 @@
+{
+    "name": "Halfling",
+    "description": "The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.",
+    "ability_scores": {
+        "dexterity": 2
+    },
+    "age": {
+        "maturity": 20,
+        "lifespan": "150 years"
+    },
+    "size": {
+        "category": "Small",
+        "height": {
+            "base": "2'7\"",
+            "modifier": "2d4"
+        },
+        "weight": {
+            "base": 35,
+            "modifier": "1d4"
+        }
+    },
+    "speed": {
+        "walk": 25
+    },
+    "traits": [
+        {
+            "name": "Lucky",
+            "description": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll."
+        },
+        {
+            "name": "Brave",
+            "description": "You have advantage on saving throws against being frightened."
+        },
+        {
+            "name": "Halfling Nimbleness",
+            "description": "You can move through the space of any creature that is of a size larger than yours."
+        }
+    ],
+    "languages": {
+        "standard": ["Common", "Halfling"],
+        "bonus": {
+            "type": "choose",
+            "count": 0
+        }
+    },
+    "subraces": [
+        {
+            "name": "Lightfoot",
+            "description": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover.",
+            "ability_scores": {
+                "charisma": 1
+            },
+            "traits": [
+                {
+                    "name": "Naturally Stealthy",
+                    "description": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
+                }
+            ]
+        },
+        {
+            "name": "Stout",
+            "description": "As a stout halfling, you're hardier than average and have some resistance to poison.",
+            "ability_scores": {
+                "constitution": 1
+            },
+            "traits": [
+                {
+                    "name": "Stout Resilience",
+                    "description": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+                }
+            ]
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 26
+} 

@@ -1,0 +1,106 @@
+{
+    "name": "Dwarf",
+    "description": "Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.",
+    "ability_scores": {
+        "constitution": 2
+    },
+    "age": {
+        "maturity": 50,
+        "lifespan": "350 years"
+    },
+    "size": {
+        "category": "Medium",
+        "height": {
+            "base": "4'0\"",
+            "modifier": "2d4"
+        },
+        "weight": {
+            "base": 130,
+            "modifier": "2d6"
+        }
+    },
+    "speed": {
+        "walk": 25
+    },
+    "traits": [
+        {
+            "name": "Darkvision",
+            "description": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+        },
+        {
+            "name": "Dwarven Resilience",
+            "description": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+        },
+        {
+            "name": "Dwarven Combat Training",
+            "description": "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer.",
+            "grants": {
+                "weapon_proficiencies": [
+                    "battleaxe",
+                    "handaxe",
+                    "light hammer",
+                    "warhammer"
+                ]
+            }
+        },
+        {
+            "name": "Tool Proficiency",
+            "description": "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools.",
+            "grants": {
+                "tool_proficiencies": ["smith's tools", "brewer's supplies", "mason's tools"],
+                "choose": 1
+            }
+        },
+        {
+            "name": "Stonecunning",
+            "description": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
+        }
+    ],
+    "languages": {
+        "standard": ["Common", "Dwarvish"],
+        "bonus": {
+            "type": "choose",
+            "count": 0
+        }
+    },
+    "subraces": [
+        {
+            "name": "Hill Dwarf",
+            "description": "As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.",
+            "ability_scores": {
+                "wisdom": 1
+            },
+            "traits": [
+                {
+                    "name": "Dwarven Toughness",
+                    "description": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.",
+                    "modifies": {
+                        "hit_points.maximum": "+1 per level"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Mountain Dwarf",
+            "description": "As a mountain dwarf, you're strong and hardy, accustomed to a difficult life in rugged terrain.",
+            "ability_scores": {
+                "strength": 2
+            },
+            "traits": [
+                {
+                    "name": "Dwarven Armor Training",
+                    "description": "You have proficiency with light and medium armor.",
+                    "grants": {
+                        "armor_proficiencies": [
+                            "light armor",
+                            "medium armor"
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 18
+} 

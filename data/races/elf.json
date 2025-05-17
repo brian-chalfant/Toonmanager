@@ -1,0 +1,247 @@
+{
+    "name": "Elf",
+    "description": "Elves are a magical people of otherworldly grace, living in places of ethereal beauty.",
+    "source": "PHB",
+    "source_page": 21,
+    "ability_scores": {
+        "dexterity": 2
+    },
+    "age": {
+        "maturity": 18,
+        "lifespan": "750 years"
+    },
+    "size": {
+        "category": "Medium",
+        "height": {
+            "base": "4'6\"",
+            "modifier": "2d10"
+        },
+        "weight": {
+            "base": 90,
+            "modifier": "1d4"
+        }
+    },
+    "speed": {
+        "walk": 30
+    },
+    "languages": {
+        "standard": ["Common", "Elvish"],
+        "bonus": {
+            "type": "choose",
+            "count": 0
+        }
+    },
+    "traits": [
+        {
+            "name": "Darkvision",
+            "description": "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.",
+            "range": 60
+        },
+        {
+            "name": "Keen Senses",
+            "description": "You have proficiency in the Perception skill.",
+            "grants": {
+                "skill_proficiencies": ["Perception"]
+            }
+        },
+        {
+            "name": "Fey Ancestry",
+            "description": "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+        },
+        {
+            "name": "Trance",
+            "description": "You don't need to sleep. Instead, you meditate deeply for 4 hours a day."
+        }
+    ],
+    "subraces": [
+        {
+            "name": "High Elf",
+            "ability_scores": {
+                "intelligence": 1
+            },
+            "traits": [
+                {
+                    "name": "Elf Weapon Training",
+                    "description": "You have proficiency with the longsword, shortsword, shortbow, and longbow.",
+                    "grants": {
+                        "weapon_proficiencies": ["longsword", "shortsword", "shortbow", "longbow"]
+                    }
+                },
+                {
+                    "name": "Cantrip",
+                    "description": "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it.",
+                    "spellcasting": {
+                        "ability": "intelligence",
+                        "spells": {
+                            "type": "choose",
+                            "count": 1,
+                            "from": "wizard_cantrips"
+                        }
+                    }
+                }
+            ],
+            "languages": {
+                "bonus": {
+                    "type": "choose",
+                    "count": 1
+                }
+            }
+        },
+        {
+            "name": "Wood Elf",
+            "ability_scores": {
+                "wisdom": 1
+            },
+            "traits": [
+                {
+                    "name": "Elf Weapon Training",
+                    "description": "You have proficiency with the longsword, shortsword, shortbow, and longbow.",
+                    "grants": {
+                        "weapon_proficiencies": ["longsword", "shortsword", "shortbow", "longbow"]
+                    }
+                },
+                {
+                    "name": "Fleet of Foot",
+                    "description": "Your base walking speed increases to 35 feet.",
+                    "modifies": {
+                        "speed.walk": 35
+                    }
+                },
+                {
+                    "name": "Mask of the Wild",
+                    "description": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+                }
+            ]
+        },
+        {
+            "name": "Dark Elf (Drow)",
+            "ability_scores": {
+                "charisma": 1
+            },
+            "traits": [
+                {
+                    "name": "Superior Darkvision",
+                    "description": "Your darkvision has a radius of 120 feet.",
+                    "modifies": {
+                        "traits.Darkvision.range": 120
+                    }
+                },
+                {
+                    "name": "Sunlight Sensitivity",
+                    "description": "You have disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight."
+                },
+                {
+                    "name": "Drow Magic",
+                    "description": "You know the dancing lights cantrip. When you reach 3rd level, you can cast the faerie fire spell once per day. When you reach 5th level, you can also cast the darkness spell once per day. Charisma is your spellcasting ability for these spells.",
+                    "spellcasting": {
+                        "ability": "charisma",
+                        "innate": {
+                            "1": ["dancing lights"],
+                            "3": {
+                                "spells": ["faerie fire"],
+                                "uses": {
+                                    "per": "long_rest",
+                                    "count": 1
+                                }
+                            },
+                            "5": {
+                                "spells": ["darkness"],
+                                "uses": {
+                                    "per": "long_rest",
+                                    "count": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Drow Weapon Training",
+                    "description": "You have proficiency with rapiers, shortswords, and hand crossbows.",
+                    "grants": {
+                        "weapon_proficiencies": ["rapier", "shortsword", "hand crossbow"]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Eladrin",
+            "source": "MTF",
+            "ability_scores": {
+                "charisma": 1
+            },
+            "traits": [
+                {
+                    "name": "Fey Step",
+                    "description": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Once you use this trait, you can't do so again until you finish a short or long rest. When you reach 3rd level, your Fey Step gains an additional effect based on your season; if the effect requires a saving throw, the DC equals 8 + your proficiency bonus + your Charisma modifier.",
+                    "uses": {
+                        "per": "short_rest",
+                        "count": 1
+                    }
+                },
+                {
+                    "name": "Shifting Seasons",
+                    "description": "When you finish a long rest, you can align yourself with a season of your choice: Autumn (melancholy), Winter (fury), Spring (joy), or Summer (boldness). Your choice grants you different benefits when you use your Fey Step feature."
+                }
+            ]
+        },
+        {
+            "name": "Sea Elf",
+            "source": "MTF",
+            "ability_scores": {
+                "constitution": 1
+            },
+            "traits": [
+                {
+                    "name": "Child of the Sea",
+                    "description": "You have a swimming speed of 30 feet, and you can breathe air and water.",
+                    "grants": {
+                        "speed": {
+                            "swim": 30
+                        }
+                    }
+                },
+                {
+                    "name": "Friend of the Sea",
+                    "description": "Using gestures and sounds, you can communicate simple ideas with any beast that has an innate swimming speed."
+                },
+                {
+                    "name": "Sea Elf Training",
+                    "description": "You have proficiency with the spear, trident, light crossbow, and net.",
+                    "grants": {
+                        "weapon_proficiencies": ["spear", "trident", "light crossbow", "net"]
+                    }
+                }
+            ],
+            "languages": {
+                "standard": ["Aquan"]
+            }
+        },
+        {
+            "name": "Shadar-kai",
+            "source": "MTF",
+            "ability_scores": {
+                "constitution": 1
+            },
+            "traits": [
+                {
+                    "name": "Necrotic Resistance",
+                    "description": "You have resistance to necrotic damage.",
+                    "grants": {
+                        "damage_resistances": ["necrotic"]
+                    }
+                },
+                {
+                    "name": "Blessing of the Raven Queen",
+                    "description": "As a bonus action, you can magically teleport up to 30 feet to an unoccupied space you can see. Once you use this trait, you can't do so again until you finish a long rest. Starting at 3rd level, you also gain resistance to all damage when you teleport using this trait. The resistance lasts until the start of your next turn.",
+                    "uses": {
+                        "per": "long_rest",
+                        "count": 1
+                    }
+                }
+            ]
+        }
+    ],
+    "version": "5E",
+    "homebrew": false,
+    "last_updated": "2024-05-15"
+} 

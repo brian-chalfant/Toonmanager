@@ -1,0 +1,104 @@
+{
+    "name": "Human",
+    "description": "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+    "ability_scores": {
+        "strength": 1,
+        "dexterity": 1,
+        "constitution": 1,
+        "intelligence": 1,
+        "wisdom": 1,
+        "charisma": 1
+    },
+    "age": {
+        "maturity": 18,
+        "lifespan": "less than 100 years"
+    },
+    "size": {
+        "category": "Medium",
+        "height": {
+            "base": "4'8\"",
+            "modifier": "2d10"
+        },
+        "weight": {
+            "base": 110,
+            "modifier": "2d4"
+        }
+    },
+    "speed": {
+        "walk": 30
+    },
+    "languages": {
+        "standard": ["Common"],
+        "bonus": {
+            "type": "choose",
+            "count": 1
+        }
+    },
+    "subraces": [
+        {
+            "name": "Standard",
+            "description": "The standard human is well-rounded, gaining a +1 bonus to all ability scores.",
+            "traits": []
+        },
+        {
+            "name": "Variant",
+            "description": "If your campaign uses the optional feat rules from chapter 5, your Dungeon Master might allow these variant traits, all of which replace the human's ability score increases.",
+            "replaces": ["ability_scores"],
+            "ability_scores": {
+                "choose": {
+                    "count": 2,
+                    "bonus": 1,
+                    "from": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+                }
+            },
+            "traits": [
+                {
+                    "name": "Skills",
+                    "description": "You gain proficiency in one skill of your choice.",
+                    "grants": {
+                        "skill_proficiencies": {
+                            "choose": {
+                                "count": 1,
+                                "from": [
+                                    "acrobatics",
+                                    "animal handling",
+                                    "arcana",
+                                    "athletics",
+                                    "deception",
+                                    "history",
+                                    "insight",
+                                    "intimidation",
+                                    "investigation",
+                                    "medicine",
+                                    "nature",
+                                    "perception",
+                                    "performance",
+                                    "persuasion",
+                                    "religion",
+                                    "sleight of hand",
+                                    "stealth",
+                                    "survival"
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Feat",
+                    "description": "You gain one feat of your choice.",
+                    "grants": {
+                        "feat": {
+                            "choose": {
+                                "count": 1,
+                                "from": "all"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 29
+} 

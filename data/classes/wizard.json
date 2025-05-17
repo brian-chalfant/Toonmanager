@@ -1,0 +1,366 @@
+{
+    "name": "Wizard",
+    "description": "Scholars of arcane magic, capable of manipulating the structures of reality.",
+    "source": "PHB",
+    "source_page": 112,
+    "hit_dice": "1d6",
+    "primary_ability": ["intelligence"],
+    "saving_throw_proficiencies": ["intelligence", "wisdom"],
+    "armor_proficiencies": [],
+    "weapon_proficiencies": [
+        "dagger",
+        "dart",
+        "sling",
+        "quarterstaff",
+        "light crossbow"
+    ],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Arcana",
+            "History",
+            "Insight",
+            "Investigation",
+            "Medicine",
+            "Religion"
+        ]
+    },
+    "starting_equipment": {
+        "mandatory": [
+            "spellbook"
+        ],
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "quarterstaff",
+                    "dagger"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "component_pouch",
+                    "arcane_focus"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "scholar's_pack",
+                    "explorer's_pack"
+                ]
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "intelligence",
+        "focus": ["arcane_focus", "component_pouch"],
+        "cantrips_known": {
+            "1": 3,
+            "4": 4,
+            "10": 5,
+            "20": 5
+        },
+        "spellbook_rules": {
+            "initial_spells": 6,
+            "spells_per_level": 2,
+            "copying": {
+                "time_per_spell_level": "2 hours",
+                "cost_per_spell_level": "50 gp"
+            }
+        },
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 4,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 3
+            },
+            "5": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 2,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 2,
+                "7": 2,
+                "8": 1,
+                "9": 1
+            }
+        }
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Spellcasting",
+                "description": "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power."
+            },
+            {
+                "name": "Arcane Recovery",
+                "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.",
+                "uses": {
+                    "per": "long_rest",
+                    "count": 1
+                }
+            }
+        ],
+        "2": [
+            {
+                "name": "Arcane Tradition",
+                "description": "You choose an arcane tradition, shaping your practice of magic through one of eight schools."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "18": [
+            {
+                "name": "Spell Mastery",
+                "description": "Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared."
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "20": [
+            {
+                "name": "Signature Spells",
+                "description": "Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest."
+            }
+        ]
+    },
+    "subclasses": {
+        "name": "Arcane Tradition",
+        "level": 2,
+        "options": [
+            {
+                "name": "School of Abjuration",
+                "description": "The School of Abjuration emphasizes magic that blocks, banishes, or protects.",
+                "features": {
+                    "2": [
+                        {
+                            "name": "Abjuration Savant",
+                            "description": "The gold and time you must spend to copy an abjuration spell into your spellbook is halved."
+                        },
+                        {
+                            "name": "Arcane Ward",
+                            "description": "You can weave magic around yourself for protection. When you cast an abjuration spell of 1st level or higher, you can simultaneously use a strand of the spell's magic to create a magical ward on yourself that lasts until you finish a long rest. The ward has hit points equal to twice your wizard level + your Intelligence modifier."
+                        }
+                    ],
+                    "6": [
+                        {
+                            "name": "Projected Ward",
+                            "description": "When a creature that you can see within 30 feet of you takes damage, you can use your reaction to cause your Arcane Ward to absorb that damage."
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Improved Abjuration",
+                            "description": "When you cast an abjuration spell that requires you to make an ability check as part of casting that spell, you add your proficiency bonus to that ability check."
+                        }
+                    ],
+                    "14": [
+                        {
+                            "name": "Spell Resistance",
+                            "description": "You have advantage on saving throws against spells. Furthermore, you have resistance against the damage of spells."
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "School of Evocation",
+                "description": "You focus your study on magic that creates powerful elemental effects.",
+                "features": {
+                    "2": [
+                        {
+                            "name": "Evocation Savant",
+                            "description": "The gold and time you must spend to copy an evocation spell into your spellbook is halved."
+                        },
+                        {
+                            "name": "Sculpt Spells",
+                            "description": "You can create pockets of relative safety within the effects of your evocation spells. When you cast an evocation spell that affects other creatures that you can see, you can choose a number of them equal to 1 + the spell's level. The chosen creatures automatically succeed on their saving throws against the spell, and they take no damage if they would normally take half damage on a successful save."
+                        }
+                    ],
+                    "6": [
+                        {
+                            "name": "Potent Cantrip",
+                            "description": "Your damaging cantrips affect even creatures that avoid the brunt of the effect. When a creature succeeds on a saving throw against your cantrip, the creature takes half the cantrip's damage (if any) but suffers no additional effect from the cantrip."
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Empowered Evocation",
+                            "description": "You can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast."
+                        }
+                    ],
+                    "14": [
+                        {
+                            "name": "Overchannel",
+                            "description": "You can increase the power of your simpler spells. When you cast a wizard spell of 1st through 5th level that deals damage, you can deal maximum damage with that spell. The first time you do so, you suffer no adverse effect. If you use this feature again before you finish a long rest, you take 2d12 necrotic damage for each level of the spell, immediately after you cast it. Each time you use this feature again before finishing a long rest, the necrotic damage per spell level increases by 1d12."
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "version": "5E",
+    "homebrew": false,
+    "last_updated": "2024-05-15"
+} 
