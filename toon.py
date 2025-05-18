@@ -828,6 +828,9 @@ class Toon:
             # Create output filename based on character name
             output_path = os.path.join('characters', f"{self.properties['name'].replace(' ', '_')}_sheet.pdf")
             
+            # Calculate hit dice values
+            total, types = self._format_hit_dice_for_pdf()
+            
             # Create a temporary FDF file with form field data
             field_data = {
                 # Basic Information
@@ -930,6 +933,10 @@ class Toon:
                 'HPCurrent': '',
                 'HPTemp': '',
                 
+                # Hit Dice
+                'HDTotal': total,
+                'HD': types,
+                
                 # Skills
                 'Acrobatics': f"{self._get_skill_bonus('acrobatics'):+d}",
                 'Animal': f"{self._get_skill_bonus('animal handling'):+d}",
@@ -981,78 +988,87 @@ class Toon:
                 
             # Save the FDF file
             fdf_path = os.path.join(tempfile.gettempdir(), f"{self.properties['name'].replace(' ', '_')}_sheet.fdf")
-            with open(fdf_path, 'w', encoding='utf-8') as f:
-                f.write("%FDF-1.2\n")
-                f.write("1 0 obj\n")
-                f.write("<<\n")
-                f.write("/FDF\n")
-                f.write("<<\n")
-                f.write("/Fields [\n")
-                
-                for field_name, value in field_data.items():
-                    # Convert value to string and handle newlines
-                    value_str = str(value)
-                    
-                    # Replace literal \n with actual newlines, then escape for FDF
-                    if '\\n' in value_str:
-                        value_str = value_str.replace('\\n', '\n')
-                    
-                    # Properly escape special characters for FDF
-                    value_str = value_str.replace('\\', '\\\\')
-                    value_str = value_str.replace('(', '\\(')
-                    value_str = value_str.replace(')', '\\)')
-                    value_str = value_str.replace('\n', '\\r')  # Use \r for newlines in FDF
-                    
-                    # Write field entry
-                    f.write("<<\n")
-                    f.write(f"/T ({field_name})\n")
-                    f.write(f"/V ({value_str})\n")
-                    f.write(">>\n")
-                
-                f.write("]\n")
-                f.write(">>\n")
-                f.write(">>\n")  # Close the first dictionary
-                f.write("endobj\n")
-                f.write("trailer\n")
-                f.write("<<\n")
-                f.write("/Root 1 0 R\n")
-                f.write(">>\n")
-                f.write("%%EOF\n")
-                
-                # Ensure file is properly flushed
-                f.flush()
-                os.fsync(f.fileno())
             
-            # Run pdftk with error output capture
+            # Ensure temp directory exists and is writable
+            temp_dir = os.path.dirname(fdf_path)
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+            
             try:
-                result = subprocess.run([
-                    'pdftk',
-                    template_path,
-                    'fill_form',
-                    fdf_path,
-                    'output',
-                    output_path,
-                    'flatten'
-                ], capture_output=True, text=True, check=True)
+                with open(fdf_path, 'w', encoding='utf-8') as f:
+                    f.write("%FDF-1.2\n")
+                    f.write("1 0 obj\n")
+                    f.write("<<\n")
+                    f.write("/FDF\n")
+                    f.write("<<\n")
+                    f.write("/Fields [\n")
+                    
+                    for field_name, value in field_data.items():
+                        # Convert value to string and handle newlines
+                        value_str = str(value)
+                        
+                        # Replace literal \n with actual newlines, then escape for FDF
+                        if '\\n' in value_str:
+                            value_str = value_str.replace('\\n', '\n')
+                        
+                        # Properly escape special characters for FDF
+                        value_str = value_str.replace('\\', '\\\\')
+                        value_str = value_str.replace('(', '\\(')
+                        value_str = value_str.replace(')', '\\)')
+                        value_str = value_str.replace('\n', '\\r')  # Use \r for newlines in FDF
+                        
+                        # Write field entry
+                        f.write("<<\n")
+                        f.write(f"/T ({field_name})\n")
+                        f.write(f"/V ({value_str})\n")
+                        f.write(">>\n")
+                    
+                    f.write("]\n")
+                    f.write(">>\n")
+                    f.write(">>\n")  # Close the first dictionary
+                    f.write("endobj\n")
+                    f.write("trailer\n")
+                    f.write("<<\n")
+                    f.write("/Root 1 0 R\n")
+                    f.write(">>\n")
+                    f.write("%%EOF\n")
+                    
+                    # Ensure file is properly flushed and synced
+                    f.flush()
+                    os.fsync(f.fileno())
                 
-                # Clean up the temporary FDF file
+                # Verify the file exists and has content
+                if not os.path.exists(fdf_path) or os.path.getsize(fdf_path) == 0:
+                    raise CharacterError("Failed to create FDF file")
+                
+                # Run pdftk with error output capture
                 try:
-                    os.unlink(fdf_path)
-                except Exception as e:
-                    logger.warning(f"Failed to clean up FDF file: {e}")
-                
-                return output_path
-                
-            except subprocess.CalledProcessError as e:
-                logger.error(f"pdftk stderr: {e.stderr}")
-                logger.error(f"pdftk stdout: {e.stdout}")
-                # Try to read the FDF file to log its contents
-                try:
-                    with open(fdf_path, 'r', encoding='utf-8') as f:
-                        logger.error(f"FDF file contents:\n{f.read()}")
-                except Exception as read_error:
-                    logger.error(f"Could not read FDF file: {read_error}")
-                raise
+                    result = subprocess.run([
+                        'pdftk',
+                        template_path,
+                        'fill_form',
+                        fdf_path,
+                        'output',
+                        output_path,
+                        'flatten'
+                    ], capture_output=True, text=True, check=True)
+                    
+                    # Clean up the temporary FDF file
+                    try:
+                        os.unlink(fdf_path)
+                    except Exception as e:
+                        logger.warning(f"Failed to clean up FDF file: {e}")
+                    
+                    return output_path
+                    
+                except subprocess.CalledProcessError as e:
+                    logger.error(f"pdftk stderr: {e.stderr}")
+                    logger.error(f"pdftk stdout: {e.stdout}")
+                    raise CharacterError(f"pdftk failed: {e.stderr}")
+                    
+            except Exception as e:
+                logger.error(f"Failed to create or write FDF file: {e}")
+                raise CharacterError(f"Failed to create FDF file: {e}")
         except Exception as e:
             logger.error(f"Failed to export PDF character sheet: {e}")
             raise CharacterError(f"Failed to export PDF character sheet: {e}")
@@ -1225,6 +1241,32 @@ class Toon:
             "options": list(self.properties["stats"].keys()),
             "description": feature.get('description', 'Choose which ability scores to improve')
         })
+
+    def _format_hit_dice_for_pdf(self) -> tuple[str, str]:
+        """Format hit dice for PDF display with usage tracking
+        
+        Returns:
+            Tuple containing:
+            - String formatted as "n" for single die type or "n/m" for multiple die types
+            - String formatted as "1dn" for single die type or "1dn, 1dm" for multiple
+        """
+        hit_dice_counts = defaultdict(int)
+        for die in self.properties['hit_dice']:
+            die_type = die.split('d')[1]  # Extract the die type (e.g., '10' from '1d10')
+            hit_dice_counts[die_type] += 1
+        
+        # Sort by die size (d4, d6, d8, etc.)
+        sorted_dice = sorted(hit_dice_counts.items(), key=lambda x: int(x[0]))
+        
+        if len(sorted_dice) == 1:
+            # Single die type
+            die_type, count = sorted_dice[0]
+            return str(count), f"1d{die_type}"
+        else:
+            # Multiple die types
+            total_str = "/".join(str(count) for _, count in sorted_dice)
+            dice_types_str = ", ".join(f"1d{die_type}" for die_type, _ in sorted_dice)
+            return total_str, dice_types_str
 
 
 
