@@ -52,7 +52,7 @@ def setup_logging():
 
     # Root logger configuration
     root_logger = logging.getLogger()
-    root_logger.setLevel(logging.DEBUG)
+    root_logger.setLevel(logging.WARNING)
 
     # Clear any existing handlers
     root_logger.handlers.clear()

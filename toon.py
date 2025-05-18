@@ -825,11 +825,14 @@ class Toon:
             if not os.path.exists(template_path):
                 raise CharacterError(f"PDF template not found at {template_path}")
             
+            # Calculate hit dice values
+            hit_dice_total, hit_dice_types = self._format_hit_dice_for_pdf()
+            
+            # Format features and traits
+            combat_text, non_combat_text = self._format_features_for_pdf()
+            
             # Create output filename based on character name
             output_path = os.path.join('characters', f"{self.properties['name'].replace(' ', '_')}_sheet.pdf")
-            
-            # Calculate hit dice values
-            total, types = self._format_hit_dice_for_pdf()
             
             # Create a temporary FDF file with form field data
             field_data = {
@@ -844,41 +847,19 @@ class Toon:
                 'ProfBonus': f"+{self.properties['proficiency_bonus']}",
                 'Inspiration': '1' if self.properties.get('inspiration', False) else '0',
                 
+                # Hit Dice
+                'HDTotal': hit_dice_total,
+                'HD': hit_dice_types,
+                
+                # Features and Traits
+                'Features and Traits': combat_text,
+                'Feat+Traits': non_combat_text,
+                
                 # Personality
                 'PersonalityTraits ': '\\n'.join(self.properties.get('personality', {}).get('traits', [])),  # Note the space after field name
                 'Ideals': '\\n'.join(self.properties.get('personality', {}).get('ideals', [])),
                 'Bonds': '\\n'.join(self.properties.get('personality', {}).get('bonds', [])),
                 'Flaws': '\\n'.join(self.properties.get('personality', {}).get('flaws', [])),
-                
-                # Features & Traits
-                'Features and Traits': (
-                    'CORE FEATURES:\\n\\n' +
-                    '\\n'.join(
-                        f"{trait['name'].upper()}\\n{trait['description']}" 
-                        for trait in self.properties.get('traits', [])
-                        if not self._is_roleplay_feature(trait) and "Ability Score" not in trait.get('name', '')
-                    ) + '\\n\\n' +
-                    '\\n'.join(
-                        f"{feature['name'].upper()}\\n{feature['description']}"
-                        for feature in self.properties.get('features', [])
-                        if not self._is_roleplay_feature(feature) and "Ability Score" not in feature.get('name', '')
-                    )
-                ),
-                
-                # Additional Features & Traits (Roleplaying focused)
-                'Additional Features and Traits': (
-                    'ROLEPLAY FEATURES:\\n\\n' +
-                    '\\n'.join(
-                        f"{trait['name'].upper()}\\n{trait['description']}" 
-                        for trait in self.properties.get('traits', [])
-                        if self._is_roleplay_feature(trait)
-                    ) + '\\n\\n' +
-                    '\\n'.join(
-                        f"{feature['name'].upper()}\\n{feature['description']}"
-                        for feature in self.properties.get('features', [])
-                        if self._is_roleplay_feature(feature)
-                    )
-                ),
                 
                 # Proficiencies & Languages
                 'ProficienciesLang': (
@@ -932,10 +913,6 @@ class Toon:
                 'HPMax': str(self.properties['hit_points'].get('maximum', 0)),
                 'HPCurrent': '',
                 'HPTemp': '',
-                
-                # Hit Dice
-                'HDTotal': total,
-                'HD': types,
                 
                 # Skills
                 'Acrobatics': f"{self._get_skill_bonus('acrobatics'):+d}",
@@ -1267,6 +1244,158 @@ class Toon:
             total_str = "/".join(str(count) for _, count in sorted_dice)
             dice_types_str = ", ".join(f"1d{die_type}" for die_type, _ in sorted_dice)
             return total_str, dice_types_str
+
+    def _categorize_feature(self, feature: Dict) -> str:
+        """Categorize a feature as 'combat' or 'non_combat'
+        
+        Args:
+            feature: Feature dictionary containing name and description
+            
+        Returns:
+            'combat' or 'non_combat'
+        """
+        # Combat-related keywords that strongly indicate a combat feature
+        combat_keywords = [
+            "attack roll", "damage", "hit points", "AC", "armor class",
+            "initiative", "reaction", "bonus action", "weapon",
+            "resistance", "immunity", "spell attack", "combat",
+            "defense", "shield", "dodge", "critical", "temporary hp",
+            "martial", "maneuver", "rage", "smite", "sneak attack",
+            "fighting style", "proficiency with", "disadvantage on attack",
+            "advantage on attack"
+        ]
+        
+        # Non-combat keywords that strongly indicate a non-combat feature
+        non_combat_keywords = [
+            "skill", "social", "interact", "craft", "create",
+            "explore", "investigate", "survival", "culture",
+            "background", "knowledge", "profession", "lifestyle",
+            "residence", "ceremony", "meditation", "study",
+            "tracking", "recall information", "familiar with",
+            "environment", "healing", "care", "temple", "shrine"
+        ]
+
+        # Special case names that are always combat
+        combat_names = {
+            "fighting style", "martial", "weapon training", "armor training",
+            "divine smite", "sneak attack", "rage", "martial arts"
+        }
+
+        # Special case names that are always non-combat
+        non_combat_names = {
+            "darkvision", "superior darkvision", "keen senses", "trance",
+            "shelter of the faithful", "natural explorer", "favored enemy",
+            "languages"
+        }
+        
+        # Check if feature is explicitly marked
+        if feature.get('combat', False):
+            return 'combat'
+        if feature.get('non_combat', False):
+            return 'non_combat'
+
+        name = feature.get('name', '').lower()
+        
+        # Check special case names first
+        if any(combat_name in name for combat_name in combat_names):
+            return 'combat'
+        if any(non_combat_name in name for non_combat_name in non_combat_names):
+            return 'non_combat'
+        
+        # Combine name and description for text analysis
+        text = (name + ' ' + feature.get('description', '')).lower()
+        
+        # Count keyword matches
+        combat_matches = sum(1 for keyword in combat_keywords if keyword in text)
+        non_combat_matches = sum(1 for keyword in non_combat_keywords if keyword in text)
+        
+        # Special case handling for spells and magic
+        if "spell" in text or "magic" in text or "casting" in text:
+            # Look for combat spell indicators
+            combat_spell_indicators = ["damage", "attack", "hit", "defense", "weapon"]
+            if any(indicator in text for indicator in combat_spell_indicators):
+                return 'combat'
+            # Look for utility spell indicators
+            utility_spell_indicators = ["utility", "light", "illusion", "communication", "travel"]
+            if any(indicator in text for indicator in utility_spell_indicators):
+                return 'non_combat'
+            # If unclear, default to combat for spellcasting features
+            return 'combat'
+        
+        # If there are more combat matches, it's a combat feature
+        if combat_matches > non_combat_matches:
+            return 'combat'
+        # If there are more non-combat matches, it's a non-combat feature
+        if non_combat_matches > combat_matches:
+            return 'non_combat'
+        
+        # Default case: if unclear, put in non-combat for less clutter in combat section
+        return 'non_combat'
+
+    def _format_features_for_pdf(self) -> tuple[str, str]:
+        """Format features for both PDF sections
+        
+        Returns:
+            Tuple of (combat_features_text, non_combat_features_text)
+        """
+        combat_features = []
+        non_combat_features = []
+        
+        # Track features by name to avoid duplicates
+        seen_features = set()
+        
+        # First process traits
+        for trait in self.properties.get('traits', []):
+            name = trait.get('name', '').strip()
+            if name and name not in seen_features:
+                seen_features.add(name)
+                category = self._categorize_feature(trait)
+                if category == 'combat':
+                    combat_features.append(trait)
+                else:
+                    non_combat_features.append(trait)
+        
+        # Then process features
+        for feature in self.properties.get('features', []):
+            name = feature.get('name', '').strip()
+            if name and name not in seen_features:
+                seen_features.add(name)
+                category = self._categorize_feature(feature)
+                if category == 'combat':
+                    combat_features.append(feature)
+                else:
+                    non_combat_features.append(feature)
+        
+        # Sort features by level/importance if available, then by name
+        def sort_key(x):
+            return (x.get('level', 0), x.get('name', '').lower())
+        
+        combat_features.sort(key=sort_key)
+        non_combat_features.sort(key=sort_key)
+        
+        # Format combat features
+        combat_text = ["COMBAT FEATURES AND TRAITS:", ""]  # Add header
+        for feature in combat_features:
+            combat_text.append(f"{feature['name'].upper()}")
+            combat_text.append(feature.get('description', 'No description available'))
+            if 'usage' in feature:
+                combat_text.append(f"Usage: {feature['usage']}")
+            combat_text.append("")  # blank line for spacing
+        
+        # Format non-combat features
+        non_combat_text = ["NON-COMBAT FEATURES AND TRAITS:", ""]  # Add header
+        for feature in non_combat_features:
+            non_combat_text.append(f"{feature['name'].upper()}")
+            non_combat_text.append(feature.get('description', 'No description available'))
+            if 'usage' in feature:
+                non_combat_text.append(f"Usage: {feature['usage']}")
+            non_combat_text.append("")  # blank line for spacing
+        
+        # Join with newlines and escape for PDF
+        combat_str = '\\n'.join(combat_text)
+        non_combat_str = '\\n'.join(non_combat_text)
+        
+        return (combat_str, non_combat_str)
 
 
 
