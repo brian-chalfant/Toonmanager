@@ -854,7 +854,13 @@ class Toon:
                 # Features and Traits
                 'Features and Traits': combat_text,
                 'Feat+Traits': non_combat_text,
-                
+
+                # Handle spellcasting classes
+                'Spellcasting Class 2': '',  # Initialize secondary spellcasting fields
+                'SpellcastingAbility 2': '',
+                'SpellSaveDC  2': '',  # Note: two spaces in field name
+                'SpellAtkBonus 2': '',
+
                 # Personality
                 'PersonalityTraits ': '\\n'.join(self.properties.get('personality', {}).get('traits', [])),  # Note the space after field name
                 'Ideals': '\\n'.join(self.properties.get('personality', {}).get('ideals', [])),
@@ -962,6 +968,40 @@ class Toon:
                 'Check Box 21': 'Yes' if self.properties['saving_throws']['wisdom'] else 'Off',
                 'Check Box 22': 'Yes' if self.properties['saving_throws']['charisma'] else 'Off',
             })
+                
+            # Calculate spellcasting values if applicable
+            spellcasting_classes = []
+            for class_info in self.properties['classes']:
+                class_data = self._load_data_file('classes', class_info['name'])
+                if 'spellcasting' in class_data:
+                    spellcasting_classes.append({
+                        'name': class_info['name'],
+                        'ability': class_data['spellcasting']['ability'],
+                        'level': class_info['level']
+                    })
+
+            # Handle up to two spellcasting classes
+            if len(spellcasting_classes) >= 1:
+                primary = spellcasting_classes[0]
+                ability = primary['ability']
+                modifier = self.get_ability_modifier(ability)
+                field_data.update({
+                    'Spellcasting Class': primary['name'],
+                    'SpellcastingAbility': ability.upper()[:3],  # First three letters capitalized
+                    'SpellSaveDC': str(8 + self.properties['proficiency_bonus'] + modifier),
+                    'SpellAtkBonus': f"+{modifier + self.properties['proficiency_bonus']}"
+                })
+
+            if len(spellcasting_classes) >= 2:
+                secondary = spellcasting_classes[1]
+                ability = secondary['ability']
+                modifier = self.get_ability_modifier(ability)
+                field_data.update({
+                    'Spellcasting Class 2': secondary['name'],
+                    'SpellcastingAbility 2': ability.upper()[:3],  # First three letters capitalized
+                    'SpellSaveDC  2': str(8 + self.properties['proficiency_bonus'] + modifier),  # Note: two spaces in field name
+                    'SpellAtkBonus 2': f"+{modifier + self.properties['proficiency_bonus']}"
+                })
                 
             # Save the FDF file
             fdf_path = os.path.join(tempfile.gettempdir(), f"{self.properties['name'].replace(' ', '_')}_sheet.fdf")
