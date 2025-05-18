@@ -1,0 +1,666 @@
+{
+    "level_1": [
+        {
+            "name": "Alarm",
+            "school": "abjuration",
+            "ritual": true,
+            "casting_time": "1 minute",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a tiny bell", "a piece of fine silver wire"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is mental or audible."
+        },
+        {
+            "name": "Animal Friendship",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a morsel of food"],
+                    "consumed": false
+                }
+            },
+            "duration": "24 hours",
+            "description": "This spell lets you convince a beast that you mean it no harm. Choose a beast that you can see within range. It must see and hear you. If the beast's Intelligence is 4 or higher, the spell fails. Otherwise, the beast must succeed on a Wisdom saving throw or be charmed by you for the spell's duration."
+        },
+        {
+            "name": "Cure Wounds",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Detect Magic",
+            "school": "divination",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any."
+        },
+        {
+            "name": "Detect Poison and Disease",
+            "school": "divination",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a yew leaf"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you can sense the presence and location of poisons, poisonous creatures, and diseases within 30 feet of you. You also identify the kind of poison, poisonous creature, or disease in each case."
+        },
+        {
+            "name": "Ensnaring Strike",
+            "school": "conjuration",
+            "casting_time": "1 bonus action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "The next time you hit a creature with a weapon attack before this spell ends, a writhing mass of thorny vines appears at the point of impact, and the target must succeed on a Strength saving throw or be restrained by the magical vines until the spell ends."
+        },
+        {
+            "name": "Fog Cloud",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You create a 20-foot-radius sphere of fog centered on a point within range. The sphere spreads around corners, and its area is heavily obscured. It lasts for the duration or until a wind of moderate or greater speed (at least 10 miles per hour) disperses it."
+        },
+        {
+            "name": "Goodberry",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a sprig of mistletoe"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "Up to ten berries appear in your hand and are infused with magic for the duration. A creature can use its action to eat one berry. Eating a berry restores 1 hit point, and the berry provides enough nourishment to sustain a creature for one day."
+        },
+        {
+            "name": "Hunter's Mark",
+            "school": "divination",
+            "casting_time": "1 bonus action",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra 1d6 damage to the target whenever you hit it with a weapon attack, and you have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to find it."
+        },
+        {
+            "name": "Jump",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a grasshopper's hind leg"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "You touch a creature. The creature's jump distance is tripled until the spell ends."
+        },
+        {
+            "name": "Longstrider",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of dirt"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a creature. The target's speed increases by 10 feet until the spell ends."
+        },
+        {
+            "name": "Speak with Animals",
+            "school": "divination",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "10 minutes",
+            "description": "You gain the ability to comprehend and verbally communicate with beasts for the duration. The knowledge and awareness of many beasts is limited by their intelligence, but at minimum, beasts can give you information about nearby locations and monsters, including whatever they can perceive or have perceived within the past day."
+        }
+    ],
+    "level_2": [
+        {
+            "name": "Aid",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a tiny strip of white cloth"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration."
+        },
+        {
+            "name": "Animal Messenger",
+            "school": "enchantment",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a morsel of food"],
+                    "consumed": false
+                }
+            },
+            "duration": "24 hours",
+            "description": "By means of this spell, you use an animal to deliver a message. Choose a Tiny beast you can see within range, such as a squirrel, a blue jay, or a bat. You specify a location, which you must have visited, and a recipient who matches a general description, such as 'a man or woman dressed in the uniform of the town guard' or 'a red-haired dwarf wearing a pointed hat.'"
+        },
+        {
+            "name": "Barkskin",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a handful of oak bark"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You touch a willing creature. Until the spell ends, the target's skin has a rough, bark-like appearance, and the target's AC can't be less than 16, regardless of what kind of armor it is wearing."
+        },
+        {
+            "name": "Beast Sense",
+            "school": "divination",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": false,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You touch a willing beast. For the duration of the spell, you can use your action to see through the beast's eyes and hear what it hears, and continue to do so until you use your action to return to your normal senses."
+        },
+        {
+            "name": "Cordon of Arrows",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "5 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["four or more arrows or bolts"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "You plant four pieces of nonmagical ammunition in the ground within range and lay magic upon them to protect an area. Until the spell ends, whenever a creature other than you comes within 30 feet of the ammunition for the first time on a turn or ends its turn there, one piece of ammunition flies up to strike it."
+        },
+        {
+            "name": "Darkvision",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["either a pinch of dried carrot or an agate"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "You touch a willing creature to grant it the ability to see in the dark. For the duration, that creature has darkvision out to a range of 60 feet."
+        },
+        {
+            "name": "Find Traps",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You sense the presence of any trap within range that is within line of sight. A trap, for the purpose of this spell, includes anything that would inflict a sudden or unexpected effect you consider harmful or undesirable, which was specifically intended as such by its creator."
+        },
+        {
+            "name": "Lesser Restoration",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned."
+        },
+        {
+            "name": "Pass without Trace",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["ashes from a burned leaf of mistletoe", "a sprig of spruce"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "A veil of shadows and silence radiates from you, masking you and your companions from detection. For the duration, each creature you choose within 30 feet of you (including you) has a +10 bonus to Dexterity (Stealth) checks and can't be tracked except by magical means."
+        },
+        {
+            "name": "Protection from Poison",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "You touch a creature. If it is poisoned, you neutralize the poison. If more than one poison afflicts the target, you neutralize one poison that you know is present, or you neutralize one at random. For the duration, the target has advantage on saving throws against being poisoned, and it has resistance to poison damage."
+        },
+        {
+            "name": "Silence",
+            "school": "illusion",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range. Any creature or object entirely inside the sphere is immune to thunder damage, and creatures are deafened while entirely inside it."
+        },
+        {
+            "name": "Spike Growth",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["seven sharp thorns or seven small twigs, each sharpened to a point"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "The ground in a 20-foot radius centered on a point within range twists and sprouts hard spikes and thorns. The area becomes difficult terrain for the duration. When a creature moves into or within the area, it takes 2d4 piercing damage for every 5 feet it travels."
+        }
+    ],
+    "level_3": [
+        {
+            "name": "Conjure Animals",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon fey spirits that take the form of beasts and appear in unoccupied spaces that you can see within range. Choose one of the following options for what appears: One beast of challenge rating 2 or lower, Two beasts of challenge rating 1 or lower, Four beasts of challenge rating 1/2 or lower, Eight beasts of challenge rating 1/4 or lower."
+        },
+        {
+            "name": "Conjure Barrage",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "Self (60-foot cone)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["one piece of ammunition or a thrown weapon"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You throw a nonmagical weapon or fire a piece of nonmagical ammunition into the air to create a cone of identical weapons that shoot forward and then disappear. Each creature in a 60-foot cone must succeed on a Dexterity saving throw. A creature takes 3d8 damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+            "name": "Daylight",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "A 60-foot-radius sphere of light spreads out from a point you choose within range. The sphere is bright light and sheds dim light for an additional 60 feet."
+        },
+        {
+            "name": "Lightning Arrow",
+            "school": "transmutation",
+            "casting_time": "1 bonus action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "The next time you make a ranged weapon attack during the spell's duration, the weapon's ammunition, or the weapon itself if it's a thrown weapon, transforms into a bolt of lightning. Make the attack roll as normal. The target takes 4d8 lightning damage on a hit, or half as much damage on a miss, instead of the weapon's normal damage."
+        },
+        {
+            "name": "Nondetection",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of diamond dust worth 25 gp"],
+                    "consumed": true
+                }
+            },
+            "duration": "8 hours",
+            "description": "For the duration, you hide a target that you touch from divination magic. The target can be a willing creature or a place or an object no larger than 10 feet in any dimension. The target can't be targeted by any divination magic or perceived through magical scrying sensors."
+        },
+        {
+            "name": "Plant Growth",
+            "school": "transmutation",
+            "casting_time": "1 action or 8 hours",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "This spell channels vitality into plants within a specific area. There are two possible uses for the spell, granting either immediate or long-term benefits."
+        },
+        {
+            "name": "Protection from Energy",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "For the duration, the willing creature you touch has resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder."
+        },
+        {
+            "name": "Speak with Plants",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Self (30-foot radius)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "10 minutes",
+            "description": "You imbue plants within 30 feet of you with limited sentience and animation, giving them the ability to communicate with you and follow your simple commands."
+        },
+        {
+            "name": "Water Breathing",
+            "school": "transmutation",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a short reed or piece of straw"],
+                    "consumed": false
+                }
+            },
+            "duration": "24 hours",
+            "description": "This spell grants up to ten willing creatures you can see within range the ability to breathe underwater until the spell ends. Affected creatures also retain their normal mode of respiration."
+        },
+        {
+            "name": "Water Walk",
+            "school": "transmutation",
+            "ritual": true,
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a piece of cork"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell grants the ability to move across any liquid surface--such as water, acid, mud, snow, quicksand, or lava--as if it were harmless solid ground (creatures crossing molten lava can still take damage from the heat)."
+        },
+        {
+            "name": "Wind Wall",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a tiny fan", "a feather of exotic origin"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "A wall of strong wind rises from the ground at a point you choose within range. You can make the wall up to 50 feet long, 15 feet high, and 1 foot thick. You can shape the wall in any way you choose so long as it makes one continuous path along the ground."
+        }
+    ],
+    "level_4": [
+        {
+            "name": "Conjure Woodland Beings",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["one holly berry per creature summoned"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon fey creatures that appear in unoccupied spaces that you can see within range. Choose one of the following options for what appears: One fey creature of challenge rating 2 or lower, Two fey creatures of challenge rating 1 or lower, Four fey creatures of challenge rating 1/2 or lower, Eight fey creatures of challenge rating 1/4 or lower."
+        },
+        {
+            "name": "Freedom of Movement",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a leather strap, bound around the arm or a similar appendage"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a willing creature. For the duration, the target's movement is unaffected by difficult terrain, and spells and other magical effects can neither reduce the target's speed nor cause the target to be paralyzed or restrained."
+        },
+        {
+            "name": "Grasping Vine",
+            "school": "conjuration",
+            "casting_time": "1 bonus action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You conjure a vine that sprouts from the ground in an unoccupied space of your choice that you can see within range. When you cast this spell, you can direct the vine to lash out at a creature within 30 feet of it that you can see."
+        },
+        {
+            "name": "Locate Creature",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a bit of fur from a bloodhound"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "Describe or name a creature that is familiar to you. You sense the direction to the creature's location, as long as that creature is within 1,000 feet of you. If the creature is moving, you know the direction of its movement."
+        },
+        {
+            "name": "Stoneskin",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["diamond dust worth 100 gp"],
+                    "consumed": true
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "This spell turns the flesh of a willing creature you touch as hard as stone. Until the spell ends, the target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
+        }
+    ],
+    "level_5": [
+        {
+            "name": "Commune with Nature",
+            "school": "divination",
+            "ritual": true,
+            "casting_time": "1 minute",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You briefly become one with nature and gain knowledge of the surrounding territory. In the outdoors, the spell gives you knowledge of the land within 3 miles of you. In caves and other natural underground settings, the radius is limited to 300 feet."
+        },
+        {
+            "name": "Conjure Volley",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["one piece of ammunition or one thrown weapon"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You fire a piece of nonmagical ammunition from a ranged weapon or throw a nonmagical weapon into the air and choose a point within range. Hundreds of duplicates of the ammunition or weapon fall in a volley from above and then disappear."
+        },
+        {
+            "name": "Swift Quiver",
+            "school": "transmutation",
+            "casting_time": "1 bonus action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a quiver containing at least one piece of ammunition"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You transmute your quiver so it produces an endless supply of nonmagical ammunition, which seems to leap into your hand when you reach for it. On each of your turns until the spell ends, you can use a bonus action to make two attacks with a weapon that uses ammunition from the quiver."
+        },
+        {
+            "name": "Tree Stride",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You gain the ability to enter a tree and move from inside it to inside another tree of the same type within 500 feet. Both trees must be living and at least the same size as you. You must use 5 feet of movement to enter a tree."
+        }
+    ]
+} 

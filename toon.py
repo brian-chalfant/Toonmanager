@@ -704,10 +704,11 @@ class Toon:
             # Update spellcasting if applicable
             if "spellcasting" in class_data:
                 self.properties["spells"]["spellcasting_ability"] = class_data["spellcasting"]["ability"]
-                # Add cantrips known
-                for level_req, count in class_data["spellcasting"]["cantrips_known"].items():
-                    if level >= int(level_req):
-                        self.properties["spells"]["cantrips"] = [""] * count
+                # Add cantrips known if the class has them
+                if "cantrips_known" in class_data["spellcasting"]:
+                    for level_req, count in class_data["spellcasting"]["cantrips_known"].items():
+                        if level >= int(level_req):
+                            self.properties["spells"]["cantrips"] = [""] * count
                 # Add spell slots
                 for level_req, slots in class_data["spellcasting"]["spell_slots_per_level"].items():
                     if level >= int(level_req):

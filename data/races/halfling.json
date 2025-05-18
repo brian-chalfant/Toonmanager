@@ -1,6 +1,8 @@
 {
     "name": "Halfling",
     "description": "The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.",
+    "source": "PHB",
+    "source_page": 26,
     "ability_scores": {
         "dexterity": 2
     },
@@ -71,7 +73,5 @@
             ]
         }
     ],
-    "version": "5E",
-    "source": "PHB",
-    "source_page": 26
+    "version": "5E"
 } 

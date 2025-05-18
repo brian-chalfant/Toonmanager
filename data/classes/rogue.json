@@ -72,7 +72,19 @@
             },
             {
                 "name": "Sneak Attack",
-                "description": "Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of your target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll."
+                "description": "Once per turn, you can deal extra damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of your target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll. The extra damage is 1d6 at 1st level, and increases as you gain levels in this class.",
+                "damage_progression": {
+                    "1": "1d6",
+                    "3": "2d6",
+                    "5": "3d6",
+                    "7": "4d6",
+                    "9": "5d6",
+                    "11": "6d6",
+                    "13": "7d6",
+                    "15": "8d6",
+                    "17": "9d6",
+                    "19": "10d6"
+                }
             },
             {
                 "name": "Thieves' Cant",
@@ -83,6 +95,114 @@
             {
                 "name": "Cunning Action",
                 "description": "Your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action."
+            }
+        ],
+        "3": [
+            {
+                "name": "Roguish Archetype",
+                "description": "You choose an archetype that you emulate in the exercise of your rogue abilities. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "5": [
+            {
+                "name": "Uncanny Dodge",
+                "description": "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you."
+            }
+        ],
+        "6": [
+            {
+                "name": "Expertise",
+                "description": "Choose two more of your skill proficiencies, or one more of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+            }
+        ],
+        "7": [
+            {
+                "name": "Evasion",
+                "description": "When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail."
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "9": [
+            {
+                "name": "Roguish Archetype Feature",
+                "description": "You gain a feature from your Roguish Archetype."
+            }
+        ],
+        "10": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "11": [
+            {
+                "name": "Reliable Talent",
+                "description": "Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10."
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "13": [
+            {
+                "name": "Roguish Archetype Feature",
+                "description": "You gain a feature from your Roguish Archetype."
+            }
+        ],
+        "14": [
+            {
+                "name": "Blindsense",
+                "description": "If you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you."
+            }
+        ],
+        "15": [
+            {
+                "name": "Slippery Mind",
+                "description": "You have acquired greater mental strength. You gain proficiency in Wisdom saving throws."
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "17": [
+            {
+                "name": "Roguish Archetype Feature",
+                "description": "You gain a feature from your Roguish Archetype."
+            }
+        ],
+        "18": [
+            {
+                "name": "Elusive",
+                "description": "You are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren't incapacitated."
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "20": [
+            {
+                "name": "Stroke of Luck",
+                "description": "You have an uncanny knack for succeeding when you need to. If your attack misses a target within range, you can turn the miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20. Once you use this feature, you can't use it again until you finish a short or long rest."
             }
         ]
     },

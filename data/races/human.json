@@ -1,6 +1,8 @@
 {
     "name": "Human",
     "description": "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+    "source": "PHB",
+    "source_page": 29,
     "ability_scores": {
         "strength": 1,
         "dexterity": 1,
@@ -34,6 +36,7 @@
             "count": 1
         }
     },
+    "traits": [],
     "subraces": [
         {
             "name": "Standard",
@@ -98,7 +101,5 @@
             ]
         }
     ],
-    "version": "5E",
-    "source": "PHB",
-    "source_page": 29
+    "version": "5E"
 } 

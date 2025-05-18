@@ -1,6 +1,8 @@
 {
     "name": "Dwarf",
     "description": "Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.",
+    "source": "PHB",
+    "source_page": 18,
     "ability_scores": {
         "constitution": 2
     },
@@ -20,16 +22,24 @@
         }
     },
     "speed": {
-        "walk": 25
+        "walk": 25,
+        "modifiers": {
+            "armor": "Your speed is not reduced by wearing heavy armor."
+        }
     },
     "traits": [
         {
             "name": "Darkvision",
-            "description": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+            "description": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+            "range": 60
         },
         {
             "name": "Dwarven Resilience",
-            "description": "You have advantage on saving throws against poison, and you have resistance against poison damage."
+            "description": "You have advantage on saving throws against poison, and you have resistance against poison damage.",
+            "grants": {
+                "damage_resistances": ["poison"],
+                "saving_throw_advantages": ["poison"]
+            }
         },
         {
             "name": "Dwarven Combat Training",
@@ -47,13 +57,29 @@
             "name": "Tool Proficiency",
             "description": "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools.",
             "grants": {
-                "tool_proficiencies": ["smith's tools", "brewer's supplies", "mason's tools"],
-                "choose": 1
+                "tool_proficiencies": {
+                    "choose": {
+                        "count": 1,
+                        "from": [
+                            "smith's tools",
+                            "brewer's supplies",
+                            "mason's tools"
+                        ]
+                    }
+                }
             }
         },
         {
             "name": "Stonecunning",
-            "description": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
+            "description": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus.",
+            "grants": {
+                "skill_expertise": {
+                    "conditional": {
+                        "skill": "history",
+                        "condition": "when related to stonework origin"
+                    }
+                }
+            }
         }
     ],
     "languages": {
@@ -75,7 +101,10 @@
                     "name": "Dwarven Toughness",
                     "description": "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.",
                     "modifies": {
-                        "hit_points.maximum": "+1 per level"
+                        "hit_points": {
+                            "bonus": 1,
+                            "per_level": true
+                        }
                     }
                 }
             ]
@@ -100,7 +129,5 @@
             ]
         }
     ],
-    "version": "5E",
-    "source": "PHB",
-    "source_page": 18
+    "version": "5E"
 } 

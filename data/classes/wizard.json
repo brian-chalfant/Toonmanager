@@ -54,6 +54,84 @@
             }
         ]
     },
+    "features": {
+        "1": [
+            {
+                "name": "Spellcasting",
+                "description": "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power. You can cast wizard spells using Intelligence as your spellcasting ability. You use your Intelligence whenever a spell refers to your spellcasting ability."
+            },
+            {
+                "name": "Arcane Recovery",
+                "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher."
+            }
+        ],
+        "2": [
+            {
+                "name": "Arcane Tradition",
+                "description": "You choose an arcane tradition, shaping your practice of magic through one of eight schools: Abjuration, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, or Transmutation. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "6": [
+            {
+                "name": "Arcane Tradition Feature",
+                "description": "You gain a feature from your Arcane Tradition."
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "10": [
+            {
+                "name": "Arcane Tradition Feature",
+                "description": "You gain a feature from your Arcane Tradition."
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "14": [
+            {
+                "name": "Arcane Tradition Feature",
+                "description": "You gain a feature from your Arcane Tradition."
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "18": [
+            {
+                "name": "Spell Mastery",
+                "description": "You have achieved such mastery over certain spells that you can cast them at will. Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal."
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "20": [
+            {
+                "name": "Signature Spells",
+                "description": "You gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest."
+            }
+        ]
+    },
     "spellcasting": {
         "ability": "intelligence",
         "focus": ["arcane_focus", "component_pouch"],
@@ -192,7 +270,7 @@
                 "2": 3,
                 "3": 3,
                 "4": 3,
-                "5": 2,
+                "5": 3,
                 "6": 1,
                 "7": 1,
                 "8": 1,
@@ -203,7 +281,7 @@
                 "2": 3,
                 "3": 3,
                 "4": 3,
-                "5": 2,
+                "5": 3,
                 "6": 2,
                 "7": 1,
                 "8": 1,
@@ -214,77 +292,13 @@
                 "2": 3,
                 "3": 3,
                 "4": 3,
-                "5": 2,
+                "5": 3,
                 "6": 2,
                 "7": 2,
                 "8": 1,
                 "9": 1
             }
         }
-    },
-    "features": {
-        "1": [
-            {
-                "name": "Spellcasting",
-                "description": "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power."
-            },
-            {
-                "name": "Arcane Recovery",
-                "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.",
-                "uses": {
-                    "per": "long_rest",
-                    "count": 1
-                }
-            }
-        ],
-        "2": [
-            {
-                "name": "Arcane Tradition",
-                "description": "You choose an arcane tradition, shaping your practice of magic through one of eight schools."
-            }
-        ],
-        "4": [
-            {
-                "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
-            }
-        ],
-        "8": [
-            {
-                "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
-            }
-        ],
-        "12": [
-            {
-                "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
-            }
-        ],
-        "16": [
-            {
-                "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
-            }
-        ],
-        "18": [
-            {
-                "name": "Spell Mastery",
-                "description": "Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared."
-            }
-        ],
-        "19": [
-            {
-                "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
-            }
-        ],
-        "20": [
-            {
-                "name": "Signature Spells",
-                "description": "Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest."
-            }
-        ]
     },
     "subclasses": {
         "name": "Arcane Tradition",
