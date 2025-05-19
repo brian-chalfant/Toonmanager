@@ -320,17 +320,13 @@ class Toon:
                     autoescape=True
                 )
                 template = env.get_template('character_sheet.html')
-                
-                # Calculate derived values for the template
+
+                # Calculate derived values for the template (reuse PDF helpers)
                 class_levels = ", ".join(f"{c['name']} {c['level']}" for c in self.properties['classes'])
-                
-                # Calculate ability modifiers
                 modifiers = {
                     ability: f"{self.get_ability_modifier(ability):+d}"
                     for ability in self.properties['stats']
                 }
-                
-                # Calculate saving throw bonuses
                 saving_throws = {
                     ability: {
                         'bonus': f"{self.get_saving_throw_bonus(ability):+d}",
@@ -338,37 +334,55 @@ class Toon:
                     }
                     for ability in self.properties['saving_throws']
                 }
-                
-                # Calculate skill bonuses
                 skill_bonuses = defaultdict(lambda: "+0")
                 for skill, proficient in self.properties['skills'].items():
-                    # Determine ability modifier for skill
                     ability = self._get_skill_ability(skill)
                     bonus = self.get_ability_modifier(ability)
                     if proficient:
                         bonus += self.properties['proficiency_bonus']
                     skill_bonuses[skill] = f"{bonus:+d}"
-                
-                # Format hit dice
-                hit_dice_counts = defaultdict(int)
-                for die in self.properties['hit_dice']:
-                    # Extract the die type (e.g., 'd10' from '1d10')
-                    die_type = die.split('d')[1]
-                    hit_dice_counts[die_type] += 1
-                consolidated_hit_dice = []
-                for die_type, count in hit_dice_counts.items():
-                    consolidated_hit_dice.append(f"{count}d{die_type}")
-                hit_dice_summary = ', '.join(consolidated_hit_dice)
-                
-                # Calculate spellcasting values if applicable
+                # Format hit dice for display
+                hit_dice_total, hit_dice_types = self._format_hit_dice_for_pdf()
+                hit_dice_summary = f"{hit_dice_total} ({hit_dice_types})"
+                # Features and traits split
+                combat_features_str, non_combat_features_str = self._format_features_for_pdf()
+                # Parse features/traits for HTML (as lists)
+                def parse_features_str(features_str):
+                    # Split by double newlines, skip header
+                    blocks = features_str.split('\\n\\n')[1:]
+                    features = []
+                    for block in blocks:
+                        lines = block.strip().split('\\n')
+                        if not lines or not lines[0]:
+                            continue
+                        name = lines[0]
+                        desc = '\\n'.join(lines[1:]) if len(lines) > 1 else ''
+                        features.append({'name': name, 'description': desc})
+                    return features
+                combat_features = parse_features_str(combat_features_str)
+                non_combat_features = parse_features_str(non_combat_features_str)
+                # Personality as lists
+                personality = self.properties.get('personality', {})
+                # Proficiencies
+                proficiencies = self.properties['proficiencies']
+                # Currency
+                currency = self.properties.get('currency', {})
+                # Passive Perception
+                passive_perception = 10 + self.get_ability_modifier('wisdom')
+                if self.properties['skills'].get('perception', False):
+                    passive_perception += self.properties['proficiency_bonus']
+                # Death saves
+                death_saves = self.properties.get('death_saves', {'successes': 0, 'failures': 0})
+                # Metadata
+                metadata = self.properties.get('metadata', {})
+                # Spellcasting
                 spell_save_dc = None
                 spell_attack_bonus = None
-                if self.properties['spells']['spellcasting_ability']:
-                    ability = self.properties['spells']['spellcasting_ability']
-                    modifier = self.get_ability_modifier(ability)
+                spell_ability = self.properties['spells']['spellcasting_ability']
+                if spell_ability:
+                    modifier = self.get_ability_modifier(spell_ability)
                     spell_save_dc = 8 + self.properties['proficiency_bonus'] + modifier
                     spell_attack_bonus = modifier + self.properties['proficiency_bonus']
-                
                 # Prepare template data
                 template_data = {
                     'character': {
@@ -390,12 +404,17 @@ class Toon:
                         'speed': self.properties['speed'],
                         'hit_points': self.properties['hit_points'],
                         'hit_dice': hit_dice_summary,
-                        'proficiencies': self.properties['proficiencies'],
-                        'features': self.properties['features'],
-                        'traits': self.properties['traits'],
+                        'proficiencies': proficiencies,
+                        'features': combat_features,
+                        'traits': non_combat_features,
                         'equipment': self.properties['equipment'],
+                        'currency': currency,
+                        'personality': personality,
+                        'death_saves': death_saves,
+                        'passive_perception': passive_perception,
+                        'metadata': metadata,
                         'spells': {
-                            'ability': self.properties['spells']['spellcasting_ability'],
+                            'ability': spell_ability,
                             'save_dc': spell_save_dc,
                             'attack_bonus': spell_attack_bonus,
                             'cantrips': self.properties['spells']['cantrips'],
@@ -404,15 +423,12 @@ class Toon:
                         }
                     }
                 }
-                
                 # Render the template
                 html = template.render(**template_data)
-                
                 # Save the HTML file
                 output_path = os.path.join('characters', f"{self.properties['name'].replace(' ', '_')}_sheet.html")
                 with open(output_path, 'w') as f:
                     f.write(html)
-                
                 return output_path
             
             else:
