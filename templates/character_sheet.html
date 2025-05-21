@@ -725,8 +725,8 @@
         }
         .dashboard-grid {
           display: grid;
-          grid-template-columns: 250px 1.5fr 1fr 1fr 1fr 1fr;
-          grid-template-rows: 99px 1fr 1fr 1fr;
+          grid-template-columns: 300px 1.5fr 1fr 1fr 1fr 1fr;
+          grid-template-rows: 99px .3fr .5fr 1fr;
           gap: 18px;
           max-width: 1920px;
           margin: 0 auto;
@@ -734,15 +734,15 @@
         }
         .saving-throws {
           grid-column: 1;
-          grid-row: 1;
+          grid-row: 1 / span 2;
         }
         .senses {
           grid-column: 1;
-          grid-row: 2;
+          grid-row: 3;
         }
         .proficiencies {
           grid-column: 1;
-          grid-row: 3 / span 2;
+          grid-row: 4 ;
         }
         .skills {
           grid-column: 2;
@@ -787,7 +787,10 @@
             width: 100%;
         }
         .saving-throws-grid {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr 1fr;
+          grid-auto-flow: column;
           flex-wrap: wrap;
           gap: 8px;
           justify-content: center;
@@ -822,6 +825,202 @@
           font-size: 1rem;
           color: var(--ttui_grey-500);
           margin-left: 4px;
+        }
+        .senses-pill-row {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+        .sense-pill {
+          display: flex;
+          align-items: center;
+          border: 2px solid #C53131;
+          border-radius: 16px;
+          padding: 4px 12px;
+          background: #fff;
+          box-shadow: 0 1px 3px rgba(197,49,49,0.04);
+          gap: 10px;
+        }
+        .sense-value {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: var(--ttui_grey-900);
+          width: 32px;
+          text-align: center;
+          border-radius: 50%;
+          background: var(--ttui_red-50);
+        }
+        .sense-label {
+          font-size: 0.98rem;
+          font-weight: 500;
+          color: var(--ttui_grey-700);
+          letter-spacing: 0.5px;
+        }
+        .senses-additional {
+          color: var(--ttui_grey-400);
+          font-size: 0.98rem;
+          text-align: center;
+          margin: 8px 0 0 0;
+        }
+        .senses-title {
+          font-weight: 700;
+          text-align: center;
+          margin-top: 8px;
+          font-size: 1.08rem;
+          letter-spacing: 1px;
+          color: var(--ttui_grey-900);
+        }
+        .proficiencies-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          margin-bottom: 8px;
+        }
+        .prof-section {
+          padding: 8px 0 4px 0;
+        }
+        .prof-label {
+          font-size: 0.98rem;
+          font-weight: 700;
+          color: var(--ttui_grey-800);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          margin-bottom: 2px;
+        }
+        .prof-values {
+          font-size: 1.01rem;
+          color: var(--ttui_grey-900);
+          font-weight: 400;
+          margin-bottom: 2px;
+        }
+        .prof-divider {
+          border-bottom: 1px solid #e0b4b4;
+          margin: 0 0 0 0;
+        }
+        .proficiencies-title {
+          font-weight: 700;
+          text-align: center;
+          margin-top: 10px;
+          font-size: 1.08rem;
+          letter-spacing: 1px;
+          color: var(--ttui_grey-900);
+        }
+        .card.saving-throws, .card.senses, .card.proficiencies {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+        }
+        .saving-throws-title, .senses-title, .proficiencies-title {
+          margin-top: auto;
+        }
+        .skills-table-wrap {
+          flex: 1;
+          overflow-y: auto;
+          margin-bottom: 8px;
+        }
+        .styled-skills-table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0 4px;
+          background: none;
+          table-layout: fixed;
+        }
+        .styled-skills-table thead th.prof-head,
+        .styled-skills-table tbody td.prof-dot-cell {
+          width: 40px;
+          min-width: 40px;
+          max-width: 40px;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .styled-skills-table thead th.skill-head,
+        .styled-skills-table tbody td.skill-label {
+          width: auto;
+          max-width: none;
+        }
+        .styled-skills-table thead th.mod-head,
+        .styled-skills-table tbody td.mod-abbr {
+          width: 42px;
+          min-width: 32px;
+          max-width: 48px;
+        }
+        .styled-skills-table thead th.bonus-head,
+        .styled-skills-table tbody td.skill-bonus-pill {
+          width: 56px;
+          min-width: 40px;
+          max-width: 64px;
+        }
+        .styled-skills-table tbody tr {
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 1px 2px rgba(197,49,49,0.03);
+        }
+        .prof-dot-cell {
+          width: 24px;
+          text-align: center;
+        }
+        .prof-dot {
+          color: var(--ttui_red-500);
+          font-size: 1.1rem;
+          vertical-align: middle;
+        }
+        .prof-dot.empty {
+          color: var(--ttui_grey-300);
+        }
+        .mod-abbr {
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: var(--ttui_grey-500);
+          width: 32px;
+          text-align: center;
+        }
+        .skill-label {
+          font-size: 1.05rem;
+          color: var(--ttui_grey-900);
+          font-weight: 500;
+          padding-left: 2px;
+        }
+        .skill-bonus-pill {
+          font-size: 1.05rem;
+          font-weight: 700;
+          color: var(--ttui_blue-700);
+          background: var(--ttui_blue-50);
+          border-radius: 12px;
+          padding: 2px 12px;
+          text-align: center;
+          min-width: 36px;
+          display: inline-block;
+        }
+        .skills-additional {
+          color: var(--ttui_grey-400);
+          font-size: 0.98rem;
+          text-align: center;
+          margin: 8px 0 0 0;
+        }
+        .skills-title {
+          font-weight: 700;
+          text-align: center;
+          margin-top: auto;
+          font-size: 1.08rem;
+          letter-spacing: 1px;
+          color: var(--ttui_grey-900);
+        }
+        .card.skills {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          height: 100%;
+        }
+        .initiative-title {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .armor-class-title {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
         }
     </style>
     <script>
@@ -941,16 +1140,6 @@
                     <span class="main-stat-value">{% if character.inspiration %}YES{% else %}NO{% endif %}</span>
                 </div>
             </div>
-            <div class="main-stat-pill initiative-box">
-                <svg class="box-svg" viewBox="0 0 94 89" aria-hidden="true">
-                    <path fill="#FEFEFE" d="M87.54,9.45a42.28,42.28,0,0,1-3-3A42.91,42.91,0,0,0,74.21,1H18.36a11,11,0,0,0-1.53.59A4.9,4.9,0,0,1,15.36,2.7,21.09,21.09,0,0,0,6,12.28a5.14,5.14,0,0,1,.12,1.59,5.15,5.15,0,0,1,.24,1.18c1,12.72.57,25.84.4,38.59-.09,6.5,0,13-.05,19.48,0,2-.11,4.08-.22,6.12a17.93,17.93,0,0,0,2.78,2.94A73.22,73.22,0,0,0,16.51,87H78l.07-.06a32.31,32.31,0,0,0,9.31-8.5c.13-6,.65-12,.36-18s.2-11.89.36-17.9c.16-6.53,0-13.11-.17-19.64C87.84,18.57,88.07,13.86,87.54,9.45Z"></path>
-                    <path fill="#C53131" d="M85,0H9L0,9V79.93l11.1,9H85l9-9V9ZM75.6,86.5H18.36a19,19,0,0,1-11.3-7.73V10.25A19.27,19.27,0,0,1,18.4,2.48H75.64a18.94,18.94,0,0,1,11.3,7.73V78.75A19.27,19.27,0,0,1,75.6,86.5ZM2.47,21.18a31.7,31.7,0,0,1,3.24-8.8V76.64c-.3-.53-.62-1-.89-1.62a32.92,32.92,0,0,1-2.35-7.11Zm85.82-8.82c.3.53.62,1,.89,1.62a32.92,32.92,0,0,1,2.35,7.11V67.81a31.64,31.64,0,0,1-3.24,8.81ZM10.05,2.48h4.87a20.45,20.45,0,0,0-9.13,7.69H5.71v.13a29.26,29.26,0,0,0-3.24,6.78v-7ZM2.47,78.92v-7A29.45,29.45,0,0,0,5.71,78.7v.13h.08a20.45,20.45,0,0,0,9.13,7.69H10.05ZM84,86.52H79.08a20.45,20.45,0,0,0,9.13-7.69h.08V78.7a29.45,29.45,0,0,0,3.24-6.78v7Z"></path>
-                </svg>
-                <div class="main-stat-content">
-                    <span class="main-stat-label">INITIATIVE</span>
-                    <span class="main-stat-value">{{ character.initiative }}</span>
-                </div>
-            </div>
             <div class="main-stat-pill hit-points-box">
                 <span class="main-stat-label">HIT POINTS</span>
                 <svg class="box-svg" viewBox="0 0 220 145" aria-hidden="true">
@@ -1024,50 +1213,83 @@
             </div>
           </div>
           <div class="card senses">
-            <div class="card-title">Passive Scores</div>
-            <div class="passive-box">{{ character.passive_perception }} PASSIVE PERCEPTION</div>
-            <!-- Add Investigation/Insight if available -->
+            <div class="senses-pill-row">
+              <div class="sense-pill">
+                <span class="sense-value">{{ character.passive_perception }}</span>
+                <span class="sense-label">PASSIVE PERCEPTION</span>
+              </div>
+              <div class="sense-pill">
+                <span class="sense-value">{{ character.passive_investigation }}</span>
+                <span class="sense-label">PASSIVE INVESTIGATION</span>
+              </div>
+              <div class="sense-pill">
+                <span class="sense-value">{{ character.passive_insight }}</span>
+                <span class="sense-label">PASSIVE INSIGHT</span>
+              </div>
+            </div>
+            <div class="senses-title">SENSES <span class="settings-icon">&#9881;</span></div>
           </div>
           <div class="card proficiencies">
-            <div class="sidebar-section">
-                <div class="card-title">Proficiencies</div>
-                <div><strong>Armor:</strong> {{ character.proficiencies.armor|join(', ') }}</div>
-                <div><strong>Weapons:</strong> {{ character.proficiencies.weapons|join(', ') }}</div>
-                <div><strong>Tools:</strong> {{ character.proficiencies.tools|join(', ') }}</div>
-                <div><strong>Languages:</strong> {{ character.proficiencies.languages|join(', ') }}</div>
+            <div class="proficiencies-list">
+              <div class="prof-section">
+                <div class="prof-label">ARMOR</div>
+                <div class="prof-values">{{ character.proficiencies.armor|join(', ') }}</div>
+              </div>
+              <div class="prof-divider"></div>
+              <div class="prof-section">
+                <div class="prof-label">WEAPONS</div>
+                <div class="prof-values">{{ character.proficiencies.weapons|join(', ') }}</div>
+              </div>
+              <div class="prof-divider"></div>
+              <div class="prof-section">
+                <div class="prof-label">TOOLS</div>
+                <div class="prof-values">{{ character.proficiencies.tools|join(', ') }}</div>
+              </div>
+              <div class="prof-divider"></div>
+              <div class="prof-section">
+                <div class="prof-label">LANGUAGES</div>
+                <div class="prof-values">{{ character.proficiencies.languages|join(', ') }}</div>
+              </div>
             </div>
+            <div class="proficiencies-title">PROFICIENCIES & TRAINING <span class="settings-icon">&#9881;</span></div>
           </div>
           <div class="card skills">
-            <div class="card-title">Skills</div>
-                <table class="skills-table">
-                    <thead>
-                        <tr><th></th><th>Prof</th><th>Skill</th><th>Bonus</th></tr>
-                    </thead>
-                    <tbody>
-                    {% for skill, bonus in character.skills.items() %}
-                        <tr>
-                            <td class="skill-icon">
-                                <!-- Generic skill SVG icon -->
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="10" cy="10" r="9" stroke="var(--ttui_red-500)" stroke-width="2" fill="var(--ttui_red-100)"/>
-                                    <path d="M10 5V15M5 10H15" stroke="var(--ttui_red-500)" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </td>
-                            <td>{% if bonus|int > 0 %}<span class="prof-dot">●</span>{% endif %}</td>
-                            <td class="skill-label">{{ skill|title }}</td>
-                            <td class="skill-bonus">{{ bonus }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            <div class="skills-table-wrap">
+              <table class="skills-table styled-skills-table">
+                <thead>
+                  <tr>
+                    <th class="prof-head">PROF</th>
+                    <th class="mod-head">MOD</th>
+                    <th class="skill-head">SKILL</th>
+                    <th class="bonus-head">BONUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for skill, bonus in character.skills.items() %}
+                  <tr>
+                    <td class="prof-dot-cell">{% if bonus|int > 0 %}<span class="prof-dot">●</span>{% else %}<span class="prof-dot empty">○</span>{% endif %}</td>
+                    <td class="mod-abbr">{{ {'acrobatics':'DEX','animal handling':'WIS','arcana':'INT','athletics':'STR','deception':'CHA','history':'INT','insight':'WIS','intimidation':'CHA','investigation':'INT','medicine':'WIS','nature':'INT','perception':'WIS','performance':'CHA','persuasion':'CHA','religion':'INT','sleight of hand':'DEX','stealth':'DEX','survival':'WIS'}[skill]|default('') }}</td>
+                    <td class="skill-label">{{ skill|title }}</td>
+                    <td class="skill-bonus-pill">{{ bonus }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="skills-additional">Additional Skills</div>
+            <div class="skills-title">SKILLS <span class="settings-icon">&#9881;</span></div>
           </div>
           <div class="card initiative">
+            <div class="initiative-title">
                     <span class="main-stat-label">INITIATIVE</span>
                     <span class="main-stat-value">{{ character.initiative }}</span>
+            </div>
           </div>
           <div class="card armor-class">
+            <div class="armor-class-title">
                     <span class="main-stat-label">ARMOR CLASS</span>
-                    <span class="main-stat-value">{{ character.initiative }}</span>
+                    <span class="main-stat-value">{{ character.armor_class }}</span>
+            </div>
           </div>
           <div class="card defenses">
             <div class="card-title">Defenses</div>

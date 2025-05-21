@@ -57,8 +57,9 @@ class Background:
         
         # Apply skill proficiencies
         for skill in proficiencies.get("skills", []):
-            if skill not in character.properties["skills"]:
-                character.properties["skills"][skill] = True
+            skill_lc = skill.lower()
+            if skill_lc not in character.properties["skills"]:
+                character.properties["skills"][skill_lc] = True
         
         # Apply tool proficiencies
         for tool in proficiencies.get("tools", []):

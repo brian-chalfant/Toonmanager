@@ -336,6 +336,7 @@ class Toon:
                 }
                 skill_bonuses = defaultdict(lambda: "+0")
                 for skill, proficient in self.properties['skills'].items():
+                    logger.info(f"Skill: {skill}, Proficient: {proficient}")
                     ability = self._get_skill_ability(skill)
                     bonus = self.get_ability_modifier(ability)
                     if proficient:
@@ -371,6 +372,14 @@ class Toon:
                 passive_perception = 10 + self.get_ability_modifier('wisdom')
                 if self.properties['skills'].get('perception', False):
                     passive_perception += self.properties['proficiency_bonus']
+                # Passive Investigation
+                passive_investigation = 10 + self.get_ability_modifier('intelligence')
+                if self.properties['skills'].get('investigation', False):
+                    passive_investigation += self.properties['proficiency_bonus']
+                # Passive Insight
+                passive_insight = 10 + self.get_ability_modifier('wisdom')
+                if self.properties['skills'].get('insight', False):
+                    passive_insight += self.properties['proficiency_bonus']
                 # Death saves
                 death_saves = self.properties.get('death_saves', {'successes': 0, 'failures': 0})
                 # Metadata
@@ -412,6 +421,8 @@ class Toon:
                         'personality': personality,
                         'death_saves': death_saves,
                         'passive_perception': passive_perception,
+                        'passive_investigation': passive_investigation,
+                        'passive_insight': passive_insight,
                         'metadata': metadata,
                         'spells': {
                             'ability': spell_ability,
@@ -903,7 +914,15 @@ class Toon:
             # Calculate Passive Perception (10 + Wisdom modifier + proficiency if proficient)
             passive_perception = 10 + self.get_ability_modifier('wisdom')
             if self.properties['skills'].get('perception', False):
-                passive_perception += 2 + ((self.properties['level'] - 1) // 4)  # Proficiency bonus calculation
+                passive_perception += self.properties['proficiency_bonus']
+            # Passive Investigation
+            passive_investigation = 10 + self.get_ability_modifier('intelligence')
+            if self.properties['skills'].get('investigation', False):
+                passive_investigation += self.properties['proficiency_bonus']
+            # Passive Insight
+            passive_insight = 10 + self.get_ability_modifier('wisdom')
+            if self.properties['skills'].get('insight', False):
+                passive_insight += self.properties['proficiency_bonus']
             field_data['Passive'] = str(passive_perception)
 
             # Ability scores and modifiers
