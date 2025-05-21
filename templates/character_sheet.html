@@ -1022,6 +1022,69 @@
             flex-direction: row;
             gap: 10px;
         }
+        .spell-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--ttui_parchment-100);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1em;
+        }
+        .spell-table thead th {
+            background: var(--ttui_red-100);
+            color: var(--ttui_red-700);
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            font-size: 1.08rem;
+            font-weight: 700;
+            padding: 8px 6px;
+            border-bottom: 2px solid var(--ttui_red-300);
+            text-align: left;
+        }
+        .spell-table tbody tr {
+            background: #fff;
+            transition: background 0.15s;
+        }
+        .spell-table tbody tr:hover {
+            background: var(--ttui_yellow-50);
+        }
+        .spell-table td {
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            font-size: 1.01rem;
+            color: var(--ttui_grey-900);
+            padding: 7px 6px;
+            border-bottom: 1px solid var(--ttui_parchment-200);
+        }
+        .spell-table tr:last-child td {
+            border-bottom: none;
+        }
+        .spell-table th, .spell-table td {
+            vertical-align: middle;
+        }
+        .spell-table th {
+            border-top: none;
+        }
+        .spell-table th:nth-child(1), .spell-table td:nth-child(1) { /* Name */
+            min-width: 35px;
+            max-width: 40px;
+        }
+        .spell-table th:nth-child(2), .spell-table td:nth-child(2) { /* Time */
+            min-width: 20px;
+            max-width: 25px;
+        }
+        .spell-table th:nth-child(3), .spell-table td:nth-child(3) { /* Range */
+            min-width: 20px;
+            max-width: 25px;
+        }
+        .spell-table th:nth-child(4), .spell-table td:nth-child(4) { /* Hit / DC */
+            min-width: 20px;
+            max-width: 25px;
+        }
+        .spell-table th:nth-child(5), .spell-table td:nth-child(5) { /* Effect */
+            min-width: 330px;
+            max-width: 330px;
+        }
     </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1333,25 +1396,100 @@
                         </div>
                     </div>
                     <!-- Spells Tab Content -->
-                    <div>
+                    <div style="max-height: 600px; overflow-y: auto; padding-right: 1em;">
                         <h3>Spellcasting</h3>
                         {% if character.spells.ability %}
-                        <div>
-                            <strong>Spellcasting Ability:</strong> {{character.spells.ability|title}}<br>
-                            <strong>Spell Save DC:</strong> {{character.spells.save_dc}}<br>
-                            <strong>Spell Attack Bonus:</strong> {{'+' if character.spells.attack_bonus >= 0}}{{character.spells.attack_bonus}}
+                        <div style="display: flex; gap: 2em; align-items: center;">
+                            <div>
+                                <strong>+{{ character.spells.modifier }}</strong><br>
+                                <span style="font-size: 0.9em;">MODIFIER</span>
+                            </div>
+                            <div>
+                                <strong>+{{ character.spells.attack_bonus }}</strong><br>
+                                <span style="font-size: 0.9em;">SPELL ATTACK</span>
+                            </div>
+                            <div>
+                                <strong>{{ character.spells.save_dc }}</strong><br>
+                                <span style="font-size: 0.9em;">SAVE DC</span>
+                            </div>
+                        </div>
+                        <div style="margin: 1em 0;">
+                            <input type="text" placeholder="Search Spell Names, Casting Times, Damage Types, Conditions or Tags" style="width: 60%;">
+                            <button style="margin-left: 1em;">MANAGE SPELLS</button>
                         </div>
                         <div class="box-label" style="margin-top:10px;">Cantrips</div>
                         {% if character.spells.cantrips and character.spells.cantrips|length > 0 %}
-                            {{ character.spells.cantrips|join(', ') }}
+                            <table class="spell-table" style="width:100%; margin-bottom: 1em;">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Time</th>
+                                        <th>Range</th>
+                                        <th>Hit / DC</th>
+                                        <th>Effect</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for spell in character.spells.cantrips %}
+                                    <tr>
+                                        <td>{{ spell.name }}</td>
+                                        <td>{{ spell.casting_time or '' }}</td>
+                                        <td>{{ spell.range or '' }}</td>
+                                        <td>
+                                            {% if spell.save_dc %}DC {{ spell.save_dc }}{% endif %}
+                                            {% if spell.attack_bonus %}+{{ spell.attack_bonus }}{% endif %}
+                                            {% if spell.hit_dc %}{{ spell.hit_dc }}{% endif %}
+                                        </td>
+                                        <td>{{ spell.effect or spell.description or '' }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         {% else %}
                             None
                         {% endif %}
-                        {% for level, slots in character.spells.spell_slots.items() %}
-                        <div class="box-label">Level {{level}} Spell Slots: {{slots}}</div>
+
+                        {% for level in range(1, 10) %}
+                            {% set level_key = 'level_' ~ level %}
+                            {% set spells = character.spells.spells_known | selectattr('level', 'equalto', level) | list %}
+                            {% if spells|length > 0 or character.spells.spell_slots[level_key] %}
+                            <div class="box-label" style="margin-top:1em;">{{ level }}{% if level == 1 %}st{% elif level == 2 %}nd{% elif level == 3 %}rd{% else %}th{% endif %} Level</div>
+                            <div style="margin-bottom: 0.5em;">
+                                {% if character.spells.spell_slots[level_key] %}
+                                    <label style="font-weight: normal;">SLOTS</label>
+                                    {% for i in range(character.spells.spell_slots[level_key]) %}
+                                        <input type="checkbox" disabled>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <table class="spell-table" style="width:100%; margin-bottom: 1em;">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Time</th>
+                                        <th>Range</th>
+                                        <th>Hit / DC</th>
+                                        <th>Effect</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for spell in spells %}
+                                    <tr>
+                                        <td>{{ spell.name }}</td>
+                                        <td>{{ spell.casting_time or '' }}</td>
+                                        <td>{{ spell.range or '' }}</td>
+                                        <td>
+                                            {% if spell.save_dc %}DC {{ spell.save_dc }}{% endif %}
+                                            {% if spell.attack_bonus %}+{{ spell.attack_bonus }}{% endif %}
+                                            {% if spell.hit_dc %}{{ spell.hit_dc }}{% endif %}
+                                        </td>
+                                        <td>{{ spell.effect or spell.description or '' }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
                         {% endfor %}
-                        <div class="box-label">Spells Known</div>
-                        {{character.spells.spells_known|join(', ')}}
                         {% else %}
                         <div>No spellcasting ability.</div>
                         {% endif %}

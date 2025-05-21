@@ -695,55 +695,256 @@ class Toon:
             
         return max_hp
 
-    def add_class(self, class_name: str, level: int):
-        """Add a class level to the character"""
+    def get_available_subclasses(self, class_name: str) -> list:
+        """Get available subclasses for a given class
+        
+        Args:
+            class_name: Name of the class to get subclasses for
+            
+        Returns:
+            List of available subclass names
+        """
         try:
-            if level < 1 or level > 20:
-                raise ValueError("Level must be between 1 and 20")
+            class_data = self._load_data_file("classes", class_name)
+            if "subclasses" in class_data:
+                return [subclass["name"] for subclass in class_data["subclasses"]["options"]]
+            return []
+        except Exception as e:
+            logger.error(f"Failed to get subclasses for {class_name}: {e}")
+            return []
+
+    def set_subclass(self, class_name: str, subclass_name: str):
+        """Set a subclass for a class
+        
+        Args:
+            class_name: Name of the class to set subclass for
+            subclass_name: Name of the subclass to set
+        """
+        try:
+            class_data = self._load_data_file("classes", class_name)
+            if "subclasses" not in class_data:
+                raise ValueError(f"Class {class_name} does not have subclasses")
+            
+            # Find the subclass in the class data
+            subclass_data = None
+            for subclass in class_data["subclasses"]["options"]:
+                if subclass["name"] == subclass_name:
+                    subclass_data = subclass
+                    break
                 
+            if not subclass_data:
+                raise ValueError(f"Invalid subclass {subclass_name} for class {class_name}")
+            
+            # Find the class in the character's classes (case-insensitive)
+            class_entry = None
+            for c in self.properties["classes"]:
+                if c["name"].lower() == class_name.lower():
+                    class_entry = c
+                    break
+                
+            if not class_entry:
+                raise ValueError(f"Character does not have class {class_name}")
+            
+            # Check if character is high enough level for subclass
+            subclass_level = class_data["subclass_level"]
+            if class_entry["level"] < subclass_level:
+                raise ValueError(f"Must be level {subclass_level} to select a subclass for {class_name}")
+            
+            # Set the subclass
+            class_entry["subclass"] = subclass_name
+            
+            # Apply subclass features for current level
+            if "features" in subclass_data:
+                for level, features in subclass_data["features"].items():
+                    if int(level) <= class_entry["level"]:
+                        self.properties["features"].extend(features)
+            
+            logger.info(f"Set subclass {subclass_name} for {class_name}")
+            
+        except Exception as e:
+            logger.error(f"Failed to set subclass {subclass_name} for {class_name}: {e}")
+            raise
+
+    def add_class(self, class_name: str, level: int):
+        """Add a class to the character
+        
+        Args:
+            class_name: Name of the class to add
+            level: Level in the class
+        """
+        try:
             class_data = self._load_data_file("classes", class_name)
             
-            # Create new class entry
-            new_class = {
+            # Add class to class list
+            self.properties["classes"].append({
                 "name": class_data["name"],
-                "level": level,
-                "subclass": None
-            }
+                "level": level
+            })
+            
+            # Update total level
+            self.properties["level"] = sum(c["level"] for c in self.properties["classes"])
             
             # Add hit dice
-            hit_dice = class_data["hit_dice"]
-            self.properties["hit_dice"].extend([hit_dice] * level)
+            hit_die = class_data["hit_dice"]
+            self.properties["hit_dice"].extend([hit_die] * level)
             
-            # Add saving throw proficiencies (only if this is the first class)
-            if not self.properties["classes"]:
-                for save in class_data["saving_throw_proficiencies"]:
+            # Add saving throw proficiencies
+            for save in class_data["saving_throw_proficiencies"]:
+                if save.lower() not in self.properties["saving_throws"]:
                     self.properties["saving_throws"][save.lower()] = True
             
-            # Add weapon and armor proficiencies
-            self.properties["proficiencies"]["weapons"].extend(class_data["weapon_proficiencies"])
+            # Add armor proficiencies
             self.properties["proficiencies"]["armor"].extend(class_data["armor_proficiencies"])
+            
+            # Add weapon proficiencies
+            self.properties["proficiencies"]["weapons"].extend(class_data["weapon_proficiencies"])
+            
+            # Handle skill proficiencies
+            if "skill_proficiencies" in class_data and "choose" in class_data["skill_proficiencies"]:
+                choice_key = f"class_{class_name.lower()}_skills"
+                self.properties["pending_choices"][choice_key] = {
+                    "type": "skill",
+                    "count": class_data["skill_proficiencies"]["choose"],
+                    "options": class_data["skill_proficiencies"]["from"],
+                    "description": f"Choose {class_data['skill_proficiencies']['choose']} skills from your class's skill list"
+                }
+            
+            # Handle starting equipment choices
+            if "starting_equipment" in class_data and "choices" in class_data["starting_equipment"]:
+                for i, choice in enumerate(class_data["starting_equipment"]["choices"]):
+                    choice_key = f"class_{class_name.lower()}_equipment_{i}"
+                    self.properties["pending_choices"][choice_key] = {
+                        "type": "equipment",
+                        "count": choice["choose"],
+                        "options": choice["from"],
+                        "description": f"Choose starting equipment for your {class_data['name']}"
+                    }
             
             # Add class features
             for level_num in range(1, level + 1):
                 if str(level_num) in class_data["features"]:
-                    self.properties["features"].extend(class_data["features"][str(level_num)])
+                    features = class_data["features"][str(level_num)]
+                    for feature in features:
+                        # Handle ability score improvements specifically
+                        if "Ability Score Improvement" in feature.get("name", ""):
+                            choice_key = f"class_{class_name.lower()}_level_{level_num}_asi"
+                            self.properties["pending_choices"][choice_key] = {
+                                "type": "ability_score_improvement",
+                                "count": 2,  # Standard ASI allows two +1s or one +2
+                                "options": list(self.properties["stats"].keys()),
+                                "description": feature.get("description", "Choose which ability scores to improve")
+                            }
+                        # Handle features that require choices
+                        elif "choose" in feature:
+                            choice_key = f"class_{class_name.lower()}_level_{level_num}"
+                            self.properties["pending_choices"][choice_key] = {
+                                "type": feature.get("type", "feature"),
+                                "count": feature["choose"].get("count", 1),
+                                "options": feature["choose"].get("from", []),
+                                "description": feature.get("description", "Choose a feature option")
+                            }
+                        # Handle features that implicitly require choices
+                        elif any(keyword in feature.get("name", "").lower() for keyword in ["choose", "select", "pick"]):
+                            # Extract options from description if available
+                            description = feature.get("description", "")
+                            options = []
+                            if ":" in description:
+                                # Try to parse options from description
+                                options_text = description.split(":", 1)[1].strip()
+                                if "Choose one of the following" in options_text:
+                                    options_text = options_text.split(":", 1)[1].strip()
+                                options = [opt.strip() for opt in options_text.split(".") if opt.strip()]
+                            
+                            choice_key = f"class_{class_name.lower()}_level_{level_num}"
+                            self.properties["pending_choices"][choice_key] = {
+                                "type": "feature",
+                                "count": 1,
+                                "options": options or ["Yes"],  # Default to Yes if no options found
+                                "description": feature.get("description", "Choose a feature option")
+                            }
+                        else:
+                            self.properties["features"].append(feature)
+            
+            # Check if subclass selection is required
+            if "subclasses" in class_data and level >= class_data["subclass_level"]:
+                choice_key = f"subclass_{class_name.lower()}"
+                self.properties["pending_choices"][choice_key] = {
+                    "type": "subclass",
+                    "class": class_data["name"],  # Use the name from class data for consistency
+                    "level": class_data["subclass_level"],
+                    "options": [subclass["name"] for subclass in class_data["subclasses"]["options"]],
+                    "description": f"Choose a {class_data['subclasses']['name']} for your {class_data['name']}"
+                }
             
             # Update spellcasting if applicable
             if "spellcasting" in class_data:
                 self.properties["spells"]["spellcasting_ability"] = class_data["spellcasting"]["ability"]
-                # Add cantrips known if the class has them
-                if "cantrips_known" in class_data["spellcasting"]:
-                    for level_req, count in class_data["spellcasting"]["cantrips_known"].items():
+                
+                # Load spell list for the class
+                try:
+                    spell_list = self._load_data_file("spells", f"{class_name.lower()}_spells")
+                    
+                    # Prepare a merged pending_choices['spells'] dict
+                    pending_spells = self.properties["pending_choices"].get("spells", {})
+                    
+                    # Add cantrips known if the class has them
+                    if "cantrips_known" in class_data["spellcasting"]:
+                        for level_req, count in class_data["spellcasting"]["cantrips_known"].items():
+                            if level >= int(level_req):
+                                # Get available cantrips from spell list
+                                available_cantrips = spell_list.get("cantrips", [])
+                                # Add empty slots for cantrips (they will be filled in by user choice)
+                                self.properties["spells"]["cantrips"] = [{"name": "", "description": ""}] * count
+                                # Merge cantrips into pending_spells
+                                pending_spells["cantrips"] = {
+                                    "count": count,
+                                    "from": [spell["name"] for spell in available_cantrips]
+                                }
+                    
+                    # Handle spells known based on class type
+                    if "spells_known" in class_data["spellcasting"]:
+                        # For classes that know a fixed number of spells (like Ranger)
+                        for level_req, count in class_data["spellcasting"]["spells_known"].items():
+                            if level >= int(level_req):
+                                # Get available spells up to the highest level slot available
+                                available_spells = []
+                                for slot_level in range(1, 10):  # Check levels 1-9
+                                    if str(slot_level) in self.properties["spells"]["spell_slots"]:
+                                        level_key = f"level_{slot_level}"
+                                        if level_key in spell_list:
+                                            available_spells.extend(spell_list[level_key])
+                                # Add empty slots for spells (they will be filled in by user choice)
+                                self.properties["spells"]["spells_known"] = [{"name": "", "description": ""}] * count
+                                # Merge spells_known into pending_spells
+                                pending_spells["spells_known"] = {
+                                    "count": count,
+                                    "from": [spell["name"] for spell in available_spells]
+                                }
+                    elif "spellbook_rules" in class_data["spellcasting"]:
+                        # For classes that use a spellbook (like Wizard)
+                        initial_spells = class_data["spellcasting"]["spellbook_rules"]["initial_spells"]
+                        # Get available 1st level spells
+                        available_spells = spell_list.get("level_1", [])
+                        # Add empty slots for initial spells (they will be filled in by user choice)
+                        self.properties["spells"]["spells_known"] = [{"name": "", "description": ""}] * initial_spells
+                        # Merge spells_known into pending_spells
+                        pending_spells["spells_known"] = {
+                            "count": initial_spells,
+                            "from": [spell["name"] for spell in available_spells]
+                        }
+                    
+                    # Add spell slots
+                    for level_req, slots in class_data["spellcasting"]["spell_slots_per_level"].items():
                         if level >= int(level_req):
-                            self.properties["spells"]["cantrips"] = [""] * count
-                # Add spell slots
-                for level_req, slots in class_data["spellcasting"]["spell_slots_per_level"].items():
-                    if level >= int(level_req):
-                        self.properties["spells"]["spell_slots"].update(slots)
-            
-            # Add the class to the character
-            self.properties["classes"].append(new_class)
-            self.properties["level"] = sum(c["level"] for c in self.properties["classes"])
+                            self.properties["spells"]["spell_slots"].update(slots)
+                    
+                    # Save the merged pending_spells dict
+                    if pending_spells:
+                        self.properties["pending_choices"]["spells"] = pending_spells
+                except Exception as e:
+                    logger.error(f"Failed to load spell list for {class_name}: {e}")
+                    # Continue without spells rather than failing completely
+                    pass
             
             # Update proficiency bonus
             self.properties["proficiency_bonus"] = 2 + ((self.properties["level"] - 1) // 4)
@@ -751,7 +952,7 @@ class Toon:
             # Update maximum hit points
             self.properties["hit_points"]["maximum"] = self._calculate_max_hp()
             
-            logger.info(f"Added class {class_name} (level {level})")
+            logger.info(f"Added class {class_data['name']} (level {level})")
             
         except Exception as e:
             logger.error(f"Failed to add class {class_name}: {e}")

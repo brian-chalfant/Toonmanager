@@ -300,9 +300,9 @@
             }
         }
     },
+    "subclass_level": 2,
     "subclasses": {
         "name": "Arcane Tradition",
-        "level": 2,
         "options": [
             {
                 "name": "School of Abjuration",

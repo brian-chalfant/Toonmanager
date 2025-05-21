@@ -105,6 +105,205 @@ def prompt_personality_choices(background: Background) -> Dict:
     
     return choices
 
+def handle_pending_choices(toon: Toon):
+    """Handle any pending choices for the character
+    
+    Args:
+        toon: The character to handle choices for
+    """
+    while toon.has_pending_choices():
+        pending = toon.get_pending_choices()
+        
+        # Handle subclass choices
+        subclass_choices = {k: v for k, v in pending.items() if k.startswith("subclass_")}
+        for choice_key, choice_data in subclass_choices.items():
+            print(f"\n{choice_data['description']}")
+            subclass = prompt_user("Select subclass", choice_data["options"])
+            toon.set_subclass(choice_data["class"], subclass)
+            del toon.properties["pending_choices"][choice_key]
+        
+        # Handle class feature choices
+        class_choices = {k: v for k, v in pending.items() if k.startswith("class_")}
+        for choice_key, choice_data in class_choices.items():
+            print(f"\n{choice_data.get('description', 'Choose a feature option:')}")
+            
+            if choice_data["type"] == "ability_score_improvement":
+                print("\nYou can either:")
+                print("1. Increase one ability score by 2")
+                print("2. Increase two ability scores by 1")
+                choice = prompt_user("Choose an option", ["One ability +2", "Two abilities +1"])
+                
+                if choice == "One ability +2":
+                    ability = prompt_user("Select ability to increase by 2", choice_data["options"])
+                    toon.properties["stats"][ability.lower()] += 2
+                else:  # Two abilities +1
+                    chosen_abilities = []
+                    for i in range(2):
+                        available = [a for a in choice_data["options"] if a not in chosen_abilities]
+                        ability = prompt_user(f"Select ability {i+1}/2 to increase by 1", available)
+                        chosen_abilities.append(ability)
+                        toon.properties["stats"][ability.lower()] += 1
+            
+            elif choice_data["type"] == "skill":
+                # Handle multiple skill choices
+                chosen_skills = []
+                for i in range(choice_data["count"]):
+                    available = [s for s in choice_data["options"] if s.lower() not in chosen_skills]
+                    skill = prompt_user(f"Select skill {i+1}/{choice_data['count']}", available)
+                    chosen_skills.append(skill.lower())
+                    toon.properties["skills"][skill.lower()] = True
+            
+            elif choice_data["type"] == "equipment":
+                # Handle equipment choices
+                if isinstance(choice_data["options"][0], list):
+                    # Handle equipment packages (lists of items)
+                    print("\nAvailable equipment packages:")
+                    for i, package in enumerate(choice_data["options"], 1):
+                        print(f"{i}. {', '.join(package)}")
+                    choice = prompt_user(f"Select equipment package (1-{len(choice_data['options'])})", 
+                                      [str(i) for i in range(1, len(choice_data["options"]) + 1)])
+                    package = choice_data["options"][int(choice) - 1]
+                    for item in package:
+                        toon.properties["equipment"].append({
+                            "item": item,
+                            "quantity": 1,
+                            "description": ""
+                        })
+                else:
+                    # Handle single item choices
+                    item = prompt_user("Select equipment", choice_data["options"])
+                    toon.properties["equipment"].append({
+                        "item": item,
+                        "quantity": 1,
+                        "description": ""
+                    })
+            
+            elif choice_data["type"] == "fighting_style":
+                style = prompt_user("Select fighting style", choice_data["options"])
+                toon.properties["features"].append({
+                    "name": f"Fighting Style: {style}",
+                    "description": choice_data["options"][style]
+                })
+            
+            elif choice_data["type"] == "feature":
+                # Handle other feature choices
+                if len(choice_data["options"]) == 1 and choice_data["options"][0] == "Yes":
+                    # Simple yes/no choice
+                    choice = prompt_user("Would you like to take this feature?", ["Yes", "No"])
+                    if choice == "Yes":
+                        toon.properties["features"].append({
+                            "name": choice_data.get("name", "Class Feature"),
+                            "description": choice_data["description"]
+                        })
+                else:
+                    # Multiple choice feature
+                    choice = prompt_user("Select feature option", choice_data["options"])
+                    toon.properties["features"].append({
+                        "name": choice,
+                        "description": choice_data["description"]
+                    })
+            
+            del toon.properties["pending_choices"][choice_key]
+        
+        # Handle ability score choices from race
+        if "ability_scores" in pending:
+            print("\nChoose ability scores to increase:")
+            ability_choice = pending["ability_scores"]
+            chosen_abilities = []
+            for i in range(ability_choice["count"]):
+                available = [a for a in ability_choice["from"] if a not in chosen_abilities]
+                ability = prompt_user(f"Select ability {i+1}/{ability_choice['count']} to increase by {ability_choice['bonus']}", available)
+                chosen_abilities.append(ability)
+                toon.properties["stats"][ability.lower()] += ability_choice["bonus"]
+            del toon.properties["pending_choices"]["ability_scores"]
+        
+        # Handle language choices
+        if "languages" in pending:
+            print("\nSelect languages:")
+            languages = ["Common", "Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", 
+                       "Halfling", "Orc", "Abyssal", "Celestial", "Draconic", 
+                       "Deep Speech", "Infernal", "Primordial", "Sylvan", "Undercommon"]
+            lang_count = pending["languages"]["count"]
+            chosen_languages = []
+            for i in range(lang_count):
+                lang = prompt_user(f"Select language {i+1}/{lang_count}", 
+                                 [l for l in languages if l not in chosen_languages])
+                chosen_languages.append(lang)
+                toon.properties["proficiencies"]["languages"].append(lang)
+            del toon.properties["pending_choices"]["languages"]
+            
+        # Handle spell choices
+        if "spells" in pending:
+            spell_choice = pending["spells"]
+            
+            # Load the spell list for the class
+            class_name = None
+            for class_info in toon.properties["classes"]:
+                if "spellcasting" in toon._load_data_file("classes", class_info["name"].lower()):
+                    class_name = class_info["name"].lower()
+                    break
+            
+            if class_name:
+                try:
+                    spell_list = toon._load_data_file("spells", f"{class_name}_spells")
+                    
+                    # Handle cantrips if needed
+                    if "cantrips" in spell_choice and spell_choice["cantrips"]:
+                        print("\nSelect cantrips:")
+                        cantrip_count = spell_choice["cantrips"]["count"]
+                        available_cantrips = spell_choice["cantrips"]["from"]
+                        chosen_cantrips = []
+                        for i in range(cantrip_count):
+                            cantrip_name = prompt_user(f"Select cantrip {i+1}/{cantrip_count}", 
+                                                    [c for c in available_cantrips if c not in [c["name"] for c in chosen_cantrips]])
+                            # Find the full cantrip info from the spell list
+                            cantrip_info = next((c for c in spell_list["cantrips"] if c["name"] == cantrip_name), None)
+                            if cantrip_info:
+                                cantrip_info = dict(cantrip_info)  # Make a copy
+                                cantrip_info["level"] = 0
+                                chosen_cantrips.append(cantrip_info)
+                            else:
+                                logger.error(f"Could not find cantrip info for {cantrip_name}")
+                                chosen_cantrips.append({"name": cantrip_name, "description": "", "level": 0})
+                        # Update cantrips in character properties
+                        toon.properties["spells"]["cantrips"] = chosen_cantrips
+                    
+                    # Handle spells if needed
+                    if "spells_known" in spell_choice and spell_choice["spells_known"]:
+                        print("\nSelect spells:")
+                        spell_count = spell_choice["spells_known"]["count"]
+                        available_spells = spell_choice["spells_known"]["from"]
+                        chosen_spells = []
+                        for i in range(spell_count):
+                            spell_name = prompt_user(f"Select spell {i+1}/{spell_count}", 
+                                                  [s for s in available_spells if s not in [s["name"] for s in chosen_spells]])
+                            # Find the full spell info from the spell list
+                            spell_info = None
+                            for level in range(1, 10):  # Check levels 1-9
+                                level_key = f"level_{level}"
+                                if level_key in spell_list:
+                                    spell_info = next((s for s in spell_list[level_key] if s["name"] == spell_name), None)
+                                    if spell_info:
+                                        spell_info = dict(spell_info)  # Make a copy
+                                        spell_info["level"] = level
+                                        chosen_spells.append(spell_info)
+                                        break
+                            if not spell_info:
+                                logger.error(f"Could not find spell info for {spell_name}")
+                                chosen_spells.append({"name": spell_name, "description": "", "level": None})
+                        # Update spells known in character properties
+                        toon.properties["spells"]["spells_known"] = chosen_spells
+                    
+                except Exception as e:
+                    logger.error(f"Failed to load spell list: {e}")
+                    # Fall back to storing just the names if we can't load the spell list
+                    if "cantrips" in spell_choice and spell_choice["cantrips"]:
+                        toon.properties["spells"]["cantrips"] = [{"name": c, "description": "", "level": 0} for c in chosen_cantrips]
+                    if "spells_known" in spell_choice and spell_choice["spells_known"]:
+                        toon.properties["spells"]["spells_known"] = [{"name": s, "description": "", "level": None} for s in chosen_spells]
+            
+            del toon.properties["pending_choices"]["spells"]
+
 def interactive_create_character():
     """Interactive character creation"""
     try:
@@ -126,38 +325,8 @@ def interactive_create_character():
         
         toon.set_race(race, subrace)
         
-        # Handle pending choices from race selection
-        pending = toon.get_pending_choices()
-        if "ability_scores" in pending:
-            print("\nChoose ability scores to increase:")
-            ability_choice = pending["ability_scores"]
-            chosen_abilities = []
-            for i in range(ability_choice["count"]):
-                available = [a for a in ability_choice["from"] if a not in chosen_abilities]
-                ability = prompt_user(f"Select ability {i+1}/{ability_choice['count']} to increase by {ability_choice['bonus']}", available)
-                chosen_abilities.append(ability)
-                toon.properties["stats"][ability.lower()] += ability_choice["bonus"]
-            # Remove the pending choice once handled
-            del toon.properties["pending_choices"]["ability_scores"]
-        
-        # Handle skill proficiency choice for Variant Human
-        if any(trait.get("name") == "Skills" for trait in toon.properties.get("traits", [])):
-            skill_choices = [
-                "acrobatics", "animal handling", "arcana", "athletics",
-                "deception", "history", "insight", "intimidation",
-                "investigation", "medicine", "nature", "perception",
-                "performance", "persuasion", "religion", "sleight of hand",
-                "stealth", "survival"
-            ]
-            skill = prompt_user("Choose a skill proficiency", skill_choices)
-            if "skills" not in toon.properties:
-                toon.properties["skills"] = {}
-            toon.properties["skills"][skill] = True
-        
-        # Handle feat choice for Variant Human
-        if any(trait.get("name") == "Feat" for trait in toon.properties.get("traits", [])):
-            print("\nNote: Feat selection will be implemented in a future update")
-            # TODO: Implement feat selection once feat data is available
+        # Handle any pending choices from race selection
+        handle_pending_choices(toon)
         
         # Set ability scores
         print("\nEnter ability scores (8-20):")
@@ -190,6 +359,9 @@ def interactive_create_character():
         
         toon.add_class(class_name, level)
         
+        # Handle any pending choices from class selection
+        handle_pending_choices(toon)
+        
         # Select background
         backgrounds = get_available_backgrounds()
         if backgrounds:
@@ -203,20 +375,8 @@ def interactive_create_character():
             # Apply background with choices
             toon.set_background(background_name, choices)
             
-            # Handle any pending choices (like languages)
-            pending = toon.get_pending_choices()
-            if "languages" in pending:
-                print("\nSelect languages:")
-                languages = ["Common", "Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", 
-                           "Halfling", "Orc", "Abyssal", "Celestial", "Draconic", 
-                           "Deep Speech", "Infernal", "Primordial", "Sylvan", "Undercommon"]
-                lang_count = pending["languages"]["count"]
-                chosen_languages = []
-                for i in range(lang_count):
-                    lang = prompt_user(f"Select language {i+1}/{lang_count}", 
-                                     [l for l in languages if l not in chosen_languages])
-                    chosen_languages.append(lang)
-                    toon.properties["proficiencies"]["languages"].extend(chosen_languages)
+            # Handle any pending choices from background
+            handle_pending_choices(toon)
         
         # Save the character
         filename = toon.save()
@@ -284,6 +444,10 @@ def interactive_load_character():
                     print("Please enter a valid number")
             
             toon.add_class(class_name, level)
+            
+            # Handle any pending choices from leveling up
+            handle_pending_choices(toon)
+            
             toon.save()
             print("Character updated and saved")
         
@@ -336,39 +500,9 @@ def create_character(args):
         toon.set_race(args.race, args.subrace)
         
         # Handle pending choices from race selection
-        pending = toon.get_pending_choices()
-        if "ability_scores" in pending:
-            print("\nChoose ability scores to increase:")
-            ability_choice = pending["ability_scores"]
-            chosen_abilities = []
-            for i in range(ability_choice["count"]):
-                available = [a for a in ability_choice["from"] if a not in chosen_abilities]
-                ability = prompt_user(f"Select ability {i+1}/{ability_choice['count']} to increase by {ability_choice['bonus']}", available)
-                chosen_abilities.append(ability)
-                toon.properties["stats"][ability.lower()] += ability_choice["bonus"]
-            # Remove the pending choice once handled
-            del toon.properties["pending_choices"]["ability_scores"]
+        handle_pending_choices(toon)
         
-        # Handle skill proficiency choice for Variant Human
-        if any(trait.get("name") == "Skills" for trait in toon.properties.get("traits", [])):
-            skill_choices = [
-                "acrobatics", "animal handling", "arcana", "athletics",
-                "deception", "history", "insight", "intimidation",
-                "investigation", "medicine", "nature", "perception",
-                "performance", "persuasion", "religion", "sleight of hand",
-                "stealth", "survival"
-            ]
-            skill = prompt_user("Choose a skill proficiency", skill_choices)
-            if "skills" not in toon.properties:
-                toon.properties["skills"] = {}
-            toon.properties["skills"][skill] = True
-        
-        # Handle feat choice for Variant Human
-        if any(trait.get("name") == "Feat" for trait in toon.properties.get("traits", [])):
-            print("\nNote: Feat selection will be implemented in a future update")
-            # TODO: Implement feat selection once feat data is available
-        
-        # Set ability scores if provided
+        # Set ability scores
         if args.abilities:
             try:
                 scores = json.loads(args.abilities)

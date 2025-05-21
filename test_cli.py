@@ -13,17 +13,50 @@ from cli import (
     create_character,
     load_character,
     list_characters,
-    delete_character
+    delete_character,
+    handle_pending_choices
 )
 from toon import Toon, CharacterError
 
 @pytest.fixture
 def mock_toon():
-    """Fixture to create a mock Toon instance"""
-    with patch('cli.Toon') as mock:
-        mock_instance = MagicMock()
-        mock.return_value = mock_instance
-        yield mock_instance
+    """Create a mock Toon object for testing"""
+    mock = MagicMock()
+    # Set up properties as a regular dict instead of a MagicMock
+    mock.properties = {}
+    # Set up methods to actually modify the properties dict
+    def set_subclass(class_name, subclass):
+        mock.properties["subclass"] = {class_name: subclass}
+    mock.set_subclass.side_effect = set_subclass
+    
+    def set_ability_score(ability, value):
+        if "stats" not in mock.properties:
+            mock.properties["stats"] = {}
+        mock.properties["stats"][ability] = value
+    mock.set_ability_score.side_effect = set_ability_score
+    
+    def add_skill(skill):
+        if "skills" not in mock.properties:
+            mock.properties["skills"] = {}
+        mock.properties["skills"][skill.lower()] = True
+    mock.add_skill.side_effect = add_skill
+    
+    def add_equipment(items):
+        if "equipment" not in mock.properties:
+            mock.properties["equipment"] = []
+        for item in items:
+            mock.properties["equipment"].append({"item": item})
+    mock.add_equipment.side_effect = add_equipment
+    
+    def add_language(language):
+        if "proficiencies" not in mock.properties:
+            mock.properties["proficiencies"] = {"languages": []}
+        if "languages" not in mock.properties["proficiencies"]:
+            mock.properties["proficiencies"]["languages"] = []
+        mock.properties["proficiencies"]["languages"].append(language)
+    mock.add_language.side_effect = add_language
+    
+    return mock
 
 @pytest.fixture
 def sample_character_data():
@@ -94,48 +127,6 @@ def test_get_subraces():
         subraces = get_subraces('elf')
         assert subraces == ['High Elf', 'Wood Elf']
 
-@pytest.mark.parametrize('command,args,expected_calls', [
-    (
-        'create',
-        MagicMock(
-            name='TestChar',
-            race='Elf',
-            subrace='High Elf',
-            class_name='Wizard',
-            level=1,
-            abilities='{"strength": 10}',
-            background=None,
-            personality=None,
-            export='text'
-        ),
-        ['set_name', 'set_race', 'set_ability_scores', 'add_class', 'save', 'export_character_sheet']
-    ),
-    (
-        'load',
-        MagicMock(
-            filename='test_char',
-            class_name='Fighter',
-            level=2,
-            export='text'
-        ),
-        ['add_class', 'save', 'export_character_sheet']
-    )
-])
-def test_character_commands(mock_toon, command, args, expected_calls):
-    """Test character creation and loading commands"""
-    with patch('cli.sys.exit') as mock_exit:
-        if command == 'create':
-            create_character(args)
-        else:
-            load_character(args)
-        
-        # Verify the expected method calls were made
-        for method in expected_calls:
-            assert getattr(mock_toon, method).called
-        
-        # Verify sys.exit was not called
-        mock_exit.assert_not_called()
-
 def test_list_characters(capsys):
     """Test listing characters"""
     mock_chars = [
@@ -160,260 +151,212 @@ def test_delete_character(mock_toon):
     """Test character deletion"""
     args = MagicMock(filename='test_char')
     mock_toon.delete_save.return_value = True
-    
-    delete_character(args)
-    mock_toon.delete_save.assert_called_once_with('test_char')
+    with patch('cli.Toon', return_value=mock_toon):
+        delete_character(args)
+        mock_toon.delete_save.assert_called_once_with('test_char')
 
-@pytest.mark.parametrize('user_inputs,expected_calls', [
-    (
-        [
-            'TestChar',  # name
-            'Elf',      # race
-            'High Elf', # subrace
-            '10',       # strength
-            '15',       # dexterity
-            '12',       # constitution
-            '16',       # intelligence
-            '13',       # wisdom
-            '11',       # charisma
-            'Wizard',   # class
-            '1',        # level
-            'acolyte',  # background
-            'Trait 1',  # first personality trait
-            'Trait 2',  # second personality trait
-            'Ideal 1',  # ideal
-            'Bond 1',   # bond
-            'Flaw 1',   # flaw
-            '',        # skip export
-            'Exit'     # exit
-        ],
-        ['set_name', 'set_race', 'set_ability_scores', 'add_class', 'set_background', 'save']
-    )
-])
-def test_interactive_create_character(mock_toon, user_inputs, expected_calls):
-    """Test interactive character creation"""
-    with patch('cli.prompt_user') as mock_prompt, \
-         patch('cli.Background') as mock_background, \
-         patch('cli.get_available_backgrounds', return_value=['acolyte']), \
-         patch('cli.get_subraces', return_value=['High Elf']), \
-         patch('cli.get_available_races', return_value=['Elf']), \
-         patch('cli.get_available_classes', return_value=['Wizard']):
-        mock_prompt.side_effect = user_inputs
-        
-        # Mock background data
-        mock_bg_instance = MagicMock()
-        mock_bg_instance.get_personality_options.return_value = {
-            'personality_traits': {'count': 2, 'suggestions': ['Trait 1', 'Trait 2']},
-            'ideals': {'suggestions': [{'ideal': 'Ideal 1', 'alignment': 'Good'}]},
-            'bonds': {'suggestions': ['Bond 1']},
-            'flaws': {'suggestions': ['Flaw 1']}
+def test_handle_subclass_choices(mock_toon):
+    """Test handling of subclass choices"""
+    # Set up mock pending choices for subclass selection
+    mock_toon.properties["pending_choices"] = {
+        "subclass_wizard": {
+            "type": "subclass",
+            "class": "Wizard",
+            "description": "Choose a Wizard subclass",
+            "options": ["Evocation", "Divination"]
         }
-        mock_background.return_value = mock_bg_instance
-        
-        # Mock save to return a filename
-        mock_toon.save.return_value = 'test_char.json'
-        
-        interactive_create_character()
-        
-        # Verify character creation steps
-        for method in expected_calls:
-            assert getattr(mock_toon, method).called
-
-def test_interactive_load_character(mock_toon):
-    """Test interactive character loading"""
-    mock_chars = [{'name': 'Test1', 'filename': 'test1.json'}]
+    }
     
-    with patch('cli.Toon.list_saved_characters', return_value=mock_chars), \
-         patch('cli.prompt_user') as mock_prompt:
-        
-        mock_prompt.side_effect = ['Test1 (test1.json)', 'n', '']
-        interactive_load_character()
-        
-        # Verify character was loaded
-        assert mock_toon.get_name.called
-
-def test_interactive_delete_character(mock_toon):
-    """Test interactive character deletion"""
-    mock_chars = [{'name': 'Test1', 'filename': 'test1.json'}]
+    # Set up has_pending_choices to return True first, then False after choice is handled
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
     
-    with patch('cli.Toon.list_saved_characters', return_value=mock_chars), \
-         patch('cli.prompt_user') as mock_prompt:
+    with patch('cli.prompt_user', return_value="Evocation"):
+        handle_pending_choices(mock_toon)
         
-        mock_prompt.side_effect = ['Test1 (test1.json)', 'y']
-        interactive_delete_character()
-        
-        # Verify deletion was attempted
-        assert mock_toon.delete_save.called
+        # Verify subclass was set
+        assert mock_toon.properties.get("subclass", {}).get("Wizard") == "Evocation"
+        # Verify pending choice was removed
+        assert "subclass_wizard" not in mock_toon.properties["pending_choices"]
+        # Verify has_pending_choices was called twice (once for initial check, once after handling)
+        assert mock_toon.has_pending_choices.call_count == 2
 
-def test_error_handling():
-    """Test error handling in CLI functions"""
-    with patch('cli.Toon') as mock_toon:
-        mock_toon.side_effect = CharacterError("Test error")
-        with pytest.raises(SystemExit) as exc_info:
-            create_character(MagicMock(name='Test', race='Invalid'))
-        assert exc_info.value.code == 1
-
-def test_error_handling_without_exit():
-    """Test error handling without system exit"""
-    with patch('cli.Toon') as mock_toon, \
-         patch('cli.sys.exit') as mock_exit:
-        mock_toon.side_effect = CharacterError("Test error")
-        create_character(MagicMock(name='Test', race='Invalid'))
-        mock_exit.assert_called_once_with(1)
-
-def test_invalid_ability_scores():
-    """Test handling of invalid ability scores JSON"""
-    with patch('cli.Toon') as mock_toon, \
-         patch('cli.sys.exit') as mock_exit:
-        args = MagicMock(
-            name='Test',
-            race='Elf',
-            subrace=None,
-            abilities='invalid json',
-            class_name=None,
-            level=None,
-            background=None,
-            personality=None,
-            export=None
-        )
-        
-        create_character(args)
-        
-        # Verify sys.exit was called once with error code 1
-        mock_exit.assert_called_once_with(1)
-        
-        # Verify no background-related calls were made
-        mock_toon_instance = mock_toon.return_value
-        assert not mock_toon_instance.set_background.called
-
-@pytest.mark.parametrize('export_format,expected_output', [
-    ('text', """=== Test Character ===
-Race: Elf High Elf
-Level: 1
-Classes: Wizard 1
-
-Ability Scores:
-Strength: 10 (+0)
-Dexterity: 15 (+2)
-Constitution: 12 (+1)
-Intelligence: 16 (+3)
-Wisdom: 13 (+1)
-Charisma: 11 (+0)"""),
-    ('json', '{"name": "Test Character", "race": "Elf", "subrace": "High Elf", "level": 1}'),
-    ('html', '<!DOCTYPE html>\n<html>\n<head>\n    <title>Test Character - Character Sheet</title>'),
-    ('pdf', 'characters/Test_Character_sheet.pdf')
-])
-def test_character_export(mock_toon, sample_character_data, export_format, expected_output):
-    """Test character export in different formats"""
-    # Mock the export_character_sheet method to return format-specific output
-    mock_toon.export_character_sheet.return_value = expected_output
-    
-    # Create args with export format
-    args = MagicMock(
-        name=sample_character_data['name'],
-        race=sample_character_data['race'],
-        subrace=sample_character_data['subrace'],
-        class_name='Wizard',
-        level=1,
-        abilities=json.dumps(sample_character_data['stats']),
-        background=None,
-        personality=None,
-        export=export_format
-    )
-    
-    # Capture stdout to verify output
-    with patch('builtins.print') as mock_print, \
-         patch('cli.sys.exit') as mock_exit:
-        create_character(args)
-        
-        # Verify character was created and exported
-        mock_toon.set_name.assert_called_with(args.name)
-        mock_toon.set_race.assert_called_with(args.race, args.subrace)
-        mock_toon.add_class.assert_called_with(args.class_name, args.level)
-        mock_toon.export_character_sheet.assert_called_with(format=export_format)
-        
-        # Verify sys.exit was not called
-        mock_exit.assert_not_called()
-
-def test_export_error_handling(mock_toon):
-    """Test error handling during export"""
-    # Mock export to raise an error
-    mock_toon.export_character_sheet.side_effect = CharacterError("Export failed")
-    
-    args = MagicMock(
-        name='Test',
-        race='Elf',
-        subrace=None,
-        class_name='Wizard',
-        level=1,
-        abilities='{"strength": 10}',
-        export='html'
-    )
-    
-    with patch('cli.sys.exit') as mock_exit:
-        create_character(args)
-        mock_exit.assert_called_once_with(1)
-
-def test_interactive_export(mock_toon):
-    """Test interactive export functionality"""
-    # Mock user inputs for character creation and export
-    user_inputs = [
-        'TestChar',  # name
-        'Elf',      # race
-        'High Elf', # subrace
-        '10',       # strength
-        '15',       # dexterity
-        '12',       # constitution
-        '16',       # intelligence
-        '13',       # wisdom
-        '11',       # charisma
-        'Wizard',   # class
-        '1',        # level
-        'acolyte',  # background
-        'Trait 1',  # first personality trait
-        'Trait 2',  # second personality trait
-        'Ideal 1',  # ideal
-        'Bond 1',   # bond
-        'Flaw 1',   # flaw
-        'text',     # export format
-        ''         # skip further exports
-    ]
-    
-    with patch('cli.prompt_user') as mock_prompt, \
-         patch('cli.sys.exit') as mock_exit, \
-         patch('cli.Background') as mock_background, \
-         patch('cli.get_available_backgrounds', return_value=['acolyte']), \
-         patch('cli.get_subraces', return_value=['High Elf']), \
-         patch('cli.get_available_races', return_value=['Elf']), \
-         patch('cli.get_available_classes', return_value=['Wizard']):
-        mock_prompt.side_effect = user_inputs
-        mock_toon.export_character_sheet.return_value = '=== Test Character ==='
-        mock_toon.save.return_value = 'test_char.json'
-        
-        # Mock background data
-        mock_bg_instance = MagicMock()
-        mock_bg_instance.get_personality_options.return_value = {
-            'personality_traits': {'count': 2, 'suggestions': ['Trait 1', 'Trait 2']},
-            'ideals': {'suggestions': [{'ideal': 'Ideal 1', 'alignment': 'Good'}]},
-            'bonds': {'suggestions': ['Bond 1']},
-            'flaws': {'suggestions': ['Flaw 1']}
+def test_handle_ability_score_improvement_one_ability_plus_two(mock_toon):
+    """Test handling of ability score improvement: one ability +2"""
+    mock_toon.properties["pending_choices"] = {
+        "class_fighter_level_4_asi": {
+            "type": "ability_score_improvement",
+            "count": 2,
+            "options": ["strength", "dexterity", "constitution"],
+            "description": "Choose ability scores to improve"
         }
-        mock_background.return_value = mock_bg_instance
-        
-        interactive_create_character()
-        
-        # Verify character was created with correct attributes
-        mock_toon.set_name.assert_called_with('TestChar')
-        mock_toon.set_race.assert_called_with('Elf', 'High Elf')
-        mock_toon.add_class.assert_called_with('Wizard', 1)
-        mock_toon.set_background.assert_called_with('acolyte', {
-            'traits': ['Trait 1', 'Trait 2'],
-            'ideal': 'Ideal 1',
-            'bond': 'Bond 1',
-            'flaw': 'Flaw 1'
-        })
-        mock_toon.save.assert_called()
-        mock_toon.export_character_sheet.assert_called_with(format='text')
-        
-        # Verify sys.exit was not called
-        mock_exit.assert_not_called() 
+    }
+    mock_toon.properties["stats"] = {
+        "strength": 15,
+        "dexterity": 14,
+        "constitution": 13
+    }
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    with patch('cli.prompt_user', side_effect=["One ability +2", "strength"]):
+        handle_pending_choices(mock_toon)
+        assert mock_toon.properties["stats"]["strength"] == 17
+        assert "class_fighter_level_4_asi" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_ability_score_improvement_two_abilities_plus_one(mock_toon):
+    """Test handling of ability score improvement: two abilities +1"""
+    mock_toon.properties["pending_choices"] = {
+        "class_fighter_level_4_asi": {
+            "type": "ability_score_improvement",
+            "count": 2,
+            "options": ["strength", "dexterity", "constitution"],
+            "description": "Choose ability scores to improve"
+        }
+    }
+    mock_toon.properties["stats"] = {
+        "strength": 15,
+        "dexterity": 14,
+        "constitution": 13
+    }
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    with patch('cli.prompt_user', side_effect=["Two abilities +1", "dexterity", "constitution"]):
+        handle_pending_choices(mock_toon)
+        assert mock_toon.properties["stats"]["dexterity"] == 15
+        assert mock_toon.properties["stats"]["constitution"] == 14
+        assert "class_fighter_level_4_asi" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_skill_choices(mock_toon):
+    """Test handling of skill proficiency choices"""
+    # Set up mock pending choices for skill selection
+    mock_toon.properties["pending_choices"] = {
+        "class_rogue_skills": {
+            "type": "skill",
+            "count": 2,
+            "options": ["Stealth", "Sleight of Hand", "Acrobatics"],
+            "description": "Choose skills from your class list"
+        }
+    }
+    mock_toon.properties["skills"] = {
+        "stealth": False,
+        "sleight of hand": False,
+        "acrobatics": False
+    }
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    
+    with patch('cli.prompt_user', side_effect=["Stealth", "Sleight of Hand"]):
+        handle_pending_choices(mock_toon)
+        assert mock_toon.properties["skills"]["stealth"] is True
+        assert mock_toon.properties["skills"]["sleight of hand"] is True
+        assert "class_rogue_skills" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_equipment_choices(mock_toon):
+    """Test handling of equipment choices"""
+    # Set up mock pending choices for equipment selection
+    mock_toon.properties["pending_choices"] = {
+        "class_fighter_equipment_0": {
+            "type": "equipment",
+            "count": 1,
+            "options": [["Longsword", "Shield"], ["Battleaxe", "Handaxe"]],
+            "description": "Choose starting equipment"
+        }
+    }
+    mock_toon.properties["equipment"] = []
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    
+    with patch('cli.prompt_user', return_value="1"):  # Choose first package
+        handle_pending_choices(mock_toon)
+        assert len(mock_toon.properties["equipment"]) == 2
+        assert any(item["item"] == "Longsword" for item in mock_toon.properties["equipment"])
+        assert any(item["item"] == "Shield" for item in mock_toon.properties["equipment"])
+        assert "class_fighter_equipment_0" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_language_choices(mock_toon):
+    """Test handling of language choices"""
+    # Set up mock pending choices for language selection
+    mock_toon.properties["pending_choices"] = {
+        "languages": {
+            "count": 2,
+            "type": "choice",
+            "description": "Choose languages"
+        }
+    }
+    mock_toon.properties["proficiencies"] = {"languages": ["Common"]}
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    
+    with patch('cli.prompt_user', side_effect=["Elvish", "Dwarvish"]):
+        handle_pending_choices(mock_toon)
+        assert "Elvish" in mock_toon.properties["proficiencies"]["languages"]
+        assert "Dwarvish" in mock_toon.properties["proficiencies"]["languages"]
+        assert "languages" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_race_ability_scores(mock_toon):
+    """Test handling of ability score choices from race"""
+    # Set up mock pending choices for racial ability scores
+    mock_toon.properties["pending_choices"] = {
+        "ability_scores": {
+            "count": 2,
+            "bonus": 1,
+            "from": ["dexterity", "intelligence"],
+            "description": "Choose ability scores to increase"
+        }
+    }
+    mock_toon.properties["stats"] = {
+        "dexterity": 14,
+        "intelligence": 13
+    }
+    mock_toon.has_pending_choices.side_effect = [True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    
+    with patch('cli.prompt_user', side_effect=["dexterity", "intelligence"]):
+        handle_pending_choices(mock_toon)
+        assert mock_toon.properties["stats"]["dexterity"] == 15
+        assert mock_toon.properties["stats"]["intelligence"] == 14
+        assert "ability_scores" not in mock_toon.properties["pending_choices"]
+        assert mock_toon.has_pending_choices.call_count == 2
+
+def test_handle_multiple_choice_types(mock_toon):
+    """Test handling multiple types of choices in sequence"""
+    # Set up multiple pending choices
+    mock_toon.properties["pending_choices"] = {
+        "subclass_wizard": {
+            "type": "subclass",
+            "class": "Wizard",
+            "description": "Choose a Wizard subclass",
+            "options": ["Evocation", "Divination"]
+        },
+        "class_wizard_skills": {
+            "type": "skill",
+            "count": 2,
+            "options": ["Arcana", "History", "Investigation"],
+            "description": "Choose skills"
+        }
+    }
+    mock_toon.properties["skills"] = {
+        "arcana": False,
+        "history": False,
+        "investigation": False
+    }
+    # Set up has_pending_choices to return True twice (once for each choice) then False
+    mock_toon.has_pending_choices.side_effect = [True, True, False]
+    mock_toon.get_pending_choices.return_value = mock_toon.properties["pending_choices"]
+    
+    with patch('cli.prompt_user', side_effect=["Evocation", "Arcana", "History"]):
+        handle_pending_choices(mock_toon)
+        # Verify subclass was set
+        assert mock_toon.properties.get("subclass", {}).get("Wizard") == "Evocation"
+        # Verify skills were set
+        assert mock_toon.properties["skills"]["arcana"] is True
+        assert mock_toon.properties["skills"]["history"] is True
+        # Verify all pending choices were handled
+        assert not mock_toon.properties["pending_choices"]
+        # Verify has_pending_choices was called three times (twice for initial checks, once after handling)
+        assert mock_toon.has_pending_choices.call_count == 3

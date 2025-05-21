@@ -58,8 +58,7 @@ class Background:
         # Apply skill proficiencies
         for skill in proficiencies.get("skills", []):
             skill_lc = skill.lower()
-            if skill_lc not in character.properties["skills"]:
-                character.properties["skills"][skill_lc] = True
+            character.properties["skills"][skill_lc] = True  # Always set to True if granted by background
         
         # Apply tool proficiencies
         for tool in proficiencies.get("tools", []):

@@ -107,8 +107,8 @@ def test_apply_proficiencies(test_background_data, test_character):
     background._apply_proficiencies(test_character)
     
     # Check skill proficiencies
-    assert test_character.properties["skills"]["Stealth"] is True
-    assert test_character.properties["skills"]["Deception"] is True
+    assert test_character.properties["skills"]["stealth"] is True
+    assert test_character.properties["skills"]["deception"] is True
     
     # Check tool proficiencies
     assert "Thieves' Tools" in test_character.properties["proficiencies"]["tools"]
@@ -162,7 +162,7 @@ def test_apply_to_character(test_background_data, test_character):
     assert test_character.properties["background"] == "test"
     
     # Check proficiencies were applied
-    assert test_character.properties["skills"]["Stealth"] is True
+    assert test_character.properties["skills"]["stealth"] is True
     assert "Thieves' Tools" in test_character.properties["proficiencies"]["tools"]
     
     # Check equipment was added

@@ -59,35 +59,136 @@
         "1": [
             {
                 "name": "Favored Enemy",
-                "description": "You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. Choose a type of favored enemy: aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, or undead. You have advantage on Wisdom (Survival) checks to track your favored enemies, as well as on Intelligence checks to recall information about them."
+                "description": "Beginning at 1st level, you have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. Choose a type of favored enemy: aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, or undead. Alternatively, you can select two races of humanoid (such as gnolls and orcs) as favored enemies.",
+                "choose": {
+                    "count": 1,
+                    "from": [
+                        {
+                            "name": "Aberrations",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track aberrations, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Beasts",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track beasts, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Celestials",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track celestials, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Constructs",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track constructs, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Dragons",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track dragons, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Elementals",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track elementals, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Fey",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track fey, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Fiends",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track fiends, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Giants",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track giants, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Monstrosities",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track monstrosities, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Oozes",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track oozes, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Plants",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track plants, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Undead",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track undead, as well as on Intelligence checks to recall information about them."
+                        },
+                        {
+                            "name": "Humanoids (Gnolls and Orcs)",
+                            "description": "You gain advantage on Wisdom (Survival) checks to track gnolls and orcs, as well as on Intelligence checks to recall information about them."
+                        }
+                    ]
+                }
             },
             {
                 "name": "Natural Explorer",
-                "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark. When you make an Intelligence or Wisdom check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you're proficient in."
+                "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark.",
+                "choose": {
+                    "count": 1,
+                    "from": [
+                        {
+                            "name": "Arctic",
+                            "description": "You are particularly familiar with arctic terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Coast",
+                            "description": "You are particularly familiar with coastal terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Desert",
+                            "description": "You are particularly familiar with desert terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Forest",
+                            "description": "You are particularly familiar with forest terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Grassland",
+                            "description": "You are particularly familiar with grassland terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Mountain",
+                            "description": "You are particularly familiar with mountain terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Swamp",
+                            "description": "You are particularly familiar with swamp terrain and are adept at traveling and surviving in such regions."
+                        },
+                        {
+                            "name": "Underdark",
+                            "description": "You are particularly familiar with Underdark terrain and are adept at traveling and surviving in such regions."
+                        }
+                    ]
+                }
             }
         ],
         "2": [
             {
                 "name": "Fighting Style",
                 "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options:",
-                "choices": [
-                    {
-                        "name": "Archery",
-                        "description": "You gain a +2 bonus to attack rolls you make with ranged weapons."
-                    },
-                    {
-                        "name": "Defense",
-                        "description": "While you are wearing armor, you gain a +1 bonus to AC."
-                    },
-                    {
-                        "name": "Dueling",
-                        "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
-                    },
-                    {
-                        "name": "Two-Weapon Fighting",
-                        "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
-                    }
-                ]
+                "choose": {
+                    "count": 1,
+                    "from": [
+                        {
+                            "name": "Archery",
+                            "description": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+                        },
+                        {
+                            "name": "Defense",
+                            "description": "While you are wearing armor, you gain a +1 bonus to AC."
+                        },
+                        {
+                            "name": "Dueling",
+                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+                        },
+                        {
+                            "name": "Two-Weapon Fighting",
+                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                        }
+                    ]
+                }
             },
             {
                 "name": "Spellcasting",
@@ -97,7 +198,24 @@
         "3": [
             {
                 "name": "Ranger Conclave",
-                "description": "You choose to emulate the ideals and training of a ranger conclave. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level."
+                "description": "You choose to emulate the ideals and training of a ranger conclave. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.",
+                "choose": {
+                    "count": 1,
+                    "from": [
+                        {
+                            "name": "Hunter",
+                            "description": "Emulating the Hunter archetype means accepting your place as a bulwark between civilization and the terrors of the wilderness."
+                        },
+                        {
+                            "name": "Beast Master",
+                            "description": "The Beast Master archetype embodies a friendship between the civilized races and the beasts of the world."
+                        },
+                        {
+                            "name": "Horizon Walker",
+                            "description": "Horizon Walkers guard the world against threats that originate from other planes or that seek to ravage the mortal realm with otherworldly magic."
+                        }
+                    ]
+                }
             },
             {
                 "name": "Primeval Awareness",

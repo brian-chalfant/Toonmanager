@@ -63,8 +63,163 @@
     ],
     "level_1": [
         {
-            "name": "Magic Missile",
+            "name": "Alarm",
+            "school": "abjuration",
+            "casting_time": "1 minute",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a tiny bell and a piece of fine silver wire"],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is mental or audible. A mental alarm alerts you with a ping in your mind if you are within 1 mile of the warded area. This ping awakens you if you are sleeping. An audible alarm produces the sound of a hand bell for 10 seconds within 60 feet."
+        },
+        {
+            "name": "Burning Hands",
             "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Self (15-foot cone)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth from your outstretched fingertips. Each creature in a 15-foot cone must make a Dexterity saving throw. A creature takes 3d6 fire damage on a failed save, or half as much damage on a successful one. The fire ignites any flammable objects in the area that aren't being worn or carried.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Charm Person",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "You attempt to charm a humanoid you can see within range. It must make a Wisdom saving throw, and does so with advantage if you or your companions are fighting it. If it fails the saving throw, it is charmed by you until the spell ends or until you or your companions do anything harmful to it. The charmed creature regards you as a friendly acquaintance. When the spell ends, the creature knows it was charmed by you.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st. The creatures must be within 30 feet of each other when you target them."
+            }
+        },
+        {
+            "name": "Comprehend Languages",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of soot and salt"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "For the duration, you understand the literal meaning of any spoken language that you hear. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text. This spell doesn't decode secret messages in a text or a glyph, such as an arcane sigil, that isn't part of a written language."
+        },
+        {
+            "name": "Detect Magic",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any. The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt."
+        },
+        {
+            "name": "Disguise Self",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "You make yourself—including your clothing, armor, weapons, and other belongings on your person—look different until the spell ends or until you use your action to dismiss it. You can seem 1 foot shorter or taller and can appear thin, fat, or in between. You can't change your body type, so you must adopt a form that has the same basic arrangement of limbs. Otherwise, the extent of the illusion is up to you. The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing or would feel your head and hair. If you use this spell to appear thinner than you are, the hand of someone who reaches out to touch you would bump into you while it was seemingly still in midair. To discern that you are disguised, a creature can use its action to inspect your appearance and must succeed on an Intelligence (Investigation) check against your spell save DC."
+        },
+        {
+            "name": "Expeditious Retreat",
+            "school": "transmutation",
+            "casting_time": "1 bonus action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "This spell allows you to move at an incredible pace. When you cast this spell, and then as a bonus action on each of your turns until the spell ends, you can take the Dash action."
+        },
+        {
+            "name": "False Life",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a small amount of alcohol or distilled spirits"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "Bolstering yourself with a necromantic facsimile of life, you gain 1d4 + 4 temporary hit points for the duration.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Feather Fall",
+            "school": "transmutation",
+            "casting_time": "1 reaction",
+            "casting_time_note": "which you take when you or a creature within 60 feet of you falls",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": {
+                    "items": ["a small feather or piece of down"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "Choose up to five falling creatures within range. A falling creature's rate of descent slows to 60 feet per round until the spell ends. If the creature lands before the spell ends, it takes no falling damage and can land on its feet, and the spell ends for that creature."
+        },
+        {
+            "name": "Find Familiar",
+            "school": "conjuration",
+            "casting_time": "1 hour",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["10 gp worth of charcoal, incense, and herbs"],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of a beast."
+        },
+        {
+            "name": "Fog Cloud",
+            "school": "conjuration",
             "casting_time": "1 action",
             "range": "120 feet",
             "components": {
@@ -72,25 +227,78 @@
                 "somatic": true,
                 "material": false
             },
-            "duration": "Instantaneous",
-            "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.",
+            "duration": "Concentration, up to 1 hour",
+            "description": "You create a 20-foot-radius sphere of fog centered on a point within range. The sphere spreads around corners, and its area is heavily obscured. It lasts for the duration or until a wind of moderate or greater speed (at least 10 miles per hour) disperses it.",
             "at_higher_levels": {
-                "description": "When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st."
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the radius of the fog increases by 20 feet for each slot level above 1st."
             }
         },
         {
-            "name": "Shield",
-            "school": "abjuration",
-            "casting_time": "1 reaction",
-            "casting_time_note": "which you take when you are hit by an attack or targeted by the magic missile spell",
-            "range": "Self",
+            "name": "Grease",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
             "components": {
                 "verbal": true,
                 "somatic": true,
-                "material": false
+                "material": {
+                    "items": ["a bit of pork rind or butter"],
+                    "consumed": false
+                }
             },
-            "duration": "1 round",
-            "description": "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile."
+            "duration": "1 minute",
+            "description": "Slick grease covers the ground in a 10-foot square centered on a point within range and turns it into difficult terrain for the duration. When the grease appears, each creature standing in its area must succeed on a Dexterity saving throw or fall prone. A creature that enters the area or ends its turn there must also succeed on a Dexterity saving throw or fall prone."
+        },
+        {
+            "name": "Identify",
+            "school": "divination",
+            "casting_time": "1 minute",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pearl worth at least 100 gp and an owl feather"],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it. If you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it."
+        },
+        {
+            "name": "Jump",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a grasshopper's hind leg"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "You touch a creature. The creature's jump distance is tripled until the spell ends."
+        },
+        {
+            "name": "Longstrider",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of dirt"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a creature. The target's speed increases by 10 feet until the spell ends.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st."
+            }
         },
         {
             "name": "Mage Armor",
@@ -109,20 +317,133 @@
             "description": "You touch a willing creature who isn't wearing armor, and a protective magical force surrounds it until the spell ends. The target's base AC becomes 13 + its Dexterity modifier. The spell ends if the target dons armor or if you dismiss the spell as an action."
         },
         {
-            "name": "Find Familiar",
-            "school": "conjuration",
-            "casting_time": "1 hour",
-            "range": "10 feet",
+            "name": "Magic Missile",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Ray of Sickness",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A ray of sickening greenish energy lashes out toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 poison damage and must make a Constitution saving throw. On a failed save, it is also poisoned until the end of your next turn.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Shield",
+            "school": "abjuration",
+            "casting_time": "1 reaction",
+            "casting_time_note": "which you take when you are hit by an attack or targeted by the magic missile spell",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 round",
+            "description": "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile."
+        },
+        {
+            "name": "Silent Image",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "60 feet",
             "components": {
                 "verbal": true,
                 "somatic": true,
                 "material": {
-                    "items": ["10 gp worth of charcoal, incense, and herbs"],
-                    "consumed": true
+                    "items": ["a bit of fleece"],
+                    "consumed": false
                 }
             },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You create the image of an object, a creature, or some other visible phenomenon that is no larger than a 15-foot cube. The image appears at a spot within range and lasts for the duration. The image is purely visual; it isn't accompanied by sound, smell, or other sensory effects. You can use your action to cause the image to move to any spot within range. As the image changes location, you can alter its appearance so that its movements appear natural for the image. For example, if you create an image of a creature and move it, you can alter the image so that it appears to be walking. Physical interaction with the image reveals it to be an illusion, because things can pass through it. A creature that uses its action to examine the image can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the creature can see through the image."
+        },
+        {
+            "name": "Sleep",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a pinch of fine sand, rose petals, or a cricket"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "This spell sends creatures into a magical slumber. Roll 5d8; the total is how many hit points of creatures this spell can affect. Creatures within 20 feet of a point you choose within range are affected in ascending order of their current hit points (ignoring unconscious creatures). Starting with the creature that has the lowest current hit points, each creature affected by this spell falls unconscious until the spell ends, the sleeper takes damage, or someone uses an action to shake or slap the sleeper awake. Subtract each creature's hit points from the total before moving on to the creature with the next lowest hit points. A creature's hit points must be equal to or less than the remaining total for that creature to be affected. Undead and creatures immune to being charmed aren't affected by this spell.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, roll an additional 2d8 for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Tasha's Hideous Laughter",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["tiny tarts and a feather that is waved in the air"],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a Wisdom saving throw or fall prone, becoming incapacitated and unable to stand up for the duration. A creature with an Intelligence score of 4 or less isn't affected. At the end of each of its turns, and each time it takes damage, the target can make another Wisdom saving throw. The target has advantage on the saving throw if it's triggered by damage. On a success, the spell ends."
+        },
+        {
+            "name": "Thunderwave",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Self (15-foot cube)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
             "duration": "Instantaneous",
-            "description": "You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of a beast."
+            "description": "A wave of thunderous sound sweeps out from you. Each creature in a 15-foot cube originating from you must make a Constitution saving throw. On a failed save, a creature takes 2d8 thunder damage and is pushed 10 feet away from you. On a successful save, the creature takes half as much damage and isn't pushed. In addition, unsecured objects that are completely within the area of effect are automatically pushed 10 feet away from you by the spell's effect, and the spell emits a thunderous boom audible out to 300 feet.",
+            "at_higher_levels": {
+                "description": "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st."
+            }
+        },
+        {
+            "name": "Unseen Servant",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": ["a piece of string and a bit of wood"],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell creates an invisible, mindless, shapeless, Medium force that performs simple tasks at your command until the spell ends. The servant springs into existence in an unoccupied space on the ground within range. It has AC 10, 1 hit point, and a Strength of 2, and it can't attack. If it drops to 0 hit points, the spell ends. Once on each of your turns as a bonus action, you can mentally command the servant to move up to 15 feet and interact with an object. The servant can perform simple tasks that a human servant could do, such as fetching things, cleaning, mending, folding clothes, lighting fires, serving food, and pouring wine. Once you give the command, the servant performs the task to the best of its ability until it completes the task, then waits for your next command. If you command the servant to perform a task that would move it more than 60 feet away from you, the spell ends."
         }
     ],
     "level_2": [
