@@ -340,9 +340,17 @@
             letter-spacing: 1.5px;
         }
         .inspiration-box .main-stat-value {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 4px 0;
-            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .inspiration-box .main-stat-value:hover {
+            color: var(--ttui_red-500);
+        }
+        .inspiration-box .main-stat-value:active {
+            transform: scale(0.95);
         }
         .ac-pill {
             margin-top: 30px;
@@ -1085,9 +1093,303 @@
             min-width: 330px;
             max-width: 330px;
         }
+        .background-tab-card {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            max-width: 900px;
+            margin-top: 10px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .background-tab-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .tab-btn {
+            background: #f9fafa;
+            color: #C53131;
+            border: 1px solid #C53131;
+            border-radius: 8px 8px 0 0;
+            padding: 6px 18px;
+            font-weight: 700;
+            font-size: 1.08rem;
+            cursor: pointer;
+            margin-right: 2px;
+        }
+        .tab-btn.active {
+            background: #fff;
+            border-bottom: 2px solid #fff;
+            color: #C53131;
+        }
+        .background-section {
+            margin-bottom: 18px;
+        }
+        .background-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #C53131;
+            margin-bottom: 4px;
+        }
+        .background-slash {
+            color: #888;
+            font-weight: 400;
+        }
+        .background-sub {
+            color: #888;
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+        .background-feature {
+            margin-bottom: 10px;
+        }
+        .feature-label {
+            font-weight: 700;
+            color: #C53131;
+        }
+        .feature-desc {
+            color: #232b2f;
+            font-size: 1.01rem;
+        }
+        .characteristics-section {
+            margin-bottom: 18px;
+        }
+        .characteristics-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #C53131;
+            margin-bottom: 6px;
+        }
+        .characteristics-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 10px;
+        }
+        .characteristics-table td {
+            background: #f9fafa;
+            border: 1px solid #e0b4b4;
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.98rem;
+            color: #232b2f;
+            text-align: left;
+            vertical-align: top;
+        }
+        .personality-section {
+            margin-bottom: 8px;
+        }
+        .personality-title {
+            font-weight: 700;
+            color: #C53131;
+            margin-top: 10px;
+            margin-bottom: 2px;
+            font-size: 1.05rem;
+        }
+        .personality-content ul {
+            margin: 0 0 0 18px;
+            padding: 0;
+            font-size: 0.98rem;
+            color: #232b2f;
+        }
+        .personality-content li {
+            margin-bottom: 2px;
+        }
+        .char-edit-field {
+            width: 90%;
+            padding: 3px 6px;
+            font-size: 0.98rem;
+            border: 1px solid #e0b4b4;
+            border-radius: 4px;
+            background: #fff;
+            color: #232b2f;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .dice-roller {
+            background: var(--ttui_parchment-100);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+        .dice-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .dice-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .dice-group:not(:last-child)::after {
+            content: '+';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ttui_grey-600);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .remove-dice-btn {
+            background: var(--ttui_grey-300);
+            color: var(--ttui_grey-700);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .remove-dice-btn:hover {
+            background: var(--ttui_red-300);
+            color: white;
+        }
+        .add-dice-btn {
+            background: var(--ttui_grey-200);
+            color: var(--ttui_grey-700);
+            border: 2px dashed var(--ttui_grey-300);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .add-dice-btn:hover {
+            background: var(--ttui_grey-100);
+            border-color: var(--ttui_red-300);
+            color: var(--ttui_red-500);
+        }
+        .dice-roller-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ttui_red-500);
+            margin-bottom: 16px;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+        }
+        .dice-input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .dice-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid var(--ttui_grey-300);
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+        }
+        .dice-input:focus {
+            border-color: var(--ttui_red-500);
+            outline: none;
+        }
+        .dice-select {
+            padding: 8px 12px;
+            border: 2px solid var(--ttui_grey-300);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            cursor: pointer;
+        }
+        .dice-select:focus {
+            border-color: var(--ttui_red-500);
+            outline: none;
+        }
+        .dice-modifier {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dice-modifier input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid var(--ttui_grey-300);
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+        }
+        .dice-modifier input:focus {
+            border-color: var(--ttui_red-500);
+            outline: none;
+        }
+        .roll-btn {
+            background: var(--ttui_red-500);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            transition: background-color 0.2s;
+        }
+        .roll-btn:hover {
+            background: var(--ttui_red-700);
+        }
+        .roll-result {
+            margin-top: 20px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--ttui_grey-200);
+        }
+        .roll-result-title {
+            font-weight: 700;
+            color: var(--ttui_grey-900);
+            margin-bottom: 8px;
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+        }
+        .roll-details {
+            color: var(--ttui_grey-700);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .roll-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ttui_red-500);
+            font-family: 'Tiamat', 'Roboto Condensed', Arial, sans-serif;
+        }
+        .dice-results {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .dice-result {
+            background: var(--ttui_red-50);
+            color: var(--ttui_red-700);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
     </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Main tab system
         const tabs = document.querySelectorAll('.tabbed-section .tab');
         const tabContents = document.querySelectorAll('.tabbed-section .tab-content > div');
         tabs.forEach((tab, idx) => {
@@ -1101,6 +1403,194 @@
         });
         // Show only the first tab content by default
         tabContents.forEach((c, i) => c.style.display = (i === 0) ? 'block' : 'none');
+
+        // Background subtabs system
+        const bgTabCard = document.querySelector('.background-tab-card');
+        if (bgTabCard) {
+            const bgTabBtns = bgTabCard.querySelectorAll('.background-tab-bar .tab-btn');
+            const bgTabContents = bgTabCard.querySelectorAll('.background-tab-content');
+            bgTabBtns.forEach((btn, idx) => {
+                btn.addEventListener('click', function() {
+                    bgTabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    bgTabContents.forEach((c, i) => {
+                        c.style.display = (i === idx) ? 'block' : 'none';
+                    });
+                });
+            });
+            // Show only the first background tab content by default
+            bgTabContents.forEach((c, i) => c.style.display = (i === 0) ? 'block' : 'none');
+        }
+    });
+
+    function toggleInspiration() {
+        const inspirationValue = document.getElementById('inspiration-value');
+        const currentValue = inspirationValue.textContent.trim();
+        inspirationValue.textContent = currentValue === 'YES' ? 'NO' : 'YES';
+        
+        // Optional: Add a small visual feedback
+        inspirationValue.style.color = currentValue === 'YES' ? 'var(--ttui_grey-900)' : 'var(--ttui_red-500)';
+        setTimeout(() => {
+            inspirationValue.style.color = 'var(--ttui_grey-900)';
+        }, 200);
+    }
+
+    function addDiceGroup() {
+        const diceGroups = document.getElementById('dice-groups');
+        const newGroup = document.createElement('div');
+        newGroup.className = 'dice-group';
+        newGroup.innerHTML = `
+            <input type="number" class="dice-input" min="1" max="100" value="1">
+            <select class="dice-select">
+                <option value="4">d4</option>
+                <option value="6">d6</option>
+                <option value="8">d8</option>
+                <option value="10">d10</option>
+                <option value="12">d12</option>
+                <option value="20" selected>d20</option>
+                <option value="100">d100</option>
+            </select>
+            <div class="dice-modifier">
+                <span>+</span>
+                <input type="number" value="0">
+            </div>
+            <button class="remove-dice-btn" onclick="removeDiceGroup(this)">×</button>
+        `;
+        diceGroups.appendChild(newGroup);
+
+        // Show remove buttons if there's more than one group
+        const removeButtons = diceGroups.querySelectorAll('.remove-dice-btn');
+        removeButtons.forEach(btn => {
+            btn.style.display = removeButtons.length > 1 ? 'flex' : 'none';
+        });
+
+        // Add enter key support for the new inputs
+        const inputs = newGroup.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') rollDice();
+            });
+        });
+    }
+
+    function removeDiceGroup(button) {
+        const group = button.parentElement;
+        group.remove();
+
+        // Update remove buttons visibility
+        const diceGroups = document.getElementById('dice-groups');
+        const removeButtons = diceGroups.querySelectorAll('.remove-dice-btn');
+        removeButtons.forEach(btn => {
+            btn.style.display = removeButtons.length > 1 ? 'flex' : 'none';
+        });
+    }
+
+    function rollDice() {
+        const diceGroups = document.querySelectorAll('.dice-group');
+        let total = 0;
+        let detailsText = '';
+        let allResults = [];
+
+        // Validate and collect all dice groups
+        diceGroups.forEach((group, index) => {
+            const count = parseInt(group.querySelector('.dice-input').value) || 1;
+            const type = parseInt(group.querySelector('.dice-select').value);
+            const modifier = parseInt(group.querySelector('.dice-modifier input').value) || 0;
+
+            // Validate inputs
+            if (count < 1 || count > 100) {
+                alert('Please enter a number of dice between 1 and 100');
+                return;
+            }
+
+            // Roll the dice for this group
+            const results = [];
+            let groupTotal = 0;
+            for (let i = 0; i < count; i++) {
+                const roll = Math.floor(Math.random() * type) + 1;
+                results.push(roll);
+                groupTotal += roll;
+            }
+            groupTotal += modifier;
+            total += groupTotal;
+
+            // Add to details text
+            if (index > 0) detailsText += ' + ';
+            detailsText += `${count}d${type}`;
+            if (modifier !== 0) {
+                detailsText += modifier > 0 ? ` + ${modifier}` : ` - ${Math.abs(modifier)}`;
+            }
+
+            // Add to all results
+            allResults.push({
+                type: `d${type}`,
+                results: results,
+                modifier: modifier
+            });
+        });
+
+        // Update the display
+        const resultDiv = document.getElementById('roll-result');
+        const detailsDiv = document.getElementById('roll-details');
+        const totalDiv = document.getElementById('roll-total');
+        const diceResultsDiv = document.getElementById('dice-results');
+
+        // Show the result container
+        resultDiv.style.display = 'block';
+
+        // Update the details and total
+        detailsDiv.textContent = detailsText;
+        totalDiv.textContent = total;
+
+        // Show individual dice results
+        diceResultsDiv.innerHTML = '';
+        allResults.forEach(group => {
+            const groupDiv = document.createElement('div');
+            groupDiv.style.marginBottom = '8px';
+            
+            const typeSpan = document.createElement('span');
+            typeSpan.style.fontWeight = 'bold';
+            typeSpan.style.color = 'var(--ttui_grey-700)';
+            typeSpan.textContent = `${group.type}: `;
+            groupDiv.appendChild(typeSpan);
+
+            group.results.forEach(roll => {
+                const diceResult = document.createElement('span');
+                diceResult.className = 'dice-result';
+                diceResult.textContent = roll;
+                groupDiv.appendChild(diceResult);
+            });
+
+            if (group.modifier !== 0) {
+                const modSpan = document.createElement('span');
+                modSpan.style.marginLeft = '8px';
+                modSpan.style.color = 'var(--ttui_grey-600)';
+                modSpan.textContent = group.modifier > 0 ? `+${group.modifier}` : group.modifier;
+                groupDiv.appendChild(modSpan);
+            }
+
+            diceResultsDiv.appendChild(groupDiv);
+        });
+
+        // Add animation effect
+        resultDiv.style.opacity = '0';
+        resultDiv.style.transform = 'translateY(10px)';
+        resultDiv.style.transition = 'opacity 0.3s, transform 0.3s';
+        
+        setTimeout(() => {
+            resultDiv.style.opacity = '1';
+            resultDiv.style.transform = 'translateY(0)';
+        }, 50);
+    }
+
+    // Add enter key support for initial inputs
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.dice-input, .dice-modifier input');
+        inputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') rollDice();
+            });
+        });
     });
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1200,7 +1690,7 @@
                 </svg>
                 <div class="main-stat-content">
                     <span class="main-stat-label">INSPIRATION</span>
-                    <span class="main-stat-value">{% if character.inspiration %}YES{% else %}NO{% endif %}</span>
+                    <span class="main-stat-value" id="inspiration-value" onclick="toggleInspiration()">{% if character.inspiration %}YES{% else %}NO{% endif %}</span>
                 </div>
             </div>
             <div class="main-stat-pill hit-points-box">
@@ -1328,12 +1818,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for skill, bonus in character.skills.items() %}
+                  {% for skill, data in character.skills.items() %}
                   <tr>
-                    <td class="prof-dot-cell">{% if bonus|int > 0 %}<span class="prof-dot">●</span>{% else %}<span class="prof-dot empty">○</span>{% endif %}</td>
+                    <td class="prof-dot-cell">{% if data.proficient %}<span class="prof-dot">●</span>{% else %}<span class="prof-dot empty">○</span>{% endif %}</td>
                     <td class="mod-abbr">{{ {'acrobatics':'DEX','animal handling':'WIS','arcana':'INT','athletics':'STR','deception':'CHA','history':'INT','insight':'WIS','intimidation':'CHA','investigation':'INT','medicine':'WIS','nature':'INT','perception':'WIS','performance':'CHA','persuasion':'CHA','religion':'INT','sleight of hand':'DEX','stealth':'DEX','survival':'WIS'}[skill]|default('') }}</td>
                     <td class="skill-label">{{ skill|title }}</td>
-                    <td class="skill-bonus-pill">{{ bonus }}</td>
+                    <td class="skill-bonus-pill">{{ data.bonus }}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -1516,22 +2006,139 @@
                         </ul>
                     </div>
                     <!-- Background Tab Content -->
-                    <div>
-                        <h3>Background</h3>
-                        <div><strong>Background:</strong> {{ character.background }}</div>
-                        <div><strong>Alignment:</strong> {{ character.alignment }}</div>
-                        <div><strong>Personality Traits:</strong>
-                            <ul class="personality-list">{% for trait in character.personality.traits %}<li>{{ trait }}</li>{% endfor %}</ul>
+                    <div class="background-tab-card">
+                        <div class="background-tab-bar">
+                            <span class="tab-btn active">ALL</span>
+                            <span class="tab-btn">CHARACTERISTICS</span>
+                            <span class="tab-btn">BACKGROUND</span>
+                            <span class="tab-btn">APPEARANCE</span>
                         </div>
-                        <div><strong>Ideals:</strong>
-                            <ul class="personality-list">{% for ideal in character.personality.ideals %}<li>{{ ideal }}</li>{% endfor %}</ul>
+                        <!-- ALL TAB (read-only) -->
+                        <div class="background-tab-content" style="display: block;">
+                            <div class="background-section">
+                                <div class="background-title">{{ character.background|title }} <span class="background-slash">/</span> <span class="background-sub">Spy</span></div>
+                                <div class="background-feature">
+                                    <span class="feature-label">Feature: Criminal Contact</span><br>
+                                    <span class="feature-desc">You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</span>
+                                </div>
+                            </div>
+                            <div class="characteristics-section">
+                                <div class="characteristics-title">CHARACTERISTICS</div>
+                                <table class="characteristics-table">
+                                    <tr>
+                                        <td><strong>ALIGNMENT</strong><br>{{ character.alignment or 'Chaotic Good' }}</td>
+                                        <td><strong>GENDER</strong><br>Male</td>
+                                        <td><strong>EYES</strong><br>Blue</td>
+                                        <td><strong>SIZE</strong><br>Medium</td>
+                                        <td><strong>HEIGHT</strong><br>6'3"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>FAITH</strong><br>Veil of Shadows</td>
+                                        <td><strong>HAIR</strong><br>Long Blonde</td>
+                                        <td><strong>SKIN</strong><br>White</td>
+                                        <td><strong>AGE</strong><br>35</td>
+                                        <td><strong>WEIGHT</strong><br>225 lb.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="personality-section">
+                                <div class="personality-title">Personality Traits</div>
+                                <div class="personality-content">
+                                    <ul>{% for trait in character.personality.traits %}<li>{{ trait }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Ideals</div>
+                                <div class="personality-content">
+                                    <ul>{% for ideal in character.personality.ideals %}<li>{{ ideal }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Bonds</div>
+                                <div class="personality-content">
+                                    <ul>{% for bond in character.personality.bonds %}<li>{{ bond }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Flaws</div>
+                                <div class="personality-content">
+                                    <ul>{% for flaw in character.personality.flaws %}<li>{{ flaw }}</li>{% endfor %}</ul>
+                                </div>
+                            </div>
                         </div>
-                        <div><strong>Bonds:</strong>
-                            <ul class="personality-list">{% for bond in character.personality.bonds %}<li>{{ bond }}</li>{% endfor %}</ul>
+                        <!-- CHARACTERISTICS TAB (read-only, same as ALL) -->
+                        <div class="background-tab-content" style="display: none;">
+                            <div class="characteristics-section">
+                                <div class="characteristics-title">CHARACTERISTICS</div>
+                                <table class="characteristics-table">
+                                    <tr>
+                                        <td><strong>ALIGNMENT</strong><br>{{ character.alignment or 'Chaotic Good' }}</td>
+                                        <td><strong>GENDER</strong><br>Male</td>
+                                        <td><strong>EYES</strong><br>Blue</td>
+                                        <td><strong>SIZE</strong><br>Medium</td>
+                                        <td><strong>HEIGHT</strong><br>6'3"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>FAITH</strong><br>Veil of Shadows</td>
+                                        <td><strong>HAIR</strong><br>Long Blonde</td>
+                                        <td><strong>SKIN</strong><br>White</td>
+                                        <td><strong>AGE</strong><br>35</td>
+                                        <td><strong>WEIGHT</strong><br>225 lb.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="personality-section">
+                                <div class="personality-title">Personality Traits</div>
+                                <div class="personality-content">
+                                    <ul>{% for trait in character.personality.traits %}<li>{{ trait }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Ideals</div>
+                                <div class="personality-content">
+                                    <ul>{% for ideal in character.personality.ideals %}<li>{{ ideal }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Bonds</div>
+                                <div class="personality-content">
+                                    <ul>{% for bond in character.personality.bonds %}<li>{{ bond }}</li>{% endfor %}</ul>
+                                </div>
+                                <div class="personality-title">Flaws</div>
+                                <div class="personality-content">
+                                    <ul>{% for flaw in character.personality.flaws %}<li>{{ flaw }}</li>{% endfor %}</ul>
+                                </div>
+                            </div>
                         </div>
-                        <div><strong>Flaws:</strong>
-                            <ul class="personality-list">{% for flaw in character.personality.flaws %}<li>{{ flaw }}</li>{% endfor %}</ul>
+                        <!-- BACKGROUND TAB (display only) -->
+                        <div class="background-tab-content" style="display: none;">
+                            <div class="background-section">
+                                <div class="background-title">{{ character.background|title }} <span class="background-slash">/</span> <span class="background-sub">Spy</span></div>
+                                <div class="background-feature">
+                                    <span class="feature-label">Feature: Criminal Contact</span><br>
+                                    <span class="feature-desc">You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</span>
+                                </div>
+                            </div>
+                            <div class="background-desc">
+                                <strong>Description:</strong><br>
+                                <span>A criminal background gives you a history of lawbreaking, underworld contacts, and a knack for surviving on the wrong side of the law. (You can expand this section in your Python app.)</span>
+                            </div>
                         </div>
+                        <!-- APPEARANCE TAB (display only) -->
+                        <div class="background-tab-content" style="display: none;">
+                            <div class="appearance-section">
+                                <div class="characteristics-title">APPEARANCE</div>
+                                <table class="characteristics-table">
+                                    <tr>
+                                        <td><strong>GENDER</strong><br>Male</td>
+                                        <td><strong>EYES</strong><br>Blue</td>
+                                        <td><strong>HAIR</strong><br>Long Blonde</td>
+                                        <td><strong>SKIN</strong><br>White</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>HEIGHT</strong><br>6'3"</td>
+                                        <td><strong>WEIGHT</strong><br>225 lb.</td>
+                                        <td><strong>AGE</strong><br>35</td>
+                                        <td><strong>SIZE</strong><br>Medium</td>
+                                    </tr>
+                                </table>
+                                <div class="appearance-notes">
+                                    <strong>Additional Appearance Notes:</strong><br>
+                                    <span>Describe scars, tattoos, distinguishing features, clothing style, or other details here. (Edit in your Python app.)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Other tabs (BACKGROUND, APPEARANCE) can be filled in as needed -->
                     </div>
                     <!-- Notes Tab Content -->
                     <div>
@@ -1541,7 +2148,40 @@
                     <!-- Extras Tab Content -->
                     <div>
                         <h3>Extras</h3>
-                        <div style="color:#888;">Custom content or future features...</div>
+                        <div class="dice-roller">
+                            <div class="dice-roller-title">Dice Roller</div>
+                            <div id="dice-groups" class="dice-groups">
+                                <div class="dice-group">
+                                    <input type="number" class="dice-input" min="1" max="100" value="1">
+                                    <select class="dice-select">
+                                        <option value="4">d4</option>
+                                        <option value="6">d6</option>
+                                        <option value="8">d8</option>
+                                        <option value="10">d10</option>
+                                        <option value="12">d12</option>
+                                        <option value="20" selected>d20</option>
+                                        <option value="100">d100</option>
+                                    </select>
+                                    <div class="dice-modifier">
+                                        <span>+</span>
+                                        <input type="number" value="0">
+                                    </div>
+                                    <button class="remove-dice-btn" onclick="removeDiceGroup(this)" style="display: none;">×</button>
+                                </div>
+                            </div>
+                            <button class="add-dice-btn" onclick="addDiceGroup()">
+                                <span>+</span> Add Dice
+                            </button>
+                            <div class="dice-input-group" style="margin-top: 16px;">
+                                <button class="roll-btn" onclick="rollDice()">ROLL</button>
+                            </div>
+                            <div id="roll-result" class="roll-result" style="display: none;">
+                                <div class="roll-result-title">Roll Result</div>
+                                <div id="roll-details" class="roll-details"></div>
+                                <div id="roll-total" class="roll-total"></div>
+                                <div id="dice-results" class="dice-results"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
