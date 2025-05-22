@@ -334,14 +334,21 @@ class Toon:
                     }
                     for ability in self.properties['saving_throws']
                 }
-                skill_bonuses = defaultdict(lambda: "+0")
+                # DEBUG: Log the skills dict before rendering
+                logger.debug(f"Skills dict before rendering: {self.properties['skills']}")
+                
+                # Change to include both bonus and proficiency status
+                skill_data = {}
                 for skill, proficient in self.properties['skills'].items():
-                    logger.info(f"Skill: {skill}, Proficient: {proficient}")
-                    ability = self._get_skill_ability(skill)
+                    skill_lc = skill.lower()
+                    ability = self._get_skill_ability(skill_lc)
                     bonus = self.get_ability_modifier(ability)
                     if proficient:
                         bonus += self.properties['proficiency_bonus']
-                    skill_bonuses[skill] = f"{bonus:+d}"
+                    skill_data[skill_lc] = {
+                        'bonus': f"{bonus:+d}",
+                        'proficient': proficient
+                    }
                 # Format hit dice for display
                 hit_dice_total, hit_dice_types = self._format_hit_dice_for_pdf()
                 hit_dice_summary = f"{hit_dice_total} ({hit_dice_types})"
@@ -407,7 +414,7 @@ class Toon:
                         'stats': self.properties['stats'],
                         'modifiers': modifiers,
                         'saving_throws': saving_throws,
-                        'skills': skill_bonuses,
+                        'skills': skill_data,
                         'armor_class': self.properties['armor_class'],
                         'initiative': self.properties['initiative'],
                         'speed': self.properties['speed'],
