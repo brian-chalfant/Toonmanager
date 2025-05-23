@@ -145,8 +145,8 @@ class Toon:
                 "tools": [],
                 "languages": []
             },
-            "features": [],
-            "traits": [],
+            "features": [],  # Each feature will have name, description, source, and mechanics
+            "traits": [],    # Each trait will have name, description, source, and mechanics
             "equipment": [],
             "currency": {
                 "platinum": 0,
@@ -156,10 +156,13 @@ class Toon:
                 "copper": 0
             },
             "spells": {
-                "cantrips": [],
-                "spells_known": [],
-                "spell_slots": {},
-                "spellcasting_ability": ""
+                "cantrips": [],  # List of {name, description} dicts
+                "spells_known": [],  # List of {name, description} dicts
+                "spell_slots": {},  # Dict of level -> count
+                "spellcasting_ability": "",  # Ability used for spellcasting
+                "focus": "",  # Type of spellcasting focus
+                "ritual_casting": False,  # Whether the character can cast rituals
+                "spellcasting_classes": []  # List of classes that grant spellcasting
             },
             "personality": {
                 "traits": [],
@@ -167,7 +170,7 @@ class Toon:
                 "bonds": [],
                 "flaws": []
             },
-            "pending_choices": {},
+            "pending_choices": {},  # Dict of choice_key -> choice_data
             # Add metadata for character management
             "metadata": {
                 "created_at": datetime.now().isoformat(),
@@ -322,7 +325,10 @@ class Toon:
                 template = env.get_template('character_sheet.html')
 
                 # Calculate derived values for the template (reuse PDF helpers)
-                class_levels = ", ".join(f"{c['name']} {c['level']}" for c in self.properties['classes'])
+                class_levels = {
+                    c['name']: c['level'] 
+                    for c in self.properties['classes']
+                }
                 modifiers = {
                     ability: f"{self.get_ability_modifier(ability):+d}"
                     for ability in self.properties['stats']
@@ -352,21 +358,70 @@ class Toon:
                 # Format hit dice for display
                 hit_dice_total, hit_dice_types = self._format_hit_dice_for_pdf()
                 hit_dice_summary = f"{hit_dice_total} ({hit_dice_types})"
+                
+                # Organize features by source and level
+                class_features = {}
+                subclass_features = {}
+                other_features = []
+                
+                for feature in self.properties.get('features', []):
+                    source = feature.get('source', '')
+                    if source:
+                        # Extract class name and level from source (e.g. "Barbarian 1")
+                        parts = source.split()
+                        if len(parts) == 2 and parts[1].isdigit():
+                            class_name, level = parts[0], int(parts[1])
+                            # Check if it's a subclass feature
+                            if any(sc.get('name', '') in class_name for c in self.properties.get('classes', []) for sc in c.get('subclass_features', [])):
+                                if level not in subclass_features:
+                                    subclass_features[level] = []
+                                subclass_features[level].append(feature)
+                            else:
+                                if level not in class_features:
+                                    class_features[level] = []
+                                class_features[level].append(feature)
+                        else:
+                            other_features.append(feature)
+                    else:
+                        other_features.append(feature)
+
                 # Features and traits split
                 combat_features_str, non_combat_features_str = self._format_features_for_pdf()
+                
                 # Parse features/traits for HTML (as lists)
                 def parse_features_str(features_str):
                     # Split by double newlines, skip header
                     blocks = features_str.split('\\n\\n')[1:]
                     features = []
+                    current_feature = None
+                    
                     for block in blocks:
                         lines = block.strip().split('\\n')
                         if not lines or not lines[0]:
                             continue
-                        name = lines[0]
-                        desc = '\\n'.join(lines[1:]) if len(lines) > 1 else ''
-                        features.append({'name': name, 'description': desc})
+                            
+                        name = lines[0].strip()
+                        if name:
+                            # If we have a current feature, add it to the list
+                            if current_feature:
+                                features.append(current_feature)
+                            
+                            # Start a new feature
+                            current_feature = {
+                                'name': name,
+                                'description': ''
+                            }
+                            
+                            # Add remaining lines as description
+                            if len(lines) > 1:
+                                current_feature['description'] = '\\n'.join(lines[1:])
+                    
+                    # Add the last feature if we have one
+                    if current_feature:
+                        features.append(current_feature)
+                        
                     return features
+                    
                 combat_features = parse_features_str(combat_features_str)
                 non_combat_features = parse_features_str(non_combat_features_str)
                 # Personality as lists
@@ -438,7 +493,10 @@ class Toon:
                             'cantrips': self.properties['spells']['cantrips'],
                             'spells_known': self.properties['spells']['spells_known'],
                             'spell_slots': self.properties['spells']['spell_slots']
-                        }
+                        },
+                        'class_features': class_features,
+                        'subclass_features': subclass_features,
+                        'other_features': other_features
                     }
                 }
                 # Render the template
@@ -714,7 +772,7 @@ class Toon:
         try:
             class_data = self._load_data_file("classes", class_name)
             if "subclasses" in class_data:
-                return [subclass["name"] for subclass in class_data["subclasses"]["options"]]
+                return [subclass["name"] for subclass in class_data["subclasses"]]
             return []
         except Exception as e:
             logger.error(f"Failed to get subclasses for {class_name}: {e}")
@@ -734,8 +792,8 @@ class Toon:
             
             # Find the subclass in the class data
             subclass_data = None
-            for subclass in class_data["subclasses"]["options"]:
-                if subclass["name"] == subclass_name:
+            for subclass in class_data["subclasses"]:
+                if subclass["name"].lower() == subclass_name.lower():
                     subclass_data = subclass
                     break
                 
@@ -753,7 +811,7 @@ class Toon:
                 raise ValueError(f"Character does not have class {class_name}")
             
             # Check if character is high enough level for subclass
-            subclass_level = class_data["subclass_level"]
+            subclass_level = class_data.get("subclass_level", 3)  # Default to level 3
             if class_entry["level"] < subclass_level:
                 raise ValueError(f"Must be level {subclass_level} to select a subclass for {class_name}")
             
@@ -764,7 +822,112 @@ class Toon:
             if "features" in subclass_data:
                 for level, features in subclass_data["features"].items():
                     if int(level) <= class_entry["level"]:
-                        self.properties["features"].extend(features)
+                        for feature in features:
+                            # All features should have mechanics in standardized format
+                            mechanics = feature.get("mechanics", {})
+                            if not mechanics:
+                                # If no mechanics, just store the feature name and description
+                                self.properties["features"].append({
+                                    "name": feature.get("name", ""),
+                                    "description": feature.get("description", ""),
+                                    "source": f"{subclass_name} {level}"
+                                })
+                                continue
+                                
+                            mechanics_type = mechanics.get("type", "")
+                            
+                            # Handle ability score improvements
+                            if mechanics_type == "ability_score_improvement":
+                                choice_key = f"subclass_{class_name.lower()}_{level}_asi"
+                                self.properties["pending_choices"][choice_key] = {
+                                    "type": "ability_score_improvement",
+                                    "count": mechanics.get("count", 2),  # Default to 2 increases
+                                    "amount": mechanics.get("amount", 1),  # Default to +1 per increase
+                                    "options": mechanics.get("options", list(self.properties["stats"].keys())),
+                                    "description": feature.get("description", "Choose which ability scores to improve")
+                                }
+                            
+                            # Handle expertise
+                            elif mechanics_type == "expertise":
+                                choice_key = f"subclass_{class_name.lower()}_{level}_expertise"
+                                self.properties["pending_choices"][choice_key] = {
+                                    "type": "expertise",
+                                    "count": mechanics.get("count", 2),  # Default to 2 if not specified
+                                    "options": mechanics.get("options", []),
+                                    "description": "Choose skills to gain expertise in"
+                                }
+                            
+                            # Handle spellcasting
+                            elif mechanics_type == "spellcasting":
+                                # Update spellcasting ability if provided
+                                if "ability" in mechanics:
+                                    self.properties["spells"]["spellcasting_ability"] = mechanics["ability"]
+                                
+                                # Update spellcasting focus if provided
+                                if "focus" in mechanics:
+                                    self.properties["spells"]["focus"] = mechanics["focus"]
+                                
+                                # Handle additional cantrips
+                                if "cantrips_known" in mechanics:
+                                    cantrips_count = mechanics["cantrips_known"].get(str(level), 0)
+                                    if cantrips_count > 0:
+                                        self.properties["spells"]["cantrips"].extend([{"name": "", "description": ""}] * cantrips_count)
+                                        choice_key = f"subclass_{class_name.lower()}_{level}_cantrips"
+                                        self.properties["pending_choices"][choice_key] = {
+                                            "type": "cantrips",
+                                            "count": cantrips_count,
+                                            "class": class_name,
+                                            "description": f"Choose {cantrips_count} additional cantrips from your {subclass_name} list"
+                                        }
+                                
+                                # Handle additional spells known
+                                if "spells_known" in mechanics:
+                                    spells_known_count = mechanics["spells_known"].get(str(level), 0)
+                                    if spells_known_count > 0:
+                                        self.properties["spells"]["spells_known"].extend([{"name": "", "description": ""}] * spells_known_count)
+                                        choice_key = f"subclass_{class_name.lower()}_{level}_spells"
+                                        self.properties["pending_choices"][choice_key] = {
+                                            "type": "spells",
+                                            "count": spells_known_count,
+                                            "class": class_name,
+                                            "description": f"Choose {spells_known_count} additional spells from your {subclass_name} list"
+                                        }
+                                
+                                # Handle additional spell slots
+                                if "spell_slots" in mechanics:
+                                    current_slots = self.properties["spells"]["spell_slots"]
+                                    new_slots = mechanics["spell_slots"].get(str(level), {})
+                                    # Merge the spell slots, taking the higher value for each level
+                                    for slot_level, count in new_slots.items():
+                                        if slot_level not in current_slots or current_slots[slot_level] < count:
+                                            current_slots[slot_level] = count
+                            
+                            # Handle resource-based features
+                            elif mechanics_type == "resource":
+                                feature_copy = feature.copy()
+                                feature_copy["source"] = f"{subclass_name} {level}"
+                                feature_copy["mechanics"] = mechanics
+                                self.properties["features"].append(feature_copy)
+                            
+                            # Handle passive features
+                            elif mechanics_type == "passive":
+                                feature_copy = feature.copy()
+                                feature_copy["source"] = f"{subclass_name} {level}"
+                                feature_copy["mechanics"] = mechanics
+                                self.properties["features"].append(feature_copy)
+                            
+                            # Handle action features
+                            elif mechanics_type == "action":
+                                feature_copy = feature.copy()
+                                feature_copy["source"] = f"{subclass_name} {level}"
+                                feature_copy["mechanics"] = mechanics
+                                self.properties["features"].append(feature_copy)
+                            
+                            # Handle all other features
+                            else:
+                                feature_copy = feature.copy()
+                                feature_copy["source"] = f"{subclass_name} {level}"
+                                self.properties["features"].append(feature_copy)
             
             logger.info(f"Set subclass {subclass_name} for {class_name}")
             
@@ -807,7 +970,7 @@ class Toon:
             self.properties["proficiencies"]["weapons"].extend(class_data["weapon_proficiencies"])
             
             # Handle skill proficiencies
-            if "skill_proficiencies" in class_data and "choose" in class_data["skill_proficiencies"]:
+            if "skill_proficiencies" in class_data:
                 choice_key = f"class_{class_name.lower()}_skills"
                 self.properties["pending_choices"][choice_key] = {
                     "type": "skill",
@@ -832,126 +995,116 @@ class Toon:
                 if str(level_num) in class_data["features"]:
                     features = class_data["features"][str(level_num)]
                     for feature in features:
-                        # Handle ability score improvements specifically
-                        if "Ability Score Improvement" in feature.get("name", ""):
+                        # All features should have mechanics in standardized format
+                        mechanics = feature.get("mechanics", {})
+                        if not mechanics:
+                            # If no mechanics, just store the feature name and description
+                            self.properties["features"].append({
+                                "name": feature.get("name", ""),
+                                "description": feature.get("description", ""),
+                                "source": f"{class_name} {level_num}"
+                            })
+                            continue
+                            
+                        mechanics_type = mechanics.get("type", "")
+                        
+                        # Handle ability score improvements
+                        if mechanics_type == "ability_score_improvement":
                             choice_key = f"class_{class_name.lower()}_level_{level_num}_asi"
                             self.properties["pending_choices"][choice_key] = {
                                 "type": "ability_score_improvement",
-                                "count": 2,  # Standard ASI allows two +1s or one +2
-                                "options": list(self.properties["stats"].keys()),
+                                "count": mechanics.get("count", 2),  # Default to 2 increases
+                                "amount": mechanics.get("amount", 1),  # Default to +1 per increase
+                                "options": mechanics.get("options", list(self.properties["stats"].keys())),
                                 "description": feature.get("description", "Choose which ability scores to improve")
                             }
-                        # Handle features that require choices
-                        elif "choose" in feature:
-                            choice_key = f"class_{class_name.lower()}_level_{level_num}"
+                        
+                        # Handle subclass selection
+                        elif mechanics_type == "subclass_choice":
+                            choice_key = f"subclass_{class_name.lower()}"
                             self.properties["pending_choices"][choice_key] = {
-                                "type": feature.get("type", "feature"),
-                                "count": feature["choose"].get("count", 1),
-                                "options": feature["choose"].get("from", []),
-                                "description": feature.get("description", "Choose a feature option")
+                                "type": "subclass",
+                                "class": class_data["name"],
+                                "level": mechanics.get("level", 3),  # Default to level 3 if not specified
+                                "options": [subclass["name"] for subclass in class_data.get("subclasses", [])],
+                                "description": f"Choose a subclass for your {class_data['name']}"
                             }
-                        # Handle features that implicitly require choices
-                        elif any(keyword in feature.get("name", "").lower() for keyword in ["choose", "select", "pick"]):
-                            # Extract options from description if available
-                            description = feature.get("description", "")
-                            options = []
-                            if ":" in description:
-                                # Try to parse options from description
-                                options_text = description.split(":", 1)[1].strip()
-                                if "Choose one of the following" in options_text:
-                                    options_text = options_text.split(":", 1)[1].strip()
-                                options = [opt.strip() for opt in options_text.split(".") if opt.strip()]
+                        
+                        # Handle expertise
+                        elif mechanics_type == "expertise":
+                            choice_key = f"class_{class_name.lower()}_level_{level_num}_expertise"
+                            self.properties["pending_choices"][choice_key] = {
+                                "type": "expertise",
+                                "count": mechanics.get("count", 2),  # Default to 2 if not specified
+                                "options": mechanics.get("options", []),
+                                "description": "Choose skills to gain expertise in"
+                            }
+                        
+                        # Handle spellcasting
+                        elif mechanics_type == "spellcasting":
+                            # Set spellcasting ability
+                            self.properties["spells"]["spellcasting_ability"] = mechanics.get("ability", "")
                             
-                            choice_key = f"class_{class_name.lower()}_level_{level_num}"
-                            self.properties["pending_choices"][choice_key] = {
-                                "type": "feature",
-                                "count": 1,
-                                "options": options or ["Yes"],  # Default to Yes if no options found
-                                "description": feature.get("description", "Choose a feature option")
-                            }
+                            # Set spellcasting focus
+                            if "focus" in mechanics:
+                                self.properties["spells"]["focus"] = mechanics["focus"]
+                            
+                            # Handle cantrips
+                            if "cantrips_known" in mechanics:
+                                cantrips_count = mechanics["cantrips_known"].get(str(level), 0)
+                                if cantrips_count > 0:
+                                    self.properties["spells"]["cantrips"] = [{"name": "", "description": ""}] * cantrips_count
+                                    choice_key = f"class_{class_name.lower()}_cantrips"
+                                    self.properties["pending_choices"][choice_key] = {
+                                        "type": "cantrips",
+                                        "count": cantrips_count,
+                                        "class": class_name,
+                                        "description": f"Choose {cantrips_count} cantrips for your {class_data['name']}"
+                                    }
+                            
+                            # Handle spells known
+                            if "spells_known" in mechanics:
+                                spells_known_count = mechanics["spells_known"].get(str(level), 0)
+                                if spells_known_count > 0:
+                                    self.properties["spells"]["spells_known"] = [{"name": "", "description": ""}] * spells_known_count
+                                    choice_key = f"class_{class_name.lower()}_spells"
+                                    self.properties["pending_choices"][choice_key] = {
+                                        "type": "spells",
+                                        "count": spells_known_count,
+                                        "class": class_name,
+                                        "description": f"Choose {spells_known_count} spells for your {class_data['name']}"
+                                    }
+                            
+                            # Handle spell slots
+                            if "spell_slots" in mechanics:
+                                self.properties["spells"]["spell_slots"] = mechanics["spell_slots"].get(str(level), {})
+                        
+                        # Handle resource-based features
+                        elif mechanics_type == "resource":
+                            feature_copy = feature.copy()
+                            feature_copy["source"] = f"{class_name} {level_num}"
+                            feature_copy["mechanics"] = mechanics
+                            self.properties["features"].append(feature_copy)
+                        
+                        # Handle passive features
+                        elif mechanics_type == "passive":
+                            feature_copy = feature.copy()
+                            feature_copy["source"] = f"{class_name} {level_num}"
+                            feature_copy["mechanics"] = mechanics
+                            self.properties["features"].append(feature_copy)
+                        
+                        # Handle action features
+                        elif mechanics_type == "action":
+                            feature_copy = feature.copy()
+                            feature_copy["source"] = f"{class_name} {level_num}"
+                            feature_copy["mechanics"] = mechanics
+                            self.properties["features"].append(feature_copy)
+                        
+                        # Handle all other features
                         else:
-                            self.properties["features"].append(feature)
-            
-            # Check if subclass selection is required
-            if "subclasses" in class_data and level >= class_data["subclass_level"]:
-                choice_key = f"subclass_{class_name.lower()}"
-                self.properties["pending_choices"][choice_key] = {
-                    "type": "subclass",
-                    "class": class_data["name"],  # Use the name from class data for consistency
-                    "level": class_data["subclass_level"],
-                    "options": [subclass["name"] for subclass in class_data["subclasses"]["options"]],
-                    "description": f"Choose a {class_data['subclasses']['name']} for your {class_data['name']}"
-                }
-            
-            # Update spellcasting if applicable
-            if "spellcasting" in class_data:
-                self.properties["spells"]["spellcasting_ability"] = class_data["spellcasting"]["ability"]
-                
-                # Load spell list for the class
-                try:
-                    spell_list = self._load_data_file("spells", f"{class_name.lower()}_spells")
-                    
-                    # Prepare a merged pending_choices['spells'] dict
-                    pending_spells = self.properties["pending_choices"].get("spells", {})
-                    
-                    # Add cantrips known if the class has them
-                    if "cantrips_known" in class_data["spellcasting"]:
-                        for level_req, count in class_data["spellcasting"]["cantrips_known"].items():
-                            if level >= int(level_req):
-                                # Get available cantrips from spell list
-                                available_cantrips = spell_list.get("cantrips", [])
-                                # Add empty slots for cantrips (they will be filled in by user choice)
-                                self.properties["spells"]["cantrips"] = [{"name": "", "description": ""}] * count
-                                # Merge cantrips into pending_spells
-                                pending_spells["cantrips"] = {
-                                    "count": count,
-                                    "from": [spell["name"] for spell in available_cantrips]
-                                }
-                    
-                    # Handle spells known based on class type
-                    if "spells_known" in class_data["spellcasting"]:
-                        # For classes that know a fixed number of spells (like Ranger)
-                        for level_req, count in class_data["spellcasting"]["spells_known"].items():
-                            if level >= int(level_req):
-                                # Get available spells up to the highest level slot available
-                                available_spells = []
-                                for slot_level in range(1, 10):  # Check levels 1-9
-                                    if str(slot_level) in self.properties["spells"]["spell_slots"]:
-                                        level_key = f"level_{slot_level}"
-                                        if level_key in spell_list:
-                                            available_spells.extend(spell_list[level_key])
-                                # Add empty slots for spells (they will be filled in by user choice)
-                                self.properties["spells"]["spells_known"] = [{"name": "", "description": ""}] * count
-                                # Merge spells_known into pending_spells
-                                pending_spells["spells_known"] = {
-                                    "count": count,
-                                    "from": [spell["name"] for spell in available_spells]
-                                }
-                    elif "spellbook_rules" in class_data["spellcasting"]:
-                        # For classes that use a spellbook (like Wizard)
-                        initial_spells = class_data["spellcasting"]["spellbook_rules"]["initial_spells"]
-                        # Get available 1st level spells
-                        available_spells = spell_list.get("level_1", [])
-                        # Add empty slots for initial spells (they will be filled in by user choice)
-                        self.properties["spells"]["spells_known"] = [{"name": "", "description": ""}] * initial_spells
-                        # Merge spells_known into pending_spells
-                        pending_spells["spells_known"] = {
-                            "count": initial_spells,
-                            "from": [spell["name"] for spell in available_spells]
-                        }
-                    
-                    # Add spell slots
-                    for level_req, slots in class_data["spellcasting"]["spell_slots_per_level"].items():
-                        if level >= int(level_req):
-                            self.properties["spells"]["spell_slots"].update(slots)
-                    
-                    # Save the merged pending_spells dict
-                    if pending_spells:
-                        self.properties["pending_choices"]["spells"] = pending_spells
-                except Exception as e:
-                    logger.error(f"Failed to load spell list for {class_name}: {e}")
-                    # Continue without spells rather than failing completely
-                    pass
+                            feature_copy = feature.copy()
+                            feature_copy["source"] = f"{class_name} {level_num}"
+                            self.properties["features"].append(feature_copy)
             
             # Update proficiency bonus
             self.properties["proficiency_bonus"] = 2 + ((self.properties["level"] - 1) // 4)
@@ -1538,6 +1691,32 @@ class Toon:
         Returns:
             'combat' or 'non_combat'
         """
+        # Handle string features
+        if isinstance(feature, str):
+            return 'non_combat'
+            
+        # Check mechanics first
+        mechanics = feature.get('mechanics', {})
+        if mechanics:
+            mechanics_type = mechanics.get('type', '')
+            
+            # Features with these mechanics types are always combat
+            if mechanics_type in ['action', 'reaction', 'bonus_action']:
+                return 'combat'
+                
+            # Features with damage, attack rolls, or saves are combat
+            if any(k in mechanics for k in ['damage', 'attack', 'save']):
+                return 'combat'
+                
+            # Resource-based features need more analysis
+            if mechanics_type == 'resource':
+                # If the resource is used for combat abilities, it's combat
+                if any(k in mechanics for k in ['damage', 'attack', 'save', 'healing']):
+                    return 'combat'
+                # If it's clearly non-combat (like tool proficiencies), mark as such
+                if any(k in mechanics for k in ['skill', 'tool', 'social']):
+                    return 'non_combat'
+        
         # Combat-related keywords that strongly indicate a combat feature
         combat_keywords = [
             "attack roll", "damage", "hit points", "AC", "armor class",
@@ -1562,21 +1741,16 @@ class Toon:
         # Special case names that are always combat
         combat_names = {
             "fighting style", "martial", "weapon training", "armor training",
-            "divine smite", "sneak attack", "rage", "martial arts"
+            "divine smite", "sneak attack", "rage", "martial arts",
+            "extra attack", "unarmored defense", "defensive tactics"
         }
 
         # Special case names that are always non-combat
         non_combat_names = {
             "darkvision", "superior darkvision", "keen senses", "trance",
             "shelter of the faithful", "natural explorer", "favored enemy",
-            "languages"
+            "languages", "tool proficiency", "skill proficiency"
         }
-        
-        # Check if feature is explicitly marked
-        if feature.get('combat', False):
-            return 'combat'
-        if feature.get('non_combat', False):
-            return 'non_combat'
 
         name = feature.get('name', '').lower()
         
@@ -1630,6 +1804,13 @@ class Toon:
         
         # First process traits
         for trait in self.properties.get('traits', []):
+            # Handle string traits
+            if isinstance(trait, str):
+                if trait not in seen_features:
+                    seen_features.add(trait)
+                    non_combat_features.append({'name': trait, 'description': ''})
+                continue
+                
             name = trait.get('name', '').strip()
             if name and name not in seen_features:
                 seen_features.add(name)
@@ -1641,10 +1822,96 @@ class Toon:
         
         # Then process features
         for feature in self.properties.get('features', []):
+            # Handle string features
+            if isinstance(feature, str):
+                if feature not in seen_features:
+                    seen_features.add(feature)
+                    non_combat_features.append({'name': feature, 'description': ''})
+                continue
+                
             name = feature.get('name', '').strip()
             if name and name not in seen_features:
                 seen_features.add(name)
-                category = self._categorize_feature(feature)
+                mechanics = feature.get('mechanics', {})
+                
+                # Determine category based on mechanics type
+                if mechanics:
+                    mechanics_type = mechanics.get('type', '')
+                    if mechanics_type in ['action', 'reaction', 'bonus_action'] or 'damage' in mechanics:
+                        category = 'combat'
+                    elif mechanics_type in ['passive', 'resource'] and not any(k in mechanics for k in ['damage', 'attack', 'save']):
+                        category = 'non_combat'
+                    else:
+                        category = self._categorize_feature(feature)
+                else:
+                    category = self._categorize_feature(feature)
+                
+                # Format mechanics information
+                if mechanics:
+                    mechanics_text = []
+                    mechanics_type = mechanics.get('type', '')
+                    
+                    # Action type
+                    if mechanics_type in ['action', 'reaction', 'bonus_action']:
+                        mechanics_text.append(f"Action Type: {mechanics_type.replace('_', ' ').title()}")
+                    
+                    # Resource usage
+                    if 'resource' in mechanics:
+                        resource = mechanics['resource']
+                        if isinstance(resource, dict):
+                            mechanics_text.append(f"Resource: {resource.get('name', 'Unknown')}")
+                            if 'max' in resource:
+                                mechanics_text.append(f"Uses: {resource['max']} per {resource.get('recovery', 'long rest')}")
+                        else:
+                            mechanics_text.append(f"Resource: {resource}")
+                    
+                    # Range
+                    if 'range' in mechanics:
+                        range_info = mechanics['range']
+                        if isinstance(range_info, dict):
+                            mechanics_text.append(f"Range: {range_info.get('normal', '—')} ft.")
+                            if 'long' in range_info:
+                                mechanics_text.append(f"Long Range: {range_info['long']} ft.")
+                        else:
+                            mechanics_text.append(f"Range: {range_info}")
+                    
+                    # Duration
+                    if 'duration' in mechanics:
+                        duration = mechanics['duration']
+                        if isinstance(duration, dict):
+                            mechanics_text.append(f"Duration: {duration.get('amount', '1')} {duration.get('unit', 'round')}")
+                        else:
+                            mechanics_text.append(f"Duration: {duration}")
+                    
+                    # Damage
+                    if 'damage' in mechanics:
+                        damage = mechanics['damage']
+                        if isinstance(damage, dict):
+                            damage_text = []
+                            for damage_type, dice in damage.items():
+                                if isinstance(dice, dict):
+                                    damage_text.append(f"{dice.get('dice', '1d6')} {damage_type}")
+                                else:
+                                    damage_text.append(f"{dice} {damage_type}")
+                            mechanics_text.append(f"Damage: {', '.join(damage_text)}")
+                        else:
+                            mechanics_text.append(f"Damage: {damage}")
+                    
+                    # Saving throw
+                    if 'save' in mechanics:
+                        save = mechanics['save']
+                        if isinstance(save, dict):
+                            mechanics_text.append(f"Save: {save.get('type', 'Unknown')} DC {save.get('dc', 'Unknown')}")
+                            if 'effect' in save:
+                                mechanics_text.append(f"Save Effect: {save['effect']}")
+                        else:
+                            mechanics_text.append(f"Save: {save}")
+                    
+                    # Add mechanics text to feature description
+                    if mechanics_text:
+                        feature = feature.copy()
+                        feature['description'] = feature.get('description', '') + '\\n' + '\\n'.join(mechanics_text)
+                
                 if category == 'combat':
                     combat_features.append(feature)
                 else:
@@ -1652,7 +1919,16 @@ class Toon:
         
         # Sort features by level/importance if available, then by name
         def sort_key(x):
-            return (x.get('level', 0), x.get('name', '').lower())
+            if isinstance(x, str):
+                return (0, x.lower())
+            source = x.get('source', '')
+            if source:
+                try:
+                    level = int(source.split()[-1])
+                    return (level, x.get('name', '').lower())
+                except (ValueError, IndexError):
+                    pass
+            return (0, x.get('name', '').lower())
         
         combat_features.sort(key=sort_key)
         non_combat_features.sort(key=sort_key)
@@ -1660,20 +1936,32 @@ class Toon:
         # Format combat features
         combat_text = ["COMBAT FEATURES AND TRAITS:", ""]  # Add header
         for feature in combat_features:
-            combat_text.append(f"{feature['name'].upper()}")
-            combat_text.append(feature.get('description', 'No description available'))
-            if 'usage' in feature:
-                combat_text.append(f"Usage: {feature['usage']}")
-            combat_text.append("")  # blank line for spacing
+            if isinstance(feature, str):
+                combat_text.append(feature.upper())
+                combat_text.append("")  # blank line for spacing
+            else:
+                source = feature.get('source', '')
+                name = feature['name'].upper()
+                if source:
+                    name = f"{name} ({source})"
+                combat_text.append(name)
+                combat_text.append(feature.get('description', 'No description available'))
+                combat_text.append("")  # blank line for spacing
         
         # Format non-combat features
         non_combat_text = ["NON-COMBAT FEATURES AND TRAITS:", ""]  # Add header
         for feature in non_combat_features:
-            non_combat_text.append(f"{feature['name'].upper()}")
-            non_combat_text.append(feature.get('description', 'No description available'))
-            if 'usage' in feature:
-                non_combat_text.append(f"Usage: {feature['usage']}")
-            non_combat_text.append("")  # blank line for spacing
+            if isinstance(feature, str):
+                non_combat_text.append(feature.upper())
+                non_combat_text.append("")  # blank line for spacing
+            else:
+                source = feature.get('source', '')
+                name = feature['name'].upper()
+                if source:
+                    name = f"{name} ({source})"
+                non_combat_text.append(name)
+                non_combat_text.append(feature.get('description', 'No description available'))
+                non_combat_text.append("")  # blank line for spacing
         
         # Join with newlines and escape for PDF
         combat_str = '\\n'.join(combat_text)

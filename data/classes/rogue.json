@@ -207,6 +207,327 @@
         ]
     },
     "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "Thief",
+            "description": "You hone your skills in the larcenous arts. Burglars, bandits, cutpurses, and other criminals typically follow this archetype.",
+            "source": "PHB",
+            "features": {
+                "3": [
+                    {
+                        "name": "Fast Hands",
+                        "description": "You can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action."
+                    },
+                    {
+                        "name": "Second-Story Work",
+                        "description": "You gain the ability to climb faster than normal; climbing no longer costs you extra movement. Additionally, when you make a running jump, the distance you cover increases by a number of feet equal to your Dexterity modifier."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Supreme Sneak",
+                        "description": "You have advantage on a Dexterity (Stealth) check if you move no more than half your speed on the same turn."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Use Magic Device",
+                        "description": "You ignore all class, race, and level requirements on the use of magic items."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Thief's Reflexes",
+                        "description": "You can take two turns during the first round of any combat. You take your second turn at your initiative minus 10."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Assassin",
+            "description": "You focus your training on the grim art of death. Those who adhere to this archetype are diverse: hired killers, spies, bounty hunters, and even specially anointed priests trained to exterminate the enemies of their deity.",
+            "source": "PHB",
+            "features": {
+                "3": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with the disguise kit and the poisoner's kit."
+                    },
+                    {
+                        "name": "Assassinate",
+                        "description": "You have advantage on attack rolls against any creature that hasn't taken a turn in the combat yet. In addition, any hit you score against a creature that is surprised is a critical hit."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Infiltration Expertise",
+                        "description": "You can create false identities for yourself. You must spend seven days and 25 gp to establish the history, profession, and affiliations for an identity."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Impostor",
+                        "description": "You gain the ability to unerringly mimic another person's speech, writing, and behavior. You must spend at least three hours studying these three components of the person's behavior."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Death Strike",
+                        "description": "When you hit a surprised creature, it must make a Constitution saving throw. On a failed save, double the damage of your attack against the creature."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Arcane Trickster",
+            "description": "Some rogues enhance their fine-honed skills of stealth and agility with magic, learning tricks of enchantment and illusion.",
+            "source": "PHB",
+            "features": {
+                "3": [
+                    {
+                        "name": "Spellcasting",
+                        "description": "You gain the ability to cast spells. Your spells focus on the schools of enchantment and illusion."
+                    },
+                    {
+                        "name": "Mage Hand Legerdemain",
+                        "description": "When you cast mage hand, you can make the spectral hand invisible, and you can perform additional tasks with it."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Magical Ambush",
+                        "description": "If you are hidden from a creature when you cast a spell on it, the creature has disadvantage on any saving throw it makes against the spell this turn."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Versatile Trickster",
+                        "description": "You gain the ability to distract targets with your mage hand. As a bonus action, you can designate a creature within 5 feet of the spectral hand created by the spell. Doing so gives you advantage on attack rolls against that creature until the end of the turn."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Spell Thief",
+                        "description": "You gain the ability to magically steal the knowledge of how to cast a spell from another spellcaster."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Inquisitive",
+            "description": "You excel at rooting out secrets and unraveling mysteries. You rely on your sharp eye for detail, but also on your finely honed ability to read the words and deeds of other creatures to determine their true intent.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Ear for Deceit",
+                        "description": "When you make a Wisdom (Insight) check to determine whether a creature is lying, treat a roll of 7 or lower on the d20 as an 8."
+                    },
+                    {
+                        "name": "Eye for Detail",
+                        "description": "You can use a bonus action to make a Wisdom (Perception) check to spot a hidden creature or object or to make an Intelligence (Investigation) check to uncover or decipher clues."
+                    },
+                    {
+                        "name": "Insightful Fighting",
+                        "description": "As a bonus action, you can make a Wisdom (Insight) check against a creature you can see that isn't incapacitated, contested by the target's Charisma (Deception) check. If you succeed, you can use your Sneak Attack against that target even if you don't have advantage on the attack roll, but not if you have disadvantage on it."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Steady Eye",
+                        "description": "You gain advantage on any Wisdom (Perception) or Intelligence (Investigation) check if you move no more than half your speed on the same turn."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Unerring Eye",
+                        "description": "Your senses are almost impossible to foil. As an action, you can sense the presence of illusions, shapechangers not in their original form, and other magic designed to deceive the senses within 30 feet of you, provided you aren't blinded or deafened."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Eye for Weakness",
+                        "description": "You learn to exploit a creature's weaknesses by carefully studying its tactics and movement. While your Insightful Fighting feature applies to a creature, your Sneak Attack damage against that creature increases by 3d6."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Mastermind",
+            "description": "Your focus is on people and on the influence and secrets they have. Many spies, courtiers, and schemers follow this archetype, leading lives of intrigue.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Master of Intrigue",
+                        "description": "You gain proficiency with the disguise kit, forgery kit, and one gaming set of your choice. You also learn two languages of your choice."
+                    },
+                    {
+                        "name": "Master of Tactics",
+                        "description": "You can use the Help action as a bonus action. Additionally, when you use the Help action to aid an ally in attacking a creature, the target of that attack can be within 30 feet of you, rather than within 5 feet of you."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Insightful Manipulator",
+                        "description": "If you spend at least 1 minute observing or interacting with another creature outside combat, you can learn certain information about its capabilities compared to your own."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Misdirection",
+                        "description": "When you are targeted by an attack while a creature within 5 feet of you is granting you cover against that attack, you can use your reaction to have the attack target that creature instead of you."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Soul of Deceit",
+                        "description": "Your thoughts can't be read by telepathy or other means, unless you allow it. You can present false thoughts by succeeding on a Charisma (Deception) check contested by the mind reader's Wisdom (Insight) check."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Scout",
+            "description": "You are skilled in stealth and surviving far from the streets of a city, allowing you to scout ahead of your companions during expeditions.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Skirmisher",
+                        "description": "You can move up to half your speed as a reaction when an enemy ends its turn within 5 feet of you. This movement doesn't provoke opportunity attacks."
+                    },
+                    {
+                        "name": "Survivalist",
+                        "description": "You gain proficiency in the Nature and Survival skills if you don't already have it. Your proficiency bonus is doubled for any ability check you make that uses either of those proficiencies."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Superior Mobility",
+                        "description": "Your walking speed increases by 10 feet. If you have a climbing or swimming speed, this increase applies to that speed as well."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Ambush Master",
+                        "description": "You excel at leading ambushes and dealing quick, deadly strikes. You have advantage on initiative rolls, and the first creature you hit during the first round of a combat becomes easier for you and others to strike."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Sudden Strike",
+                        "description": "You can strike with deadly speed. If you take the Attack action on your turn, you can make one additional attack as a bonus action. This attack can benefit from your Sneak Attack even if you've already used it this turn, but you can't use your Sneak Attack against the same target more than once in a turn."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Swashbuckler",
+            "description": "You focus your training on the art of the blade, relying on speed, elegance, and charm in equal measure.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Fancy Footwork",
+                        "description": "When you make a melee attack against a creature, that creature can't make opportunity attacks against you for the rest of your turn."
+                    },
+                    {
+                        "name": "Rakish Audacity",
+                        "description": "You can give yourself a bonus to your initiative rolls equal to your Charisma modifier. You also don't need advantage on your attack roll to use your Sneak Attack if no creature other than your target is within 5 feet of you."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Panache",
+                        "description": "Your charm becomes extraordinarily beguiling. As an action, you can make a Charisma (Persuasion) check contested by a creature's Wisdom (Insight) check. The creature must be able to hear you, and the two of you must share a language."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Elegant Maneuver",
+                        "description": "You can use a bonus action on your turn to gain advantage on the next Dexterity (Acrobatics) or Strength (Athletics) check you make during the same turn."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Master Duelist",
+                        "description": "When you miss with an attack roll, you can roll it again with advantage. Once you do so, you can't use this feature again until you finish a short or long rest."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Phantom",
+            "description": "You have a connection to the realm of the dead, allowing you to channel the spirits of the deceased.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Whispers of the Dead",
+                        "description": "You can hear whispers from the dead, granting you a skill proficiency of your choice that lasts until you use this feature again."
+                    },
+                    {
+                        "name": "Wails from the Grave",
+                        "description": "When you hit a creature with an attack and deal Sneak Attack damage, you can target a second creature within 30 feet to deal necrotic damage."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Tokens of the Departed",
+                        "description": "When a creature dies within 30 feet of you, you can create a tiny trinket representing death's hold on that creature."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Ghost Walk",
+                        "description": "You gain the ability to phase through creatures and objects as a bonus action, gaining a flying speed and resistance to all damage."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Death's Friend",
+                        "description": "When you use your Wails from the Grave feature, you can deal the necrotic damage to both the first and the second creature."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Soulknife",
+            "description": "You manifest your psionic power as shimmering blades of psychic energy.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Psionic Power",
+                        "description": "You harbor a wellspring of psionic energy within yourself, represented by Psionic Energy dice."
+                    },
+                    {
+                        "name": "Psychic Blades",
+                        "description": "You can manifest psionic blades that deal psychic damage."
+                    }
+                ],
+                "9": [
+                    {
+                        "name": "Soul Blades",
+                        "description": "You gain additional ways to use your Psionic Energy dice: Homing Strikes and Psychic Teleportation."
+                    }
+                ],
+                "13": [
+                    {
+                        "name": "Psychic Veil",
+                        "description": "You can weave a veil of psychic static to mask yourself from view."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Rend Mind",
+                        "description": "Your psychic blades can now deal devastating psychic damage to a creature's mind."
+                    }
+                ]
+            }
+        }
+    ],
     "version": "5E",
     "source": "PHB",
     "source_page": 94

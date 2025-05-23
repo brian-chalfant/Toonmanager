@@ -1,0 +1,1179 @@
+{
+    "name": "Barbarian",
+    "description": "A fierce warrior of primitive background who can enter a battle rage.",
+    "hit_dice": "1d12",
+    "primary_ability": [
+        "strength"
+    ],
+    "saving_throw_proficiencies": [
+        "strength",
+        "constitution"
+    ],
+    "armor_proficiencies": [
+        "light armor",
+        "medium armor",
+        "shields"
+    ],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "martial weapons"
+    ],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Animal Handling",
+            "Athletics",
+            "Intimidation",
+            "Nature",
+            "Perception",
+            "Survival"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "greataxe",
+                    "any martial melee weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "two handaxes",
+                    "any simple weapon"
+                ]
+            }
+        ],
+        "default": [
+            "explorer's pack",
+            "four javelins"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Rage",
+                "description": "On your turn, you can enter a rage as a bonus action. While raging, you gain advantage on Strength checks and Strength saving throws, a bonus to the damage roll that increases as you gain levels, and resistance to bludgeoning, piercing, and slashing damage.",
+                "mechanics": {
+                    "action_type": "bonus_action",
+                    "duration": {
+                        "type": "time",
+                        "amount": 1,
+                        "unit": "minute"
+                    },
+                    "uses": {
+                        "per_day": {
+                            "2": 2,
+                            "3": 3,
+                            "6": 4,
+                            "12": 5,
+                            "17": 6,
+                            "20": "unlimited"
+                        }
+                    },
+                    "damage_bonus": {
+                        "1": 2,
+                        "9": 3,
+                        "16": 4
+                    },
+                    "effects": [
+                        {
+                            "type": "advantage",
+                            "on": ["strength_check", "strength_save"]
+                        },
+                        {
+                            "type": "resistance",
+                            "to": ["bludgeoning", "piercing", "slashing"]
+                        }
+                    ],
+                    "conditions": [
+                        "Cannot be wearing heavy armor",
+                        "Ends early if you are knocked unconscious",
+                        "Ends early if your turn ends and you haven't attacked a hostile creature or taken damage since your last turn"
+                    ]
+                }
+            },
+            {
+                "name": "Unarmored Defense",
+                "description": "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.",
+                "mechanics": {
+                    "type": "passive",
+                    "armor_class": {
+                        "base": 10,
+                        "modifiers": [
+                            "dexterity",
+                            "constitution"
+                        ]
+                    },
+                    "conditions": [
+                        "Not wearing any armor",
+                        "Can use a shield"
+                    ]
+                }
+            }
+        ],
+        "2": [
+            {
+                "name": "Reckless Attack",
+                "description": "When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn.",
+                "mechanics": {
+                    "type": "combat_option",
+                    "activation": {
+                        "timing": "when making first attack on turn",
+                        "cost": "free"
+                    },
+                    "duration": {
+                        "advantage_on_attacks": "until end of turn",
+                        "disadvantage_effect": "until start of next turn"
+                    },
+                    "effects": [
+                        {
+                            "type": "advantage",
+                            "on": "melee_weapon_attack_rolls_using_strength",
+                            "duration": "current_turn"
+                        },
+                        {
+                            "type": "grant_advantage",
+                            "to": "all_attacks_against_self",
+                            "duration": "until_next_turn"
+                        }
+                    ],
+                    "conditions": [
+                        "Must be making a melee weapon attack using Strength"
+                    ]
+                }
+            },
+            {
+                "name": "Danger Sense",
+                "description": "You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "advantage",
+                            "on": "dexterity_saving_throws",
+                            "conditions": [
+                                "Effect must be visible",
+                                "Not blinded",
+                                "Not incapacitated"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "3": [
+            {
+                "name": "Primal Path",
+                "description": "You choose a path that shapes the nature of your rage, such as the Path of the Berserker or the Path of the Totem Warrior. You gain additional features at 3rd, 6th, 10th, and 14th level."
+            }
+        ],
+        "5": [
+            {
+                "name": "Extra Attack",
+                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "additional_attack",
+                            "amount": 1,
+                            "conditions": [
+                                "Must use Attack action"
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Fast Movement",
+                "description": "Your speed increases by 10 feet while you aren't wearing heavy armor.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "speed_bonus",
+                            "amount": 10,
+                            "unit": "feet",
+                            "conditions": [
+                                "Not wearing heavy armor"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "7": [
+            {
+                "name": "Feral Instinct",
+                "description": "You have advantage on initiative rolls. Additionally, if you are surprised at the beginning of combat and aren't incapacitated, you can act normally on your first turn by entering a rage before doing anything else.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "advantage",
+                            "on": "initiative"
+                        },
+                        {
+                            "type": "special",
+                            "name": "surprise_rage",
+                            "description": "Can act normally on first turn when surprised by entering rage",
+                            "conditions": [
+                                "Must be surprised",
+                                "Not incapacitated",
+                                "Must enter rage before any other action"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "9": [
+            {
+                "name": "Brutal Critical (1 die)",
+                "description": "You can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two extra dice at 13th level and three extra dice at 17th level.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "critical_hit_bonus",
+                            "additional_dice": {
+                                "9": 1,
+                                "13": 2,
+                                "17": 3
+                            },
+                            "conditions": [
+                                "Must be a melee weapon attack",
+                                "Must be a critical hit"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "11": [
+            {
+                "name": "Relentless Rage",
+                "description": "If you drop to 0 hit points while raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead. Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10.",
+                "mechanics": {
+                    "type": "reaction",
+                    "trigger": "Dropping to 0 hit points while raging",
+                    "effects": [
+                        {
+                            "type": "saving_throw",
+                            "ability": "constitution",
+                            "base_dc": 10,
+                            "dc_increase": 5,
+                            "dc_reset": "short_or_long_rest",
+                            "success_effect": "regain 1 hit point",
+                            "conditions": [
+                                "Must be raging",
+                                "Must not die outright",
+                                "Must have dropped to 0 hit points"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "15": [
+            {
+                "name": "Persistent Rage",
+                "description": "Your rage is so fierce that it only ends early if you fall unconscious or choose to end it.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "modify_feature",
+                            "feature": "rage",
+                            "modification": "remove_conditions",
+                            "conditions_removed": [
+                                "Ends early if your turn ends and you haven't attacked a hostile creature or taken damage since your last turn"
+                            ],
+                            "remaining_conditions": [
+                                "Ends if you fall unconscious",
+                                "Ends if you choose to end it"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "18": [
+            {
+                "name": "Indomitable Might",
+                "description": "If your total for a Strength check is less than your Strength score, you can use that score in place of the total.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "ability_check_minimum",
+                            "ability": "strength",
+                            "minimum": "strength_score"
+                        }
+                    ]
+                }
+            }
+        ],
+        "20": [
+            {
+                "name": "Primal Champion",
+                "description": "Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "ability_score_increase",
+                            "abilities": ["strength", "constitution"],
+                            "amount": 4
+                        },
+                        {
+                            "type": "ability_score_maximum",
+                            "abilities": ["strength", "constitution"],
+                            "new_maximum": 24
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "Path of the Berserker",
+            "description": "For some barbarians, rage is a means to an end—that end being violence. The Path of the Berserker is a path of untrammeled fury, wreaking havoc in battle.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Frenzy",
+                        "description": "While raging, you can choose to go into a frenzy. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion.",
+                        "mechanics": {
+                            "type": "combat_option",
+                            "activation": {
+                                "timing": "when entering rage",
+                                "cost": "free"
+                            },
+                            "effects": [
+                                {
+                                    "type": "bonus_action",
+                                    "action": "melee_weapon_attack",
+                                    "duration": "rage",
+                                    "conditions": [
+                                        "Must be raging"
+                                    ]
+                                },
+                                {
+                                    "type": "condition",
+                                    "condition": "exhaustion",
+                                    "level": 1,
+                                    "timing": "when rage ends"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Mindless Rage",
+                        "description": "You can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "immunity",
+                                    "to": ["charmed", "frightened"],
+                                    "duration": "rage"
+                                },
+                                {
+                                    "type": "suspend_condition",
+                                    "conditions": ["charmed", "frightened"],
+                                    "duration": "rage"
+                                }
+                            ],
+                            "conditions": [
+                                "Must be raging"
+                            ]
+                        }
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Intimidating Presence",
+                        "description": "You can use your action to frighten someone with your menacing presence. Choose one creature you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened until the end of your next turn. You can extend this effect with subsequent actions.",
+                        "mechanics": {
+                            "type": "action",
+                            "effects": [
+                                {
+                                    "type": "saving_throw",
+                                    "ability": "wisdom",
+                                    "dc": {
+                                        "base": 8,
+                                        "modifiers": [
+                                            "proficiency",
+                                            "charisma"
+                                        ]
+                                    },
+                                    "on_fail": {
+                                        "condition": "frightened",
+                                        "duration": "until_end_of_next_turn"
+                                    }
+                                }
+                            ],
+                            "target": {
+                                "type": "creature",
+                                "range": 30,
+                                "conditions": [
+                                    "Must be visible to you",
+                                    "Must be able to see or hear you"
+                                ]
+                            },
+                            "extendable": {
+                                "cost": "action",
+                                "duration": "one_turn"
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Retaliation",
+                        "description": "When you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "trigger": "taking damage from creature within 5 feet",
+                            "effects": [
+                                {
+                                    "type": "melee_weapon_attack",
+                                    "target": "triggering_creature"
+                                }
+                            ],
+                            "conditions": [
+                                "Creature must be within 5 feet",
+                                "Must have taken damage from the creature"
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Path of the Totem Warrior",
+            "description": "The Path of the Totem Warrior is a spiritual journey, as the barbarian accepts a spirit animal as guide, protector, and inspiration.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Spirit Seeker",
+                        "description": "You gain the ability to cast the beast sense and speak with animals spells, but only as rituals.",
+                        "mechanics": {
+                            "type": "spellcasting",
+                            "spells": [
+                                {
+                                    "name": "beast sense",
+                                    "ritual_only": true
+                                },
+                                {
+                                    "name": "speak with animals",
+                                    "ritual_only": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Totem Spirit",
+                        "description": "You choose a totem spirit and gain its feature. Options include Bear, Eagle, and Wolf (see PHB for more totem options and details).",
+                        "mechanics": {
+                            "type": "choice",
+                            "options": [
+                                {
+                                    "name": "Bear",
+                                    "effects": [
+                                        {
+                                            "type": "resistance",
+                                            "to": ["all_damage_except_psychic"],
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Eagle",
+                                    "effects": [
+                                        {
+                                            "type": "grant_advantage",
+                                            "to": "opportunity_attacks_against_you",
+                                            "conditions": ["while_raging"]
+                                        },
+                                        {
+                                            "type": "dash",
+                                            "as": "bonus_action"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Wolf",
+                                    "effects": [
+                                        {
+                                            "type": "grant_advantage",
+                                            "to": "melee_attacks",
+                                            "target": "allies",
+                                            "conditions": [
+                                                "while_raging",
+                                                "target_within_5_feet"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Aspect of the Beast",
+                        "description": "You gain a magical benefit based on the totem animal of your choice. Options include Bear, Eagle, and Wolf (see PHB for more totem options and details).",
+                        "mechanics": {
+                            "type": "choice",
+                            "options": [
+                                {
+                                    "name": "Bear",
+                                    "effects": [
+                                        {
+                                            "type": "carrying_capacity",
+                                            "multiplier": 2
+                                        },
+                                        {
+                                            "type": "advantage",
+                                            "on": "strength_checks"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Eagle",
+                                    "effects": [
+                                        {
+                                            "type": "vision",
+                                            "range": "1_mile",
+                                            "conditions": [
+                                                "unobstructed_view",
+                                                "bright_light"
+                                            ]
+                                        },
+                                        {
+                                            "type": "no_disadvantage",
+                                            "on": "perception_checks",
+                                            "in": "dim_light"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Wolf",
+                                    "effects": [
+                                        {
+                                            "type": "tracking",
+                                            "bonus": "advantage",
+                                            "conditions": ["while_traveling"]
+                                        },
+                                        {
+                                            "type": "stealth",
+                                            "bonus": "normal_pace"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Spirit Walker",
+                        "description": "You can cast the commune with nature spell, but only as a ritual.",
+                        "mechanics": {
+                            "type": "spellcasting",
+                            "spells": [
+                                {
+                                    "name": "commune with nature",
+                                    "ritual_only": true
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Totemic Attunement",
+                        "description": "You gain a magical benefit based on the totem animal of your choice. Options include Bear, Eagle, and Wolf (see PHB for more totem options and details).",
+                        "mechanics": {
+                            "type": "choice",
+                            "options": [
+                                {
+                                    "name": "Bear",
+                                    "effects": [
+                                        {
+                                            "type": "aura",
+                                            "range": 5,
+                                            "effect": "hostile_creatures_disadvantage",
+                                            "on": "attack_rolls",
+                                            "target": "allies",
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Eagle",
+                                    "effects": [
+                                        {
+                                            "type": "flying_speed",
+                                            "speed": "walking_speed",
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Wolf",
+                                    "effects": [
+                                        {
+                                            "type": "reaction",
+                                            "trigger": "ally_hits_with_melee_attack",
+                                            "effect": "knock_prone",
+                                            "target": "creature_hit",
+                                            "size": "large_or_smaller",
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Path of the Storm Herald",
+            "description": "These barbarians channel the power of the storm, imbuing their rage with the primal elements of nature.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Storm Aura",
+                        "description": "While raging, you emanate an aura in a 10-foot radius. Choose desert (fire), sea (lightning), or tundra (cold) as your environment. Your aura's effects depend on your chosen environment.",
+                        "mechanics": {
+                            "type": "choice",
+                            "options": [
+                                {
+                                    "name": "Desert",
+                                    "effects": [
+                                        {
+                                            "type": "aura",
+                                            "range": 10,
+                                            "damage": {
+                                                "type": "fire",
+                                                "amount": {
+                                                    "3": 2,
+                                                    "10": 3,
+                                                    "15": 4,
+                                                    "20": 5
+                                                }
+                                            },
+                                            "target": "each_creature_you_choose",
+                                            "saving_throw": {
+                                                "ability": "dexterity",
+                                                "dc": {
+                                                    "base": 8,
+                                                    "modifiers": [
+                                                        "proficiency",
+                                                        "constitution"
+                                                    ]
+                                                },
+                                                "on_success": "no_damage"
+                                            },
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Sea",
+                                    "effects": [
+                                        {
+                                            "type": "aura",
+                                            "range": 10,
+                                            "damage": {
+                                                "type": "lightning",
+                                                "amount": {
+                                                    "3": "1d6",
+                                                    "10": "2d6",
+                                                    "15": "3d6",
+                                                    "20": "4d6"
+                                                }
+                                            },
+                                            "target": "one_creature",
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Tundra",
+                                    "effects": [
+                                        {
+                                            "type": "aura",
+                                            "range": 10,
+                                            "effect": "reduce_speed",
+                                            "amount": "half",
+                                            "target": "each_creature_you_choose",
+                                            "saving_throw": {
+                                                "ability": "constitution",
+                                                "dc": {
+                                                    "base": 8,
+                                                    "modifiers": [
+                                                        "proficiency",
+                                                        "constitution"
+                                                    ]
+                                                },
+                                                "on_success": "no_effect"
+                                            },
+                                            "conditions": ["while_raging"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Storm Soul",
+                        "description": "You gain resistance to the damage type associated with your chosen environment and other environment-specific benefits.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "name": "Desert",
+                                    "effects": [
+                                        {
+                                            "type": "resistance",
+                                            "to": ["fire"]
+                                        },
+                                        {
+                                            "type": "immunity",
+                                            "to": ["fire_damage_from_environment"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Sea",
+                                    "effects": [
+                                        {
+                                            "type": "resistance",
+                                            "to": ["lightning"]
+                                        },
+                                        {
+                                            "type": "water_breathing"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Tundra",
+                                    "effects": [
+                                        {
+                                            "type": "resistance",
+                                            "to": ["cold"]
+                                        },
+                                        {
+                                            "type": "immunity",
+                                            "to": ["cold_damage_from_environment"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Shielding Storm",
+                        "description": "You can extend your Storm Aura's benefits to other creatures in your aura.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "grant_resistance",
+                                    "to": "storm_damage_type",
+                                    "target": "allies_in_aura"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Raging Storm",
+                        "description": "Your Storm Aura grows stronger, dealing more damage or providing greater benefits based on your chosen environment.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "name": "Desert",
+                                    "effects": [
+                                        {
+                                            "type": "reaction",
+                                            "trigger": "creature_fails_desert_aura_save",
+                                            "effect": "fire_damage",
+                                            "damage": "2d6"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Sea",
+                                    "effects": [
+                                        {
+                                            "type": "reaction",
+                                            "trigger": "hit_with_lightning_damage",
+                                            "effect": "push",
+                                            "distance": 20,
+                                            "saving_throw": {
+                                                "ability": "strength",
+                                                "dc": {
+                                                    "base": 8,
+                                                    "modifiers": [
+                                                        "proficiency",
+                                                        "constitution"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Tundra",
+                                    "effects": [
+                                        {
+                                            "type": "reaction",
+                                            "trigger": "creature_fails_tundra_aura_save",
+                                            "effect": "restrained",
+                                            "duration": "end_of_next_turn"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Path of the Zealot",
+            "description": "Some barbarians derive their rage from a drive for religious or ideological fanaticism.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Divine Fury",
+                        "description": "While raging, the first creature you hit with a weapon attack on each of your turns takes extra damage equal to 1d6 + half your barbarian level. The extra damage is necrotic or radiant (your choice).",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "extra_damage",
+                                    "trigger": "first_weapon_hit_per_turn",
+                                    "damage": {
+                                        "dice": "1d6",
+                                        "bonus": "half_barbarian_level"
+                                    },
+                                    "damage_type": {
+                                        "choose": ["necrotic", "radiant"]
+                                    },
+                                    "conditions": ["while_raging"]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Warrior of the Gods",
+                        "description": "If a spell would restore you to life, the caster doesn't need material components to cast it.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "spellcasting_modification",
+                                    "affects": "resurrection_spells",
+                                    "modification": "no_material_components",
+                                    "target": "self"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Fanatical Focus",
+                        "description": "When you fail a saving throw while raging, you can reroll it and must use the new roll. You can use this ability only once per rage.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "trigger": "failing_saving_throw",
+                            "effects": [
+                                {
+                                    "type": "reroll",
+                                    "what": "saving_throw",
+                                    "must_use": "new_roll",
+                                    "uses": {
+                                        "per_rage": 1
+                                    },
+                                    "conditions": ["while_raging"]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Zealous Presence",
+                        "description": "As a bonus action, you unleash a battle cry infused with divine energy. Up to ten creatures of your choice within 60 feet gain advantage on attack rolls and saving throws until the start of your next turn.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "effects": [
+                                {
+                                    "type": "grant_advantage",
+                                    "on": ["attack_rolls", "saving_throws"],
+                                    "target": {
+                                        "type": "creatures",
+                                        "number": 10,
+                                        "range": 60,
+                                        "choice": "you_choose"
+                                    },
+                                    "duration": "until_start_of_next_turn"
+                                }
+                            ],
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Rage Beyond Death",
+                        "description": "While raging, having 0 hit points doesn't knock you unconscious. You still must make death saving throws, and you suffer the normal effects of taking damage while at 0 hit points. However, if you would die due to failing death saving throws, you don't die until your rage ends.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "condition_immunity",
+                                    "condition": "unconscious",
+                                    "source": "0_hit_points",
+                                    "conditions": ["while_raging"]
+                                },
+                                {
+                                    "type": "death_saving_throws",
+                                    "modification": "continue_at_0_hp",
+                                    "conditions": ["while_raging"]
+                                },
+                                {
+                                    "type": "delay_death",
+                                    "until": "rage_ends",
+                                    "conditions": [
+                                        "while_raging",
+                                        "would_die_from_failed_death_saves"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Path of the Beast",
+            "description": "Barbarians who embrace their bestial nature, transforming their bodies in battle.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Form of the Beast",
+                        "description": "When you enter your rage, you can transform, revealing the bestial power within you. Until your rage ends, you manifest a natural weapon, choosing either claws, bite, or tail.",
+                        "mechanics": {
+                            "type": "choice",
+                            "timing": "when_entering_rage",
+                            "options": [
+                                {
+                                    "name": "Claws",
+                                    "effects": [
+                                        {
+                                            "type": "natural_weapon",
+                                            "weapon": {
+                                                "name": "claws",
+                                                "damage": "1d6",
+                                                "damage_type": "slashing",
+                                                "properties": ["light"],
+                                                "special": "Can make one additional attack when taking Attack action"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Bite",
+                                    "effects": [
+                                        {
+                                            "type": "natural_weapon",
+                                            "weapon": {
+                                                "name": "bite",
+                                                "damage": "1d8",
+                                                "damage_type": "piercing",
+                                                "special": {
+                                                    "healing": {
+                                                        "trigger": "hit_while_below_half_hp",
+                                                        "amount": "proficiency_bonus"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Tail",
+                                    "effects": [
+                                        {
+                                            "type": "natural_weapon",
+                                            "weapon": {
+                                                "name": "tail",
+                                                "damage": "1d8",
+                                                "damage_type": "piercing",
+                                                "properties": ["reach"],
+                                                "special": {
+                                                    "reaction": {
+                                                        "trigger": "hit_by_attack_within_10_feet",
+                                                        "effect": "add_1d8_to_ac"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "duration": "rage"
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Bestial Soul",
+                        "description": "You gain additional benefits when using your Form of the Beast feature, and you can enhance your bestial features to gain different movement types.",
+                        "mechanics": {
+                            "type": "choice",
+                            "timing": "when_entering_rage",
+                            "options": [
+                                {
+                                    "name": "Swimming",
+                                    "effects": [
+                                        {
+                                            "type": "swimming_speed",
+                                            "speed": "walking_speed"
+                                        },
+                                        {
+                                            "type": "water_breathing"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Climbing",
+                                    "effects": [
+                                        {
+                                            "type": "climbing_speed",
+                                            "speed": "walking_speed"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Jumping",
+                                    "effects": [
+                                        {
+                                            "type": "jump_distance",
+                                            "multiplier": 2
+                                        },
+                                        {
+                                            "type": "no_fall_damage",
+                                            "conditions": ["end_turn_on_ground"]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "duration": "rage"
+                        }
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Infectious Fury",
+                        "description": "When you hit a creature with your natural weapons while raging, you can force the target to make a saving throw, potentially causing them to attack another creature or take damage.",
+                        "mechanics": {
+                            "type": "special_attack",
+                            "trigger": "hit_with_natural_weapon",
+                            "effects": [
+                                {
+                                    "type": "saving_throw",
+                                    "ability": "wisdom",
+                                    "dc": {
+                                        "base": 8,
+                                        "modifiers": [
+                                            "proficiency",
+                                            "constitution"
+                                        ]
+                                    },
+                                    "on_fail": {
+                                        "choose": [
+                                            {
+                                                "type": "force_attack",
+                                                "target": "another_creature_within_30_feet"
+                                            },
+                                            {
+                                                "type": "damage",
+                                                "amount": "2d12",
+                                                "damage_type": "psychic"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "uses": {
+                                "per_rage": "proficiency_bonus"
+                            },
+                            "conditions": ["while_raging"]
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Call the Hunt",
+                        "description": "You can call forth your inner bestial power to enhance your allies. As an action, you grant temporary hit points and bonus damage to nearby allies.",
+                        "mechanics": {
+                            "type": "action",
+                            "effects": [
+                                {
+                                    "type": "grant_temporary_hp",
+                                    "amount": "proficiency_bonus",
+                                    "target": {
+                                        "type": "allies",
+                                        "range": 30
+                                    }
+                                },
+                                {
+                                    "type": "grant_bonus_damage",
+                                    "amount": "1d6",
+                                    "damage_type": "same_as_weapon",
+                                    "duration": "1_minute",
+                                    "target": {
+                                        "type": "allies",
+                                        "range": 30
+                                    }
+                                }
+                            ],
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 46
+}

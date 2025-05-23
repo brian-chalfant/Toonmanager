@@ -1,0 +1,577 @@
+{
+    "name": "Paladin",
+    "description": "A holy warrior bound to a sacred oath.",
+    "hit_dice": "1d10",
+    "primary_ability": [
+        "strength",
+        "charisma"
+    ],
+    "saving_throw_proficiencies": [
+        "wisdom",
+        "charisma"
+    ],
+    "armor_proficiencies": [
+        "all armor",
+        "shields"
+    ],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "martial weapons"
+    ],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Athletics",
+            "Insight",
+            "Intimidation",
+            "Medicine",
+            "Persuasion",
+            "Religion"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "martial weapon and shield",
+                    "two martial weapons"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "five javelins",
+                    "any simple melee weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "priest's pack",
+                    "explorer's pack"
+                ]
+            }
+        ],
+        "default": [
+            "chain mail",
+            "holy symbol"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Divine Sense",
+                "description": "As an action, you can open your awareness to detect evil and good until the end of your next turn. Uses per long rest equal to 1 + your Charisma modifier."
+            },
+            {
+                "name": "Lay on Hands",
+                "description": "You have a pool of healing power that replenishes when you take a long rest. You can restore a total number of hit points equal to your paladin level × 5."
+            }
+        ],
+        "2": [
+            {
+                "name": "Fighting Style",
+                "description": "You adopt a fighting style, such as Defense, Dueling, Great Weapon Fighting, or Protection."
+            },
+            {
+                "name": "Spellcasting",
+                "description": "You can cast prepared paladin spells using Charisma as your spellcasting ability. You use a holy symbol as a spellcasting focus."
+            },
+            {
+                "name": "Divine Smite",
+                "description": "When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage."
+            }
+        ],
+        "3": [
+            {
+                "name": "Divine Health",
+                "description": "You are immune to disease."
+            },
+            {
+                "name": "Sacred Oath",
+                "description": "You swear a sacred oath at 3rd level that grants you features at 3rd, 7th, 15th, and 20th level."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "Increase one ability score by 2, or two ability scores by 1. Max 20."
+            }
+        ],
+        "5": [
+            {
+                "name": "Extra Attack",
+                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+            },
+            {
+                "name": "Aura of Protection",
+                "description": "Whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus equal to your Charisma modifier (minimum +1). You must be conscious to grant this bonus."
+            }
+        ],
+        "6": [
+            {
+                "name": "Aura of Protection (Improved)",
+                "description": "Aura increases to 30 feet at 18th level."
+            }
+        ],
+        "10": [
+            {
+                "name": "Aura of Courage",
+                "description": "You and friendly creatures within 10 feet can't be frightened while you are conscious. Increases to 30 feet at 18th level."
+            }
+        ],
+        "11": [
+            {
+                "name": "Improved Divine Smite",
+                "description": "Whenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage."
+            }
+        ],
+        "14": [
+            {
+                "name": "Cleansing Touch",
+                "description": "You can end one spell on yourself or on one willing creature that you touch. Uses per long rest equal to your Charisma modifier."
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "charisma",
+        "focus": [
+            "holy symbol"
+        ],
+        "spells_known": "prepared",
+        "cantrips_known": null,
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 3,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 2
+            },
+            "5": {
+                "1": 4,
+                "2": 3
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 1
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "4": 1,
+                "5": 1
+            }
+        }
+    },
+    "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "Oath of Devotion",
+            "description": "Paladins who swear the Oath of Devotion are committed to the ideals of justice, virtue, and order.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Channel Divinity (Devotion)",
+                        "description": "You gain two Channel Divinity options: Sacred Weapon and Turn the Unholy."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of Devotion",
+                        "description": "You and friendly creatures within 10 feet can't be charmed while you are conscious. Increases to 30 feet at 18th level."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Purity of Spirit",
+                        "description": "You are always under the effects of a protection from evil and good spell."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Holy Nimbus",
+                        "description": "As an action, you emanate an aura of sunlight. For 1 minute, bright light shines from you in a 30-foot radius, and you have advantage on saving throws against spells cast by fiends or undead. Enemies in the light take radiant damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of the Ancients",
+            "description": "Paladins who swear the Oath of the Ancients are committed to the ideals of light, kindness, and preservation of nature.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Channel Divinity (Ancients)",
+                        "description": "You gain two Channel Divinity options: Nature's Wrath and Turn the Faithless."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of Warding",
+                        "description": "You and friendly creatures within 10 feet have resistance to damage from spells. Increases to 30 feet at 18th level."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Undying Sentinel",
+                        "description": "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You don't age magically, and you can't be aged magically."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Elder Champion",
+                        "description": "As an action, you can gain the following benefits for 1 minute: regain 10 hit points at the start of each of your turns, cast a paladin spell as a bonus action, and enemies within 10 feet have disadvantage on saving throws against your paladin spells and Channel Divinity options."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of Vengeance",
+            "description": "Paladins who swear the Oath of Vengeance are committed to punishing wrongdoers by any means necessary.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Channel Divinity (Vengeance)",
+                        "description": "You gain two Channel Divinity options: Abjure Enemy and Vow of Enmity."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Relentless Avenger",
+                        "description": "When you hit a creature with an opportunity attack, you can move up to half your speed immediately after the attack as part of the same reaction."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Soul of Vengeance",
+                        "description": "The Vow of Enmity feature lets you make an opportunity attack against the creature when it attacks you."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Avenging Angel",
+                        "description": "As an action, you transform into an angelic avenger for 1 hour: you gain flying speed 60 ft, enemies within 30 ft you choose are frightened, and you have advantage on attack rolls against frightened creatures."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of Conquest",
+            "description": "Paladins who swear this oath seek to crush the forces of chaos and establish dominion over the weak.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including armor of Agathys, command, hold person, and spiritual weapon."
+                    },
+                    {
+                        "name": "Channel Divinity (Conquest)",
+                        "description": "You gain two Channel Divinity options: Conquering Presence and Guided Strike."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of Conquest",
+                        "description": "Creatures frightened of you have their speed reduced to 0, and take psychic damage when starting their turn in your aura."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Scornful Rebuke",
+                        "description": "When you are hit by an attack, the attacker takes psychic damage equal to your Charisma modifier."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Invincible Conqueror",
+                        "description": "As an action, you gain resistance to all damage, extra attack, and critical hits on 19-20 for 1 minute."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of Redemption",
+            "description": "Paladins who swear this oath believe that any person can be redeemed and that peace is always the best answer.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including sanctuary, sleep, calm emotions, and hold person."
+                    },
+                    {
+                        "name": "Channel Divinity (Redemption)",
+                        "description": "You gain two Channel Divinity options: Emissary of Peace and Rebuke the Violent."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of the Guardian",
+                        "description": "When a creature within 10 feet takes damage, you can use your reaction to take that damage instead."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Protective Spirit",
+                        "description": "At the start of each of your turns, you regain hit points if you're below half your hit point maximum."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Emissary of Redemption",
+                        "description": "You gain resistance to all damage from other creatures. When someone damages you, they take radiant damage equal to half the damage you took."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of Glory",
+            "description": "Paladins who swear this oath believe they are destined for greatness and seek to achieve legendary deeds.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including guiding bolt, heroism, enhance ability, and magic weapon."
+                    },
+                    {
+                        "name": "Channel Divinity (Glory)",
+                        "description": "You gain two Channel Divinity options: Peerless Athlete and Inspiring Smite."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of Alacrity",
+                        "description": "You and friendly creatures within 5 feet of you gain a bonus to their walking speed."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Glorious Defense",
+                        "description": "When you or a creature you can see within 10 feet is hit by an attack, you can use your reaction to grant a bonus to AC."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Living Legend",
+                        "description": "You gain advantages on Charisma checks and can use your Channel Divinity twice between rests."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of the Watchers",
+            "description": "Paladins who swear this oath seek to protect the mortal realm from extraplanar threats.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including alarm, detect magic, moonbeam, and see invisibility."
+                    },
+                    {
+                        "name": "Channel Divinity (Watchers)",
+                        "description": "You gain two Channel Divinity options: Watcher's Will and Abjure the Extraplanar."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of the Sentinel",
+                        "description": "You and your allies within 10 feet gain a bonus to Initiative rolls."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Vigilant Rebuke",
+                        "description": "When you or a creature you can see within 30 feet succeeds on an Intelligence, Wisdom, or Charisma saving throw, you can use your reaction to deal force damage to the attacker."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Mortal Bulwark",
+                        "description": "You gain truesight, advantage on attack rolls against aberrations, celestials, elementals, fey, and fiends, and can banish such creatures when you hit them."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oath of the Crown",
+            "description": "Paladins who swear this oath dedicate themselves to serving society and the ideals of civilization.",
+            "source": "SCAG",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including command, compelled duel, warding bond, and zone of truth."
+                    },
+                    {
+                        "name": "Channel Divinity (Crown)",
+                        "description": "You gain two Channel Divinity options: Champion Challenge and Turn the Tide."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Divine Allegiance",
+                        "description": "When a creature within 5 feet takes damage, you can use your reaction to take that damage instead."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Unyielding Spirit",
+                        "description": "You have advantage on saving throws against effects that would paralyze or stun you."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Exalted Champion",
+                        "description": "Your presence on the battlefield inspires allies and demoralizes enemies. You gain resistance to all damage and your allies have advantage on death saving throws."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Oathbreaker",
+            "description": "A paladin who breaks their sacred oaths to pursue dark ambitions or serve an evil power.",
+            "source": "DMG",
+            "features": {
+                "3": [
+                    {
+                        "name": "Oath Spells",
+                        "description": "You gain additional spells at specific levels, always prepared, including hellish rebuke, inflict wounds, crown of madness, and darkness."
+                    },
+                    {
+                        "name": "Channel Divinity (Oathbreaker)",
+                        "description": "You gain two Channel Divinity options: Control Undead and Dreadful Aspect."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Aura of Hate",
+                        "description": "You and fiends and undead within 10 feet gain a bonus to melee weapon damage rolls equal to your Charisma modifier."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Supernatural Resistance",
+                        "description": "You gain resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons."
+                    }
+                ],
+                "20": [
+                    {
+                        "name": "Dread Lord",
+                        "description": "You surround yourself with an aura of gloom that poisons and frightens your enemies."
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 82
+}

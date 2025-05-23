@@ -1,0 +1,557 @@
+{
+    "name": "Sorcerer",
+    "description": "A spellcaster who draws on inherent magic from a gift or bloodline.",
+    "hit_dice": "1d6",
+    "primary_ability": [
+        "charisma"
+    ],
+    "saving_throw_proficiencies": [
+        "constitution",
+        "charisma"
+    ],
+    "armor_proficiencies": [],
+    "weapon_proficiencies": [
+        "daggers",
+        "darts",
+        "slings",
+        "quarterstaffs",
+        "light crossbows"
+    ],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Arcana",
+            "Deception",
+            "Insight",
+            "Intimidation",
+            "Persuasion",
+            "Religion"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "light crossbow and 20 bolts",
+                    "any simple weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "component pouch",
+                    "arcane focus"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "dungeoneer's pack",
+                    "explorer's pack"
+                ]
+            }
+        ],
+        "default": [
+            "two daggers"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Spellcasting",
+                "description": "You can cast known sorcerer spells using Charisma as your spellcasting ability. You use an arcane focus as a spellcasting focus."
+            },
+            {
+                "name": "Sorcerous Origin",
+                "description": "Choose a sorcerous origin, which grants you features at 1st, 6th, 14th, and 18th level."
+            }
+        ],
+        "2": [
+            {
+                "name": "Font of Magic",
+                "description": "You have sorcery points that you can use to create spell slots or fuel Metamagic options."
+            }
+        ],
+        "3": [
+            {
+                "name": "Metamagic",
+                "description": "You gain the ability to twist your spells to suit your needs. Choose two Metamagic options to learn; you gain more as you level up."
+            }
+        ],
+        "20": [
+            {
+                "name": "Sorcerous Restoration",
+                "description": "You regain 4 expended sorcery points whenever you finish a short rest."
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "charisma",
+        "focus": [
+            "arcane focus"
+        ],
+        "spells_known": {
+            "1": 2,
+            "2": 3,
+            "3": 4,
+            "4": 5,
+            "5": 6,
+            "6": 7,
+            "7": 8,
+            "8": 9,
+            "9": 10,
+            "10": 11,
+            "11": 12,
+            "12": 12,
+            "13": 13,
+            "14": 13,
+            "15": 14,
+            "16": 14,
+            "17": 15,
+            "18": 15,
+            "19": 15,
+            "20": 15
+        },
+        "cantrips_known": {
+            "1": 4,
+            "4": 5,
+            "10": 6
+        },
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 4,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 3
+            },
+            "5": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 2,
+                "8": 1,
+                "9": 1
+            }
+        }
+    },
+    "subclass_level": 1,
+    "subclasses": [
+        {
+            "name": "Draconic Bloodline",
+            "description": "Your innate magic comes from the blood of dragons. You gain draconic resilience, elemental affinity, and more as you level up.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Draconic Resilience",
+                        "description": "Your hit point maximum increases by 1 for each sorcerer level. When you aren't wearing armor, your AC equals 13 + your Dexterity modifier."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Elemental Affinity",
+                        "description": "When you cast a spell that deals damage of the type associated with your draconic ancestry, add your Charisma modifier to one damage roll of that spell. You can also spend 1 sorcery point to gain resistance to that damage type for 1 hour."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Dragon Wings",
+                        "description": "You gain a pair of dragon wings, giving you a flying speed equal to your current speed."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Draconic Presence",
+                        "description": "You can spend 5 sorcery points to exude an aura of awe or fear (your choice) to creatures within 60 feet for 1 minute (save negates)."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Wild Magic",
+            "description": "Your innate magic comes from the wild forces of chaos. You gain access to wild magic surges and bend luck.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Wild Magic Surge",
+                        "description": "When you cast a sorcerer spell of 1st level or higher, the DM can have you roll a d20. On a 1, roll on the Wild Magic Surge table."
+                    },
+                    {
+                        "name": "Tides of Chaos",
+                        "description": "You can gain advantage on one attack roll, ability check, or saving throw. Once you do so, you must finish a long rest before you can use this feature again unless the DM has you roll on the Wild Magic Surge table."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Bend Luck",
+                        "description": "When another creature you can see makes an attack roll, ability check, or saving throw, you can use your reaction and spend 2 sorcery points to roll a d4 and apply it as a bonus or penalty to the creature's roll."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Controlled Chaos",
+                        "description": "You can roll two dice for Wild Magic Surge and choose which result to use."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Spell Bombardment",
+                        "description": "When you roll damage for a spell and roll the highest possible number on any of the dice, choose one of those dice, roll it again, and add that roll to the damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Divine Soul",
+            "description": "Your innate magic comes from a divine source. You gain access to divine magic and the ability to heal and protect others.",
+            "source": "XGE",
+            "features": {
+                "1": [
+                    {
+                        "name": "Divine Magic",
+                        "description": "You learn additional spells from the cleric spell list and gain a bonus cantrip based on your alignment."
+                    },
+                    {
+                        "name": "Favored by the Gods",
+                        "description": "If you fail a saving throw or miss with an attack roll, you can roll 2d4 and add it to the total, possibly changing the outcome."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Empowered Healing",
+                        "description": "When you or an ally rolls dice to determine the number of hit points a spell restores, you can spend 1 sorcery point to reroll any number of those dice once."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Otherworldly Wings",
+                        "description": "You can use a bonus action to manifest wings of light or darkness, gaining a flying speed equal to your current speed."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Unearthly Recovery",
+                        "description": "As a bonus action when you have no more than half of your hit points remaining, you can regain a number of hit points equal to half your hit point maximum."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Shadow Magic",
+            "description": "Your innate magic comes from the Shadowfell. You gain the ability to manipulate shadows and darkness.",
+            "source": "XGE",
+            "features": {
+                "1": [
+                    {
+                        "name": "Eyes of the Dark",
+                        "description": "You gain darkvision out to 120 feet. When you reach 3rd level, you learn the darkness spell, which you can cast by spending 2 sorcery points."
+                    },
+                    {
+                        "name": "Strength of the Grave",
+                        "description": "When damage reduces you to 0 hit points, you can make a Charisma saving throw to drop to 1 hit point instead."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Hound of Ill Omen",
+                        "description": "As a bonus action, you can spend 3 sorcery points to summon a hound of shadow to hunt one creature you can see."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Shadow Walk",
+                        "description": "When you are in dim light or darkness, you can use a bonus action to teleport up to 120 feet to an unoccupied space you can see that is also in dim light or darkness."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Umbral Form",
+                        "description": "You can spend 6 sorcery points to transform yourself into a shadow form, gaining resistance to all damage except force and radiant damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Storm Sorcery",
+            "description": "Your innate magic comes from the power of elemental air. You gain the ability to harness the winds and control the weather.",
+            "source": "XGE",
+            "features": {
+                "1": [
+                    {
+                        "name": "Wind Speaker",
+                        "description": "You can speak, read, and write Primordial. You also learn the gust cantrip."
+                    },
+                    {
+                        "name": "Tempestuous Magic",
+                        "description": "When you cast a spell of 1st level or higher, you can use a bonus action to fly up to 10 feet without provoking opportunity attacks."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Heart of the Storm",
+                        "description": "You gain resistance to lightning and thunder damage, and when you cast a spell that deals lightning or thunder damage, creatures within 10 feet of you take damage."
+                    },
+                    {
+                        "name": "Storm Guide",
+                        "description": "You can use your action to control the weather around you in a limited way."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Storm's Fury",
+                        "description": "When you are hit by a melee attack, you can use your reaction to deal lightning damage to the attacker and push them away from you."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Wind Soul",
+                        "description": "You gain a flying speed equal to your current speed and can hover. You can also reduce the flying speed of falling creatures."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Aberrant Mind",
+            "description": "Your innate magic comes from a connection to aberrations or other strange entities. You gain psionic abilities and can manipulate minds.",
+            "source": "TCE",
+            "features": {
+                "1": [
+                    {
+                        "name": "Psionic Spells",
+                        "description": "You learn additional spells related to telepathy and psychic abilities."
+                    },
+                    {
+                        "name": "Telepathic Speech",
+                        "description": "You can form a telepathic connection with any creature you can see within 30 feet."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Psionic Sorcery",
+                        "description": "When you cast any spell from your Psionic Spells feature, you can cast it by expending a spell slot or by spending sorcery points."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Psychic Defenses",
+                        "description": "You gain resistance to psychic damage and advantage on saving throws against being charmed or frightened."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Warping Implosion",
+                        "description": "As an action, you can teleport creatures within 30 feet of you and deal psychic damage to them."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Clockwork Soul",
+            "description": "Your innate magic comes from the realm of absolute order. You can restore balance and manipulate probability.",
+            "source": "TCE",
+            "features": {
+                "1": [
+                    {
+                        "name": "Clockwork Magic",
+                        "description": "You learn additional spells related to order and mechanics."
+                    },
+                    {
+                        "name": "Restore Balance",
+                        "description": "You can use your reaction to cancel advantage or disadvantage on an attack roll, ability check, or saving throw."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Bastion of Law",
+                        "description": "You can expend sorcery points to create a magical ward around yourself or another creature that absorbs damage."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Trance of Order",
+                        "description": "As a bonus action, you can enter a state of clockwork consciousness, giving you special benefits."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Clockwork Cavalcade",
+                        "description": "You can call forth spirits of order to restore balance to an area, healing creatures and repairing objects."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Lunar Sorcery",
+            "description": "Your innate magic is tied to the phases of the moon, granting you different powers based on the current lunar phase.",
+            "source": "DGTS",
+            "features": {
+                "1": [
+                    {
+                        "name": "Lunar Magic",
+                        "description": "You learn additional spells based on the current phase of the moon, and can change your active phase during a long rest."
+                    },
+                    {
+                        "name": "Lunar Embodiment",
+                        "description": "You gain different benefits based on your current lunar phase: full moon enhances radiant spells, new moon enhances darkness, and crescent moon grants temporary hit points."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Lunar Boons",
+                        "description": "You can spend sorcery points to gain additional benefits based on your current lunar phase."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Waxing and Waning",
+                        "description": "You can change your lunar phase as a bonus action, and your spells ignore resistance to radiant and necrotic damage."
+                    }
+                ],
+                "18": [
+                    {
+                        "name": "Lunar Empowerment",
+                        "description": "Your connection to lunar magic reaches its peak, granting you powerful abilities based on your current phase."
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 99
+}

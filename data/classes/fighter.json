@@ -1,6 +1,10 @@
 {
     "name": "Fighter",
     "description": "A master of martial combat, skilled with a variety of weapons and armor.",
+    "source": "PHB",
+    "source_page": 70,
+    "version": "5E",
+    "last_updated": "2024-03-20",
     "hit_dice": "1d10",
     "primary_ability": ["strength", "dexterity"],
     "saving_throw_proficiencies": ["strength", "constitution"],
@@ -14,17 +18,18 @@
         "simple weapons",
         "martial weapons"
     ],
+    "tool_proficiencies": [],
     "skill_proficiencies": {
         "choose": 2,
         "from": [
-            "acrobatics",
-            "animal handling",
-            "athletics",
-            "history",
-            "insight",
-            "intimidation",
-            "perception",
-            "survival"
+            "Acrobatics",
+            "Animal Handling",
+            "Athletics",
+            "History",
+            "Insight",
+            "Intimidation",
+            "Perception",
+            "Survival"
         ]
     },
     "starting_equipment": {
@@ -63,87 +68,167 @@
         "1": [
             {
                 "name": "Fighting Style",
-                "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options:",
-                "choose": {
-                    "count": 1,
-                    "from": [
+                "description": "You adopt a particular style of fighting as your specialty.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": [
                         {
                             "name": "Archery",
-                            "description": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+                            "description": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+                            "mechanics": {
+                                "attack_roll_bonus": {
+                                    "ranged_weapons": 2
+                                }
+                            }
                         },
                         {
                             "name": "Defense",
-                            "description": "While you are wearing armor, you gain a +1 bonus to AC."
+                            "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+                            "mechanics": {
+                                "ac_bonus": {
+                                    "value": 1,
+                                    "condition": "wearing_armor"
+                                }
+                            }
                         },
                         {
                             "name": "Dueling",
-                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+                            "mechanics": {
+                                "damage_bonus": {
+                                    "value": 2,
+                                    "condition": "one_handed_melee"
+                                }
+                            }
                         },
                         {
                             "name": "Great Weapon Fighting",
-                            "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2."
+                            "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2.",
+                            "mechanics": {
+                                "damage_reroll": {
+                                    "condition": "two_handed_melee",
+                                    "reroll_values": [1, 2]
+                                }
+                            }
                         },
                         {
                             "name": "Protection",
-                            "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield."
+                            "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+                            "mechanics": {
+                                "reaction": {
+                                    "trigger": "ally_attacked",
+                                    "range": 5,
+                                    "effect": "impose_disadvantage",
+                                    "condition": "wielding_shield"
+                                }
+                            }
                         },
                         {
                             "name": "Two-Weapon Fighting",
-                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+                            "mechanics": {
+                                "two_weapon_fighting": {
+                                    "offhand_damage_mod": true
+                                }
+                            }
                         }
                     ]
                 }
             },
             {
                 "name": "Second Wind",
-                "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again."
+                "description": "You have a limited well of stamina that you can draw on to protect yourself from harm.",
+                "mechanics": {
+                    "type": "bonus_action",
+                    "healing": {
+                        "dice": "1d10",
+                        "bonus": "fighter_level"
+                    },
+                    "uses": {
+                        "per": "short_rest",
+                        "count": 1
+                    }
+                }
             }
         ],
         "2": [
             {
                 "name": "Action Surge",
-                "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn."
+                "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.",
+                "mechanics": {
+                    "type": "action_bonus",
+                    "effect": {
+                        "grant_action": true,
+                        "restrictions": ["once_per_turn"]
+                    },
+                    "uses": {
+                        "count": 1,
+                        "per": "short_rest",
+                        "increases": [
+                            {
+                                "level": 17,
+                                "count": 2
+                            }
+                        ]
+                    }
+                }
             }
         ],
         "3": [
             {
                 "name": "Martial Archetype",
-                "description": "You choose an archetype that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.",
-                "choose": {
-                    "count": 1,
-                    "from": [
-                        {
-                            "name": "Champion",
-                            "description": "The archetypal Champion focuses on the development of raw physical power honed to deadly perfection."
-                        },
-                        {
-                            "name": "Battle Master",
-                            "description": "Those who emulate the archetypal Battle Master employ martial techniques passed down through generations."
-                        },
-                        {
-                            "name": "Eldritch Knight",
-                            "description": "The archetypal Eldritch Knight combines the martial mastery common to all fighters with a careful study of magic."
-                        }
-                    ]
-                }
+                "description": "You choose an archetype that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level."
             }
         ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "5": [
             {
                 "name": "Extra Attack",
-                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "extra_attack",
+                    "attacks": 2
+                }
             }
         ],
         "6": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "7": [
@@ -155,13 +240,42 @@
         "8": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "9": [
             {
                 "name": "Indomitable",
-                "description": "You can reroll a saving throw that you fail. If you do so, you must use the new roll, and you can't use this feature again until you finish a long rest. You can use this feature twice between long rests starting at 13th level and three times between long rests starting at 17th level."
+                "description": "You can reroll a saving throw that you fail. If you do so, you must use the new roll, and you can't use this feature again until you finish a long rest. You can use this feature twice between long rests starting at 13th level and three times between long rests starting at 17th level.",
+                "mechanics": {
+                    "type": "reroll",
+                    "trigger": "failed_saving_throw",
+                    "effect": {
+                        "must_use_new_roll": true
+                    },
+                    "uses": {
+                        "base": 1,
+                        "scaling": {
+                            "13": 2,
+                            "17": 3
+                        },
+                        "reset": "long_rest"
+                    }
+                }
             }
         ],
         "10": [
@@ -173,25 +287,64 @@
         "11": [
             {
                 "name": "Extra Attack (2)",
-                "description": "You can attack three times, instead of twice, whenever you take the Attack action on your turn."
+                "description": "You can attack three times, instead of twice, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "extra_attack",
+                    "attacks": 3
+                }
             }
         ],
         "12": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "13": [
             {
                 "name": "Indomitable (two uses)",
-                "description": "You can now use Indomitable twice between long rests."
+                "description": "You can now use Indomitable twice between long rests.",
+                "mechanics": {
+                    "type": "update_feature",
+                    "feature": "Indomitable",
+                    "changes": {
+                        "uses": 2
+                    }
+                }
             }
         ],
         "14": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "15": [
@@ -203,17 +356,34 @@
         "16": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "17": [
             {
-                "name": "Action Surge (two uses)",
-                "description": "You can use Action Surge twice before a rest, but only once on the same turn."
-            },
-            {
                 "name": "Indomitable (three uses)",
-                "description": "You can now use Indomitable three times between long rests."
+                "description": "You can now use Indomitable three times between long rests.",
+                "mechanics": {
+                    "type": "update_feature",
+                    "feature": "Indomitable",
+                    "changes": {
+                        "uses": 3
+                    }
+                }
             }
         ],
         "18": [
@@ -225,18 +395,1763 @@
         "19": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Extra Attack (3)",
-                "description": "You can attack four times, instead of three, whenever you take the Attack action on your turn."
+                "description": "You can attack four times, instead of three, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "extra_attack",
+                    "attacks": 4
+                }
             }
         ]
     },
     "subclass_level": 3,
-    "version": "5E",
-    "source": "PHB",
-    "source_page": 70
+    "subclasses": {
+        "name": "Martial Archetype",
+        "description": "At 3rd level, you choose an archetype that you strive to emulate in your combat styles and techniques.",
+        "options": [
+            {
+                "name": "Champion",
+                "source": "PHB",
+                "description": "The archetypal Champion focuses on the development of raw physical power honed to deadly perfection.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Improved Critical",
+                            "description": "Your weapon attacks score a critical hit on a roll of 19 or 20.",
+                            "mechanics": {
+                                "critical_range": {
+                                    "range": [19, 20]
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Remarkable Athlete",
+                            "description": "You can add half your proficiency bonus (round up) to any Strength, Dexterity, or Constitution check you make that doesn't already use your proficiency bonus.",
+                            "mechanics": {
+                                "half_proficiency": {
+                                    "abilities": ["strength", "dexterity", "constitution"]
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Additional Fighting Style",
+                            "description": "You can choose a second option from the Fighting Style class feature.",
+                            "mechanics": {
+                                "grant_feature": "Fighting Style"
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Superior Critical",
+                            "description": "Your weapon attacks score a critical hit on a roll of 18-20.",
+                            "mechanics": {
+                                "critical_range": {
+                                    "range": [18, 19, 20]
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Survivor",
+                            "description": "At the start of each of your turns, you regain hit points if you have no more than half of your hit points left.",
+                            "mechanics": {
+                                "healing": {
+                                    "trigger": "turn_start",
+                                    "condition": "hp_below_half",
+                                    "amount": "5 + constitution_modifier"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Echo Knight",
+                "source": "EGW",
+                "description": "A fighter who has mastered the art of using dunamis to summon echoes of their own potential from other timelines.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Manifest Echo",
+                            "description": "You can use a bonus action to magically manifest an echo of yourself in an unoccupied space you can see within 15 feet of you.",
+                            "mechanics": {
+                                "bonus_action": {
+                                    "effect": {
+                                        "type": "summon_echo",
+                                        "range": 15,
+                                        "stats": {
+                                            "ac": "14",
+                                            "hp": 1,
+                                            "immune": ["all_conditions"],
+                                            "speed": "your_speed"
+                                        }
+                                    }
+                                },
+                                "free_action": {
+                                    "options": [
+                                        "move_echo_30_feet",
+                                        "dismiss_echo"
+                                    ]
+                                },
+                                "attack_options": {
+                                    "attack_from_echo_position": true,
+                                    "opportunity_attacks_from_echo": true
+                                },
+                                "swap_positions": {
+                                    "bonus_action": true,
+                                    "range": "echo_position"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Unleash Incarnation",
+                            "description": "You can channel the power of your echo to make additional attacks.",
+                            "mechanics": {
+                                "resource": {
+                                    "uses": "constitution_modifier",
+                                    "minimum": 1,
+                                    "reset": "long_rest"
+                                },
+                                "trigger": "attack_action",
+                                "effect": {
+                                    "type": "extra_attack",
+                                    "position": "echo_position",
+                                    "frequency": "once_per_attack_action"
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Echo Avatar",
+                            "description": "You can temporarily transfer your consciousness to your echo.",
+                            "mechanics": {
+                                "action": {
+                                    "effect": {
+                                        "type": "remote_viewing",
+                                        "range": 1000,
+                                        "duration": "10_minutes",
+                                        "senses": ["sight", "hearing"]
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Shadow Martyr",
+                            "description": "You can use your echo to protect your allies.",
+                            "mechanics": {
+                                "reaction": {
+                                    "trigger": "ally_hit_by_attack",
+                                    "range": "echo_position_30_feet",
+                                    "effect": {
+                                        "type": "redirect_attack",
+                                        "target": "echo",
+                                        "cost": {
+                                            "type": "temporary_hp",
+                                            "amount": "2d6 + constitution_modifier"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Reclaim Potential",
+                            "description": "You've learned to absorb the fleeting magic of your echo.",
+                            "mechanics": {
+                                "trigger": "echo_destroyed",
+                                "effect": {
+                                    "type": "temporary_hp",
+                                    "amount": "2d6 + constitution_modifier",
+                                    "uses": "constitution_modifier",
+                                    "minimum": 1,
+                                    "reset": "long_rest"
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Legion of One",
+                            "description": "You can create multiple echoes of yourself.",
+                            "mechanics": {
+                                "action": {
+                                    "effect": {
+                                        "type": "create_echoes",
+                                        "count": "constitution_modifier",
+                                        "minimum": 1,
+                                        "duration": "1_minute",
+                                        "uses": 1,
+                                        "reset": "long_rest"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Arcane Archer",
+                "source": "XGE",
+                "description": "An eldritch knight who combines arcane magic with archery to create magical arrows that seek their targets with supernatural accuracy.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Arcane Archer Lore",
+                            "description": "You learn magical theory and arcane archery techniques.",
+                            "mechanics": {
+                                "proficiencies": {
+                                    "skills": ["arcana"],
+                                    "languages": {
+                                        "choose": 1,
+                                        "from": ["elvish", "sylvan"]
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Arcane Shot",
+                            "description": "You learn to unleash special magical effects with some of your shots.",
+                            "mechanics": {
+                                "resource": {
+                                    "uses": 2,
+                                    "reset": "short_rest",
+                                    "increases": [
+                                        {
+                                            "level": 7,
+                                            "uses": 3
+                                        },
+                                        {
+                                            "level": 15,
+                                            "uses": 4
+                                        }
+                                    ]
+                                },
+                                "options": {
+                                    "choose": 2,
+                                    "increases": [
+                                        {
+                                            "level": 7,
+                                            "total": 3
+                                        },
+                                        {
+                                            "level": 10,
+                                            "total": 4
+                                        },
+                                        {
+                                            "level": 15,
+                                            "total": 5
+                                        },
+                                        {
+                                            "level": 18,
+                                            "total": 6
+                                        }
+                                    ],
+                                    "list": [
+                                        {
+                                            "name": "Banishing Arrow",
+                                            "effect": {
+                                                "type": "force_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "condition": {
+                                                    "type": "banishment",
+                                                    "duration": "1_round",
+                                                    "save": {
+                                                        "type": "charisma",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Beguiling Arrow",
+                                            "effect": {
+                                                "type": "psychic_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "condition": {
+                                                    "type": "charmed",
+                                                    "duration": "1_round",
+                                                    "save": {
+                                                        "type": "wisdom",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Bursting Arrow",
+                                            "effect": {
+                                                "type": "force_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "area": {
+                                                    "type": "sphere",
+                                                    "radius": 10,
+                                                    "save": {
+                                                        "type": "dexterity",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier",
+                                                        "effect": "half_damage"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Enfeebling Arrow",
+                                            "effect": {
+                                                "type": "necrotic_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "condition": {
+                                                    "type": "weakened",
+                                                    "duration": "1_round",
+                                                    "save": {
+                                                        "type": "constitution",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Grasping Arrow",
+                                            "effect": {
+                                                "type": "poison_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "condition": {
+                                                    "type": "restrained",
+                                                    "duration": "1_minute",
+                                                    "save": {
+                                                        "type": "strength",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier",
+                                                        "action": "escape"
+                                                    },
+                                                    "movement_damage": {
+                                                        "amount": "2d6",
+                                                        "type": "slashing"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Piercing Arrow",
+                                            "effect": {
+                                                "type": "piercing_damage",
+                                                "damage": {
+                                                    "base": "1d6",
+                                                    "scaling": {
+                                                        "18": "2d6"
+                                                    }
+                                                },
+                                                "area": {
+                                                    "type": "line",
+                                                    "width": 1,
+                                                    "length": 30,
+                                                    "save": {
+                                                        "type": "dexterity",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier",
+                                                        "effect": "half_damage"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Seeking Arrow",
+                                            "effect": {
+                                                "type": "force_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "special": {
+                                                    "ignore_cover": true,
+                                                    "ignore_invisibility": true
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Shadow Arrow",
+                                            "effect": {
+                                                "type": "psychic_damage",
+                                                "damage": {
+                                                    "base": "2d6",
+                                                    "scaling": {
+                                                        "18": "4d6"
+                                                    }
+                                                },
+                                                "condition": {
+                                                    "type": "blinded",
+                                                    "duration": "1_round",
+                                                    "save": {
+                                                        "type": "wisdom",
+                                                        "dc": "8 + proficiency_bonus + intelligence_modifier"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Curving Shot",
+                            "description": "You learn how to direct an errant arrow toward a new target.",
+                            "mechanics": {
+                                "reaction": {
+                                    "trigger": "miss_ranged_attack",
+                                    "effect": {
+                                        "type": "reroll_attack",
+                                        "target": "different_creature",
+                                        "range": 60
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Magic Arrow",
+                            "description": "You gain the ability to infuse arrows with magic.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "weapon_enhancement",
+                                    "bonus": {
+                                        "type": "magical",
+                                        "applies_to": ["ammunition", "ranged_weapons"]
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Ever-Ready Shot",
+                            "description": "Your magical archery is available whenever battle starts.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "resource_recovery",
+                                    "resource": "arcane_shot",
+                                    "amount": 1,
+                                    "trigger": "initiative_roll",
+                                    "condition": "no_uses_remaining"
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Improved Shots",
+                            "description": "Your Arcane Shot options now deal more damage.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "damage_increase",
+                                    "target": "arcane_shot_options",
+                                    "increase": "2d6"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Cavalier",
+                "source": "XGE",
+                "description": "A warrior skilled at mounted combat and protecting allies, inspired by knights and similar mounted warriors.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Bonus Proficiency",
+                            "description": "You gain proficiency in one of the following skills of your choice: Animal Handling, History, Insight, Performance, or Persuasion.",
+                            "mechanics": {
+                                "proficiencies": {
+                                    "skills": {
+                                        "choose": 1,
+                                        "from": [
+                                            "Animal Handling",
+                                            "History",
+                                            "Insight",
+                                            "Performance",
+                                            "Persuasion"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Born to the Saddle",
+                            "description": "Your mastery as a rider becomes apparent.",
+                            "mechanics": {
+                                "advantages": [
+                                    {
+                                        "type": "saving_throw",
+                                        "condition": "being_dismounted"
+                                    },
+                                    {
+                                        "type": "check",
+                                        "skills": ["Animal Handling"],
+                                        "condition": "staying_mounted"
+                                    }
+                                ],
+                                "mounting": {
+                                    "cost": "only_5_feet_movement",
+                                    "minimum_movement": 5
+                                }
+                            }
+                        },
+                        {
+                            "name": "Unwavering Mark",
+                            "description": "You can mark creatures with your presence, protecting your allies.",
+                            "mechanics": {
+                                "trigger": "hit_with_melee_attack",
+                                "effect": {
+                                    "type": "mark",
+                                    "duration": "end_of_next_turn",
+                                    "marked_creature": {
+                                        "disadvantage": {
+                                            "condition": "attack_other_than_you",
+                                            "duration": "while_marked"
+                                        }
+                                    },
+                                    "bonus_damage": {
+                                        "amount": "half_fighter_level",
+                                        "type": "bonus_action_attack",
+                                        "trigger": "marked_creature_damages_other",
+                                        "uses": "strength_modifier",
+                                        "minimum": 1,
+                                        "reset": "long_rest"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Warding Maneuver",
+                            "description": "You learn to use your shield to protect your allies.",
+                            "mechanics": {
+                                "resource": {
+                                    "uses": "constitution_modifier",
+                                    "minimum": 1,
+                                    "reset": "long_rest"
+                                },
+                                "reaction": {
+                                    "trigger": "ally_hit_by_attack",
+                                    "range": 5,
+                                    "effect": {
+                                        "type": "bonus_to_ac",
+                                        "amount": "1d8",
+                                        "duration": "one_attack",
+                                        "condition": "wielding_shield"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Hold the Line",
+                            "description": "You become a master of locking down your enemies.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "opportunity_attack",
+                                    "trigger": "creature_enters_reach",
+                                    "special": {
+                                        "stop_movement": true,
+                                        "condition": "hit"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Ferocious Charger",
+                            "description": "You master the art of the devastating charge.",
+                            "mechanics": {
+                                "trigger": "hit_after_moving_10_feet",
+                                "effect": {
+                                    "type": "saving_throw",
+                                    "save": {
+                                        "type": "strength",
+                                        "dc": "8 + proficiency_bonus + strength_modifier"
+                                    },
+                                    "failure": {
+                                        "condition": "prone",
+                                        "bonus_action": {
+                                            "type": "melee_attack",
+                                            "advantage": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Vigilant Defender",
+                            "description": "You respond to danger with extraordinary vigilance.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "special_reaction",
+                                    "uses": "number_of_attacks",
+                                    "condition": "opportunity_attack",
+                                    "reset": "turn_end"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Samurai",
+                "source": "XGE",
+                "description": "A fighter who draws on an implacable fighting spirit to overcome enemies.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Bonus Proficiency",
+                            "description": "You gain proficiency in one of the following skills of your choice: History, Insight, Performance, or Persuasion. Alternatively, you learn one language of your choice.",
+                            "mechanics": {
+                                "choice": {
+                                    "choose": 1,
+                                    "from": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "options": [
+                                                "History",
+                                                "Insight",
+                                                "Performance",
+                                                "Persuasion"
+                                            ]
+                                        },
+                                        {
+                                            "type": "language",
+                                            "options": "any"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Fighting Spirit",
+                            "description": "Your intensity in battle can shield you and help you strike true.",
+                            "mechanics": {
+                                "bonus_action": {
+                                    "effect": {
+                                        "type": "combat_bonus",
+                                        "duration": "turn_end",
+                                        "bonuses": [
+                                            {
+                                                "type": "advantage",
+                                                "applies_to": "weapon_attacks"
+                                            },
+                                            {
+                                                "type": "temporary_hp",
+                                                "amount": {
+                                                    "base": 5,
+                                                    "scaling": {
+                                                        "10": 10,
+                                                        "15": 15
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "resource": {
+                                        "uses": 3,
+                                        "reset": "long_rest"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Elegant Courtier",
+                            "description": "Your discipline and attention to etiquette allows you to excel in social situations.",
+                            "mechanics": {
+                                "proficiency": {
+                                    "type": "saving_throw",
+                                    "ability": "wisdom"
+                                },
+                                "skill_bonus": {
+                                    "skills": ["Persuasion"],
+                                    "bonus": "wisdom_modifier",
+                                    "minimum": 1
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Tireless Spirit",
+                            "description": "Your fighting spirit can delay the grasp of death.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "resource_recovery",
+                                    "resource": "fighting_spirit",
+                                    "amount": 1,
+                                    "trigger": "initiative_roll",
+                                    "condition": "no_uses_remaining"
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Rapid Strike",
+                            "description": "You learn to trade advantage for an extra strike.",
+                            "mechanics": {
+                                "trigger": "have_advantage_on_weapon_attack",
+                                "effect": {
+                                    "type": "extra_attack",
+                                    "cost": "forfeit_advantage",
+                                    "frequency": "once_per_turn"
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Strength before Death",
+                            "description": "Your fighting spirit can delay the grasp of death.",
+                            "mechanics": {
+                                "trigger": "reduced_to_0_hp",
+                                "effect": {
+                                    "type": "bonus_turn",
+                                    "timing": "immediately",
+                                    "condition": "not_incapacitated",
+                                    "uses": 1,
+                                    "reset": "long_rest"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Psi Warrior",
+                "source": "TCE",
+                "description": "A fighter who combines the power of the mind with martial combat prowess.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Psionic Power",
+                            "description": "You harbor a wellspring of psionic energy within yourself.",
+                            "mechanics": {
+                                "resource": {
+                                    "name": "Psionic Energy dice",
+                                    "dice": {
+                                        "base": "d6",
+                                        "scaling": {
+                                            "7": "d8",
+                                            "10": "d10",
+                                            "15": "d12"
+                                        }
+                                    },
+                                    "uses": "proficiency_bonus",
+                                    "reset": "long_rest"
+                                },
+                                "options": [
+                                    {
+                                        "name": "Protective Field",
+                                        "type": "reaction",
+                                        "trigger": "creature_takes_damage",
+                                        "range": 30,
+                                        "effect": {
+                                            "type": "damage_reduction",
+                                            "amount": "psionic_die + intelligence_modifier"
+                                        }
+                                    },
+                                    {
+                                        "name": "Psionic Strike",
+                                        "type": "free_action",
+                                        "trigger": "hit_with_weapon_attack",
+                                        "frequency": "once_per_turn",
+                                        "effect": {
+                                            "type": "extra_damage",
+                                            "amount": "psionic_die",
+                                            "damage_type": "force"
+                                        }
+                                    },
+                                    {
+                                        "name": "Telekinetic Movement",
+                                        "type": "action",
+                                        "range": 30,
+                                        "target": {
+                                            "type": "creature_or_object",
+                                            "size": "large_or_smaller",
+                                            "weight_limit": "30_times_intelligence_score"
+                                        },
+                                        "effect": {
+                                            "type": "move",
+                                            "distance": 30,
+                                            "movement_type": "hover"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Telekinetic Adept",
+                            "description": "You have mastered new ways to use your telekinetic abilities.",
+                            "mechanics": {
+                                "options": [
+                                    {
+                                        "name": "Psi-Powered Leap",
+                                        "type": "bonus_action",
+                                        "effect": {
+                                            "type": "fly",
+                                            "distance": "twice_walking_speed",
+                                            "cost": "psionic_die"
+                                        }
+                                    },
+                                    {
+                                        "name": "Telekinetic Thrust",
+                                        "type": "reaction",
+                                        "trigger": "hit_with_psionic_strike",
+                                        "effect": {
+                                            "type": "saving_throw",
+                                            "save": {
+                                                "type": "strength",
+                                                "dc": "8 + proficiency_bonus + intelligence_modifier"
+                                            },
+                                            "failure": {
+                                                "conditions": ["prone"],
+                                                "movement": {
+                                                    "distance": 10,
+                                                    "direction": "away"
+                                                }
+                                            },
+                                            "cost": "psionic_die"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Guarded Mind",
+                            "description": "You have secured your mind against outside influence.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "resistance",
+                                    "damage_type": "psychic"
+                                },
+                                "saving_throws": {
+                                    "advantage": ["charmed", "frightened"]
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Bulwark of Force",
+                            "description": "You can shield yourself and others with telekinetic force.",
+                            "mechanics": {
+                                "action": {
+                                    "effect": {
+                                        "type": "grant_cover",
+                                        "bonus": "half",
+                                        "targets": {
+                                            "count": "intelligence_modifier",
+                                            "minimum": 1,
+                                            "range": 30
+                                        },
+                                        "duration": {
+                                            "type": "concentration",
+                                            "maximum": "1_minute"
+                                        }
+                                    },
+                                    "resource": {
+                                        "cost": "psionic_die"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Telekinetic Master",
+                            "description": "Your ability to move creatures and objects with your mind is matched by few.",
+                            "mechanics": {
+                                "effect": {
+                                    "type": "cast_spell",
+                                    "spell": "telekinesis",
+                                    "casting_ability": "intelligence",
+                                    "resource": {
+                                        "cost": "psionic_die"
+                                    }
+                                },
+                                "bonus": {
+                                    "type": "resource_recovery",
+                                    "trigger": "initiative_roll",
+                                    "condition": "no_psionic_dice",
+                                    "restore": 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Battle Master",
+                "source": "PHB",
+                "description": "Those who emulate the Battle Master archetype employ martial techniques passed down through generations, combining martial prowess with tactical acumen.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Combat Superiority",
+                            "description": "You learn maneuvers that are fueled by special dice called superiority dice.",
+                            "mechanics": {
+                                "resource": {
+                                    "name": "superiority_dice",
+                                    "dice": {
+                                        "base": "d8",
+                                        "scaling": {
+                                            "10": "d10",
+                                            "18": "d12"
+                                        }
+                                    },
+                                    "count": 4,
+                                    "scaling": {
+                                        "7": 5,
+                                        "15": 6
+                                    },
+                                    "reset": "short_rest"
+                                },
+                                "maneuvers": {
+                                    "known": 3,
+                                    "scaling": {
+                                        "7": 5,
+                                        "10": 7,
+                                        "15": 9
+                                    },
+                                    "options": [
+                                        {
+                                            "name": "Commander's Strike",
+                                            "description": "When you take the Attack action, you can forgo one of your attacks and use a bonus action to direct one of your companions to strike.",
+                                            "mechanics": {
+                                                "cost": {
+                                                    "attack": 1,
+                                                    "bonus_action": true,
+                                                    "superiority_die": 1
+                                                },
+                                                "effect": {
+                                                    "type": "grant_attack",
+                                                    "target": "ally",
+                                                    "range": 60,
+                                                    "bonus_damage": "superiority_die"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Disarming Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to disarm the target.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "save": {
+                                                        "type": "strength",
+                                                        "dc": "8 + proficiency_bonus + strength_or_dexterity_modifier",
+                                                        "failure": {
+                                                            "effect": "drop_item",
+                                                            "distance": 0
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Distracting Strike",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to distract the creature.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "grant_advantage": {
+                                                        "target": "next_attack",
+                                                        "duration": "start_of_your_next_turn"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Evasive Footwork",
+                                            "description": "When you move, you can expend one superiority die, adding the number rolled to your AC until you stop moving.",
+                                            "mechanics": {
+                                                "trigger": "movement",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "bonus_ac": "superiority_die",
+                                                    "duration": "until_movement_ends"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Feinting Attack",
+                                            "description": "You can expend one superiority die and use a bonus action to feint.",
+                                            "mechanics": {
+                                                "cost": {
+                                                    "bonus_action": true,
+                                                    "superiority_die": 1
+                                                },
+                                                "effect": {
+                                                    "advantage": {
+                                                        "next_attack": true,
+                                                        "target": "chosen_creature",
+                                                        "range": 5,
+                                                        "duration": "end_of_turn"
+                                                    },
+                                                    "extra_damage": "superiority_die"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Goading Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to goad the target.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "save": {
+                                                        "type": "wisdom",
+                                                        "dc": "8 + proficiency_bonus + strength_or_dexterity_modifier",
+                                                        "failure": {
+                                                            "disadvantage": {
+                                                                "condition": "attack_other_than_you",
+                                                                "duration": "end_of_your_next_turn"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Lunging Attack",
+                                            "description": "When you make a melee weapon attack, you can expend one superiority die to increase your reach.",
+                                            "mechanics": {
+                                                "trigger": "melee_weapon_attack",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "reach": "+5_feet",
+                                                    "extra_damage": "superiority_die"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Maneuvering Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to maneuver one of your comrades into a more advantageous position.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "ally_movement": {
+                                                        "distance": "half_speed",
+                                                        "range": 5,
+                                                        "type": "free",
+                                                        "special": "no_opportunity_attacks"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Menacing Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to frighten the target.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "save": {
+                                                        "type": "wisdom",
+                                                        "dc": "8 + proficiency_bonus + strength_or_dexterity_modifier",
+                                                        "failure": {
+                                                            "condition": "frightened",
+                                                            "duration": "end_of_your_next_turn"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Parry",
+                                            "description": "When another creature damages you with a melee attack, you can use your reaction and expend one superiority die to reduce the damage.",
+                                            "mechanics": {
+                                                "trigger": "damaged_by_melee_attack",
+                                                "cost": {
+                                                    "reaction": true,
+                                                    "superiority_die": 1
+                                                },
+                                                "effect": {
+                                                    "damage_reduction": "superiority_die + dexterity_modifier"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Precision Attack",
+                                            "description": "When you make a weapon attack roll, you can expend one superiority die to add it to the roll.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_roll",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "attack_bonus": "superiority_die"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Pushing Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to drive the target back.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "save": {
+                                                        "type": "strength",
+                                                        "dc": "8 + proficiency_bonus + strength_or_dexterity_modifier",
+                                                        "failure": {
+                                                            "push": "15_feet"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Rally",
+                                            "description": "On your turn, you can use a bonus action and expend one superiority die to bolster the resolve of one of your companions.",
+                                            "mechanics": {
+                                                "cost": {
+                                                    "bonus_action": true,
+                                                    "superiority_die": 1
+                                                },
+                                                "effect": {
+                                                    "temporary_hp": "superiority_die + charisma_modifier",
+                                                    "range": 60,
+                                                    "target": "creature"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Riposte",
+                                            "description": "When a creature misses you with a melee attack, you can use your reaction and expend one superiority die to make a melee weapon attack.",
+                                            "mechanics": {
+                                                "trigger": "missed_by_melee_attack",
+                                                "cost": {
+                                                    "reaction": true,
+                                                    "superiority_die": 1
+                                                },
+                                                "effect": {
+                                                    "attack": {
+                                                        "type": "melee_weapon",
+                                                        "extra_damage": "superiority_die"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Sweeping Attack",
+                                            "description": "When you hit a creature with a melee weapon attack, you can expend one superiority die to attempt to damage another creature.",
+                                            "mechanics": {
+                                                "trigger": "melee_weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_attack": {
+                                                        "target": "different_creature",
+                                                        "range": 5,
+                                                        "damage": "superiority_die"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Trip Attack",
+                                            "description": "When you hit a creature with a weapon attack, you can expend one superiority die to attempt to knock the target down.",
+                                            "mechanics": {
+                                                "trigger": "weapon_attack_hit",
+                                                "cost": "superiority_die",
+                                                "effect": {
+                                                    "extra_damage": "superiority_die",
+                                                    "save": {
+                                                        "type": "strength",
+                                                        "dc": "8 + proficiency_bonus + strength_or_dexterity_modifier",
+                                                        "failure": {
+                                                            "condition": "prone"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Student of War",
+                            "description": "You gain proficiency with one type of artisan's tools of your choice.",
+                            "mechanics": {
+                                "proficiencies": {
+                                    "tools": {
+                                        "choose": 1,
+                                        "from": "artisan's_tools"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Know Your Enemy",
+                            "description": "If you spend at least 1 minute observing or interacting with another creature outside combat, you can learn certain information about its capabilities.",
+                            "mechanics": {
+                                "action": {
+                                    "time": "1_minute",
+                                    "condition": "outside_combat",
+                                    "effect": {
+                                        "learn_info": {
+                                            "choose": 2,
+                                            "from": [
+                                                "strength_score",
+                                                "dexterity_score",
+                                                "constitution_score",
+                                                "armor_class",
+                                                "current_hit_points",
+                                                "total_class_levels",
+                                                "fighter_class_levels"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Improved Combat Superiority",
+                            "description": "Your superiority dice turn into d10s.",
+                            "mechanics": {
+                                "update_resource": {
+                                    "resource": "superiority_dice",
+                                    "dice": "d10"
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Relentless",
+                            "description": "When you roll initiative and have no superiority dice remaining, you regain one superiority die.",
+                            "mechanics": {
+                                "trigger": "initiative_roll",
+                                "condition": "no_superiority_dice",
+                                "effect": {
+                                    "restore": {
+                                        "resource": "superiority_dice",
+                                        "amount": 1
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Improved Combat Superiority",
+                            "description": "Your superiority dice turn into d12s.",
+                            "mechanics": {
+                                "update_resource": {
+                                    "resource": "superiority_dice",
+                                    "dice": "d12"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Eldritch Knight",
+                "source": "PHB",
+                "description": "The archetypal Eldritch Knight combines the martial mastery common to all fighters with a careful study of magic.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Spellcasting",
+                            "description": "You augment your martial prowess with the ability to cast spells.",
+                            "mechanics": {
+                                "spellcasting": {
+                                    "ability": "intelligence",
+                                    "spell_save_dc": "8 + proficiency_bonus + intelligence_modifier",
+                                    "spell_attack_modifier": "proficiency_bonus + intelligence_modifier",
+                                    "cantrips_known": {
+                                        "base": 2,
+                                        "scaling": {
+                                            "10": 3,
+                                            "14": 4
+                                        }
+                                    },
+                                    "spells_known": {
+                                        "base": 3,
+                                        "scaling": {
+                                            "4": 4,
+                                            "7": 5,
+                                            "8": 6,
+                                            "10": 7,
+                                            "11": 8,
+                                            "13": 9,
+                                            "14": 10,
+                                            "16": 11,
+                                            "19": 12,
+                                            "20": 13
+                                        }
+                                    },
+                                    "spell_slots_per_level": {
+                                        "1": {
+                                            "3": 2,
+                                            "4": 3,
+                                            "7": 4
+                                        },
+                                        "2": {
+                                            "7": 2,
+                                            "10": 3
+                                        },
+                                        "3": {
+                                            "13": 2,
+                                            "16": 3
+                                        },
+                                        "4": {
+                                            "19": 1
+                                        }
+                                    },
+                                    "spell_school_restrictions": {
+                                        "primary": ["abjuration", "evocation"],
+                                        "exceptions": {
+                                            "levels": [3, 8, 14, 20],
+                                            "count": 1,
+                                            "schools": "any"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Weapon Bond",
+                            "description": "You learn a ritual that creates a magical bond between yourself and one weapon.",
+                            "mechanics": {
+                                "ritual": {
+                                    "time": "1_hour",
+                                    "effect": {
+                                        "type": "bond_weapon",
+                                        "maximum_bonds": 2
+                                    },
+                                    "bonded_weapon_features": [
+                                        {
+                                            "type": "summon",
+                                            "action": "bonus_action",
+                                            "range": "infinite",
+                                            "condition": "same_plane"
+                                        },
+                                        {
+                                            "type": "prevent_disarm",
+                                            "condition": "conscious"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "War Magic",
+                            "description": "When you use your action to cast a cantrip, you can make one weapon attack as a bonus action.",
+                            "mechanics": {
+                                "trigger": "cast_cantrip",
+                                "effect": {
+                                    "type": "bonus_action",
+                                    "action": "weapon_attack",
+                                    "count": 1
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Eldritch Strike",
+                            "description": "You learn how to make your weapon strikes undercut a creature's resistance to your spells.",
+                            "mechanics": {
+                                "trigger": "weapon_attack_hit",
+                                "effect": {
+                                    "type": "impose_disadvantage",
+                                    "target": "hit_creature",
+                                    "applies_to": "saving_throws",
+                                    "condition": "your_spells",
+                                    "duration": "end_of_your_next_turn"
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Arcane Charge",
+                            "description": "You gain the ability to teleport up to 30 feet to an unoccupied space you can see when you use your Action Surge.",
+                            "mechanics": {
+                                "trigger": "use_action_surge",
+                                "effect": {
+                                    "type": "teleport",
+                                    "distance": 30,
+                                    "condition": "unoccupied_visible_space"
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Improved War Magic",
+                            "description": "When you use your action to cast a spell, you can make one weapon attack as a bonus action.",
+                            "mechanics": {
+                                "trigger": "cast_spell",
+                                "effect": {
+                                    "type": "bonus_action",
+                                    "action": "weapon_attack",
+                                    "count": 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Rune Knight",
+                "source": "TCE",
+                "description": "You discover how to enhance your martial prowess using the supernatural power of runes, ancient magic that originated with giants.",
+                "features": {
+                    "3": [
+                        {
+                            "name": "Bonus Proficiencies",
+                            "description": "You gain proficiency with smith's tools, and you learn to speak, read, and write Giant.",
+                            "mechanics": {
+                                "proficiencies": {
+                                    "tools": ["smith's_tools"],
+                                    "languages": ["giant"]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Rune Carver",
+                            "description": "You learn to use runes to enhance your gear with magic.",
+                            "mechanics": {
+                                "resource": {
+                                    "name": "runes_known",
+                                    "count": 2,
+                                    "scaling": {
+                                        "7": 3,
+                                        "10": 4,
+                                        "15": 5
+                                    }
+                                },
+                                "runes": {
+                                    "uses": "proficiency_bonus",
+                                    "reset": "long_rest",
+                                    "options": [
+                                        {
+                                            "name": "Cloud Rune",
+                                            "description": "This rune emulates the deceptive magic used by some cloud giants.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["Sleight of Hand", "Deception"]
+                                                },
+                                                "active": {
+                                                    "type": "reaction",
+                                                    "trigger": "creature_hit_by_attack",
+                                                    "range": 30,
+                                                    "effect": {
+                                                        "redirect_attack": {
+                                                            "target": "different_creature",
+                                                            "range": 30
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Fire Rune",
+                                            "description": "This rune's magic channels the masterful craftsmanship of fire giants.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["any_tool"]
+                                                },
+                                                "active": {
+                                                    "trigger": "hit_with_weapon_attack",
+                                                    "effect": {
+                                                        "extra_damage": {
+                                                            "amount": "2d6",
+                                                            "type": "fire"
+                                                        },
+                                                        "save": {
+                                                            "type": "strength",
+                                                            "dc": "8 + proficiency_bonus + constitution_modifier",
+                                                            "failure": {
+                                                                "condition": "restrained",
+                                                                "duration": "1_minute",
+                                                                "damage": {
+                                                                    "amount": "2d6",
+                                                                    "type": "fire",
+                                                                    "frequency": "turn_start"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Frost Rune",
+                                            "description": "This rune's magic evokes the might of frost giants.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["Animal Handling", "Intimidation"]
+                                                },
+                                                "active": {
+                                                    "type": "bonus_action",
+                                                    "duration": "10_minutes",
+                                                    "effect": {
+                                                        "ability_check_advantage": ["strength", "constitution"],
+                                                        "saving_throw_advantage": ["strength", "constitution"]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Stone Rune",
+                                            "description": "This rune's magic channels the judiciousness associated with stone giants.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["Insight"]
+                                                },
+                                                "active": {
+                                                    "type": "reaction",
+                                                    "trigger": "creature_enters_range",
+                                                    "range": 30,
+                                                    "effect": {
+                                                        "save": {
+                                                            "type": "wisdom",
+                                                            "dc": "8 + proficiency_bonus + constitution_modifier",
+                                                            "failure": {
+                                                                "condition": "charmed",
+                                                                "duration": "1_minute",
+                                                                "special": {
+                                                                    "type": "incapacitated",
+                                                                    "vision_range": 10
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Hill Rune",
+                                            "description": "This rune's magic bestows a resilience associated with hill giants.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["Constitution"]
+                                                },
+                                                "active": {
+                                                    "type": "bonus_action",
+                                                    "duration": "1_minute",
+                                                    "effect": {
+                                                        "resistance": ["bludgeoning", "piercing", "slashing"]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "Storm Rune",
+                                            "description": "This rune's magic allows you to glimpse the future like a storm giant seer.",
+                                            "mechanics": {
+                                                "passive": {
+                                                    "type": "skill_check_advantage",
+                                                    "skills": ["Arcana"]
+                                                },
+                                                "active": {
+                                                    "type": "bonus_action",
+                                                    "duration": "1_minute",
+                                                    "concentration": true,
+                                                    "effect": {
+                                                        "grant_feature": "portent",
+                                                        "reaction": {
+                                                            "trigger": "attack_roll_or_ability_check",
+                                                            "range": 60,
+                                                            "effect": {
+                                                                "impose": ["advantage", "disadvantage"]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Giant's Might",
+                            "description": "You learn to imbue yourself with the might of giants.",
+                            "mechanics": {
+                                "type": "bonus_action",
+                                "duration": "1_minute",
+                                "uses": "proficiency_bonus",
+                                "reset": "long_rest",
+                                "effect": {
+                                    "size": {
+                                        "increase": 1,
+                                        "maximum": "huge"
+                                    },
+                                    "advantage": {
+                                        "type": "strength_check",
+                                        "condition": "strength_saving_throw"
+                                    },
+                                    "weapon_damage": {
+                                        "bonus": {
+                                            "base": "1d6",
+                                            "scaling": {
+                                                "10": "1d8",
+                                                "18": "1d10"
+                                            }
+                                        },
+                                        "frequency": "once_per_turn"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "7": [
+                        {
+                            "name": "Runic Shield",
+                            "description": "You learn to invoke your rune magic to protect your allies.",
+                            "mechanics": {
+                                "type": "reaction",
+                                "trigger": "ally_hit_by_attack",
+                                "range": 60,
+                                "uses": "proficiency_bonus",
+                                "reset": "long_rest",
+                                "effect": {
+                                    "force_reroll": {
+                                        "type": "attack_roll"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "10": [
+                        {
+                            "name": "Great Stature",
+                            "description": "The magic of your runes permanently alters you.",
+                            "mechanics": {
+                                "height": {
+                                    "increase": "3d4"
+                                },
+                                "advantage": {
+                                    "type": "intimidation"
+                                }
+                            }
+                        }
+                    ],
+                    "15": [
+                        {
+                            "name": "Master of Runes",
+                            "description": "You can invoke each rune you know twice between rests.",
+                            "mechanics": {
+                                "update_resource": {
+                                    "resource": "runes",
+                                    "uses": "2_per_rune"
+                                }
+                            }
+                        }
+                    ],
+                    "18": [
+                        {
+                            "name": "Runic Juggernaut",
+                            "description": "You learn to maximize your rune-enhanced size and power.",
+                            "mechanics": {
+                                "update_feature": {
+                                    "feature": "Giant's Might",
+                                    "changes": {
+                                        "size": {
+                                            "maximum": "gargantuan"
+                                        },
+                                        "advantage": {
+                                            "type": ["strength_check", "strength_saving_throw"]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
 } 

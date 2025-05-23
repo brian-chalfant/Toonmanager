@@ -1,0 +1,153 @@
+{
+    "name": "",
+    "description": "",
+    "source": "",
+    "source_page": null,
+    "version": "5E",
+    "last_updated": "",
+    "hit_dice": "",
+    "primary_ability": [],
+    "saving_throw_proficiencies": [],
+    "armor_proficiencies": [],
+    "weapon_proficiencies": [],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 0,
+        "from": []
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    []
+                ]
+            }
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "",
+                "description": "",
+                "mechanics": {
+                    "type": "",
+                    "effect": {}
+                }
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "",
+        "spell_save_dc": "",
+        "spell_attack_modifier": "",
+        "cantrips_known": {
+            "base": 0,
+            "scaling": {}
+        },
+        "spells_known": {
+            "base": 0,
+            "scaling": {}
+        },
+        "spell_slots_per_level": {
+            "1": {},
+            "2": {},
+            "3": {},
+            "4": {},
+            "5": {},
+            "6": {},
+            "7": {},
+            "8": {},
+            "9": {}
+        }
+    },
+    "subclass_level": 0,
+    "subclasses": {
+        "name": "",
+        "description": "",
+        "options": [
+            {
+                "name": "",
+                "source": "",
+                "description": "",
+                "features": {
+                    "level": [
+                        {
+                            "name": "",
+                            "description": "",
+                            "mechanics": {
+                                "type": "",
+                                "effect": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "mechanics_templates": {
+        "ability_score_improvement": {
+            "type": "ability_score_improvement",
+            "options": [
+                {
+                    "choose": 1,
+                    "increase": 2
+                },
+                {
+                    "choose": 2,
+                    "increase": 1
+                }
+            ],
+            "maximum": 20
+        },
+        "extra_attack": {
+            "type": "extra_attack",
+            "attacks": 0
+        },
+        "resource": {
+            "uses": 0,
+            "reset": "",
+            "scaling": {}
+        },
+        "spellcasting_feature": {
+            "ability": "",
+            "spell_save_dc": "8 + proficiency_bonus + ability_modifier",
+            "spell_attack_modifier": "proficiency_bonus + ability_modifier"
+        },
+        "action": {
+            "type": "action",
+            "effect": {}
+        },
+        "bonus_action": {
+            "type": "bonus_action",
+            "effect": {}
+        },
+        "reaction": {
+            "type": "reaction",
+            "trigger": "",
+            "effect": {}
+        },
+        "saving_throw": {
+            "type": "",
+            "dc": "8 + proficiency_bonus + ability_modifier",
+            "effect": {
+                "success": {},
+                "failure": {}
+            }
+        },
+        "damage": {
+            "amount": "",
+            "type": "",
+            "scaling": {}
+        },
+        "condition": {
+            "type": "",
+            "duration": "",
+            "save": {}
+        },
+        "proficiency": {
+            "type": "",
+            "options": []
+        }
+    }
+} 

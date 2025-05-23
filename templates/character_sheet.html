@@ -1640,7 +1640,7 @@
                 <div class="portrait" style="background-image:url('https://www.dndbeyond.com/avatars/thumbnails/1/10/420/618/636376331930210099.png');"></div>
                 <div class="header-info">
                     <span class="character-name">{{ character.name }} <button class="manage-btn">MANAGE</button></span>
-                    <span class="character-meta">Male {{ character.race }} | {{ character.class_levels }} | Level {{ character.level }}</span>
+                    <span class="character-meta">{{ character.race }} | {% for class_name, level in character.class_levels.items() %}{{ class_name }} {{ level }}{% if not loop.last %}, {% endif %}{% endfor %} | Level {{ character.level }}</span>
                     <span class="character-meta">{{ character.background }} | {{ character.alignment }}</span>
                 </div>
             </div>
@@ -1888,27 +1888,26 @@
                     <!-- Spells Tab Content -->
                     <div style="max-height: 600px; overflow-y: auto; padding-right: 1em;">
                         <h3>Spellcasting</h3>
-                        {% if character.spells.ability %}
+                        {% if character.spellcasting %}
                         <div style="display: flex; gap: 2em; align-items: center;">
                             <div>
-                                <strong>+{{ character.spells.modifier }}</strong><br>
-                                <span style="font-size: 0.9em;">MODIFIER</span>
+                                <strong>{{ character.spellcasting.ability|upper }}</strong><br>
+                                <span style="font-size: 0.9em;">SPELLCASTING ABILITY</span>
                             </div>
                             <div>
-                                <strong>+{{ character.spells.attack_bonus }}</strong><br>
+                                <strong>+{{ character.spellcasting.spell_attack_bonus }}</strong><br>
                                 <span style="font-size: 0.9em;">SPELL ATTACK</span>
                             </div>
                             <div>
-                                <strong>{{ character.spells.save_dc }}</strong><br>
+                                <strong>{{ character.spellcasting.spell_save_dc }}</strong><br>
                                 <span style="font-size: 0.9em;">SAVE DC</span>
                             </div>
                         </div>
                         <div style="margin: 1em 0;">
-                            <input type="text" placeholder="Search Spell Names, Casting Times, Damage Types, Conditions or Tags" style="width: 60%;">
-                            <button style="margin-left: 1em;">MANAGE SPELLS</button>
+                            <strong>Spellcasting Focus:</strong> {{ character.spellcasting.focus|join(', ') }}
                         </div>
-                        <div class="box-label" style="margin-top:10px;">Cantrips</div>
-                        {% if character.spells.cantrips and character.spells.cantrips|length > 0 %}
+                        <div class="box-label" style="margin-top:10px;">Cantrips Known ({{ character.spellcasting.cantrips_known[character.level] }})</div>
+                        {% if character.spells.cantrips %}
                             <table class="spell-table" style="width:100%; margin-bottom: 1em;">
                                 <thead>
                                     <tr>
@@ -1940,18 +1939,8 @@
                         {% endif %}
 
                         {% for level in range(1, 10) %}
-                            {% set level_key = 'level_' ~ level %}
-                            {% set spells = character.spells.spells_known | selectattr('level', 'equalto', level) | list %}
-                            {% if spells|length > 0 or character.spells.spell_slots[level_key] %}
-                            <div class="box-label" style="margin-top:1em;">{{ level }}{% if level == 1 %}st{% elif level == 2 %}nd{% elif level == 3 %}rd{% else %}th{% endif %} Level</div>
-                            <div style="margin-bottom: 0.5em;">
-                                {% if character.spells.spell_slots[level_key] %}
-                                    <label style="font-weight: normal;">SLOTS</label>
-                                    {% for i in range(character.spells.spell_slots[level_key]) %}
-                                        <input type="checkbox" disabled>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
+                            {% if character.spellcasting.spell_slots_per_level[character.level][level] %}
+                            <div class="box-label" style="margin-top:1em;">Level {{ level }} Slots: {{ character.spellcasting.spell_slots_per_level[character.level][level] }}</div>
                             <table class="spell-table" style="width:100%; margin-bottom: 1em;">
                                 <thead>
                                     <tr>
@@ -1963,7 +1952,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for spell in spells %}
+                                {% for spell in character.spells.spells_known | selectattr('level', 'equalto', level) | list %}
                                     <tr>
                                         <td>{{ spell.name }}</td>
                                         <td>{{ spell.casting_time or '' }}</td>
@@ -1986,21 +1975,50 @@
                     </div>
                     <!-- Features & Traits Tab Content -->
                     <div>
-                        <h3>Combat Features & Traits</h3>
+                        <h3>Class Features</h3>
                         <ul class="feature-list">
-                            {% for feature in character.features %}
+                            {% for level, features in character.class_features.items() %}
+                                {% for feature in features %}
+                                    <li>
+                                        <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
+                                        <span>
+                                            <strong>{{feature.name}} (Level {{level}})</strong>: 
+                                            {{feature.description}}
+                                            {% if feature.mechanics %}
+                                                <br><em>Mechanics: {{ feature.mechanics|tojson }}</em>
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+
+                        <h3>Subclass Features</h3>
+                        <ul class="feature-list">
+                            {% if character.subclass_features %}
+                                {% for level, features in character.subclass_features.items() %}
+                                    {% for feature in features %}
+                                        <li>
+                                            <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
+                                            <span>
+                                                <strong>{{feature.name}} (Level {{level}})</strong>: 
+                                                {{feature.description}}
+                                                {% if feature.mechanics %}
+                                                    <br><em>Mechanics: {{ feature.mechanics|tojson }}</em>
+                                                {% endif %}
+                                            </span>
+                                        </li>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+
+                        <h3>Other Features & Traits</h3>
+                        <ul class="feature-list">
+                            {% for feature in character.other_features %}
                                 <li>
                                     <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
                                     <span><strong>{{feature.name}}</strong>: {{feature.description}}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <h3 style="margin-top:18px;">Non-Combat Features & Traits</h3>
-                        <ul class="feature-list">
-                            {% for trait in character.traits %}
-                                <li>
-                                    <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
-                                    <span><strong>{{trait.name}}</strong>: {{trait.description}}</span>
                                 </li>
                             {% endfor %}
                         </ul>

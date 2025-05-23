@@ -442,6 +442,284 @@
         }
     },
     "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "Hunter",
+            "description": "Emulating the Hunter archetype means accepting your place as a bulwark between civilization and the terrors of the wilderness.",
+            "source": "PHB",
+            "features": {
+                "3": [
+                    {
+                        "name": "Hunter's Prey",
+                        "description": "Choose one of the following features: Colossus Slayer, Giant Killer, or Horde Breaker."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Defensive Tactics",
+                        "description": "Choose one of the following features: Escape the Horde, Multiattack Defense, or Steel Will."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Multiattack",
+                        "description": "Choose one of the following features: Volley or Whirlwind Attack."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Superior Hunter's Defense",
+                        "description": "Choose one of the following features: Evasion, Stand Against the Tide, or Uncanny Dodge."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Beast Master",
+            "description": "The Beast Master archetype embodies a friendship between the civilized races and the beasts of the world.",
+            "source": "PHB",
+            "features": {
+                "3": [
+                    {
+                        "name": "Ranger's Companion",
+                        "description": "You gain a beast companion that accompanies you on your adventures and is trained to fight alongside you."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Exceptional Training",
+                        "description": "Your beast companion can use its action to Dash, Disengage, or Help as a bonus action."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Bestial Fury",
+                        "description": "When you command your beast companion to take the Attack action, the beast can make two attacks."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Share Spells",
+                        "description": "When you cast a spell targeting yourself, you can also affect your beast companion with the spell."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Gloom Stalker",
+            "description": "Gloom Stalkers are at home in the darkest places, using the shadows to their advantage.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Dread Ambusher",
+                        "description": "You gain extra speed and an additional attack on your first turn in combat, plus bonus damage."
+                    },
+                    {
+                        "name": "Umbral Sight",
+                        "description": "You gain darkvision and are invisible to creatures that rely on darkvision to see you in darkness."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Iron Mind",
+                        "description": "You gain proficiency in Wisdom saving throws."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Stalker's Flurry",
+                        "description": "When you miss with an attack, you can make an additional attack as part of the same action."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Shadowy Dodge",
+                        "description": "When a creature attacks you and doesn't have advantage, you can use your reaction to impose disadvantage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Horizon Walker",
+            "description": "Horizon Walkers guard the world against threats that originate from other planes.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Detect Portal",
+                        "description": "You can use an action to detect the distance and direction to the closest planar portal."
+                    },
+                    {
+                        "name": "Planar Warrior",
+                        "description": "As a bonus action, choose a creature. Your attacks against it deal extra force damage and become magical."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Ethereal Step",
+                        "description": "You can cast etherealness with this feature, without expending a spell slot."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Distant Strike",
+                        "description": "You can teleport before each attack and can attack an additional creature if each attack targets a different one."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Spectral Defense",
+                        "description": "When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Monster Slayer",
+            "description": "You have dedicated yourself to hunting down dangerous creatures and supernatural threats.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Hunter's Sense",
+                        "description": "As an action, learn a creature's vulnerabilities, immunities, and resistances."
+                    },
+                    {
+                        "name": "Slayer's Prey",
+                        "description": "As a bonus action, designate a creature as your prey for extra damage."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Supernatural Defense",
+                        "description": "Add 1d6 to saving throws against effects from your prey."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Magic-User's Nemesis",
+                        "description": "When your prey tries to teleport or cast a spell, you can use your reaction to make an attack and potentially stop them."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Slayer's Counter",
+                        "description": "If your prey forces you to make a saving throw, you can use your reaction to make an attack against them."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Fey Wanderer",
+            "description": "These rangers have strong ties to the Feywild and its creatures, gaining magical abilities from this connection.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Dreadful Strikes",
+                        "description": "Your strikes can be augmented with mind-scarring magic, dealing extra psychic damage."
+                    },
+                    {
+                        "name": "Fey Wanderer Magic",
+                        "description": "You learn additional spells when you reach certain levels in this class."
+                    },
+                    {
+                        "name": "Otherworldly Glamour",
+                        "description": "You can add your Wisdom modifier to Charisma checks."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Beguiling Twist",
+                        "description": "You can redirect enchantment and frightening effects to other creatures."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Fey Reinforcements",
+                        "description": "You can summon fey creatures to aid you in battle."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Misty Wanderer",
+                        "description": "You can cast misty step without expending a spell slot, and can bring one willing creature with you."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Swarmkeeper",
+            "description": "These rangers bond with a swarm of nature spirits that aid them in combat and exploration.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Gathered Swarm",
+                        "description": "You manifest a swarm of nature spirits that can assist your attacks and movement."
+                    },
+                    {
+                        "name": "Swarmkeeper Magic",
+                        "description": "You learn additional spells when you reach certain levels in this class."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Writhing Tide",
+                        "description": "You can move through the air using your swarm to carry you."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Mighty Swarm",
+                        "description": "Your swarm grows mightier, giving you additional options when you use Gathered Swarm."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Swarming Dispersal",
+                        "description": "You can turn into a swarm of tiny creatures when you would take damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Drakewarden",
+            "description": "You have a special connection with drakes, magical creatures related to dragons.",
+            "source": "FTD",
+            "features": {
+                "3": [
+                    {
+                        "name": "Drake Companion",
+                        "description": "You can summon a drake companion that fights alongside you and grows stronger as you level up."
+                    },
+                    {
+                        "name": "Draconic Gift",
+                        "description": "You can speak Draconic and gain a special benefit when you use the drake's breath weapon."
+                    }
+                ],
+                "7": [
+                    {
+                        "name": "Drake Bond",
+                        "description": "Your drake can now fly and you can ride it as a mount."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Drake's Breath",
+                        "description": "You and your drake can use your actions together to unleash a powerful breath weapon."
+                    }
+                ],
+                "15": [
+                    {
+                        "name": "Perfected Bond",
+                        "description": "Your drake grows to Large size and gains additional benefits."
+                    }
+                ]
+            }
+        }
+    ],
     "version": "5E",
     "source": "PHB",
     "source_page": 89

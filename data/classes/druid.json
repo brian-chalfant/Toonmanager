@@ -1,0 +1,514 @@
+{
+    "name": "Druid",
+    "description": "A priest of the Old Faith, wielding the powers of nature—moonlight and plant growth, fire and lightning—and adopting animal forms.",
+    "hit_dice": "1d8",
+    "primary_ability": [
+        "wisdom"
+    ],
+    "saving_throw_proficiencies": [
+        "intelligence",
+        "wisdom"
+    ],
+    "armor_proficiencies": [
+        "light armor",
+        "medium armor",
+        "shields"
+    ],
+    "weapon_proficiencies": [
+        "clubs",
+        "daggers",
+        "darts",
+        "javelins",
+        "maces",
+        "quarterstaffs",
+        "scimitars",
+        "sickles",
+        "slings",
+        "spears"
+    ],
+    "tool_proficiencies": [
+        "herbalism kit"
+    ],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Arcana",
+            "Animal Handling",
+            "Insight",
+            "Medicine",
+            "Nature",
+            "Perception",
+            "Religion",
+            "Survival"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "wooden shield",
+                    "any simple weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "scimitar",
+                    "any simple melee weapon"
+                ]
+            }
+        ],
+        "default": [
+            "leather armor",
+            "explorer's pack",
+            "druidic focus"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Druidic",
+                "description": "You know Druidic, the secret language of druids."
+            },
+            {
+                "name": "Spellcasting",
+                "description": "You can cast prepared druid spells using Wisdom as your spellcasting ability. You use a druidic focus as a spellcasting focus."
+            }
+        ],
+        "2": [
+            {
+                "name": "Wild Shape",
+                "description": "You can use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest. (See PHB for full limitations and progression.)"
+            },
+            {
+                "name": "Druid Circle",
+                "description": "You choose to identify with a circle of druids, gaining features at 2nd, 6th, 10th, and 14th level."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "18": [
+            {
+                "name": "Timeless Body",
+                "description": "You age more slowly. For every 10 years that pass, your body ages only 1 year."
+            },
+            {
+                "name": "Beast Spells",
+                "description": "You can cast many of your druid spells in any shape you assume using Wild Shape."
+            }
+        ],
+        "20": [
+            {
+                "name": "Archdruid",
+                "description": "You can use Wild Shape an unlimited number of times. Additionally, you can ignore the verbal and somatic components of druid spells, as well as any material components that lack a cost and aren't consumed by the spell, while in Wild Shape."
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "wisdom",
+        "focus": [
+            "druidic focus"
+        ],
+        "spells_known": "prepared",
+        "cantrips_known": {
+            "1": 2,
+            "4": 3,
+            "10": 4
+        },
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 4,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 3
+            },
+            "5": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 2,
+                "8": 1,
+                "9": 1
+            }
+        }
+    },
+    "subclass_level": 2,
+    "subclasses": [
+        {
+            "name": "Circle of the Land",
+            "description": "Druids of the Circle of the Land are mystics and sages who safeguard ancient knowledge and rites through a deep connection to a specific type of terrain.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Bonus Cantrip",
+                        "description": "You learn one additional druid cantrip of your choice."
+                    },
+                    {
+                        "name": "Natural Recovery",
+                        "description": "You can regain some spell slots during a short rest (see PHB for details)."
+                    },
+                    {
+                        "name": "Circle Spells",
+                        "description": "You gain additional druid spells based on your chosen land type (see PHB for the full list)."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Land's Stride",
+                        "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Nature's Ward",
+                        "description": "You can't be charmed or frightened by elementals or fey, and you are immune to poison and disease."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Nature's Sanctuary",
+                        "description": "Creatures of the natural world are hesitant to attack you. When a beast or plant creature attacks you, it must make a Wisdom saving throw or choose a different target."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of the Moon",
+            "description": "Druids of the Circle of the Moon are fierce guardians of the wild, focusing on the ability to use Wild Shape for combat and to assume more powerful beast forms.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Combat Wild Shape",
+                        "description": "You can use Wild Shape as a bonus action. Additionally, you can use a bonus action to expend a spell slot to regain 1d8 hit points per level of the spell slot expended while in Wild Shape."
+                    },
+                    {
+                        "name": "Circle Forms",
+                        "description": "You can transform into more dangerous animal forms, including those with a challenge rating as high as 1 (and higher as you gain levels)."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Primal Strike",
+                        "description": "Your attacks in beast form count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Elemental Wild Shape",
+                        "description": "You can expend two uses of Wild Shape at the same time to transform into an air, earth, fire, or water elemental."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Thousand Forms",
+                        "description": "You can cast alter self at will, without expending a spell slot."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of Dreams",
+            "description": "Druids who serve as guardians of the realm of dreams and the Feywild.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Balm of the Summer Court",
+                        "description": "You can use a bonus action to heal a creature and grant them temporary hit points using your pool of d6s equal to your druid level."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Hearth of Moonlight and Shadow",
+                        "description": "You can create a 30-foot-radius area of magical light and darkness that provides benefits to resting allies."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Hidden Paths",
+                        "description": "As a bonus action, you can teleport up to 60 feet to a spot you can see, or teleport a willing creature within 30 feet."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Walker in Dreams",
+                        "description": "You can cast certain spells while in a short or long rest, and can enter the dreams of sleeping creatures."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of the Shepherd",
+            "description": "Druids who commune with the spirits of nature, summoning them to aid their allies.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Speech of the Woods",
+                        "description": "You gain the ability to speak with beasts, and you learn Sylvan."
+                    },
+                    {
+                        "name": "Spirit Totem",
+                        "description": "You can summon nature spirits in the form of totems that provide benefits to you and your allies."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Mighty Summoner",
+                        "description": "Beasts and fey that you summon are more powerful, gaining extra hit points and magical attacks."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Guardian Spirit",
+                        "description": "Your Spirit Totem now grants temporary hit points when you summon it."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Faithful Summons",
+                        "description": "When you are reduced to 0 hit points, you can automatically summon four beast spirits to protect you."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of Spores",
+            "description": "Druids who find beauty in decay and manipulate the spores that grow in darkness.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Halo of Spores",
+                        "description": "You can deal necrotic damage to a creature within 10 feet of you as a reaction."
+                    },
+                    {
+                        "name": "Symbiotic Entity",
+                        "description": "You can use your Wild Shape to enhance your spores, gaining temporary hit points and additional damage."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Fungal Infestation",
+                        "description": "When a humanoid dies near you, you can animate it as a zombie temporarily using your reaction."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Spreading Spores",
+                        "description": "You gain the ability to create spore clouds that harm your enemies and create difficult terrain."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Fungal Body",
+                        "description": "You gain immunity to critical hits and resistance to bludgeoning, piercing, and slashing damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of Stars",
+            "description": "Druids who draw their power from the stars and celestial bodies.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Star Map",
+                        "description": "You gain a celestial map that lets you cast guiding bolt without using spell slots."
+                    },
+                    {
+                        "name": "Starry Form",
+                        "description": "You can use your Wild Shape to take on a starry form with different constellation benefits."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Cosmic Omen",
+                        "description": "You can use your reaction to influence attack rolls, ability checks, or saving throws using the stars' guidance."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Twinkling Constellations",
+                        "description": "Your Starry Form constellations become more powerful."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Full of Stars",
+                        "description": "While in your Starry Form, you gain resistance to bludgeoning, piercing, and slashing damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Circle of Wildfire",
+            "description": "Druids who understand that destruction and renewal are part of nature's cycle.",
+            "features": {
+                "2": [
+                    {
+                        "name": "Summon Wildfire Spirit",
+                        "description": "You can use your Wild Shape to summon a wildfire spirit that aids you in combat."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Enhanced Bond",
+                        "description": "Your magic is enhanced when you're near your wildfire spirit, and your fire spells are more powerful."
+                    }
+                ],
+                "10": [
+                    {
+                        "name": "Cauterizing Flames",
+                        "description": "You can use your reaction to reduce damage and heal when a creature takes fire damage."
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Blazing Revival",
+                        "description": "When you drop to 0 hit points, you can use your reaction to explode in flames, dealing damage and regaining hit points."
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 64
+}

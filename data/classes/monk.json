@@ -1,0 +1,470 @@
+{
+    "name": "Monk",
+    "description": "A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection.",
+    "hit_dice": "1d8",
+    "primary_ability": [
+        "dexterity",
+        "wisdom"
+    ],
+    "saving_throw_proficiencies": [
+        "strength",
+        "dexterity"
+    ],
+    "armor_proficiencies": [],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "shortswords"
+    ],
+    "tool_proficiencies": [
+        "choose one type of artisan's tools or one musical instrument"
+    ],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "Acrobatics",
+            "Athletics",
+            "History",
+            "Insight",
+            "Religion",
+            "Stealth"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "shortsword",
+                    "any simple weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "dungeoneer's pack",
+                    "explorer's pack"
+                ]
+            }
+        ],
+        "default": [
+            "10 darts"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Unarmored Defense",
+                "description": "While not wearing armor or wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier."
+            },
+            {
+                "name": "Martial Arts",
+                "description": "You can use Dexterity instead of Strength for attack and damage rolls with monk weapons and unarmed strikes. You roll a d4 in place of the normal damage. You can make an unarmed strike as a bonus action after attacking with a monk weapon or unarmed strike."
+            }
+        ],
+        "2": [
+            {
+                "name": "Ki",
+                "description": "You have a pool of ki points. You can spend ki points to fuel Flurry of Blows, Patient Defense, and Step of the Wind."
+            },
+            {
+                "name": "Unarmored Movement",
+                "description": "Your speed increases by 10 feet while not wearing armor or wielding a shield. This bonus increases as you gain levels."
+            }
+        ],
+        "3": [
+            {
+                "name": "Monastic Tradition",
+                "description": "You commit to a monastic tradition, gaining features at 3rd, 6th, 11th, and 17th level."
+            },
+            {
+                "name": "Deflect Missiles",
+                "description": "You can use your reaction to deflect or catch a missile when you are hit by a ranged weapon attack."
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "Increase one ability score by 2, or two ability scores by 1. Max 20."
+            },
+            {
+                "name": "Slow Fall",
+                "description": "Use your reaction to reduce falling damage by an amount equal to five times your monk level."
+            }
+        ],
+        "5": [
+            {
+                "name": "Extra Attack",
+                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+            },
+            {
+                "name": "Stunning Strike",
+                "description": "You can interfere with the flow of ki in an opponent's body. When you hit with a melee weapon or unarmed strike, you can spend 1 ki point to stun the target if it fails a Constitution save."
+            }
+        ],
+        "6": [
+            {
+                "name": "Ki-Empowered Strikes",
+                "description": "Your unarmed strikes count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage."
+            }
+        ],
+        "7": [
+            {
+                "name": "Evasion",
+                "description": "You can nimbly dodge out of the way of certain area effects. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage on a successful save, and only half damage on a failed save."
+            },
+            {
+                "name": "Stillness of Mind",
+                "description": "You can use your action to end one effect on yourself that is causing you to be charmed or frightened."
+            }
+        ],
+        "10": [
+            {
+                "name": "Purity of Body",
+                "description": "You are immune to disease and poison."
+            }
+        ],
+        "13": [
+            {
+                "name": "Tongue of the Sun and Moon",
+                "description": "You can understand all spoken languages and any creature can understand your words."
+            }
+        ],
+        "14": [
+            {
+                "name": "Diamond Soul",
+                "description": "You gain proficiency in all saving throws. When you fail a saving throw, you can spend 1 ki point to reroll it and must take the second result."
+            }
+        ],
+        "15": [
+            {
+                "name": "Timeless Body",
+                "description": "You suffer none of the frailty of old age, and you can't be aged magically. You still die of old age. You don't need food or water."
+            }
+        ],
+        "18": [
+            {
+                "name": "Empty Body",
+                "description": "You can use 4 ki points to become invisible for 1 minute. During that time, you also have resistance to all damage but force damage."
+            }
+        ],
+        "20": [
+            {
+                "name": "Perfect Self",
+                "description": "When you roll initiative and have no ki points remaining, you regain 4 ki points."
+            }
+        ]
+    },
+    "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "Way of the Open Hand",
+            "description": "You can manipulate your enemy's ki when you harness your own. You gain open hand technique and other features.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Open Hand Technique",
+                        "description": "Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects: It must succeed on a Dexterity save or be knocked prone; it must make a Strength save or be pushed 15 feet away; it can't take reactions until the end of your next turn."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Wholeness of Body",
+                        "description": "You can heal yourself as an action. Regain hit points equal to three times your monk level. You must finish a long rest before you can use again."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Tranquility",
+                        "description": "You can enter a special meditation that surrounds you with an aura of peace. At the end of a long rest, you gain the effect of a sanctuary spell that lasts until the start of your next long rest."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Quivering Palm",
+                        "description": "You can set up lethal vibrations in someone's body. When you hit a creature with an unarmed strike, you can spend 3 ki points to start these vibrations, which you can trigger later to potentially drop the creature to 0 hit points."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of Shadow",
+            "description": "You follow a tradition that values stealth and subterfuge. You gain access to special shadow arts.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Shadow Arts",
+                        "description": "You can use ki to duplicate the effects of certain spells: darkness, darkvision, pass without trace, or silence."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Shadow Step",
+                        "description": "When you are in dim light or darkness, as a bonus action you can teleport up to 60 feet to an unoccupied space you can see that is also in dim light or darkness. You then have advantage on the first melee attack you make before the end of the turn."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Cloak of Shadows",
+                        "description": "You can use your action to become invisible in an area of dim light or darkness until you move or take an action or reaction."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Opportunist",
+                        "description": "Whenever a creature within 5 feet of you is hit by an attack made by a creature other than you, you can use your reaction to make a melee attack against that creature."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Four Elements",
+            "description": "You harness the elements to perform magical effects, becoming an elemental master.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Disciple of the Elements",
+                        "description": "You learn magical disciplines that harness the power of the four elements (see PHB for full list and ki costs)."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Elemental Attunement",
+                        "description": "You gain additional disciplines from the list of elemental disciplines."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Elemental Versatility",
+                        "description": "You can change elemental disciplines when you gain a level in this class."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Elemental Mastery",
+                        "description": "You master powerful disciplines, increasing your magical abilities with the elements."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Drunken Master",
+            "description": "You follow a path that uses deceptive movements inspired by the swaying of a drunkard to confound enemies.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Drunken Technique",
+                        "description": "When you use Flurry of Blows, you gain the benefits of the Disengage action and your walking speed increases by 10 feet until the end of the current turn."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Tipsy Sway",
+                        "description": "You can stand up from prone by spending 5 feet of movement, and whenever a creature misses you with a melee attack, you can redirect the attack to another creature within 5 feet."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Drunkard's Luck",
+                        "description": "When you make an ability check, attack roll, or saving throw with disadvantage, you can spend 2 ki points to cancel the disadvantage."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Intoxicated Frenzy",
+                        "description": "When you use Flurry of Blows, you can make up to three additional attacks with it (up to five total), provided each attack targets a different creature."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Kensei",
+            "description": "You follow a path focused on mastery of chosen weapons, turning them into extensions of your body.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Path of the Kensei",
+                        "description": "Choose two types of weapons to be your kensei weapons. You gain special benefits when using them, including increased accuracy and damage."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "One with the Blade",
+                        "description": "Your kensei weapons count as magical for overcoming resistance and immunity. You can spend ki points to increase their damage."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Sharpen the Blade",
+                        "description": "You can spend up to 3 ki points as a bonus action to grant a weapon you touch a bonus to attack and damage rolls equal to the number of ki points spent."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Unerring Accuracy",
+                        "description": "Once on each of your turns when you miss with an attack roll using a monk weapon or kensei weapon, you can reroll it. You must use the new roll."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Sun Soul",
+            "description": "You learn to channel your life energy into searing bolts of light.",
+            "source": "XGE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Radiant Sun Bolt",
+                        "description": "You can hurl searing bolts of magical radiance as ranged spell attacks, dealing radiant damage."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Searing Arc Strike",
+                        "description": "You can spend ki points to cast burning hands as a bonus action, and spend additional ki to cast it at a higher level."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Searing Sunburst",
+                        "description": "You can create an explosion of light and heat, forcing creatures in a 20-foot radius to make Constitution saving throws."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Sun Shield",
+                        "description": "You shed bright light and cause creatures that hit you with melee attacks to take radiant damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of Mercy",
+            "description": "You follow a monastic tradition that focuses on healing the sick and bringing mercy to the suffering.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Implements of Mercy",
+                        "description": "You gain proficiency in the Insight and Medicine skills, and gain a special mask. Your Hands of Healing feature lets you spend ki points to restore hit points when you use Flurry of Blows."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Physician's Touch",
+                        "description": "When you use Hands of Healing, you can also end one disease or condition. When you use Hands of Harm, you can also impose the poisoned condition."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Flurry of Healing and Harm",
+                        "description": "When you use Flurry of Blows, you can now use each of your strikes to either heal or harm."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Hand of Ultimate Mercy",
+                        "description": "You can restore life to a creature that has died within the last 24 hours by spending 5 ki points."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Astral Self",
+            "description": "You can tap into your inner self to create an astral form around you.",
+            "source": "TCE",
+            "features": {
+                "3": [
+                    {
+                        "name": "Arms of the Astral Self",
+                        "description": "You can summon spectral arms that can be used for attacks and can use Wisdom instead of Strength for certain checks and saves."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Visage of the Astral Self",
+                        "description": "You can summon the visage of your astral self, gaining enhanced senses and the ability to speak telepathically."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Body of the Astral Self",
+                        "description": "You can summon the body of your astral self, gaining additional armor and the ability to deflect attacks."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Awakened Astral Self",
+                        "description": "Your astral form now requires no ki points to summon and grants additional benefits when active."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Ascendant Dragon",
+            "description": "You learn to channel the power of dragons through your strikes and ki.",
+            "source": "FTD",
+            "features": {
+                "3": [
+                    {
+                        "name": "Draconic Disciple",
+                        "description": "You can change your unarmed strikes to deal your choice of acid, cold, fire, lightning, or poison damage, and you learn to speak, read, and write Draconic."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Wings Unfurled",
+                        "description": "You can spend ki points to manifest spectral draconic wings, gaining a flying speed."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Aspect of the Wyrm",
+                        "description": "You can create an aura of draconic power that gives you resistance to a damage type and can harm or frighten enemies."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Ascendant Aspect",
+                        "description": "You gain blindsight, can create larger breath weapons, and your draconic aura becomes more powerful."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Way of the Long Death",
+            "description": "You study the corruption of life and the moment of death itself, gaining macabre powers.",
+            "source": "SCAG",
+            "features": {
+                "3": [
+                    {
+                        "name": "Touch of Death",
+                        "description": "When you reduce a creature within 5 feet of you to 0 hit points, you gain temporary hit points equal to your Wisdom modifier + your monk level."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Hour of Reaping",
+                        "description": "You can spend ki points to force each creature within 30 feet of you to make a Wisdom saving throw or become frightened of you."
+                    }
+                ],
+                "11": [
+                    {
+                        "name": "Mastery of Death",
+                        "description": "When you would be reduced to 0 hit points, you can spend 1 ki point to have 1 hit point instead."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Touch of the Long Death",
+                        "description": "You can spend up to 10 ki points as an action to deal necrotic damage to a creature, which must make a Constitution saving throw."
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 76
+}

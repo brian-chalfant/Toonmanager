@@ -1,0 +1,1387 @@
+{
+    "name": "Bard",
+    "description": "An inspiring magician whose power echoes the music of creation.",
+    "hit_dice": "1d8",
+    "primary_ability": [
+        "charisma"
+    ],
+    "saving_throw_proficiencies": [
+        "dexterity",
+        "charisma"
+    ],
+    "armor_proficiencies": [
+        "light armor"
+    ],
+    "weapon_proficiencies": [
+        "simple weapons",
+        "hand crossbows",
+        "longswords",
+        "rapiers",
+        "shortswords"
+    ],
+    "tool_proficiencies": [
+        "three musical instruments of your choice"
+    ],
+    "skill_proficiencies": {
+        "choose": 3,
+        "from": [
+            "Acrobatics",
+            "Athletics",
+            "Deception",
+            "History",
+            "Insight",
+            "Intimidation",
+            "Investigation",
+            "Medicine",
+            "Nature",
+            "Perception",
+            "Performance",
+            "Persuasion",
+            "Religion",
+            "Sleight of Hand",
+            "Stealth"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "rapier",
+                    "longsword",
+                    "any simple weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "diplomat's pack",
+                    "entertainer's pack"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "lute",
+                    "any other musical instrument"
+                ]
+            }
+        ],
+        "default": [
+            "leather armor",
+            "dagger"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Spellcasting",
+                "description": "You can cast bard spells using Charisma as your spellcasting ability. You use a musical instrument as a spellcasting focus.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "spellcasting_ability": "charisma",
+                    "spell_focus": ["musical_instrument"],
+                    "spells_known": {
+                        "cantrips": {
+                            "1": 2,
+                            "4": 3,
+                            "10": 4
+                        },
+                        "spells": {
+                            "progression": "spells_known"
+                        }
+                    },
+                    "spell_slots": {
+                        "progression": "full_caster"
+                    }
+                }
+            },
+            {
+                "name": "Bardic Inspiration (d6)",
+                "description": "You can inspire others through stirring words or music. As a bonus action, a creature within 60 feet that can hear you gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The die changes as you gain bard levels: d8 at 5th, d10 at 10th, and d12 at 15th. You can use this feature a number of times equal to your Charisma modifier (minimum of once), regaining uses after a long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "bonus_action",
+                    "range": 60,
+                    "target": {
+                        "type": "creature",
+                        "conditions": ["can_hear_you"]
+                    },
+                    "resource": {
+                        "name": "bardic_inspiration",
+                        "die": {
+                            "1": "d6",
+                            "5": "d8",
+                            "10": "d10",
+                            "15": "d12"
+                        },
+                        "uses": {
+                            "per_long_rest": "charisma_modifier",
+                            "minimum": 1
+                        }
+                    },
+                    "effect": {
+                        "type": "bonus_die",
+                        "duration": "10_minutes",
+                        "uses": 1,
+                        "applicable_to": [
+                            "ability_check",
+                            "attack_roll",
+                            "saving_throw"
+                        ]
+                    }
+                }
+            }
+        ],
+        "2": [
+            {
+                "name": "Jack of All Trades",
+                "description": "You can add half your proficiency bonus, rounded down, to any ability check you make that doesn't already include your proficiency bonus.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "add_bonus",
+                            "to": "ability_checks",
+                            "value": "half_proficiency_bonus",
+                            "conditions": [
+                                "not_already_proficient"
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Song of Rest (d6)",
+                "description": "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest, each of those creatures regains an extra 1d6 hit points. The extra hit points increase to 1d8 at 9th, 1d10 at 13th, and 1d12 at 17th level.",
+                "mechanics": {
+                    "type": "short_rest_healing",
+                    "target": {
+                        "type": "friendly_creatures",
+                        "conditions": [
+                            "can_hear_performance",
+                            "regaining_hit_points"
+                        ]
+                    },
+                    "healing": {
+                        "die": {
+                            "2": "d6",
+                            "9": "d8",
+                            "13": "d10",
+                            "17": "d12"
+                        }
+                    },
+                    "timing": "end_of_short_rest"
+                }
+            }
+        ],
+        "3": [
+            {
+                "name": "Bard College",
+                "description": "You delve into the advanced techniques of a Bard College of your choice, gaining features at 3rd, 6th, and 14th level.",
+                "mechanics": {
+                    "type": "subclass_choice",
+                    "feature_levels": [3, 6, 14]
+                }
+            },
+            {
+                "name": "Expertise",
+                "description": "Choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose two more skill proficiencies to gain this benefit.",
+                "mechanics": {
+                    "type": "expertise",
+                    "choices": {
+                        "3": {
+                            "choose": 2,
+                            "from": "skill_proficiencies"
+                        },
+                        "10": {
+                            "choose": 2,
+                            "from": "skill_proficiencies"
+                        }
+                    },
+                    "effect": {
+                        "type": "double_proficiency",
+                        "applies_to": "chosen_skills"
+                    }
+                }
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "choose": 1,
+                            "increase": 2
+                        },
+                        {
+                            "choose": 2,
+                            "increase": 1
+                        }
+                    ],
+                    "maximum": 20
+                }
+            }
+        ],
+        "5": [
+            {
+                "name": "Bardic Inspiration (d8)",
+                "description": "Your Bardic Inspiration die becomes a d8.",
+                "mechanics": {
+                    "type": "update_resource",
+                    "resource": "bardic_inspiration",
+                    "die": "d8"
+                }
+            },
+            {
+                "name": "Font of Inspiration",
+                "description": "You regain all expended uses of Bardic Inspiration when you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource_recovery",
+                    "resource": "bardic_inspiration",
+                    "recovery": {
+                        "type": "all",
+                        "trigger": ["short_rest", "long_rest"]
+                    }
+                }
+            }
+        ],
+        "6": [
+            {
+                "name": "Countercharm",
+                "description": "You gain the ability to use musical notes or words of power to disrupt mind-influencing effects. As an action, you grant yourself and friendly creatures within 30 feet advantage on saving throws against being frightened or charmed. This lasts until the end of your next turn.",
+                "mechanics": {
+                    "type": "action",
+                    "effect": {
+                        "type": "grant_advantage",
+                        "on": ["frightened_save", "charmed_save"],
+                        "target": {
+                            "type": ["self", "friendly_creatures"],
+                            "range": 30
+                        },
+                        "duration": "end_of_next_turn"
+                    }
+                }
+            },
+            {
+                "name": "Bard College feature",
+                "description": "You gain a feature from your Bard College.",
+                "mechanics": {
+                    "type": "subclass_feature",
+                    "level": 6
+                }
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "10": [
+            {
+                "name": "Bardic Inspiration (d10)",
+                "description": "Your Bardic Inspiration die becomes a d10."
+            },
+            {
+                "name": "Expertise",
+                "description": "Choose two additional skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+            },
+            {
+                "name": "Magical Secrets",
+                "description": "You have learned two spells of your choice from any class. You can add them to your bard spells known and can cast them using bard spell slots."
+            },
+            {
+                "name": "Song of Rest (d8)",
+                "description": "Your Song of Rest now restores 1d8 hit points."
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "14": [
+            {
+                "name": "Magical Secrets",
+                "description": "You learn two additional spells from any class."
+            },
+            {
+                "name": "Bard College feature",
+                "description": "You gain a feature from your Bard College."
+            },
+            {
+                "name": "Song of Rest (d10)",
+                "description": "Your Song of Rest now restores 1d10 hit points."
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "18": [
+            {
+                "name": "Magical Secrets",
+                "description": "You learn two additional spells from any class."
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+            }
+        ],
+        "20": [
+            {
+                "name": "Superior Inspiration",
+                "description": "When you roll initiative and have no uses of Bardic Inspiration left, you regain one use."
+            },
+            {
+                "name": "Bardic Inspiration (d12)",
+                "description": "Your Bardic Inspiration die becomes a d12."
+            },
+            {
+                "name": "Song of Rest (d12)",
+                "description": "Your Song of Rest now restores 1d12 hit points."
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "charisma",
+        "focus": [
+            "musical instrument"
+        ],
+        "spells_known": {
+            "1": 4,
+            "2": 5,
+            "3": 6,
+            "4": 7,
+            "5": 8,
+            "6": 9,
+            "7": 10,
+            "8": 11,
+            "9": 12,
+            "10": 14,
+            "11": 15,
+            "12": 15,
+            "13": 16,
+            "14": 18,
+            "15": 19,
+            "16": 19,
+            "17": 20,
+            "18": 22,
+            "19": 22,
+            "20": 22
+        },
+        "cantrips_known": {
+            "1": 2,
+            "4": 3,
+            "10": 4
+        },
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 4,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 3
+            },
+            "5": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 2,
+                "8": 1,
+                "9": 1
+            }
+        }
+    },
+    "subclass_level": 3,
+    "subclasses": [
+        {
+            "name": "College of Lore",
+            "description": "Bards of the College of Lore know something about most things, collecting bits of knowledge from sources as diverse as scholarly tomes and peasant tales.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with three skills of your choice.",
+                        "mechanics": {
+                            "type": "skill_proficiencies",
+                            "choose": 3,
+                            "from": "all_skills"
+                        }
+                    },
+                    {
+                        "name": "Cutting Words",
+                        "description": "You can use your reaction to subtract your Bardic Inspiration die from an enemy's attack roll, ability check, or damage roll.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "trigger": ["attack_roll", "ability_check", "damage_roll"],
+                            "target": {
+                                "type": "enemy",
+                                "range": 60,
+                                "conditions": ["can_hear_you"]
+                            },
+                            "effect": {
+                                "type": "subtract_die",
+                                "die": "bardic_inspiration_die",
+                                "from": "triggering_roll"
+                            },
+                            "resource": {
+                                "name": "bardic_inspiration",
+                                "cost": 1
+                            }
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Additional Magical Secrets",
+                        "description": "You learn two spells of your choice from any class. These spells count as bard spells for you.",
+                        "mechanics": {
+                            "type": "learn_spells",
+                            "spells": {
+                                "choose": 2,
+                                "from": "any_class_spell_list",
+                                "add_to": "bard_spell_list"
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Peerless Skill",
+                        "description": "When you make an ability check, you can expend one Bardic Inspiration die, roll it, and add the number rolled to your check. You can choose to do so after you roll the die but before the outcome is determined.",
+                        "mechanics": {
+                            "type": "ability_check_bonus",
+                            "trigger": "after_ability_check_roll",
+                            "timing": "before_outcome_determined",
+                            "effect": {
+                                "type": "add_die",
+                                "die": "bardic_inspiration_die"
+                            },
+                            "resource": {
+                                "name": "bardic_inspiration",
+                                "cost": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Valor",
+            "description": "Bards of the College of Valor are daring skalds whose tales keep alive the memory of great heroes of the past, and inspire a new generation of heroes.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with medium armor, shields, and martial weapons.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["medium_armor", "shields"],
+                            "weapons": ["martial_weapons"]
+                        }
+                    },
+                    {
+                        "name": "Combat Inspiration",
+                        "description": "A creature that has a Bardic Inspiration die from you can roll that die and add the number rolled to a weapon damage roll it just made or to its AC as a reaction to an attack.",
+                        "mechanics": {
+                            "type": "modify_resource",
+                            "resource": "bardic_inspiration",
+                            "additional_uses": [
+                                {
+                                    "type": "add_to_damage",
+                                    "trigger": "after_weapon_damage_roll",
+                                    "timing": "immediate"
+                                },
+                                {
+                                    "type": "add_to_ac",
+                                    "action_type": "reaction",
+                                    "trigger": "when_attacked"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Extra Attack",
+                        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                        "mechanics": {
+                            "type": "extra_attack",
+                            "attacks": 2
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Battle Magic",
+                        "description": "When you use your action to cast a bard spell, you can make one weapon attack as a bonus action.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "trigger": "cast_bard_spell",
+                            "effect": {
+                                "type": "weapon_attack",
+                                "attacks": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Glamour",
+            "description": "Bards of the College of Glamour have mastered the art of Fey enchantment and charm.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Mantle of Inspiration",
+                        "description": "As a bonus action, you can expend a Bardic Inspiration die to grant temporary hit points and bonus movement to your allies.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "resource": {
+                                "name": "bardic_inspiration",
+                                "cost": 1
+                            },
+                            "effect": {
+                                "type": "aura",
+                                "range": 60,
+                                "target": {
+                                    "type": "allies",
+                                    "number": "charisma_modifier",
+                                    "conditions": ["can_see_you"]
+                                },
+                                "effects": [
+                                    {
+                                        "type": "temporary_hp",
+                                        "amount": "bardic_inspiration_die + charisma_modifier"
+                                    },
+                                    {
+                                        "type": "movement",
+                                        "distance": "walking_speed",
+                                        "special": "no_opportunity_attacks"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "Enthralling Performance",
+                        "description": "You can use a performance to charm humanoids who watch or listen to it for at least 1 minute.",
+                        "mechanics": {
+                            "type": "action",
+                            "duration": {
+                                "type": "time",
+                                "amount": 1,
+                                "unit": "hour"
+                            },
+                            "target": {
+                                "type": "humanoids",
+                                "conditions": [
+                                    "watched_performance_for_1_minute",
+                                    "not_hostile"
+                                ]
+                            },
+                            "effect": {
+                                "type": "saving_throw",
+                                "ability": "wisdom",
+                                "dc": {
+                                    "base": 8,
+                                    "modifiers": [
+                                        "proficiency_bonus",
+                                        "charisma_modifier"
+                                    ]
+                                },
+                                "on_fail": {
+                                    "condition": "charmed",
+                                    "duration": "1_hour"
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Mantle of Majesty",
+                        "description": "As a bonus action, you take on an otherworldly appearance and can cast command as a bonus action without expending a spell slot.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "duration": {
+                                "type": "time",
+                                "amount": 1,
+                                "unit": "minute"
+                            },
+                            "effect": {
+                                "type": "spellcasting",
+                                "spell": "command",
+                                "casting_time": "bonus_action",
+                                "no_spell_slot": true,
+                                "uses": {
+                                    "per_turn": 1,
+                                    "duration": "1_minute"
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Unbreakable Majesty",
+                        "description": "Your appearance becomes so awe-inspiring that others have difficulty attacking you or resisting your social influence.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "duration": {
+                                "type": "time",
+                                "amount": 1,
+                                "unit": "minute"
+                            },
+                            "effect": {
+                                "type": "saving_throw",
+                                "trigger": "creature_attacks_or_targets_you",
+                                "ability": "charisma",
+                                "dc": {
+                                    "base": 8,
+                                    "modifiers": [
+                                        "proficiency_bonus",
+                                        "charisma_modifier"
+                                    ]
+                                },
+                                "on_fail": {
+                                    "effects": [
+                                        {
+                                            "type": "attack_restriction",
+                                            "duration": "end_of_turn"
+                                        },
+                                        {
+                                            "type": "disadvantage",
+                                            "on": "saving_throws_against_your_spells",
+                                            "duration": "end_of_turn"
+                                        }
+                                    ]
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Swords",
+            "description": "Bards of the College of Swords are daring performers who combine their art with martial prowess.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with medium armor and scimitars.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["medium_armor"],
+                            "weapons": ["scimitar"]
+                        }
+                    },
+                    {
+                        "name": "Fighting Style",
+                        "description": "You adopt a fighting style: Dueling or Two-Weapon Fighting.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Dueling",
+                                    "effects": [
+                                        {
+                                            "type": "damage_bonus",
+                                            "value": 2,
+                                            "conditions": [
+                                                "one_handed_melee_weapon",
+                                                "no_other_weapons"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Two-Weapon Fighting",
+                                    "effects": [
+                                        {
+                                            "type": "add_ability_modifier",
+                                            "to": "offhand_damage"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Blade Flourish",
+                        "description": "You learn special maneuvers called Blade Flourishes that enhance your combat abilities using Bardic Inspiration dice.",
+                        "mechanics": {
+                            "type": "combat_feature",
+                            "resource": "bardic_inspiration",
+                            "options": [
+                                {
+                                    "name": "Defensive Flourish",
+                                    "trigger": "hit_with_weapon_attack",
+                                    "effects": [
+                                        {
+                                            "type": "add_to_damage",
+                                            "amount": "bardic_inspiration_die"
+                                        },
+                                        {
+                                            "type": "add_to_ac",
+                                            "amount": "bardic_inspiration_die",
+                                            "duration": "start_of_next_turn"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Slashing Flourish",
+                                    "trigger": "hit_with_weapon_attack",
+                                    "effects": [
+                                        {
+                                            "type": "add_to_damage",
+                                            "amount": "bardic_inspiration_die"
+                                        },
+                                        {
+                                            "type": "extra_damage",
+                                            "target": {
+                                                "type": "different_creature",
+                                                "range": 5
+                                            },
+                                            "amount": "bardic_inspiration_die"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mobile Flourish",
+                                    "trigger": "hit_with_weapon_attack",
+                                    "effects": [
+                                        {
+                                            "type": "add_to_damage",
+                                            "amount": "bardic_inspiration_die"
+                                        },
+                                        {
+                                            "type": "push",
+                                            "distance": "bardic_inspiration_die",
+                                            "unit": "feet"
+                                        },
+                                        {
+                                            "type": "movement",
+                                            "distance": "walking_speed",
+                                            "conditions": ["towards_pushed_creature"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Extra Attack",
+                        "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                        "mechanics": {
+                            "type": "extra_attack",
+                            "attacks": 2
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Master's Flourish",
+                        "description": "Whenever you use a Blade Flourish option, you can roll a d6 and use it instead of expending a Bardic Inspiration die.",
+                        "mechanics": {
+                            "type": "modify_feature",
+                            "feature": "blade_flourish",
+                            "modification": {
+                                "type": "alternative_resource",
+                                "die": "d6",
+                                "replaces": "bardic_inspiration_die"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Whispers",
+            "description": "Bards of the College of Whispers use their knowledge and magic for deception and intimidation.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Psychic Blades",
+                        "description": "You can expend a Bardic Inspiration die to deal extra psychic damage with a weapon attack.",
+                        "mechanics": {
+                            "type": "combat_feature",
+                            "trigger": "hit_with_weapon_attack",
+                            "resource": {
+                                "name": "bardic_inspiration",
+                                "cost": 1
+                            },
+                            "effect": {
+                                "type": "extra_damage",
+                                "amount": {
+                                    "dice": {
+                                        "3": "2d6",
+                                        "5": "3d6",
+                                        "10": "5d6",
+                                        "15": "8d6"
+                                    }
+                                },
+                                "damage_type": "psychic"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Words of Terror",
+                        "description": "You can use your words to instill terror in a creature, potentially learning their secrets.",
+                        "mechanics": {
+                            "type": "action",
+                            "duration": {
+                                "type": "time",
+                                "amount": 1,
+                                "unit": "minute"
+                            },
+                            "target": {
+                                "type": "creature",
+                                "range": "speaking_range",
+                                "conditions": [
+                                    "can_hear_you",
+                                    "can_understand_you",
+                                    "one_minute_conversation"
+                                ]
+                            },
+                            "effect": {
+                                "type": "saving_throw",
+                                "ability": "wisdom",
+                                "dc": {
+                                    "base": 8,
+                                    "modifiers": [
+                                        "proficiency_bonus",
+                                        "charisma_modifier"
+                                    ]
+                                },
+                                "on_fail": {
+                                    "condition": "frightened",
+                                    "duration": "1_hour",
+                                    "special": "reveal_secret_or_take_action"
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Mantle of Whispers",
+                        "description": "You can capture a creature's shadow when it dies, allowing you to disguise yourself as that creature.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "trigger": "humanoid_dies_within_30_feet",
+                            "effect": {
+                                "type": "capture_shadow",
+                                "duration": {
+                                    "type": "time",
+                                    "amount": "until_used"
+                                }
+                            },
+                            "bonus_action": {
+                                "type": "disguise",
+                                "duration": {
+                                    "type": "time",
+                                    "amount": "hours",
+                                    "value": "charisma_modifier",
+                                    "minimum": 1
+                                },
+                                "effects": [
+                                    {
+                                        "type": "appearance_change",
+                                        "target": "captured_shadow"
+                                    },
+                                    {
+                                        "type": "knowledge_gain",
+                                        "information": [
+                                            "mannerisms",
+                                            "general_information",
+                                            "basic_personality"
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Shadow Lore",
+                        "description": "You can magically implant a horrifying secret in a creature's mind, forcing them to serve you or suffer psychic damage.",
+                        "mechanics": {
+                            "type": "action",
+                            "target": {
+                                "type": "creature",
+                                "range": 30,
+                                "conditions": [
+                                    "can_hear_you",
+                                    "can_understand_you"
+                                ]
+                            },
+                            "effect": {
+                                "type": "saving_throw",
+                                "ability": "wisdom",
+                                "dc": {
+                                    "base": 8,
+                                    "modifiers": [
+                                        "proficiency_bonus",
+                                        "charisma_modifier"
+                                    ]
+                                },
+                                "on_fail": {
+                                    "condition": "charmed",
+                                    "duration": "8_hours",
+                                    "effects": [
+                                        {
+                                            "type": "obey_commands",
+                                            "restrictions": [
+                                                "no_self_harm",
+                                                "no_obvious_harm"
+                                            ]
+                                        },
+                                        {
+                                            "type": "psychic_damage",
+                                            "trigger": "disobey",
+                                            "amount": "32"
+                                        }
+                                    ]
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Creation",
+            "description": "Bards of the College of Creation are masters of bringing art to life through magic.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Mote of Potential",
+                        "description": "When you give a creature a Bardic Inspiration die, you can imbue an object to enhance the inspiration's effect.",
+                        "mechanics": {
+                            "type": "modify_feature",
+                            "feature": "bardic_inspiration",
+                            "trigger": "when_granting_inspiration",
+                            "additional_effect": {
+                                "type": "imbue_object",
+                                "range": 30,
+                                "target": {
+                                    "type": "nonmagical_object",
+                                    "size": {
+                                        "maximum": "tiny"
+                                    }
+                                },
+                                "effects": [
+                                    {
+                                        "type": "temporary_animation",
+                                        "duration": "10_minutes"
+                                    },
+                                    {
+                                        "type": "bonus_effect",
+                                        "trigger": "inspiration_used",
+                                        "options": [
+                                            {
+                                                "type": "attack_roll",
+                                                "effect": "extra_damage",
+                                                "amount": "bardic_inspiration_die"
+                                            },
+                                            {
+                                                "type": "ability_check",
+                                                "effect": "temporary_hp",
+                                                "amount": "bardic_inspiration_die"
+                                            },
+                                            {
+                                                "type": "saving_throw",
+                                                "effect": "push",
+                                                "distance": "bardic_inspiration_die",
+                                                "unit": "feet"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "Performance of Creation",
+                        "description": "You can create a nonmagical item through an inspiring performance.",
+                        "mechanics": {
+                            "type": "action",
+                            "duration": {
+                                "type": "time",
+                                "amount": "hours",
+                                "value": "proficiency_bonus"
+                            },
+                            "effect": {
+                                "type": "create_item",
+                                "restrictions": {
+                                    "nonmagical": true,
+                                    "value": {
+                                        "maximum": {
+                                            "3": "20_gold",
+                                            "6": "100_gold",
+                                            "14": "1000_gold"
+                                        }
+                                    },
+                                    "size": {
+                                        "maximum": {
+                                            "3": "medium",
+                                            "6": "large",
+                                            "14": "huge"
+                                        }
+                                    }
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": "proficiency_bonus"
+                            }
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Animating Performance",
+                        "description": "You can animate a Large or smaller nonmagical item as a dancing item.",
+                        "mechanics": {
+                            "type": "action",
+                            "target": {
+                                "type": "nonmagical_item",
+                                "size": {
+                                    "maximum": "large"
+                                },
+                                "range": 30
+                            },
+                            "effect": {
+                                "type": "animate_object",
+                                "duration": {
+                                    "type": "concentration",
+                                    "maximum": "10_minutes"
+                                },
+                                "creature_stats": {
+                                    "type": "dancing_item",
+                                    "ac": "30",
+                                    "hp": "10_times_bard_level",
+                                    "movement": {
+                                        "walk": 30,
+                                        "fly": 30
+                                    },
+                                    "abilities": {
+                                        "strength": "bard_level",
+                                        "dexterity": 18,
+                                        "constitution": 16,
+                                        "intelligence": 4,
+                                        "wisdom": 10,
+                                        "charisma": 6
+                                    },
+                                    "actions": [
+                                        {
+                                            "name": "Force-Empowered Slam",
+                                            "type": "melee_attack",
+                                            "reach": 5,
+                                            "attack_bonus": "proficiency_bonus + charisma_modifier",
+                                            "damage": {
+                                                "amount": "1d10 + proficiency_bonus",
+                                                "type": "force"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": 1
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Creative Crescendo",
+                        "description": "When you use your Performance of Creation feature, you can create multiple items, and the maximum size of the created items increases.",
+                        "mechanics": {
+                            "type": "modify_feature",
+                            "feature": "performance_of_creation",
+                            "modifications": [
+                                {
+                                    "type": "multiple_items",
+                                    "amount": "charisma_modifier"
+                                },
+                                {
+                                    "type": "increase_size_limit",
+                                    "new_maximum": "huge"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "College of Eloquence",
+            "description": "Bards of the College of Eloquence are masters of oratory and persuasion.",
+            "features": {
+                "3": [
+                    {
+                        "name": "Silver Tongue",
+                        "description": "You can't roll lower than 10 on Charisma (Persuasion) and Charisma (Deception) checks.",
+                        "mechanics": {
+                            "type": "minimum_roll",
+                            "value": 10,
+                            "applies_to": [
+                                "charisma_persuasion",
+                                "charisma_deception"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Unsettling Words",
+                        "description": "You can expend a Bardic Inspiration die to impose a penalty on a creature's next saving throw.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "target": {
+                                "type": "creature",
+                                "range": 60
+                            },
+                            "effect": {
+                                "type": "saving_throw_penalty",
+                                "amount": "bardic_inspiration_die",
+                                "duration": {
+                                    "type": "trigger",
+                                    "trigger": "next_saving_throw"
+                                }
+                            },
+                            "resource": {
+                                "name": "bardic_inspiration",
+                                "cost": 1
+                            }
+                        }
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Unfailing Inspiration",
+                        "description": "When a creature uses your Bardic Inspiration die and fails the roll, they can keep the die.",
+                        "mechanics": {
+                            "type": "modify_feature",
+                            "feature": "bardic_inspiration",
+                            "modification": {
+                                "type": "resource_retention",
+                                "trigger": "failed_roll",
+                                "effect": "keep_die"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Universal Speech",
+                        "description": "You can magically make yourself understood by any creature.",
+                        "mechanics": {
+                            "type": "action",
+                            "duration": {
+                                "type": "time",
+                                "amount": 1,
+                                "unit": "hour"
+                            },
+                            "effect": {
+                                "type": "universal_communication",
+                                "target": {
+                                    "type": "all_creatures",
+                                    "range": 60
+                                }
+                            },
+                            "uses": {
+                                "per_long_rest": "proficiency_bonus"
+                            }
+                        }
+                    }
+                ],
+                "14": [
+                    {
+                        "name": "Infectious Inspiration",
+                        "description": "When a creature successfully uses your Bardic Inspiration die, you can use your reaction to grant another creature a Bardic Inspiration die.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "trigger": "bardic_inspiration_success",
+                            "effect": {
+                                "type": "grant_bardic_inspiration",
+                                "target": {
+                                    "type": "different_creature",
+                                    "range": 60
+                                }
+                            },
+                            "no_resource_cost": true,
+                            "uses": {
+                                "per_short_rest": "charisma_modifier",
+                                "minimum": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 51
+}

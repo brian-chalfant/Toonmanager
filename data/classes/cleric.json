@@ -1,0 +1,770 @@
+{
+    "name": "Cleric",
+    "description": "A priestly champion who wields divine magic in service of a higher power.",
+    "hit_dice": "1d8",
+    "primary_ability": [
+        "wisdom"
+    ],
+    "saving_throw_proficiencies": [
+        "wisdom",
+        "charisma"
+    ],
+    "armor_proficiencies": [
+        "light armor",
+        "medium armor",
+        "shields"
+    ],
+    "weapon_proficiencies": [
+        "all simple weapons"
+    ],
+    "tool_proficiencies": [],
+    "skill_proficiencies": {
+        "choose": 2,
+        "from": [
+            "History",
+            "Insight",
+            "Medicine",
+            "Persuasion",
+            "Religion"
+        ]
+    },
+    "starting_equipment": {
+        "choices": [
+            {
+                "choose": 1,
+                "from": [
+                    "mace",
+                    "warhammer (if proficient)"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "scale mail",
+                    "leather armor",
+                    "chain mail (if proficient)"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "light crossbow and 20 bolts",
+                    "any simple weapon"
+                ]
+            },
+            {
+                "choose": 1,
+                "from": [
+                    "priest's pack",
+                    "explorer's pack"
+                ]
+            }
+        ],
+        "default": [
+            "shield",
+            "holy symbol"
+        ]
+    },
+    "features": {
+        "1": [
+            {
+                "name": "Spellcasting",
+                "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability. You use a holy symbol as a spellcasting focus."
+            },
+            {
+                "name": "Divine Domain",
+                "description": "You choose a divine domain that grants you domain spells and other features at 1st, 2nd, 6th, 8th, and 17th level."
+            }
+        ],
+        "2": [
+            {
+                "name": "Channel Divinity (1/rest)",
+                "description": "You can channel divine energy to fuel magical effects. You start with one effect determined by your domain and the Turn Undead effect."
+            }
+        ],
+        "5": [
+            {
+                "name": "Destroy Undead (CR 1/2)",
+                "description": "When an undead fails its saving throw against your Turn Undead feature, it is instantly destroyed if its CR is at or below 1/2."
+            }
+        ],
+        "10": [
+            {
+                "name": "Divine Intervention",
+                "description": "You can call on your deity to intervene on your behalf when your need is great."
+            }
+        ]
+    },
+    "spellcasting": {
+        "ability": "wisdom",
+        "focus": [
+            "holy symbol"
+        ],
+        "spells_known": "prepared",
+        "cantrips_known": {
+            "1": 3,
+            "4": 4,
+            "10": 5
+        },
+        "spell_slots_per_level": {
+            "1": {
+                "1": 2
+            },
+            "2": {
+                "1": 3
+            },
+            "3": {
+                "1": 4,
+                "2": 2
+            },
+            "4": {
+                "1": 4,
+                "2": 3
+            },
+            "5": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "6": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "8": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 1
+            },
+            "10": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2
+            },
+            "11": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "12": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 2,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 3,
+                "5": 3,
+                "6": 2,
+                "7": 2,
+                "8": 1,
+                "9": 1
+            }
+        }
+    },
+    "subclass_level": 1,
+    "subclasses": [
+        {
+            "name": "Knowledge Domain",
+            "description": "Clerics of the Knowledge Domain value learning and understanding above all. They are scholars, teachers, and sages.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Blessings of Knowledge",
+                        "description": "You learn two languages of your choice and gain proficiency in your choice of two of the following skills: Arcana, History, Nature, or Religion. Your proficiency bonus is doubled for any ability check you make that uses either of those skills."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Knowledge of the Ages",
+                        "description": "You can use Channel Divinity to gain proficiency in any skill or tool for 10 minutes."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Channel Divinity: Read Thoughts",
+                        "description": "You can use Channel Divinity to read a creature's thoughts."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Potent Spellcasting",
+                        "description": "You can add your Wisdom modifier to the damage you deal with any cleric cantrip."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Visions of the Past",
+                        "description": "You can call up visions of the past that relate to an object you hold or your immediate surroundings."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Life Domain",
+            "description": "The Life Domain focuses on the vibrant positive energy—one of the fundamental forces of the universe—that sustains all life.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Bonus Proficiency",
+                        "description": "You gain proficiency with heavy armor."
+                    },
+                    {
+                        "name": "Disciple of Life",
+                        "description": "Whenever you use a spell of 1st level or higher to restore hit points, the creature regains additional hit points equal to 2 + the spell's level."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Preserve Life",
+                        "description": "You can use Channel Divinity to heal a number of hit points equal to five times your cleric level, divided as you choose among any creatures within 30 feet of you."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Blessed Healer",
+                        "description": "When you cast a spell of 1st level or higher that restores hit points, you also regain hit points equal to 2 + the spell's level."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 radiant damage. At 14th level, this increases to 2d8."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Supreme Healing",
+                        "description": "When you would normally roll one or more dice to restore hit points with a spell, you instead use the highest number possible for each die."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Light Domain",
+            "description": "Clerics of the Light Domain are enlightened souls infused with the radiance and the power of their god, charged with chasing away lies and burning away darkness.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Bonus Cantrip",
+                        "description": "You gain the light cantrip if you don't already know it."
+                    },
+                    {
+                        "name": "Warding Flare",
+                        "description": "When you are attacked by a creature that can be blinded within 30 feet, you can use your reaction to impose disadvantage on the attack roll."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Radiance of the Dawn",
+                        "description": "You can use Channel Divinity to dispel magical darkness and deal radiant damage to hostile creatures within 30 feet."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Improved Flare",
+                        "description": "You can use your Warding Flare when a creature you can see attacks a creature other than you within 30 feet."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Potent Spellcasting",
+                        "description": "You can add your Wisdom modifier to the damage you deal with any cleric cantrip."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Corona of Light",
+                        "description": "You emit a 60-foot radius aura of bright light and a further 60 feet of dim light. Enemies in the bright light have disadvantage on saving throws against spells that deal fire or radiant damage."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Nature Domain",
+            "description": "Clerics of the Nature Domain are in service to deities of nature, plants, animals, and the seasons.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Acolyte of Nature",
+                        "description": "You learn one druid cantrip and become proficient in either Animal Handling, Nature, or Survival."
+                    },
+                    {
+                        "name": "Bonus Proficiency",
+                        "description": "You gain proficiency with heavy armor."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Charm Animals and Plants",
+                        "description": "You can use Channel Divinity to charm animals and plants within 30 feet of you."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Dampen Elements",
+                        "description": "When you or a creature within 30 feet of you takes acid, cold, fire, lightning, or thunder damage, you can use your reaction to grant resistance to the creature against that instance of the damage."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 cold, fire, or lightning damage. At 14th level, this increases to 2d8."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Master of Nature",
+                        "description": "You can command any charmed animals or plants as a bonus action."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Tempest Domain",
+            "description": "Clerics of the Tempest Domain call upon the storm's fury, serving deities of the sea, storm, and sky.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Bonus Proficiency",
+                        "description": "You gain proficiency with martial weapons and heavy armor."
+                    },
+                    {
+                        "name": "Wrath of the Storm",
+                        "description": "When a creature within 5 feet of you hits you with an attack, you can use your reaction to deal lightning or thunder damage to the attacker. They must make a Dexterity saving throw, taking 2d8 damage on a failed save, or half on a success. Uses equal to your Wisdom modifier per long rest."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Destructive Wrath",
+                        "description": "When you roll lightning or thunder damage, you can use Channel Divinity to deal maximum damage instead of rolling."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Thunderbolt Strike",
+                        "description": "When you deal lightning damage to a Large or smaller creature, you can push it up to 10 feet away from you."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 thunder damage. At 14th level, this increases to 2d8."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Stormborn",
+                        "description": "You have a flying speed equal to your current walking speed whenever you are not underground or indoors."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Trickery Domain",
+            "description": "Clerics of the Trickery Domain serve gods of deception, theft, and mischief.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Blessing of the Trickster",
+                        "description": "You can touch a willing creature other than yourself to give it advantage on Dexterity (Stealth) checks for 1 hour."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Invoke Duplicity",
+                        "description": "You can use Channel Divinity to create a perfect illusion of yourself that lasts for 1 minute or until you lose your concentration."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Channel Divinity: Cloak of Shadows",
+                        "description": "You can use Channel Divinity to become invisible until the end of your next turn."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 poison damage. At 14th level, this increases to 2d8."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Improved Duplicity",
+                        "description": "You can create up to four duplicates of yourself with Invoke Duplicity."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "War Domain",
+            "description": "Clerics of the War Domain are driven by their gods of war, valor, and conquest.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Domain Spells",
+                        "description": "You gain additional spells at specific levels, always prepared."
+                    },
+                    {
+                        "name": "Bonus Proficiency",
+                        "description": "You gain proficiency with martial weapons and heavy armor."
+                    },
+                    {
+                        "name": "War Priest",
+                        "description": "When you take the Attack action, you can make one weapon attack as a bonus action a number of times equal to your Wisdom modifier per long rest (minimum of once)."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Guided Strike",
+                        "description": "When you make an attack roll, you can use Channel Divinity to gain a +10 bonus to the roll. You make this choice after you see the roll, but before the DM says whether the attack hits or misses."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Channel Divinity: War God's Blessing",
+                        "description": "When a creature within 30 feet of you makes an attack roll, you can use your reaction to grant that creature a +10 bonus to the roll, using your Channel Divinity. You make this choice after you see the roll but before the DM says whether the attack hits or misses."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 weapon damage type. At 14th level, this increases to 2d8."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Avatar of Battle",
+                        "description": "You gain resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Forge Domain",
+            "description": "Clerics of the Forge Domain are masters of creation, specializing in crafting and enhancing items.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with heavy armor and smith's tools."
+                    },
+                    {
+                        "name": "Blessing of the Forge",
+                        "description": "At the end of a long rest, you can touch one nonmagical weapon or armor and turn it into a magical item with a +1 bonus until your next long rest."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Artisan's Blessing",
+                        "description": "You can use your Channel Divinity to create simple items using raw materials."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Soul of the Forge",
+                        "description": "You gain resistance to fire damage and +1 AC while wearing heavy armor."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit with a weapon attack, you can deal an extra 1d8 fire damage."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Saint of Forge and Fire",
+                        "description": "You gain immunity to fire damage and resistance to nonmagical bludgeoning, piercing, and slashing damage while wearing heavy armor."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Grave Domain",
+            "description": "Clerics of the Grave Domain are guardians of the boundary between life and death.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Circle of Mortality",
+                        "description": "When you would normally roll one or more dice to restore hit points with a spell to a creature at 0 hit points, you instead use the highest number possible for each die."
+                    },
+                    {
+                        "name": "Eyes of the Grave",
+                        "description": "As an action, you can detect undead within 60 feet of you until the end of your next turn."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Path to the Grave",
+                        "description": "As an action, you choose one creature you can see within 30 feet of you, cursing it until the end of your next turn. The next time you or an ally hits the cursed creature with an attack, the creature has vulnerability to all of that attack's damage."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Sentinel at Death's Door",
+                        "description": "As a reaction, you can turn a critical hit against you or an ally within 30 feet into a normal hit."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Potent Spellcasting",
+                        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Keeper of Souls",
+                        "description": "When an enemy you can see dies within 60 feet of you, you or one creature of your choice within 60 feet of you regains hit points equal to the enemy's number of Hit Dice."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Order Domain",
+            "description": "Clerics of the Order Domain are champions of law and discipline.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with heavy armor and the Intimidation or Persuasion skill."
+                    },
+                    {
+                        "name": "Voice of Authority",
+                        "description": "When you cast a spell with a spell slot on an ally, they can use their reaction to make one weapon attack."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Order's Demand",
+                        "description": "As an action, you can force creatures to drop what they're holding and fall prone if they fail a Wisdom saving throw."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Order's Dominion",
+                        "description": "When you or an ally within 30 feet is hit by an attack, you can use your reaction to grant them a bonus to AC."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit with a weapon attack, you can deal an extra 1d8 psychic damage."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Order's Wrath",
+                        "description": "Enemies you hit with Divine Strike take extra psychic damage and are briefly frightened of you."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Peace Domain",
+            "description": "Clerics of the Peace Domain use their magic to forge bonds and protect allies.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Implement of Peace",
+                        "description": "You gain proficiency in Insight, Performance, or Persuasion."
+                    },
+                    {
+                        "name": "Emboldening Bond",
+                        "description": "You can choose a number of willing creatures equal to your proficiency bonus to create a magical bond that helps them protect each other."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Balm of Peace",
+                        "description": "You can move up to your speed without provoking opportunity attacks, healing creatures you pass near."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Protective Bond",
+                        "description": "When a bonded creature takes damage, another bonded creature within 30 feet can use their reaction to teleport adjacent to them and take the damage instead."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Potent Spellcasting",
+                        "description": "You add your Wisdom modifier to the damage you deal with any cleric cantrip."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Expansive Bond",
+                        "description": "The range of your Emboldening Bond and Protective Bond features increases, and bonded creatures gain additional benefits."
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Twilight Domain",
+            "description": "Clerics of the Twilight Domain watch over the transition from light to darkness.",
+            "features": {
+                "1": [
+                    {
+                        "name": "Bonus Proficiencies",
+                        "description": "You gain proficiency with martial weapons and heavy armor."
+                    },
+                    {
+                        "name": "Eyes of Night",
+                        "description": "You gain darkvision out to 300 feet and can share it with others."
+                    },
+                    {
+                        "name": "Vigilant Blessing",
+                        "description": "As an action, you can give one creature advantage on their next initiative roll."
+                    }
+                ],
+                "2": [
+                    {
+                        "name": "Channel Divinity: Twilight Sanctuary",
+                        "description": "You create a sphere of twilight that grants temporary hit points and other benefits to allies within it."
+                    }
+                ],
+                "6": [
+                    {
+                        "name": "Steps of Night",
+                        "description": "While in dim light or darkness, you have a flying speed equal to your walking speed."
+                    }
+                ],
+                "8": [
+                    {
+                        "name": "Divine Strike",
+                        "description": "Once on each of your turns when you hit with a weapon attack, you can deal an extra 1d8 radiant damage."
+                    }
+                ],
+                "17": [
+                    {
+                        "name": "Twilight Shroud",
+                        "description": "You and your allies have advantage on saving throws while in the sphere created by your Twilight Sanctuary."
+                    }
+                ]
+            }
+        }
+    ],
+    "version": "5E",
+    "source": "PHB",
+    "source_page": 56
+}

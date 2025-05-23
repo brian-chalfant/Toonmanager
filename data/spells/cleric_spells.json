@@ -1,0 +1,2149 @@
+{
+    "cantrips": [
+        {
+            "name": "Guidance",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one ability check of its choice. It can roll the die before or after making the ability check. The spell then ends."
+        },
+        {
+            "name": "Light",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a firefly or phosphorescent moss"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet."
+        },
+        {
+            "name": "Mending",
+            "school": "transmutation",
+            "casting_time": "1 minute",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "two lodestones"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "This spell repairs a single break or tear in an object you touch, such as a broken chain link, two halves of a broken key, a torn cloak, or a leaking wineskin."
+        },
+        {
+            "name": "Resistance",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one saving throw of its choice. It can roll the die before or after making the saving throw. The spell then ends."
+        },
+        {
+            "name": "Sacred Flame",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw."
+        },
+        {
+            "name": "Spare the Dying",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a living creature that has 0 hit points. The creature becomes stable. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Thaumaturgy",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Up to 1 minute",
+            "description": "You manifest a minor wonder, a sign of supernatural power, within range. You create one of several magical effects, such as your voice booming, flames flickering, or doors flying open."
+        }
+    ],
+    "level_1": [
+        {
+            "name": "Bane",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of blood"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "Up to three creatures of your choice that you can see within range must make Charisma saving throws. Whenever a target that fails this saving throw makes an attack roll or a saving throw before the spell ends, the target must roll a d4 and subtract the number rolled from the attack roll or saving throw."
+        },
+        {
+            "name": "Bless",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a sprinkling of holy water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or a saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw."
+        },
+        {
+            "name": "Command",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "1 round",
+            "description": "You speak a one-word command to a creature you can see within range. The target must succeed on a Wisdom saving throw or follow the command on its next turn."
+        },
+        {
+            "name": "Create or Destroy Water",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of water if creating water or a few grains of sand if destroying it"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You either create or destroy water. Create: Up to 10 gallons of clean water within range. Destroy: Destroy up to 10 gallons of water in an open container within range."
+        },
+        {
+            "name": "Cure Wounds",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Detect Evil and Good",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you know if there is an aberration, celestial, elemental, fey, fiend, or undead within 30 feet of you, as well as where the creature is located."
+        },
+        {
+            "name": "Detect Magic",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any."
+        },
+        {
+            "name": "Detect Poison and Disease",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a yew leaf"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, you can sense the presence and location of poisons, poisonous creatures, and diseases within 30 feet of you."
+        },
+        {
+            "name": "Guiding Bolt",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 round",
+            "description": "A flash of light streaks toward a creature of your choice within range. Make a ranged spell attack. On a hit, the target takes 4d6 radiant damage, and the next attack roll made against this target before the end of your next turn has advantage."
+        },
+        {
+            "name": "Healing Word",
+            "school": "evocation",
+            "casting_time": "1 bonus action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Inflict Wounds",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Make a melee spell attack against a creature you can reach. On a hit, the target takes 3d10 necrotic damage."
+        },
+        {
+            "name": "Protection from Evil and Good",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "holy water or powdered silver and iron, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead."
+        },
+        {
+            "name": "Purify Food and Drink",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "All nonmagical food and drink within a 5-foot-radius sphere centered on a point of your choice within range is purified and rendered free of poison and disease."
+        },
+        {
+            "name": "Sanctuary",
+            "school": "abjuration",
+            "casting_time": "1 bonus action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a small silver mirror"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "You ward a creature within range against attack. Until the spell ends, any creature who targets the warded creature with an attack or a harmful spell must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or spell."
+        }
+    ],
+    "level_2": [
+        {
+            "name": "Aid",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a tiny strip of white cloth"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "8 hours",
+            "description": "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration."
+        },
+        {
+            "name": "Augury",
+            "school": "divination",
+            "casting_time": "1 minute",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "specially marked sticks, bones, or similar tokens worth at least 25 gp"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "By casting gem-inlaid sticks, rolling dragon bones, laying out ornate cards, or employing some other divining tool, you receive an omen from an otherworldly entity about the results of a specific course of action you plan to take within the next 30 minutes."
+        },
+        {
+            "name": "Blindness/Deafness",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 minute",
+            "description": "You can blind or deafen a foe. Choose one creature that you can see within range to make a Constitution saving throw. If it fails, the target is either blinded or deafened (your choice) for the duration."
+        },
+        {
+            "name": "Calm Emotions",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You attempt to suppress strong emotions in a group of people. Each humanoid in a 20-foot-radius sphere centered on a point you choose within range must make a Charisma saving throw. A creature can choose to fail this saving throw if it wishes. If a creature fails its save, choose one of the following two effects: suppress any effect causing a target to be charmed or frightened, or make the target indifferent about creatures of your choice that it is hostile toward."
+        },
+        {
+            "name": "Continual Flame",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "ruby dust worth 50 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Until dispelled",
+            "description": "A flame, equivalent in brightness to a torch, springs forth from an object that you touch. The effect looks like a regular flame, but it creates no heat and doesn't use oxygen."
+        },
+        {
+            "name": "Enhance Ability",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "fur or a feather from a beast"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You touch a creature and bestow upon it one of six magical enhancements. The target gains advantage on checks related to one ability of your choice (Strength, Dexterity, Constitution, Intelligence, Wisdom, or Charisma) for the duration."
+        },
+        {
+            "name": "Find Traps",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You sense the presence of any trap within range that is within line of sight. A trap, for the purpose of this spell, includes anything that would inflict a sudden or unexpected effect you consider harmful or undesirable."
+        },
+        {
+            "name": "Gentle Repose",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a pinch of salt and one copper piece placed on each of the corpse's eyes, which must remain there for the duration"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "10 days",
+            "description": "You touch a corpse or other remains. For the duration, the target is protected from decay and cannot become undead."
+        },
+        {
+            "name": "Hold Person",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target."
+        },
+        {
+            "name": "Lesser Restoration",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned."
+        },
+        {
+            "name": "Locate Object",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a forked twig"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "Describe or name an object that is familiar to you. You sense the direction to the object's location, as long as that object is within 1,000 feet of you."
+        },
+        {
+            "name": "Prayer of Healing",
+            "school": "evocation",
+            "casting_time": "10 minutes",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Up to six creatures of your choice within range each regain hit points equal to 2d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Protection from Poison",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "You touch a creature. If it is poisoned, you neutralize the poison. If more than one poison afflicts the target, you neutralize one poison that you know is present, or you neutralize one at random. For the duration, the target has advantage on saving throws against being poisoned, and it has resistance to poison damage."
+        },
+        {
+            "name": "Silence",
+            "school": "illusion",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": false,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range."
+        },
+        {
+            "name": "Spiritual Weapon",
+            "school": "evocation",
+            "casting_time": "1 bonus action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 minute",
+            "description": "You create a floating, spectral weapon within range that lasts for the duration or until you cast this spell again. When you cast the spell, you can make a melee spell attack against a creature within 5 feet of the weapon. On a hit, the target takes force damage equal to 1d8 + your spellcasting ability modifier. As a bonus action on your turn, you can move the weapon up to 20 feet and repeat the attack against a creature within 5 feet of it."
+        },
+        {
+            "name": "Warding Bond",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a pair of platinum rings worth at least 50 gp each, which you and the target must wear for the duration"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell wards a willing creature you touch and creates a mystic connection between you and the target until the spell ends. While the target is within 60 feet of you, it gains a +1 bonus to AC and saving throws, and it has resistance to all damage."
+        },
+        {
+            "name": "Zone of Truth",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "10 minutes",
+            "description": "You create a magical zone that guards against deception in a 15-foot-radius sphere centered on a point of your choice within range. Until the spell ends, a creature that enters the spell’s area for the first time on a turn or starts its turn there must make a Charisma saving throw. On a failed save, a creature can't speak a deliberate lie while in the radius."
+        }
+    ],
+    "level_3": [
+        {
+            "name": "Animate Dead",
+            "school": "necromancy",
+            "casting_time": "1 minute",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of blood, a piece of flesh, and a pinch of bone dust"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "This spell creates an undead servant. Choose a pile of bones or a corpse of a Medium or Small humanoid within range. The spell animates it as a skeleton or zombie (your choice) under your control."
+        },
+        {
+            "name": "Beacon of Hope",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "This spell bestows hope and vitality. Choose any number of creatures within range. For the duration, each target has advantage on Wisdom saving throws and death saving throws, and regains the maximum number of hit points possible from any healing."
+        },
+        {
+            "name": "Bestow Curse",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You touch a creature, and that creature must succeed on a Wisdom saving throw or become cursed for the duration of the spell. When you cast this spell, choose the nature of the curse."
+        },
+        {
+            "name": "Clairvoyance",
+            "school": "divination",
+            "casting_time": "10 minutes",
+            "range": "1 mile",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a focus worth at least 100 gp, either a jeweled horn for hearing or a glass eye for seeing"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You create an invisible sensor within range in a location familiar to you or an obvious location that is unfamiliar. You can choose to see or hear through the sensor as an action."
+        },
+        {
+            "name": "Create Food and Water",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You create 45 pounds of food and 30 gallons of water on the ground or in containers within range, enough to sustain up to fifteen humanoids or five steeds for 24 hours."
+        },
+        {
+            "name": "Daylight",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "A 60-foot-radius sphere of light spreads out from a point you choose within range. The sphere is bright light and sheds dim light for an additional 60 feet."
+        },
+        {
+            "name": "Dispel Magic",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher, make an ability check using your spellcasting ability."
+        },
+        {
+            "name": "Glyph of Warding",
+            "school": "abjuration",
+            "casting_time": "1 hour",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "incense and powdered diamond worth at least 200 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Until dispelled or triggered",
+            "description": "When you cast this spell, you inscribe a glyph that harms other creatures, either upon a surface or within an object that can be closed. The glyph can be set to trigger a magical effect or a spell."
+        },
+        {
+            "name": "Magic Circle",
+            "school": "abjuration",
+            "casting_time": "1 minute",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "holy water or powdered silver and iron worth at least 100 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "1 hour",
+            "description": "You create a 10-foot-radius, 20-foot-tall cylinder of magical energy centered on a point on the ground that you can see within range. The cylinder affects certain creature types, preventing them from entering or teleporting."
+        },
+        {
+            "name": "Mass Healing Word",
+            "school": "evocation",
+            "casting_time": "1 bonus action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "As you call out words of restoration, up to six creatures of your choice that you can see within range regain hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs."
+        },
+        {
+            "name": "Meld into Stone",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "8 hours",
+            "description": "You step into a stone object or surface large enough to fully contain your body, melding yourself and all the equipment you carry with the stone for the duration."
+        },
+        {
+            "name": "Protection from Energy",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "For the duration, the willing creature you touch has resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder."
+        },
+        {
+            "name": "Remove Curse",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner's attunement to the object."
+        },
+        {
+            "name": "Revivify",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "diamonds worth 300 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point."
+        },
+        {
+            "name": "Sending",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "Unlimited",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a short piece of fine copper wire"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 round",
+            "description": "You send a short message of twenty-five words or less to a creature with which you are familiar. The creature hears the message in its mind, recognizes you as the sender, and can answer in a like manner immediately."
+        },
+        {
+            "name": "Speak with Dead",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "burning incense"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "10 minutes",
+            "description": "You grant the semblance of life and intelligence to a corpse of your choice within range, allowing it to answer up to five questions you pose."
+        },
+        {
+            "name": "Spirit Guardians",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "Self (15-foot radius)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You call forth spirits to protect you. They flit around you to a distance of 15 feet for the duration. When you cast this spell, you can designate any number of creatures you can see to be unaffected by it. An affected creature's speed is halved in the area, and when the creature enters the area for the first time on a turn or starts its turn there, it must make a Wisdom saving throw. On a failed save, the creature takes 3d8 radiant or necrotic damage (your choice)."
+        },
+        {
+            "name": "Tongues",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "This spell grants the creature you touch the ability to understand any spoken language it hears. Moreover, when the target speaks, any creature that knows at least one language can understand what it says."
+        },
+        {
+            "name": "Water Walk",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a piece of cork"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell grants up to ten willing creatures you can see within range the ability to move across any liquid surface—such as water, acid, mud, snow, quicksand, or lava—as if it were harmless solid ground."
+        },
+        {
+            "name": "Wind Wall",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a tiny fan and a feather of exotic origin"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "A wall of strong wind rises from the ground at a point you choose within range. You can make the wall up to 50 feet long, 15 feet high, and 1 foot thick. The wall lasts for the duration."
+        }
+    ],
+    "level_3": [
+        {
+            "name": "Call Lightning",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "A storm cloud appears in the shape of a cylinder that is 10 feet tall with a 60-foot radius, centered on a point you can see within range directly above you. Each creature within 5 feet of a point where lightning strikes must make a Dexterity saving throw, taking 3d10 lightning damage on a failed save, or half as much on a successful one."
+        },
+        {
+            "name": "Conjure Animals",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon fey spirits that take the form of beasts and appear in unoccupied spaces that you can see within range. Choose one of the following options: 1 beast of challenge rating 2 or lower, 2 beasts of challenge rating 1 or lower, 4 beasts of challenge rating 1/2 or lower, or 8 beasts of challenge rating 1/4 or lower."
+        },
+        {
+            "name": "Daylight",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "1 hour",
+            "description": "A 60-foot-radius sphere of light spreads out from a point you choose within range. The sphere is bright light and sheds dim light for an additional 60 feet."
+        },
+        {
+            "name": "Dispel Magic",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher, make an ability check using your spellcasting ability."
+        },
+        {
+            "name": "Meld into Stone",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "8 hours",
+            "description": "You step into a stone object or surface large enough to fully contain your body, melding yourself and all the equipment you carry with the stone for the duration."
+        },
+        {
+            "name": "Plant Growth",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "This spell channels vitality into plants within a specific area. There are two possible uses for the spell, granting either immediate growth or enriching the land for 1 year."
+        },
+        {
+            "name": "Protection from Energy",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "For the duration, the willing creature you touch has resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder."
+        },
+        {
+            "name": "Sleet Storm",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "Until the spell ends, freezing rain and sleet fall in a 20-foot-tall cylinder with a 40-foot radius centered on a point you choose within range. The area is heavily obscured, and exposed flames in the area are doused."
+        },
+        {
+            "name": "Speak with Plants",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "10 minutes",
+            "description": "You imbue plants within 30 feet of you with limited sentience and animation, giving them the ability to communicate with you and follow your simple commands."
+        },
+        {
+            "name": "Water Breathing",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a short reed or piece of straw"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "24 hours",
+            "description": "This spell grants up to ten willing creatures you can see within range the ability to breathe underwater until the spell ends."
+        },
+        {
+            "name": "Water Walk",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a piece of cork"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell grants up to ten willing creatures you can see within range the ability to move across any liquid surface—such as water, acid, mud, snow, quicksand, or lava—as if it were harmless solid ground."
+        },
+        {
+            "name": "Wind Wall",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a tiny fan and a feather of exotic origin"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "A wall of strong wind rises from the ground at a point you choose within range. You can make the wall up to 50 feet long, 15 feet high, and 1 foot thick. The wall lasts for the duration."
+        }
+    ],
+    "level_4": [
+        {
+            "name": "Banishment",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "an item distasteful to the target"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You attempt to send one creature that you can see within range to another plane of existence. The target must succeed on a Charisma saving throw or be banished. If the target is native to a different plane of existence than the one you're on, the target is banished with a faint popping noise, returning to its home plane. If the target is native to the plane you're on, the creature vanishes into a harmless demiplane."
+        },
+        {
+            "name": "Control Water",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "300 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of water and a pinch of dust"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "Until the spell ends, you control any freestanding water inside an area you choose that is a cube up to 100 feet on a side. You can control the water in four ways: flood, part water, redirect flow, or whirlpool."
+        },
+        {
+            "name": "Death Ward",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "8 hours",
+            "description": "You touch a creature and grant it a measure of protection from death. The first time the target would drop to 0 hit points as a result of taking damage, the target instead drops to 1 hit point, and the spell ends."
+        },
+        {
+            "name": "Divination",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "incense and a sacrificial offering appropriate to your religion, together worth at least 25 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "Your magic and an offering put you in contact with a god or a god's servants. You ask a single question concerning a specific goal, event, or activity to occur within 7 days. The DM offers a truthful reply."
+        },
+        {
+            "name": "Freedom of Movement",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a leather strap, bound around the arm or a similar appendage"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a willing creature. For the duration, the target's movement is unaffected by difficult terrain, and spells and other magical effects can neither reduce the target's speed nor cause the target to be paralyzed or restrained."
+        },
+        {
+            "name": "Guardian of Faith",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "8 hours",
+            "description": "A Large spectral guardian appears and hovers for the duration in an unoccupied space of your choice that you can see within range. The guardian occupies that space and is indistinct except for a gleaming sword and shield emblazoned with the symbol of your deity."
+        },
+        {
+            "name": "Locate Creature",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a bit of fur from a bloodhound"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "Describe or name a creature that is familiar to you. You sense the direction to the creature's location, as long as that creature is within 1,000 feet of you. If the creature is moving, you know the direction of its movement."
+        },
+        {
+            "name": "Stone Shape",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "soft clay, which must be worked into roughly the desired shape of the stone object"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a stone object of Medium size or smaller or a section of stone no more than 5 feet in any dimension and form it into any shape that suits your purpose."
+        },
+        {
+            "name": "Stoneskin",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "diamond dust worth 100 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You touch a willing creature. Until the spell ends, the target's flesh becomes as hard as stone. The target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
+        }
+    ],
+    "level_4": [
+        {
+            "name": "Blight",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Necromantic energy washes over a creature of your choice that you can see within range, draining moisture and vitality. The target must make a Constitution saving throw, taking 8d8 necrotic damage on a failed save, or half as much on a successful one."
+        },
+        {
+            "name": "Confusion",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "three nutshells"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "This spell assaults and twists creatures' minds, spawning delusions and provoking uncontrolled actions. Each creature in a 10-foot-radius sphere centered on a point you choose within range must succeed on a Wisdom saving throw or be affected by the spell."
+        },
+        {
+            "name": "Conjure Minor Elementals",
+            "school": "conjuration",
+            "casting_time": "1 minute",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon elementals that appear in unoccupied spaces you can see within range. Choose one of the following options: four elementals of challenge rating 1/2 or lower, eight elementals of challenge rating 1/4 or lower, or sixteen elementals of challenge rating 1/8 or lower."
+        },
+        {
+            "name": "Conjure Woodland Beings",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon fey creatures that appear in unoccupied spaces that you can see within range. Choose one of the following options: one fey creature of challenge rating 2 or lower, two of challenge rating 1 or lower, four of challenge rating 1/2 or lower, or eight of challenge rating 1/4 or lower."
+        },
+        {
+            "name": "Control Water",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "300 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a drop of water and a pinch of dust"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "Until the spell ends, you control any freestanding water inside an area you choose that is a cube up to 100 feet on a side. You can control the water in four ways: flood, part water, redirect flow, or whirlpool."
+        },
+        {
+            "name": "Dominate Beast",
+            "school": "enchantment",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You attempt to beguile a beast you can see within range. It must succeed on a Wisdom saving throw or be charmed by you for the duration. If you or creatures that are friendly to you are fighting it, it has advantage on the saving throw."
+        },
+        {
+            "name": "Freedom of Movement",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a leather strap, bound around the arm or a similar appendage"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a willing creature. For the duration, the target's movement is unaffected by difficult terrain, and spells and other magical effects can neither reduce the target's speed nor cause the target to be paralyzed or restrained."
+        },
+        {
+            "name": "Giant Insect",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You transform up to ten centipedes, three spiders, five wasps, or one scorpion within range into giant versions of their natural forms for the duration."
+        },
+        {
+            "name": "Grasping Vine",
+            "school": "conjuration",
+            "casting_time": "1 bonus action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You conjure a vine that sprouts from the ground in an unoccupied space of your choice that you can see within range. When you cast the spell, you can direct the vine to lash out at a creature within 30 feet of it that you can see."
+        },
+        {
+            "name": "Hallucinatory Terrain",
+            "school": "illusion",
+            "casting_time": "10 minutes",
+            "range": "300 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a stone, a twig, and a bit of green plant"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "24 hours",
+            "description": "You make natural terrain in a 150-foot cube in range look, sound, and smell like some other sort of natural terrain. Thus, open fields or a road can be made to resemble a swamp, hill, crevasse, or some other difficult or impassable terrain."
+        },
+        {
+            "name": "Ice Storm",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "300 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a pinch of dust and a few drops of water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "A hail of rock-hard ice pounds to the ground in a 20-foot-radius, 40-foot-high cylinder centered on a point within range. Each creature in the cylinder must make a Dexterity saving throw. A creature takes 2d8 bludgeoning damage and 4d6 cold damage on a failed save, or half as much on a successful one."
+        },
+        {
+            "name": "Locate Creature",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a bit of fur from a bloodhound"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "Describe or name a creature that is familiar to you. You sense the direction to the creature's location, as long as that creature is within 1,000 feet of you. If the creature is moving, you know the direction of its movement."
+        },
+        {
+            "name": "Polymorph",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a caterpillar cocoon"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "This spell transforms a creature that you can see within range into a new form. An unwilling creature must make a Wisdom saving throw to avoid the effect. The transformation lasts for the duration, or until the target drops to 0 hit points or dies."
+        },
+        {
+            "name": "Stone Shape",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "soft clay, which must be worked into roughly the desired shape of the stone object"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a stone object of Medium size or smaller or a section of stone no more than 5 feet in any dimension and form it into any shape that suits your purpose."
+        },
+        {
+            "name": "Stoneskin",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "diamond dust worth 100 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You touch a willing creature. Until the spell ends, the target's flesh becomes as hard as stone. The target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
+        },
+        {
+            "name": "Wall of Fire",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "120 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a small piece of phosphorus"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You create a wall of fire on a solid surface within range. You can make the wall up to 60 feet long, 20 feet high, and 1 foot thick, or a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick."
+        }
+    ],
+    "level_5": [
+        {
+            "name": "Commune",
+            "school": "divination",
+            "casting_time": "1 minute",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "incense and a vial of holy or unholy water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 minute",
+            "description": "You contact your deity or a divine proxy and ask up to three yes-or-no questions. You receive a correct answer for each question."
+        },
+        {
+            "name": "Contagion",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "7 days",
+            "description": "Your touch inflicts disease. Make a melee spell attack against a creature. On a hit, the target is poisoned. At the end of each of the target's turns, it must make a Constitution saving throw. If it fails three of these saves, the disease's effects last for the duration."
+        },
+        {
+            "name": "Dispel Evil and Good",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "Shimmering energy surrounds and protects you from fey, undead, and creatures from beyond. For the duration, celestials, elementals, fey, fiends, and undead have disadvantage on attack rolls against you."
+        },
+        {
+            "name": "Flame Strike",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A vertical column of divine fire roars down from the heavens in a location you specify. Each creature in a 10-foot-radius, 40-foot-high cylinder centered on a point within range must make a Dexterity saving throw. The creature takes 4d6 fire damage and 4d6 radiant damage on a failed save, or half as much on a successful one."
+        },
+        {
+            "name": "Geas",
+            "school": "enchantment",
+            "casting_time": "1 minute",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "30 days",
+            "description": "You place a magical command on a creature that you can see within range, forcing it to carry out some service or refrain from some action as you decide. If the creature can understand you, it must succeed on a Wisdom saving throw or become charmed by you for the duration."
+        },
+        {
+            "name": "Greater Restoration",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "diamond dust worth at least 100 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You imbue a creature you touch with positive energy to undo a debilitating effect. You can reduce the target's exhaustion level by one, or end one effect reducing its ability scores, or end one charm, petrification, curse, or attunement to a cursed item."
+        },
+        {
+            "name": "Hallow",
+            "school": "evocation",
+            "casting_time": "24 hours",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "herbs, oils, and incense worth at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Until dispelled",
+            "description": "You touch a point and infuse an area around it with holy (or unholy) power. The area can be up to a 60-foot-radius sphere. You can exclude one or more types of creatures from the area and also set up additional effects, such as magical energy or silence."
+        },
+        {
+            "name": "Insect Plague",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "300 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a few grains of sugar, some kernels of grain, and a smear of fat"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "Swarming, biting locusts fill a 20-foot-radius sphere centered on a point you choose within range. The sphere spreads around corners. Each creature in the sphere must make a Constitution saving throw, taking 4d10 piercing damage on a failed save, or half as much on a successful one."
+        },
+        {
+            "name": "Legend Lore",
+            "school": "divination",
+            "casting_time": "10 minutes",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "incense worth at least 250 gp, which the spell consumes, and four strips of ivory worth at least 50 gp each"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "Name or describe a person, place, or object. The spell brings to your mind a brief summary of the significant lore about the thing you named. The lore might consist of current tales, forgotten stories, or even secret lore that has never been widely known."
+        },
+        {
+            "name": "Mass Cure Wounds",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A wave of healing energy washes out from a point of your choice within range. Choose up to six creatures in a 30-foot-radius sphere centered on that point. Each target regains hit points equal to 3d8 + your spellcasting ability modifier."
+        },
+        {
+            "name": "Planar Binding",
+            "school": "abjuration",
+            "casting_time": "1 hour",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a jewel worth at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "24 hours",
+            "description": "With this spell, you attempt to bind a celestial, an elemental, a fey, or a fiend to your service. The creature must be within range for the entire casting of the spell."
+        },
+        {
+            "name": "Raise Dead",
+            "school": "necromancy",
+            "casting_time": "1 hour",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a diamond worth at least 500 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You return a dead creature you touch to life, provided it has been dead no longer than 10 days. If the creature's soul is both willing and at liberty to rejoin the body, the creature returns to life with 1 hit point."
+        },
+        {
+            "name": "Scrying",
+            "school": "divination",
+            "casting_time": "10 minutes",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a focus worth at least 1,000 gp, such as a crystal ball, a silver mirror, or a font filled with holy water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You can see and hear a particular creature you choose that is on the same plane of existence as you. The target must make a Wisdom saving throw, which is modified by how well you know the target and the sort of physical connection you have to it."
+        }
+    ],
+    "level_6": [
+        {
+            "name": "Blade Barrier",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a small handful of finely ground glass"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 10 minutes",
+            "description": "You create a wall of whirling, razor-sharp blades made of magical energy. The wall can be up to 100 feet long, 20 feet high, and 5 feet thick or a ringed wall up to 60 feet in diameter, 20 feet high, and 5 feet thick. When a creature enters the wall's area for the first time on a turn or starts its turn there, the creature must make a Dexterity saving throw. On a failed save, the creature takes 6d10 slashing damage, or half as much damage on a successful save."
+        },
+        {
+            "name": "Create Undead",
+            "school": "necromancy",
+            "casting_time": "1 minute",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "one clay pot filled with grave dirt, one clay pot filled with brackish water, and one black onyx stone worth at least 150 gp for each corpse"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You can cast this spell only at night. Choose up to three corpses of Medium or Small humanoids within range. Each corpse becomes a ghoul under your control."
+        },
+        {
+            "name": "Find the Path",
+            "school": "divination",
+            "casting_time": "1 minute",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a set of divinatory tools—such as bones, ivory sticks, cards, teeth, or carved runes worth 100 gp"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 day",
+            "description": "This spell allows you to find the shortest, most direct physical route to a specific fixed location that you are familiar with on the same plane of existence."
+        },
+        {
+            "name": "Forbiddance",
+            "school": "abjuration",
+            "casting_time": "10 minutes",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a sprinkling of holy water, rare incense, and a precious gem dust worth at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "1 day",
+            "description": "You create a ward against magical travel that protects up to 40,000 square feet of floor space to a height of 30 feet above the floor. The spell lasts for 1 day, or you can make it permanent by casting it every day for 30 days."
+        },
+        {
+            "name": "Harm",
+            "school": "necromancy",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You unleash a disease on a creature that you can see within range. The target must make a Constitution saving throw. On a failed save, it takes 14d6 necrotic damage, or half as much on a successful save. The damage can't reduce the target's hit points below 1. The target's hit point maximum is also reduced by the amount equal to the necrotic damage taken."
+        },
+        {
+            "name": "Heal",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "Choose a creature that you can see within range. A surge of positive energy washes through the creature, causing it to regain 70 hit points. This spell also ends blindness, deafness, and any diseases affecting the target."
+        },
+        {
+            "name": "Heroes' Feast",
+            "school": "conjuration",
+            "casting_time": "10 minutes",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a gem-encrusted bowl worth at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You bring forth a great feast, including magnificent food and drink. Up to twelve creatures can participate. The feast takes 1 hour to consume and disappears at the end of that time, and the beneficial effects don't set in until this hour is over."
+        },
+        {
+            "name": "Planar Ally",
+            "school": "conjuration",
+            "casting_time": "10 minutes",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You beseech an otherworldly entity for aid. The entity can be a celestial, an elemental, or a fiend. If the entity agrees to help, it appears in an unoccupied space within range. The entity is under no compulsion to behave in any particular way."
+        },
+        {
+            "name": "True Seeing",
+            "school": "divination",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "an ointment for the eyes that costs 25 gp, is made from mushroom powder, saffron, and fat, and is consumed by the spell"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "1 hour",
+            "description": "This spell gives the willing creature you touch the ability to see things as they actually are. For the duration, the creature has truesight, notices secret doors hidden by magic, and can see into the Ethereal Plane, all out to a range of 120 feet."
+        },
+        {
+            "name": "Word of Recall",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "5 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You and up to five willing creatures within 5 feet of you are instantly transported to a previously designated sanctuary."
+        }
+    ],
+    "level_7": [
+        {
+            "name": "Conjure Celestial",
+            "school": "conjuration",
+            "casting_time": "1 minute",
+            "range": "90 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a golden reliquary worth at least 500 gp"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "You summon a celestial of challenge rating 4 or lower, which appears in an unoccupied space you can see within range. The celestial is friendly to you and your companions for the duration."
+        },
+        {
+            "name": "Divine Word",
+            "school": "evocation",
+            "casting_time": "1 bonus action",
+            "range": "30 feet",
+            "components": {
+                "verbal": true,
+                "somatic": false,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You utter a divine word, imbued with the power that shaped the world at the dawn of creation. Choose any number of creatures you can see within range. Each creature that can hear you must make a Charisma saving throw. On a failed save, a creature suffers an effect based on its current hit points."
+        },
+        {
+            "name": "Etherealness",
+            "school": "transmutation",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Up to 8 hours",
+            "description": "You step into the border regions of the Ethereal Plane, in the area where it overlaps with your current plane. For the duration, you move in any direction. If you move up or down, every foot of movement costs an extra foot."
+        },
+        {
+            "name": "Fire Storm",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "150 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A storm made up of sheets of roaring flame appears in a location you choose within range. The area of the storm consists of up to ten 10-foot cubes, which you can arrange as you wish. Each cube must have at least one face adjacent to the face of another cube."
+        },
+        {
+            "name": "Plane Shift",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a forked, metal rod worth at least 250 gp, attuned to a particular plane of existence"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You and up to eight willing creatures who link hands in a circle are transported to a different plane of existence."
+        },
+        {
+            "name": "Regenerate",
+            "school": "transmutation",
+            "casting_time": "1 minute",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a prayer wheel and holy water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "1 hour",
+            "description": "You touch a creature and stimulate its natural healing ability. The target regains 4d8 + 15 hit points. For the duration of the spell, the target regains 1 hit point at the start of each of its turns (10 hit points each minute)."
+        },
+        {
+            "name": "Resurrection",
+            "school": "necromancy",
+            "casting_time": "1 hour",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a diamond worth at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a dead creature that has been dead for no more than a century, that didn't die of old age, and that isn't undead. If its soul is free and willing, the target returns to life with all its hit points."
+        },
+        {
+            "name": "Symbol",
+            "school": "abjuration",
+            "casting_time": "1 minute",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "mercury, phosphorus, and powdered diamond and opal with a total value of at least 1,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Until dispelled or triggered",
+            "description": "When you cast this spell, you inscribe a harmful glyph either on a surface (such as a section of floor, a wall, or a table) or within an object that can be closed to conceal the glyph. The glyph can cover an area no larger than 10 feet in diameter."
+        },
+        {
+            "name": "Word of Recall",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "5 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You and up to five willing creatures within 5 feet of you are instantly transported to a previously designated sanctuary."
+        }
+    ],
+    "level_8": [
+        {
+            "name": "Antimagic Field",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Self (10-foot-radius sphere)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a pinch of powdered iron or iron filings"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 hour",
+            "description": "A 10-foot-radius invisible sphere of antimagic surrounds you. This area is divorced from the magical energy that suffuses the multiverse. Within the sphere, spells can't be cast, summoned creatures disappear, and even magic items become mundane."
+        },
+        {
+            "name": "Control Weather",
+            "school": "transmutation",
+            "casting_time": "10 minutes",
+            "range": "Self (5-mile radius)",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "burning incense and bits of earth and wood mixed in water"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 8 hours",
+            "description": "You take control of the weather within 5 miles of you for the duration. You must be outdoors to cast this spell. Moving to a place where you don't have a clear path to the sky ends the spell early."
+        },
+        {
+            "name": "Earthquake",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "500 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a pinch of dirt, a piece of rock, and a lump of clay"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You create a seismic disturbance at a point on the ground that you can see within range. For the duration, an intense tremor rips through the ground in a 100-foot-radius circle centered on that point."
+        },
+        {
+            "name": "Holy Aura",
+            "school": "abjuration",
+            "casting_time": "1 action",
+            "range": "Self",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a tiny reliquary worth at least 1,000 gp containing a sacred relic, such as a scrap of cloth from a saint's robe or a piece of parchment from a religious text"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "Divine light washes out from you and coalesces in a soft radiance in a 30-foot radius around you. Creatures of your choice in that radius have advantage on all saving throws, and other creatures have disadvantage on attack rolls against them until the spell ends."
+        }
+    ],
+    "level_9": [
+        {
+            "name": "Astral Projection",
+            "school": "necromancy",
+            "casting_time": "1 hour",
+            "range": "10 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "for each creature you affect with this spell, you must provide one jacinth worth at least 1,000 gp and one silver bar worth at least 100 gp, all of which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Special",
+            "description": "You and up to eight willing creatures within range project your astral bodies into the Astral Plane. The material body you leave behind is unconscious and in a state of suspended animation."
+        },
+        {
+            "name": "Gate",
+            "school": "conjuration",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a diamond worth at least 5,000 gp"
+                    ],
+                    "consumed": false
+                }
+            },
+            "duration": "Concentration, up to 1 minute",
+            "description": "You conjure a portal linking an unoccupied space you can see within range to a precise location on a different plane of existence."
+        },
+        {
+            "name": "Mass Heal",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "A flood of healing energy flows from you into injured creatures around you. Choose any number of creatures within range. Each target regains hit points equal to 700, and all diseases and conditions affecting the targets are removed."
+        },
+        {
+            "name": "Power Word Heal",
+            "school": "evocation",
+            "casting_time": "1 action",
+            "range": "60 feet",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": false
+            },
+            "duration": "Instantaneous",
+            "description": "You speak a word of power that can instantly restore a creature to full health. Choose one creature within range that has 0 hit points. That creature regains all its hit points."
+        },
+        {
+            "name": "True Resurrection",
+            "school": "necromancy",
+            "casting_time": "1 hour",
+            "range": "Touch",
+            "components": {
+                "verbal": true,
+                "somatic": true,
+                "material": {
+                    "items": [
+                        "a sprinkle of holy water and diamonds worth at least 25,000 gp, which the spell consumes"
+                    ],
+                    "consumed": true
+                }
+            },
+            "duration": "Instantaneous",
+            "description": "You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age. If the creature's soul is free and willing, the creature is restored to life with all its hit points."
+        }
+    ]
+}
