@@ -376,16 +376,24 @@ class Toon:
                 
                 # Organize features by source and level
                 class_features = {}
+                background_features = []
+                other_features = []
+                
                 for feature in self.properties.get('features', []):
                     source = feature.get('source', '')
                     if source:
-                        # Extract class name and level from source (e.g. "Barbarian 1")
-                        parts = source.split()
-                        if len(parts) == 2 and parts[1].isdigit():
-                            class_name, level = parts[0], int(parts[1])
-                            if level not in class_features:
-                                class_features[level] = []
-                            class_features[level].append(feature)
+                        # Check if this is a background feature
+                        if source.startswith('Background:'):
+                            background_features.append(feature)
+                            other_features.append(feature)  # Also add to other_features for template compatibility
+                        else:
+                            # Extract class name and level from source (e.g. "Barbarian 1")
+                            parts = source.split()
+                            if len(parts) == 2 and parts[1].isdigit():
+                                class_name, level = parts[0], int(parts[1])
+                                if level not in class_features:
+                                    class_features[level] = []
+                                class_features[level].append(feature)
 
                 # Features and traits split
                 combat_features_str, non_combat_features_str = self._format_features_for_pdf()
@@ -514,6 +522,8 @@ class Toon:
                         'hit_dice': hit_dice_summary,
                         'proficiencies': proficiencies,
                         'features': combat_features + non_combat_features,
+                        'background_features': background_features,
+                        'other_features': other_features,
                         'class_features': class_features,
                         'subclass_features': self.properties.get('subclass_features', {}),
                         'spells': self.properties['spells'],
@@ -851,8 +861,9 @@ class Toon:
             # Add languages
             self.properties["proficiencies"]["languages"].extend(race_data["languages"]["standard"])
             if "bonus" in race_data["languages"]:
-                if "choose" in race_data["languages"]["bonus"]:
-                    self.properties["pending_choices"]["languages"] = race_data["languages"]["bonus"]
+                bonus_languages = race_data["languages"]["bonus"]
+                if bonus_languages.get("type") == "choose" or "count" in bonus_languages:
+                    self.properties["pending_choices"]["languages"] = bonus_languages
             
             # Apply subrace if specified
             if subrace:
@@ -1190,8 +1201,7 @@ class Toon:
             
             # Add saving throw proficiencies
             for save in class_data["saving_throw_proficiencies"]:
-                if save.lower() not in self.properties["saving_throws"]:
-                    self.properties["saving_throws"][save.lower()] = True
+                self.properties["saving_throws"][save.lower()] = True
             
             # Add armor proficiencies
             self.properties["proficiencies"]["armor"].extend(class_data["armor_proficiencies"])

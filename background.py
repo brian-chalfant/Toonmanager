@@ -68,14 +68,31 @@ class Background:
         # Handle language grants
         languages = proficiencies.get("languages", {})
         if languages:
-            # For now, we'll just note that languages need to be chosen
-            # This will be handled by the character creation UI
+            # Merge with any existing language choices (e.g., from race)
             character.properties["pending_choices"] = character.properties.get("pending_choices", {})
-            character.properties["pending_choices"]["languages"] = {
-                "count": languages.get("count", 0),
-                "type": languages.get("type", "choice"),
-                "description": languages.get("description", "")
-            }
+            existing_languages = character.properties["pending_choices"].get("languages", {})
+            
+            # Combine the counts if there are existing language choices
+            if existing_languages:
+                total_count = existing_languages.get("count", 0) + languages.get("count", 0)
+                combined_description = existing_languages.get("description", "")
+                if combined_description and languages.get("description", ""):
+                    combined_description += " and " + languages.get("description", "")
+                elif languages.get("description", ""):
+                    combined_description = languages.get("description", "")
+                
+                character.properties["pending_choices"]["languages"] = {
+                    "count": total_count,
+                    "type": languages.get("type", "choice"),
+                    "description": combined_description or f"Choose {total_count} languages"
+                }
+            else:
+                # No existing language choices, just set the background ones
+                character.properties["pending_choices"]["languages"] = {
+                    "count": languages.get("count", 0),
+                    "type": languages.get("type", "choice"),
+                    "description": languages.get("description", "")
+                }
     
     def _apply_equipment(self, character) -> None:
         """Apply equipment grants to character"""
