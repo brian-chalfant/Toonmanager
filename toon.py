@@ -86,6 +86,22 @@ class Toon:
                 "wisdom": 10,
                 "charisma": 10
             },
+            "base_stats": {
+                "strength": 10,
+                "dexterity": 10,
+                "constitution": 10,
+                "intelligence": 10,
+                "wisdom": 10,
+                "charisma": 10
+            },
+            "racial_bonuses": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
             "saving_throws": {
                 "strength": False,
                 "dexterity": False,
@@ -207,7 +223,18 @@ class Toon:
             if "metadata" not in data or "version" not in data["metadata"]:
                 raise CharacterError("Invalid character file format")
             
-            # Here we could add version migration logic if needed
+            # Migrate old character files to new format
+            if "base_stats" not in data:
+                # Old format - assume current stats are base stats with no racial bonuses applied
+                data["base_stats"] = data["stats"].copy()
+                data["racial_bonuses"] = {
+                    "strength": 0,
+                    "dexterity": 0,
+                    "constitution": 0,
+                    "intelligence": 0,
+                    "wisdom": 0,
+                    "charisma": 0
+                }
             
             self.properties = data
             logger.info(f"Loaded character {self.properties.get('name', 'unnamed')} from {filename}")
@@ -797,11 +824,15 @@ class Toon:
             self.properties["speed"] = race_data["speed"]["walk"]
             self.properties["size"] = race_data["size"]
             
-            # Apply ability score increases
+            # Reset racial bonuses (in case race is being changed)
+            for ability in self.properties["racial_bonuses"]:
+                self.properties["racial_bonuses"][ability] = 0
+            
+            # Apply racial ability score increases
             ability_scores = race_data["ability_scores"]
             if isinstance(ability_scores, dict) and "choose" not in ability_scores:
                 for ability, bonus in ability_scores.items():
-                    self.properties["stats"][ability.lower()] += bonus
+                    self.properties["racial_bonuses"][ability.lower()] += bonus
             elif isinstance(ability_scores, dict) and "choose" in ability_scores:
                 # Store ability score choices in pending_choices
                 self.properties["pending_choices"]["ability_scores"] = ability_scores["choose"]
@@ -830,23 +861,23 @@ class Toon:
                 
                 # Handle subrace ability scores
                 if "ability_scores" in subrace_data:
-                    if isinstance(subrace_data["ability_scores"], dict) and "choose" in subrace_data["ability_scores"]:
-                        # Store ability score choices in pending_choices
-                        self.properties["pending_choices"]["ability_scores"] = subrace_data["ability_scores"]["choose"]
-                    elif "replaces" in subrace_data and "ability_scores" in subrace_data["replaces"]:
+                    if "replaces" in subrace_data and "ability_scores" in subrace_data["replaces"]:
                         # Reset base race ability scores if subrace replaces them
-                        for ability in self.properties["stats"]:
-                            self.properties["stats"][ability] -= race_data["ability_scores"].get(ability, 0)
+                        for ability in self.properties["racial_bonuses"]:
+                            self.properties["racial_bonuses"][ability] -= race_data["ability_scores"].get(ability, 0)
                         # Apply subrace ability scores
                         if "choose" not in subrace_data["ability_scores"]:
                             for ability, bonus in subrace_data["ability_scores"].items():
-                                self.properties["stats"][ability.lower()] += bonus
+                                self.properties["racial_bonuses"][ability.lower()] += bonus
                         else:
                             self.properties["pending_choices"]["ability_scores"] = subrace_data["ability_scores"]["choose"]
+                    elif isinstance(subrace_data["ability_scores"], dict) and "choose" in subrace_data["ability_scores"]:
+                        # Store ability score choices in pending_choices
+                        self.properties["pending_choices"]["ability_scores"] = subrace_data["ability_scores"]["choose"]
                     else:
-                        # Add subrace ability scores to base scores
+                        # Add subrace ability scores to base racial bonuses
                         for ability, bonus in subrace_data.get("ability_scores", {}).items():
-                            self.properties["stats"][ability.lower()] += bonus
+                            self.properties["racial_bonuses"][ability.lower()] += bonus
                 
                 # Add subrace traits and apply their grants
                 for trait in subrace_data.get("traits", []):
@@ -863,6 +894,9 @@ class Toon:
                     # Handle racial spellcasting
                     if "spellcasting" in trait:
                         self._apply_racial_spellcasting(trait["spellcasting"])
+            
+            # Recalculate final stats with all bonuses
+            self._recalculate_final_stats()
                 
             logger.info(f"Set race to {race}" + (f" ({subrace})" if subrace else ""))
             
@@ -1333,7 +1367,7 @@ class Toon:
             raise
 
     def set_ability_scores(self, scores: Dict[str, int]):
-        """Set ability scores and update dependent values"""
+        """Set base ability scores and update dependent values"""
         try:
             valid_abilities = {"strength", "dexterity", "constitution", 
                              "intelligence", "wisdom", "charisma"}
@@ -1344,9 +1378,12 @@ class Toon:
             if not all(ability.lower() in valid_abilities for ability in scores):
                 raise ValueError("Invalid ability score name")
             
-            # Set scores
+            # Set base scores
             for ability, score in scores.items():
-                self.properties["stats"][ability.lower()] = score
+                self.properties["base_stats"][ability.lower()] = score
+            
+            # Recalculate final stats with all bonuses
+            self._recalculate_final_stats()
             
             # Update dependent values
             self._update_dependent_values()
@@ -1356,6 +1393,14 @@ class Toon:
         except Exception as e:
             logger.error(f"Failed to set ability scores: {e}")
             raise
+
+    def _recalculate_final_stats(self):
+        """Recalculate final stats from base stats plus all bonuses"""
+        for ability in self.properties["base_stats"]:
+            base = self.properties["base_stats"][ability]
+            racial = self.properties["racial_bonuses"][ability]
+            # In the future, we can add other bonus types here (feats, magic items, etc.)
+            self.properties["stats"][ability] = base + racial
 
     def _update_dependent_values(self):
         """Update values that depend on ability scores"""
