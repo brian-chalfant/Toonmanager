@@ -8,6 +8,7 @@ import json
 import sys
 import os
 from typing import Dict, Optional
+import random
 
 logger = get_logger(__name__)
 
@@ -128,18 +129,18 @@ def handle_pending_choices(toon: Toon):
             print(f"\n{choice_data.get('description', 'Choose a feature option:')}")
             
             if choice_data["type"] == "ability_score_improvement":
-                print("\nYou can either:")
-                print("1. Increase one ability score by 2")
-                print("2. Increase two ability scores by 1")
+                # Define the ability names that can be improved
+                ability_names = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+                
                 choice = prompt_user("Choose an option", ["One ability +2", "Two abilities +1"])
                 
                 if choice == "One ability +2":
-                    ability = prompt_user("Select ability to increase by 2", choice_data["options"])
+                    ability = prompt_user("Select ability to increase by 2", ability_names)
                     toon.properties["stats"][ability.lower()] += 2
                 else:  # Two abilities +1
                     chosen_abilities = []
                     for i in range(2):
-                        available = [a for a in choice_data["options"] if a not in chosen_abilities]
+                        available = [a for a in ability_names if a not in chosen_abilities]
                         ability = prompt_user(f"Select ability {i+1}/2 to increase by 1", available)
                         chosen_abilities.append(ability)
                         toon.properties["stats"][ability.lower()] += 1
@@ -363,38 +364,79 @@ def interactive_create_character():
         handle_pending_choices(toon)
         
         # Set ability scores
-        print("\nEnter ability scores (8-20):")
-        abilities = {}
-        for ability in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
-            while True:
-                try:
-                    score = int(prompt_user(f"Enter {ability}"))
-                    if 8 <= score <= 20:
-                        abilities[ability] = score
-                        break
-                    print("Score must be between 8 and 20")
-                except ValueError:
-                    print("Please enter a valid number")
+        print("\nChoose ability score method:")
+        score_method = prompt_user("Select method", ["Manual entry", "Standard array (15, 14, 13, 12, 10, 8)"])
+        
+        if score_method == "Standard array (15, 14, 13, 12, 10, 8)":
+            print("\nAssign the standard array values (15, 14, 13, 12, 10, 8) to your abilities:")
+            standard_scores = [15, 14, 13, 12, 10, 8]
+            abilities = {}
+            ability_names = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+            
+            for ability in ability_names:
+                remaining_scores = [str(score) for score in standard_scores if score not in abilities.values()]
+                if remaining_scores:
+                    while True:
+                        try:
+                            score = int(prompt_user(f"Assign score to {ability}", remaining_scores))
+                            if score in standard_scores and score not in abilities.values():
+                                abilities[ability] = score
+                                break
+                            print("Please select an available score")
+                        except ValueError:
+                            print("Please enter a valid number")
+        else:
+            print("\nEnter ability scores (8-20):")
+            abilities = {}
+            for ability in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
+                while True:
+                    try:
+                        score = int(prompt_user(f"Enter {ability}"))
+                        if 8 <= score <= 20:
+                            abilities[ability] = score
+                            break
+                        print("Score must be between 8 and 20")
+                    except ValueError:
+                        print("Please enter a valid number")
         
         toon.set_ability_scores(abilities)
         
-        # Select class and level
+        # Select classes and levels (allow multiclassing)
         classes = get_available_classes()
-        class_name = prompt_user("Select class", classes)
         
         while True:
-            try:
-                level = int(prompt_user("Enter level (1-20)"))
-                if 1 <= level <= 20:
-                    break
-                print("Level must be between 1 and 20")
-            except ValueError:
-                print("Please enter a valid number")
-        
-        toon.add_class(class_name, level)
-        
-        # Handle any pending choices from class selection
-        handle_pending_choices(toon)
+            print(f"\nCurrent character level: {toon.properties.get('level', 0)}")
+            if toon.properties.get('classes'):
+                print("Current classes:")
+                for class_info in toon.properties['classes']:
+                    print(f"  - {class_info['name']}: Level {class_info['level']}")
+            
+            add_class = prompt_user(
+                "Add a class?" if not toon.properties.get('classes') else "Add another class?",
+                ["Yes", "No"]
+            )
+            
+            if add_class == "No":
+                if not toon.properties.get('classes'):
+                    print("You must have at least one class!")
+                    continue
+                break
+            
+            class_name = prompt_user("Select class", classes)
+            
+            while True:
+                try:
+                    level = int(prompt_user("Enter level for this class (1-20)"))
+                    if 1 <= level <= 20:
+                        break
+                    print("Level must be between 1 and 20")
+                except ValueError:
+                    print("Please enter a valid number")
+            
+            toon.add_class(class_name, level)
+            
+            # Handle any pending choices from this class
+            handle_pending_choices(toon)
         
         # Select background
         backgrounds = get_available_backgrounds()
@@ -402,9 +444,44 @@ def interactive_create_character():
             background_name = prompt_user("Select background", backgrounds)
             background = Background(background_name)
             
-            # Get personality choices
-            print("\nSelect personality traits, ideals, bonds, and flaws:")
-            choices = prompt_personality_choices(background)
+            # Choose selection mode
+            selection_mode = prompt_user(
+                "Choose personality selection mode",
+                ["Manual selection", "Quick mode (random)"]
+            )
+            
+            if selection_mode == "Quick mode (random)":
+                # Get random personality choices
+                options = background.get_personality_options()
+                
+                # Random personality traits
+                trait_count = options["personality_traits"]["count"]
+                traits = random.sample(options["personality_traits"]["suggestions"], trait_count)
+                
+                # Random ideal
+                ideal_choice = random.choice(options["ideals"]["suggestions"])
+                ideal = ideal_choice["ideal"]
+                
+                # Random bond and flaw
+                bond = random.choice(options["bonds"]["suggestions"])
+                flaw = random.choice(options["flaws"]["suggestions"])
+                
+                choices = {
+                    "traits": traits,
+                    "ideal": ideal,
+                    "bond": bond,
+                    "flaw": flaw
+                }
+                
+                print(f"\nRandomly selected personality:")
+                print(f"  Traits: {', '.join(traits)}")
+                print(f"  Ideal: {ideal}")
+                print(f"  Bond: {bond}")
+                print(f"  Flaw: {flaw}")
+            else:
+                # Get personality choices manually
+                print("\nSelect personality traits, ideals, bonds, and flaws:")
+                choices = prompt_personality_choices(background)
             
             # Apply background with choices
             toon.set_background(background_name, choices)
@@ -463,14 +540,25 @@ def interactive_load_character():
         toon = Toon(load_from=filename)
         print(f"\nLoaded character: {toon.get_name()}")
         
+        # Display current character info
+        print(f"\nCurrent character level: {toon.properties.get('level', 0)}")
+        if toon.properties.get('classes'):
+            print("Current classes:")
+            for class_info in toon.properties['classes']:
+                print(f"  - {class_info['name']}: Level {class_info['level']}")
+        
         # Ask about modifications
-        if prompt_user("Add a class level? (y/n)").lower().startswith('y'):
+        while True:
+            add_class = prompt_user("Add a class or class level? (y/n)").lower()
+            if not add_class.startswith('y'):
+                break
+                
             classes = get_available_classes()
             class_name = prompt_user("Select class", classes)
             
             while True:
                 try:
-                    level = int(prompt_user("Enter level (1-20)"))
+                    level = int(prompt_user("Enter level for this class (1-20)"))
                     if 1 <= level <= 20:
                         break
                     print("Level must be between 1 and 20")
@@ -482,6 +570,14 @@ def interactive_load_character():
             # Handle any pending choices from leveling up
             handle_pending_choices(toon)
             
+            print(f"\nUpdated character level: {toon.properties.get('level', 0)}")
+            if toon.properties.get('classes'):
+                print("Updated classes:")
+                for class_info in toon.properties['classes']:
+                    print(f"  - {class_info['name']}: Level {class_info['level']}")
+        
+        # Save if any changes were made
+        if toon.properties['metadata']['save_count'] > 0 or True:  # Save regardless for now
             toon.save()
             print("Character updated and saved")
         

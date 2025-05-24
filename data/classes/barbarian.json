@@ -171,6 +171,26 @@
                 "description": "You choose a path that shapes the nature of your rage, such as the Path of the Berserker or the Path of the Totem Warrior. You gain additional features at 3rd, 6th, 10th, and 14th level."
             }
         ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
         "5": [
             {
                 "name": "Extra Attack",
@@ -206,6 +226,12 @@
                 }
             }
         ],
+        "6": [
+            {
+                "name": "Primal Path Feature",
+                "description": "You gain a feature from your Primal Path."
+            }
+        ],
         "7": [
             {
                 "name": "Feral Instinct",
@@ -231,6 +257,26 @@
                 }
             }
         ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
         "9": [
             {
                 "name": "Brutal Critical (1 die)",
@@ -252,6 +298,12 @@
                         }
                     ]
                 }
+            }
+        ],
+        "10": [
+            {
+                "name": "Primal Path Feature",
+                "description": "You gain a feature from your Primal Path."
             }
         ],
         "11": [
@@ -279,6 +331,46 @@
                 }
             }
         ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "13": [
+            {
+                "name": "Brutal Critical (2 dice)",
+                "description": "You can roll two additional weapon damage dice when determining the extra damage for a critical hit with a melee attack.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Brutal Critical",
+                    "effect": {
+                        "type": "increase_critical_dice",
+                        "new_amount": 2
+                    }
+                }
+            }
+        ],
+        "14": [
+            {
+                "name": "Primal Path Feature",
+                "description": "You gain a feature from your Primal Path."
+            }
+        ],
         "15": [
             {
                 "name": "Persistent Rage",
@@ -302,6 +394,40 @@
                 }
             }
         ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "17": [
+            {
+                "name": "Brutal Critical (3 dice)",
+                "description": "You can roll three additional weapon damage dice when determining the extra damage for a critical hit with a melee attack.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Brutal Critical",
+                    "effect": {
+                        "type": "increase_critical_dice",
+                        "new_amount": 3
+                    }
+                }
+            }
+        ],
         "18": [
             {
                 "name": "Indomitable Might",
@@ -315,6 +441,26 @@
                             "minimum": "strength_score"
                         }
                     ]
+                }
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
                 }
             }
         ],
