@@ -61,7 +61,14 @@
         "1": [
             {
                 "name": "Spellcasting",
-                "description": "You can cast known sorcerer spells using Charisma as your spellcasting ability. You use an arcane focus as a spellcasting focus."
+                "description": "You can cast known sorcerer spells using Charisma as your spellcasting ability. You use an arcane focus as a spellcasting focus.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "charisma",
+                    "focus": ["arcane focus"],
+                    "preparation": "known",
+                    "ritual_casting": false
+                }
             },
             {
                 "name": "Sorcerous Origin",
@@ -71,19 +78,214 @@
         "2": [
             {
                 "name": "Font of Magic",
-                "description": "You have sorcery points that you can use to create spell slots or fuel Metamagic options."
+                "description": "You have sorcery points equal to your sorcerer level that you can use to create spell slots or fuel Metamagic options. You regain all spent sorcery points when you finish a long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "resource": {
+                        "name": "sorcery_points",
+                        "formula": "sorcerer_level",
+                        "recovery": "long_rest"
+                    },
+                    "effects": [
+                        {
+                            "type": "spell_slot_conversion",
+                            "description": "You can transform unexpended spell slots into sorcery points or vice versa as a bonus action"
+                        }
+                    ]
+                }
             }
         ],
         "3": [
             {
                 "name": "Metamagic",
-                "description": "You gain the ability to twist your spells to suit your needs. Choose two Metamagic options to learn; you gain more as you level up."
+                "description": "You gain the ability to twist your spells to suit your needs. Choose two Metamagic options to learn; you gain more at higher levels.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 2,
+                    "options": [
+                        {
+                            "name": "Careful Spell",
+                            "description": "When you cast a spell that forces other creatures to make a saving throw, you can protect some of those creatures from the spell's full force. (1 sorcery point)",
+                            "cost": "1 sorcery point"
+                        },
+                        {
+                            "name": "Distant Spell", 
+                            "description": "When you cast a spell that has a range of 5 feet or greater, you can double the range of the spell. (1 sorcery point)",
+                            "cost": "1 sorcery point"
+                        },
+                        {
+                            "name": "Empowered Spell",
+                            "description": "When you roll damage for a spell, you can reroll a number of damage dice up to your Charisma modifier. (1 sorcery point)",
+                            "cost": "1 sorcery point"
+                        },
+                        {
+                            "name": "Extended Spell",
+                            "description": "When you cast a spell that has a duration of 1 minute or longer, you can double its duration. (1 sorcery point)",
+                            "cost": "1 sorcery point"
+                        },
+                        {
+                            "name": "Heightened Spell",
+                            "description": "When you cast a spell that forces a creature to make a saving throw, you can give one target disadvantage on its first saving throw. (3 sorcery points)",
+                            "cost": "3 sorcery points"
+                        },
+                        {
+                            "name": "Quickened Spell",
+                            "description": "When you cast a spell that has a casting time of 1 action, you can change the casting time to 1 bonus action. (2 sorcery points)",
+                            "cost": "2 sorcery points"
+                        },
+                        {
+                            "name": "Subtle Spell",
+                            "description": "When you cast a spell, you can cast it without any somatic or verbal components. (1 sorcery point)",
+                            "cost": "1 sorcery point"
+                        },
+                        {
+                            "name": "Twinned Spell",
+                            "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can target a second creature within range. (Sorcery points equal to spell level)",
+                            "cost": "sorcery points equal to spell level"
+                        }
+                    ],
+                    "progression": {
+                        "3": 2,
+                        "10": 3,
+                        "17": 4
+                    }
+                }
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double", 
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "10": [
+            {
+                "name": "Metamagic",
+                "description": "You learn an additional Metamagic option.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": "see_level_3_metamagic_options"
+                }
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "17": [
+            {
+                "name": "Metamagic",
+                "description": "You learn an additional Metamagic option.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": "see_level_3_metamagic_options"
+                }
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Sorcerous Restoration",
-                "description": "You regain 4 expended sorcery points whenever you finish a short rest."
+                "description": "You regain 4 expended sorcery points whenever you finish a short rest.",
+                "mechanics": {
+                    "type": "resource_improvement",
+                    "improves": "Font of Magic",
+                    "effect": {
+                        "type": "short_rest_recovery",
+                        "amount": 4
+                    }
+                }
             }
         ]
     },
@@ -279,25 +481,87 @@
                 "1": [
                     {
                         "name": "Draconic Resilience",
-                        "description": "Your hit point maximum increases by 1 for each sorcerer level. When you aren't wearing armor, your AC equals 13 + your Dexterity modifier."
+                        "description": "Your hit point maximum increases by 1 for each sorcerer level. When you aren't wearing armor, your AC equals 13 + your Dexterity modifier.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "hit_point_bonus",
+                                    "formula": "sorcerer_level"
+                                },
+                                {
+                                    "type": "unarmored_defense",
+                                    "formula": "13 + dexterity_modifier",
+                                    "condition": "not_wearing_armor"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Elemental Affinity",
-                        "description": "When you cast a spell that deals damage of the type associated with your draconic ancestry, add your Charisma modifier to one damage roll of that spell. You can also spend 1 sorcery point to gain resistance to that damage type for 1 hour."
+                        "description": "When you cast a spell that deals damage of the type associated with your draconic ancestry, add your Charisma modifier to one damage roll of that spell. You can also spend 1 sorcery point to gain resistance to that damage type for 1 hour.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "spell_damage_bonus",
+                                    "formula": "charisma_modifier",
+                                    "damage_type": "draconic_ancestry",
+                                    "frequency": "per_spell"
+                                },
+                                {
+                                    "type": "resistance",
+                                    "cost": "1 sorcery point",
+                                    "duration": "1 hour",
+                                    "damage_type": "draconic_ancestry"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Dragon Wings",
-                        "description": "You gain a pair of dragon wings, giving you a flying speed equal to your current speed."
+                        "description": "You gain a pair of dragon wings, giving you a flying speed equal to your current speed.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "movement",
+                                    "movement_type": "fly",
+                                    "speed": "current_speed"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "18": [
                     {
                         "name": "Draconic Presence",
-                        "description": "You can spend 5 sorcery points to exude an aura of awe or fear (your choice) to creatures within 60 feet for 1 minute (save negates)."
+                        "description": "You can spend 5 sorcery points to exude an aura of awe or fear (your choice) to creatures within 60 feet for 1 minute (save negates).",
+                        "mechanics": {
+                            "type": "action",
+                            "action_type": "action",
+                            "cost": "5 sorcery points",
+                            "range": 60,
+                            "duration": {
+                                "value": 1,
+                                "unit": "minute"
+                            },
+                            "save": {
+                                "ability": "wisdom",
+                                "dc": "8 + proficiency + charisma_modifier"
+                            },
+                            "effects": [
+                                {
+                                    "type": "condition",
+                                    "condition": "charmed_or_frightened",
+                                    "choice": "awe_or_fear"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -309,29 +573,88 @@
                 "1": [
                     {
                         "name": "Wild Magic Surge",
-                        "description": "When you cast a sorcerer spell of 1st level or higher, the DM can have you roll a d20. On a 1, roll on the Wild Magic Surge table."
+                        "description": "When you cast a sorcerer spell of 1st level or higher, the DM can have you roll a d20. On a 1, roll on the Wild Magic Surge table.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "cast_sorcerer_spell_level_1_or_higher",
+                            "effects": [
+                                {
+                                    "type": "random_effect",
+                                    "trigger_roll": "d20",
+                                    "trigger_condition": "roll_1",
+                                    "effect_table": "wild_magic_surge"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Tides of Chaos",
-                        "description": "You can gain advantage on one attack roll, ability check, or saving throw. Once you do so, you must finish a long rest before you can use this feature again unless the DM has you roll on the Wild Magic Surge table."
+                        "description": "You can gain advantage on one attack roll, ability check, or saving throw. Once you do so, you must finish a long rest before you can use this feature again unless the DM has you roll on the Wild Magic Surge table.",
+                        "mechanics": {
+                            "type": "resource",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["attack_roll", "ability_check", "saving_throw"],
+                                    "choice": "one"
+                                }
+                            ],
+                            "special": "can_reset_on_wild_magic_surge"
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Bend Luck",
-                        "description": "When another creature you can see makes an attack roll, ability check, or saving throw, you can use your reaction and spend 2 sorcery points to roll a d4 and apply it as a bonus or penalty to the creature's roll."
+                        "description": "When another creature you can see makes an attack roll, ability check, or saving throw, you can use your reaction and spend 2 sorcery points to roll a d4 and apply it as a bonus or penalty to the creature's roll.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "action_type": "reaction",
+                            "cost": "2 sorcery points",
+                            "range": "see",
+                            "trigger": "creature_makes_roll",
+                            "effects": [
+                                {
+                                    "type": "modify_roll",
+                                    "dice": "1d4",
+                                    "application": "bonus_or_penalty"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Controlled Chaos",
-                        "description": "You can roll two dice for Wild Magic Surge and choose which result to use."
+                        "description": "You can roll two dice for Wild Magic Surge and choose which result to use.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Wild Magic Surge",
+                            "effect": {
+                                "type": "roll_twice_choose_one",
+                                "applies_to": "wild_magic_surge_table"
+                            }
+                        }
                     }
                 ],
                 "18": [
                     {
                         "name": "Spell Bombardment",
-                        "description": "When you roll damage for a spell and roll the highest possible number on any of the dice, choose one of those dice, roll it again, and add that roll to the damage."
+                        "description": "When you roll damage for a spell and roll the highest possible number on any of the dice, choose one of those dice, roll it again, and add that roll to the damage.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "spell_damage_roll",
+                            "effects": [
+                                {
+                                    "type": "extra_damage",
+                                    "condition": "max_roll_on_die",
+                                    "effect": "reroll_one_max_die_and_add"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -344,29 +667,98 @@
                 "1": [
                     {
                         "name": "Divine Magic",
-                        "description": "You learn additional spells from the cleric spell list and gain a bonus cantrip based on your alignment."
+                        "description": "You learn additional spells from the cleric spell list and gain a bonus cantrip based on your alignment.",
+                        "mechanics": {
+                            "type": "spellcasting",
+                            "effects": [
+                                {
+                                    "type": "spell_list_access",
+                                    "list": "cleric",
+                                    "description": "You can choose spells from the cleric spell list when learning sorcerer spells"
+                                },
+                                {
+                                    "type": "bonus_cantrip",
+                                    "choice_based_on": "alignment"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Favored by the Gods",
-                        "description": "If you fail a saving throw or miss with an attack roll, you can roll 2d4 and add it to the total, possibly changing the outcome."
+                        "description": "If you fail a saving throw or miss with an attack roll, you can roll 2d4 and add it to the total, possibly changing the outcome.",
+                        "mechanics": {
+                            "type": "resource",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "trigger": "failed_save_or_missed_attack",
+                            "effects": [
+                                {
+                                    "type": "modify_roll",
+                                    "dice": "2d4",
+                                    "application": "add_to_roll"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Empowered Healing",
-                        "description": "When you or an ally rolls dice to determine the number of hit points a spell restores, you can spend 1 sorcery point to reroll any number of those dice once."
+                        "description": "When you or an ally rolls dice to determine the number of hit points a spell restores, you can spend 1 sorcery point to reroll any number of those dice once.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "cost": "1 sorcery point",
+                            "trigger": "healing_spell_roll",
+                            "effects": [
+                                {
+                                    "type": "reroll_dice",
+                                    "dice_count": "any_number",
+                                    "limit": "once_per_spell"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Otherworldly Wings",
-                        "description": "You can use a bonus action to manifest wings of light or darkness, gaining a flying speed equal to your current speed."
+                        "description": "You can use a bonus action to manifest wings of light or darkness, gaining a flying speed equal to your current speed.",
+                        "mechanics": {
+                            "type": "action",
+                            "action_type": "bonus_action",
+                            "duration": {
+                                "value": 1,
+                                "unit": "minute"
+                            },
+                            "effects": [
+                                {
+                                    "type": "movement",
+                                    "movement_type": "fly",
+                                    "speed": "current_speed"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "18": [
                     {
                         "name": "Unearthly Recovery",
-                        "description": "As a bonus action when you have no more than half of your hit points remaining, you can regain a number of hit points equal to half your hit point maximum."
+                        "description": "As a bonus action when you have no more than half of your hit points remaining, you can regain a number of hit points equal to half your hit point maximum.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "condition": "hp_half_or_less",
+                            "effects": [
+                                {
+                                    "type": "healing",
+                                    "formula": "half_max_hp"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

@@ -63,75 +63,388 @@
         "1": [
             {
                 "name": "Divine Sense",
-                "description": "As an action, you can open your awareness to detect evil and good until the end of your next turn. Uses per long rest equal to 1 + your Charisma modifier."
+                "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "action",
+                    "range": "60 feet",
+                    "duration": "until_end_of_next_turn",
+                    "uses": {
+                        "per_long_rest": "1 + charisma_modifier"
+                    },
+                    "effects": [
+                        {
+                            "type": "detection",
+                            "detects": ["celestial", "fiend", "undead"],
+                            "reveals": "location_and_type_not_identity",
+                            "blocked_by": "total_cover"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Lay on Hands",
-                "description": "You have a pool of healing power that replenishes when you take a long rest. You can restore a total number of hit points equal to your paladin level × 5."
+                "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. You can also expend 5 hit points from your pool to cure the target of one disease or neutralize one poison affecting it.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "action",
+                    "range": "touch",
+                    "resource_pool": "paladin_level * 5",
+                    "replenish": "long_rest",
+                    "effects": [
+                        {
+                            "type": "healing",
+                            "amount": "chosen_from_pool"
+                        },
+                        {
+                            "type": "cure_disease",
+                            "cost": 5,
+                            "alternative": true
+                        },
+                        {
+                            "type": "neutralize_poison",
+                            "cost": 5,
+                            "alternative": true
+                        }
+                    ]
+                }
             }
         ],
         "2": [
             {
                 "name": "Fighting Style",
-                "description": "You adopt a fighting style, such as Defense, Dueling, Great Weapon Fighting, or Protection."
+                "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options: Defense, Dueling, Great Weapon Fighting, or Protection.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": [
+                        {
+                            "name": "Defense",
+                            "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+                            "effects": [
+                                {
+                                    "type": "ac_bonus",
+                                    "bonus": 1,
+                                    "condition": "wearing_armor"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Dueling",
+                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+                            "effects": [
+                                {
+                                    "type": "damage_bonus",
+                                    "bonus": 2,
+                                    "weapon_type": "melee",
+                                    "condition": "one_handed_no_other_weapons"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Great Weapon Fighting",
+                            "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll.",
+                            "effects": [
+                                {
+                                    "type": "damage_reroll",
+                                    "reroll_on": [1, 2],
+                                    "weapon_type": "two_handed_melee",
+                                    "must_use_new_roll": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Protection",
+                            "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+                            "effects": [
+                                {
+                                    "type": "reaction_ability",
+                                    "action_type": "reaction",
+                                    "trigger": "ally_within_5_feet_attacked",
+                                    "effect": "impose_disadvantage_on_attack",
+                                    "requirement": "wielding_shield"
+                                }
+                            ]
+                        }
+                    ]
+                }
             },
             {
                 "name": "Spellcasting",
-                "description": "You can cast prepared paladin spells using Charisma as your spellcasting ability. You use a holy symbol as a spellcasting focus."
+                "description": "You have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does. You prepare spells from the paladin spell list.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "charisma",
+                    "focus": ["holy symbol"],
+                    "preparation": "prepared",
+                    "ritual_casting": false
+                }
             },
             {
                 "name": "Divine Smite",
-                "description": "When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage."
+                "description": "When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend, to a maximum of 6d8.",
+                "mechanics": {
+                    "type": "spell_enhancement",
+                    "trigger": "melee_weapon_hit",
+                    "resource": "spell_slot",
+                    "damage_type": "radiant",
+                    "damage": {
+                        "base": "2d8",
+                        "per_spell_level_above_1st": "1d8",
+                        "maximum": "5d8",
+                        "bonus_vs_undead_fiend": "1d8",
+                        "absolute_maximum": "6d8"
+                    }
+                }
             }
         ],
         "3": [
             {
                 "name": "Divine Health",
-                "description": "You are immune to disease."
+                "description": "The divine magic flowing through you makes you immune to disease.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "immunity",
+                            "condition": "disease"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Sacred Oath",
-                "description": "You swear a sacred oath at 3rd level that grants you features at 3rd, 7th, 15th, and 20th level."
+                "description": "When you reach 3rd level, you swear the oath that binds you as a paladin forever. Up to this time you have been in a preparatory stage, committed to the path but not yet sworn to it. Your choice grants you features at 3rd level and again at 7th, 15th, and 20th level.",
+                "mechanics": {
+                    "type": "subclass_choice",
+                    "subclass_type": "oath",
+                    "feature_levels": [3, 7, 15, 20]
+                }
             }
         ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "Increase one ability score by 2, or two ability scores by 1. Max 20."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "5": [
             {
                 "name": "Extra Attack",
-                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+                "description": "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "extra_attack",
+                            "attacks": 2,
+                            "trigger": "attack_action"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Aura of Protection",
-                "description": "Whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus equal to your Charisma modifier (minimum +1). You must be conscious to grant this bonus."
+                "description": "Starting at 6th level, whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to your Charisma modifier (with a minimum bonus of +1). You must be conscious to grant this bonus. At 18th level, the range of this aura increases to 30 feet.",
+                "mechanics": {
+                    "type": "aura",
+                    "range": {
+                        "6": "10 feet",
+                        "18": "30 feet"
+                    },
+                    "effects": [
+                        {
+                            "type": "saving_throw_bonus",
+                            "bonus": "charisma_modifier",
+                            "minimum": 1,
+                            "targets": "self_and_friendly_creatures",
+                            "condition": "conscious"
+                        }
+                    ]
+                }
             }
         ],
         "6": [
             {
-                "name": "Aura of Protection (Improved)",
-                "description": "Aura increases to 30 feet at 18th level."
+                "name": "Channel Divinity",
+                "description": "Your oath allows you to channel divine energy to fuel magical effects. Each oath provides two Channel Divinity options. You start with one use, and regain expended uses when you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "resource_name": "channel_divinity",
+                    "uses": {
+                        "per_rest": "short",
+                        "amount": 1
+                    },
+                    "effects": "determined_by_oath"
+                }
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "10": [
             {
                 "name": "Aura of Courage",
-                "description": "You and friendly creatures within 10 feet can't be frightened while you are conscious. Increases to 30 feet at 18th level."
+                "description": "Starting at 10th level, you and friendly creatures within 10 feet of you can't be frightened while you are conscious. At 18th level, the range of this aura increases to 30 feet.",
+                "mechanics": {
+                    "type": "aura",
+                    "range": {
+                        "10": "10 feet",
+                        "18": "30 feet"
+                    },
+                    "effects": [
+                        {
+                            "type": "immunity",
+                            "condition": "frightened",
+                            "targets": "self_and_friendly_creatures",
+                            "requirement": "conscious"
+                        }
+                    ]
+                }
             }
         ],
         "11": [
             {
                 "name": "Improved Divine Smite",
-                "description": "Whenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage."
+                "description": "By 11th level, you are so suffused with righteous might that all your melee weapon strikes carry divine power with them. Whenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "weapon_damage_bonus",
+                            "damage": "1d8",
+                            "damage_type": "radiant",
+                            "weapon_type": "melee",
+                            "trigger": "weapon_hit"
+                        }
+                    ]
+                }
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "14": [
             {
                 "name": "Cleansing Touch",
-                "description": "You can end one spell on yourself or on one willing creature that you touch. Uses per long rest equal to your Charisma modifier."
+                "description": "You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature a number of times equal to your Charisma modifier (minimum of once). You regain expended uses when you finish a long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "action",
+                    "range": "touch",
+                    "uses": {
+                        "per_long_rest": "charisma_modifier",
+                        "minimum": 1
+                    },
+                    "effects": [
+                        {
+                            "type": "end_spell",
+                            "target": "self_or_willing_creature"
+                        }
+                    ]
+                }
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "18": [
+            {
+                "name": "Aura Improvements",
+                "description": "The range of your auras increases to 30 feet.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": ["Aura of Protection", "Oath Aura"],
+                    "effect": {
+                        "type": "increase_range",
+                        "new_range": "30 feet"
+                    }
+                }
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ]
     },
@@ -141,6 +454,9 @@
             "holy symbol"
         ],
         "spells_known": "prepared",
+        "preparation": "charisma_modifier + half_paladin_level",
+        "minimum_prepared": 1,
+        "ritual_casting": false,
         "cantrips_known": null,
         "spell_slots_per_level": {
             "1": {
@@ -265,29 +581,145 @@
                 "3": [
                     {
                         "name": "Oath Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain oath spells at the paladin levels listed. These spells are always prepared, and they don't count against the number of spells you can prepare each day.",
+                        "mechanics": {
+                            "type": "expanded_spell_list",
+                            "spells": {
+                                "3": ["protection from evil and good", "sanctuary"],
+                                "5": ["lesser restoration", "zone of truth"],
+                                "9": ["beacon of hope", "dispel magic"],
+                                "13": ["freedom of movement", "guardian of faith"],
+                                "17": ["commune", "flame strike"]
+                            }
+                        }
                     },
                     {
-                        "name": "Channel Divinity (Devotion)",
-                        "description": "You gain two Channel Divinity options: Sacred Weapon and Turn the Unholy."
+                        "name": "Channel Divinity",
+                        "description": "When you take this oath at 3rd level, you gain the following two Channel Divinity options.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 2,
+                            "options": [
+                                {
+                                    "name": "Sacred Weapon",
+                                    "description": "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add your Charisma modifier to attack rolls made with that weapon (with a minimum bonus of +1). The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. If the weapon is not already magical, it becomes magical for the duration.",
+                                    "mechanics": {
+                                        "type": "resource",
+                                        "action_type": "action",
+                                        "resource": "channel_divinity",
+                                        "duration": "1 minute",
+                                        "effects": [
+                                            {
+                                                "type": "attack_bonus",
+                                                "bonus": "charisma_modifier",
+                                                "minimum": 1,
+                                                "weapon": "chosen_weapon"
+                                            },
+                                            {
+                                                "type": "light_source",
+                                                "bright_light": "20 feet",
+                                                "dim_light": "40 feet"
+                                            },
+                                            {
+                                                "type": "magical_weapon",
+                                                "condition": "if_not_already_magical"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "Turn the Unholy",
+                                    "description": "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes damage.",
+                                    "mechanics": {
+                                        "type": "resource",
+                                        "action_type": "action",
+                                        "resource": "channel_divinity",
+                                        "range": "30 feet",
+                                        "save": {
+                                            "ability": "wisdom",
+                                            "dc": "paladin_spell_save_dc"
+                                        },
+                                        "effects": [
+                                            {
+                                                "type": "condition",
+                                                "condition": "turned",
+                                                "targets": "fiends_and_undead",
+                                                "duration": "1 minute or until takes damage"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Aura of Devotion",
-                        "description": "You and friendly creatures within 10 feet can't be charmed while you are conscious. Increases to 30 feet at 18th level."
+                        "description": "Starting at 7th level, you and friendly creatures within 10 feet of you can't be charmed while you are conscious. At 18th level, the range of this aura increases to 30 feet.",
+                        "mechanics": {
+                            "type": "aura",
+                            "range": {
+                                "7": "10 feet",
+                                "18": "30 feet"
+                            },
+                            "effects": [
+                                {
+                                    "type": "immunity",
+                                    "condition": "charmed",
+                                    "targets": "self_and_friendly_creatures",
+                                    "requirement": "conscious"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Purity of Spirit",
-                        "description": "You are always under the effects of a protection from evil and good spell."
+                        "description": "Beginning at 15th level, you are always under the effects of a protection from evil and good spell.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "spell_effect",
+                                    "spell": "protection from evil and good",
+                                    "duration": "permanent",
+                                    "self_only": true
+                                }
+                            ]
+                        }
                     }
                 ],
                 "20": [
                     {
                         "name": "Holy Nimbus",
-                        "description": "As an action, you emanate an aura of sunlight. For 1 minute, bright light shines from you in a 30-foot radius, and you have advantage on saving throws against spells cast by fiends or undead. Enemies in the light take radiant damage."
+                        "description": "At 20th level, as an action, you can emanate an aura of sunlight. For 1 minute, bright light shines from you in a 30-foot radius, and dim light shines 30 feet beyond that. Whenever an enemy creature starts its turn in the bright light, the creature takes 10 radiant damage. In addition, for the duration, you have advantage on saving throws against spells cast by fiends or undead.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "duration": "1 minute",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "light_source",
+                                    "bright_light": "30 feet",
+                                    "dim_light": "60 feet"
+                                },
+                                {
+                                    "type": "aura_damage",
+                                    "damage": 10,
+                                    "damage_type": "radiant",
+                                    "trigger": "enemy_starts_turn_in_bright_light"
+                                },
+                                {
+                                    "type": "saving_throw_advantage",
+                                    "against": "spells_cast_by_fiends_or_undead"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -333,29 +765,148 @@
                 "3": [
                     {
                         "name": "Oath Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain oath spells at the paladin levels listed. These spells are always prepared, and they don't count against the number of spells you can prepare each day.",
+                        "mechanics": {
+                            "type": "expanded_spell_list",
+                            "spells": {
+                                "3": ["bane", "hunter's mark"],
+                                "5": ["hold person", "misty step"],
+                                "9": ["haste", "protection from energy"],
+                                "13": ["banishment", "dimension door"],
+                                "17": ["hold monster", "scrying"]
+                            }
+                        }
                     },
                     {
-                        "name": "Channel Divinity (Vengeance)",
-                        "description": "You gain two Channel Divinity options: Abjure Enemy and Vow of Enmity."
+                        "name": "Channel Divinity",
+                        "description": "When you take this oath at 3rd level, you gain the following two Channel Divinity options.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 2,
+                            "options": [
+                                {
+                                    "name": "Abjure Enemy",
+                                    "description": "As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw, unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw. On a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0, and it can't benefit from any bonus to its speed. On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.",
+                                    "mechanics": {
+                                        "type": "resource",
+                                        "action_type": "action",
+                                        "resource": "channel_divinity",
+                                        "range": "60 feet",
+                                        "save": {
+                                            "ability": "wisdom",
+                                            "dc": "paladin_spell_save_dc",
+                                            "disadvantage_for": ["fiends", "undead"]
+                                        },
+                                        "effects": [
+                                            {
+                                                "type": "condition",
+                                                "condition": "frightened",
+                                                "duration": "1 minute or until takes damage",
+                                                "on_failed_save": true,
+                                                "additional_effects": ["speed_0", "no_speed_bonus"]
+                                            },
+                                            {
+                                                "type": "speed_reduction",
+                                                "reduction": "half",
+                                                "duration": "1 minute or until takes damage",
+                                                "on_successful_save": true
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "Vow of Enmity",
+                                    "description": "As a bonus action, you can utter a vow of enmity against a creature you can see within 10 feet of you, using your Channel Divinity. You gain advantage on attack rolls against the creature for 1 minute or until it drops to 0 hit points or falls unconscious.",
+                                    "mechanics": {
+                                        "type": "resource",
+                                        "action_type": "bonus_action",
+                                        "resource": "channel_divinity",
+                                        "range": "10 feet",
+                                        "duration": "1 minute or until target drops to 0 hp or unconscious",
+                                        "effects": [
+                                            {
+                                                "type": "attack_advantage",
+                                                "target": "chosen_creature"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Relentless Avenger",
-                        "description": "When you hit a creature with an opportunity attack, you can move up to half your speed immediately after the attack as part of the same reaction."
+                        "description": "By 7th level, your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to half your speed immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "hit_with_opportunity_attack",
+                            "effects": [
+                                {
+                                    "type": "bonus_movement",
+                                    "distance": "half_speed",
+                                    "timing": "after_attack_as_part_of_reaction",
+                                    "no_opportunity_attacks": true
+                                }
+                            ]
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Soul of Vengeance",
-                        "description": "The Vow of Enmity feature lets you make an opportunity attack against the creature when it attacks you."
+                        "description": "Starting at 15th level, the authority with which you speak your Vow of Enmity gives you greater power over your foe. When a creature under the effect of your Vow of Enmity makes an attack, you can use your reaction to make a melee weapon attack against that creature if it is within range.",
+                        "mechanics": {
+                            "type": "passive",
+                            "action_type": "reaction",
+                            "trigger": "vow_of_enmity_target_attacks",
+                            "condition": "target_within_melee_range",
+                            "effects": [
+                                {
+                                    "type": "melee_weapon_attack",
+                                    "target": "vow_of_enmity_target"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "20": [
                     {
                         "name": "Avenging Angel",
-                        "description": "As an action, you transform into an angelic avenger for 1 hour: you gain flying speed 60 ft, enemies within 30 ft you choose are frightened, and you have advantage on attack rolls against frightened creatures."
+                        "description": "At 20th level, you can assume the form of an angelic avenger. Using your action, you undergo a transformation. For 1 hour, you gain the following benefits: Wings sprout from your back and grant you a flying speed of 60 feet. You emanate an aura of menace in a 30-foot radius. The first time any enemy creature enters the aura or starts its turn there during a battle, the creature must succeed on a Wisdom saving throw or become frightened of you for 1 minute or until it takes any damage. Attack rolls against frightened creatures have advantage.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "duration": "1 hour",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "flying_speed",
+                                    "speed": 60
+                                },
+                                {
+                                    "type": "aura",
+                                    "range": "30 feet",
+                                    "save": {
+                                        "ability": "wisdom",
+                                        "dc": "paladin_spell_save_dc"
+                                    },
+                                    "trigger": "enemy_enters_or_starts_turn_in_aura",
+                                    "effect": {
+                                        "type": "condition",
+                                        "condition": "frightened",
+                                        "duration": "1 minute or until takes damage"
+                                    }
+                                },
+                                {
+                                    "type": "attack_advantage",
+                                    "against": "frightened_creatures"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

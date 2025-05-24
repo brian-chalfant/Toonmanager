@@ -489,38 +489,41 @@
                             "options": [
                                 {
                                     "name": "Bear",
+                                    "description": "While raging, you have resistance to all damage except psychic damage.",
                                     "effects": [
                                         {
                                             "type": "resistance",
-                                            "to": ["all_damage_except_psychic"],
-                                            "conditions": ["while_raging"]
+                                            "to": ["all damage except psychic"],
+                                            "conditions": ["while raging"]
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Eagle",
+                                    "description": "While raging, you can use the Dash action as a bonus action, and other creatures have disadvantage on opportunity attacks against you.",
                                     "effects": [
                                         {
-                                            "type": "grant_advantage",
-                                            "to": "opportunity_attacks_against_you",
-                                            "conditions": ["while_raging"]
+                                            "type": "grant advantage",
+                                            "to": "opportunity attacks against you",
+                                            "conditions": ["while raging"]
                                         },
                                         {
                                             "type": "dash",
-                                            "as": "bonus_action"
+                                            "as": "bonus action"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Wolf",
+                                    "description": "While raging, your allies have advantage on melee attack rolls against any creature within 5 feet of you.",
                                     "effects": [
                                         {
-                                            "type": "grant_advantage",
-                                            "to": "melee_attacks",
+                                            "type": "grant advantage",
+                                            "to": "melee attacks",
                                             "target": "allies",
                                             "conditions": [
-                                                "while_raging",
-                                                "target_within_5_feet"
+                                                "while raging",
+                                                "target within 5 feet"
                                             ]
                                         }
                                     ]
@@ -538,46 +541,51 @@
                             "options": [
                                 {
                                     "name": "Bear",
+                                    "description": "Your carrying capacity is doubled, and you have advantage on Strength checks.",
                                     "effects": [
                                         {
-                                            "type": "carrying_capacity",
+                                            "type": "carrying capacity",
                                             "multiplier": 2
                                         },
                                         {
                                             "type": "advantage",
-                                            "on": "strength_checks"
+                                            "on": "strength checks"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Eagle",
+                                    "description": "You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away. Additionally, dim light doesn't impose disadvantage on your Perception checks.",
                                     "effects": [
                                         {
                                             "type": "vision",
-                                            "range": "1_mile",
+                                            "range": "1 mile",
                                             "conditions": [
-                                                "unobstructed_view",
-                                                "bright_light"
+                                                "unobstructed view",
+                                                "bright light"
                                             ]
                                         },
                                         {
-                                            "type": "no_disadvantage",
-                                            "on": "perception_checks",
-                                            "in": "dim_light"
+                                            "type": "no disadvantage",
+                                            "on": "perception checks",
+                                            "in": "dim light"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Wolf",
+                                    "description": "You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace.",
                                     "effects": [
                                         {
                                             "type": "tracking",
                                             "bonus": "advantage",
-                                            "conditions": ["while_traveling"]
+                                            "conditions": [
+                                                "while traveling"
+                                            ]
                                         },
                                         {
                                             "type": "stealth",
-                                            "bonus": "normal_pace"
+                                            "bonus": "normal pace"
                                         }
                                     ]
                                 }

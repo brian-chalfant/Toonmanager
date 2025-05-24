@@ -1,0 +1,24 @@
+Summary of Class File Standardization Status
+✅ ALREADY STANDARDIZED (have detailed mechanics sections):
+barbarian.json - Has complete mechanics with detailed action types, uses, effects, conditions
+bard.json - Has comprehensive mechanics for all features
+cleric.json - Recently updated with full mechanics
+fighter.json - Has extensive mechanics with detailed combat options
+sorcerer.json - Recently updated with full mechanics
+❌ NEED STANDARDIZATION (missing mechanics sections):
+druid.json - Missing mechanics, incomplete levels (only has 1, 2, 4, 18, 20)
+monk.json - Basic descriptions only, no mechanics sections
+paladin.json - Basic descriptions only, no mechanics sections
+ranger.json - Basic descriptions only, no mechanics sections
+rogue.json - Basic descriptions only, no mechanics sections
+warlock.json - Basic descriptions only, no mechanics sections
+wizard.json - Basic descriptions only, no mechanics sections
+WORST OFFENDERS (missing the most content):
+druid.json - Missing many level features entirely (3, 5-17, 19)
+monk.json - Missing levels 8, 9, 11, 12, 16, 17, 19
+warlock.json - Missing levels 4-10, 12, 14, 16, 18, 19
+These 7 classes need to be updated to match the standardized format with:
+Complete level progression (all levels 1-20)
+Detailed mechanics sections for each feature
+Proper action types, resource management, effects, and conditions
+Subclass features with mechanics where appropriate

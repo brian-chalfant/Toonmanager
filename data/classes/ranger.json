@@ -13,6 +13,7 @@
         "simple weapons",
         "martial weapons"
     ],
+    "tool_proficiencies": [],
     "skill_proficiencies": {
         "choose": 3,
         "from": [
@@ -60,105 +61,301 @@
             {
                 "name": "Favored Enemy",
                 "description": "Beginning at 1st level, you have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. Choose a type of favored enemy: aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, or undead. Alternatively, you can select two races of humanoid (such as gnolls and orcs) as favored enemies.",
-                "choose": {
-                    "count": 1,
-                    "from": [
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": [
                         {
                             "name": "Aberrations",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track aberrations, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track aberrations, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "aberrations"
+                                }
+                            ]
                         },
                         {
                             "name": "Beasts",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track beasts, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track beasts, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "beasts"
+                                }
+                            ]
                         },
                         {
                             "name": "Celestials",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track celestials, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track celestials, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "celestials"
+                                }
+                            ]
                         },
                         {
                             "name": "Constructs",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track constructs, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track constructs, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "constructs"
+                                }
+                            ]
                         },
                         {
                             "name": "Dragons",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track dragons, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track dragons, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "dragons"
+                                }
+                            ]
                         },
                         {
                             "name": "Elementals",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track elementals, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track elementals, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "elementals"
+                                }
+                            ]
                         },
                         {
                             "name": "Fey",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track fey, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track fey, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "fey"
+                                }
+                            ]
                         },
                         {
                             "name": "Fiends",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track fiends, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track fiends, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "fiends"
+                                }
+                            ]
                         },
                         {
                             "name": "Giants",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track giants, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track giants, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "giants"
+                                }
+                            ]
                         },
                         {
                             "name": "Monstrosities",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track monstrosities, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track monstrosities, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "monstrosities"
+                                }
+                            ]
                         },
                         {
                             "name": "Oozes",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track oozes, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track oozes, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "oozes"
+                                }
+                            ]
                         },
                         {
                             "name": "Plants",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track plants, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track plants, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "plants"
+                                }
+                            ]
                         },
                         {
                             "name": "Undead",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track undead, as well as on Intelligence checks to recall information about them."
+                            "description": "You gain advantage on Wisdom (Survival) checks to track undead, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "undead"
+                                }
+                            ]
                         },
                         {
-                            "name": "Humanoids (Gnolls and Orcs)",
-                            "description": "You gain advantage on Wisdom (Survival) checks to track gnolls and orcs, as well as on Intelligence checks to recall information about them."
+                            "name": "Humanoids (Two Races)",
+                            "description": "You can select two races of humanoid (such as gnolls and orcs) as favored enemies. You gain advantage on Wisdom (Survival) checks to track these humanoids, as well as on Intelligence checks to recall information about them.",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Survival) tracking", "Intelligence checks for information"],
+                                    "target": "two_chosen_humanoid_races"
+                                }
+                            ]
                         }
                     ]
                 }
             },
             {
                 "name": "Natural Explorer",
-                "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark.",
-                "choose": {
-                    "count": 1,
-                    "from": [
+                "description": "You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark. When you make a Wisdom (Survival) check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you're proficient in. While traveling for an hour or more in your favored terrain, you remain alert to danger, and if you are traveling alone, you can move stealthily at a normal pace.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": [
                         {
                             "name": "Arctic",
-                            "description": "You are particularly familiar with arctic terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with arctic terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in arctic",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "arctic",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Coast",
-                            "description": "You are particularly familiar with coastal terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with coastal terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in coast",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "coast",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Desert",
-                            "description": "You are particularly familiar with desert terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with desert terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in desert",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "desert",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Forest",
-                            "description": "You are particularly familiar with forest terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with forest terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in forest",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "forest",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Grassland",
-                            "description": "You are particularly familiar with grassland terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with grassland terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in grassland",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "grassland",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Mountain",
-                            "description": "You are particularly familiar with mountain terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with mountain terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in mountain",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "mountain",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Swamp",
-                            "description": "You are particularly familiar with swamp terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with swamp terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in swamp",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "swamp",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         },
                         {
                             "name": "Underdark",
-                            "description": "You are particularly familiar with Underdark terrain and are adept at traveling and surviving in such regions."
+                            "description": "You are particularly familiar with Underdark terrain and are adept at traveling and surviving in such regions.",
+                            "effects": [
+                                {
+                                    "type": "expertise",
+                                    "applies_to": "Wisdom (Survival) in underdark",
+                                    "condition": "already_proficient"
+                                },
+                                {
+                                    "type": "travel_benefits",
+                                    "terrain": "underdark",
+                                    "benefits": ["remain_alert_to_danger", "move_stealthily_at_normal_pace_when_alone"]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -168,76 +365,151 @@
             {
                 "name": "Fighting Style",
                 "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options:",
-                "choose": {
-                    "count": 1,
-                    "from": [
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 1,
+                    "options": [
                         {
                             "name": "Archery",
-                            "description": "You gain a +2 bonus to attack rolls you make with ranged weapons."
+                            "description": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+                            "effects": [
+                                {
+                                    "type": "attack_bonus",
+                                    "bonus": 2,
+                                    "weapon_type": "ranged"
+                                }
+                            ]
                         },
                         {
                             "name": "Defense",
-                            "description": "While you are wearing armor, you gain a +1 bonus to AC."
+                            "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+                            "effects": [
+                                {
+                                    "type": "ac_bonus",
+                                    "bonus": 1,
+                                    "condition": "wearing_armor"
+                                }
+                            ]
                         },
                         {
                             "name": "Dueling",
-                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon."
+                            "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+                            "effects": [
+                                {
+                                    "type": "damage_bonus",
+                                    "bonus": 2,
+                                    "weapon_type": "melee",
+                                    "condition": "one_handed_no_other_weapons"
+                                }
+                            ]
                         },
                         {
                             "name": "Two-Weapon Fighting",
-                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack."
+                            "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+                            "effects": [
+                                {
+                                    "type": "damage_modifier",
+                                    "modifier": "ability_modifier_to_off_hand",
+                                    "condition": "two_weapon_fighting"
+                                }
+                            ]
                         }
                     ]
                 }
             },
             {
                 "name": "Spellcasting",
-                "description": "You have learned to use the magical essence of nature to cast spells, much as a druid does. See chapter 10 for the general rules of spellcasting and chapter 11 for the ranger spell list."
+                "description": "You have learned to use the magical essence of nature to cast spells, much as a druid does. You know two 1st-level spells of your choice from the ranger spell list. You learn additional ranger spells of your choice at higher levels. The Spells Known column shows when you learn more ranger spells.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "wisdom",
+                    "focus": ["druidic focus", "component pouch"],
+                    "preparation": "known",
+                    "ritual_casting": false
+                }
             }
         ],
         "3": [
             {
                 "name": "Ranger Conclave",
                 "description": "You choose to emulate the ideals and training of a ranger conclave. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.",
-                "choose": {
-                    "count": 1,
-                    "from": [
-                        {
-                            "name": "Hunter",
-                            "description": "Emulating the Hunter archetype means accepting your place as a bulwark between civilization and the terrors of the wilderness."
-                        },
-                        {
-                            "name": "Beast Master",
-                            "description": "The Beast Master archetype embodies a friendship between the civilized races and the beasts of the world."
-                        },
-                        {
-                            "name": "Horizon Walker",
-                            "description": "Horizon Walkers guard the world against threats that originate from other planes or that seek to ravage the mortal realm with otherworldly magic."
-                        }
-                    ]
+                "mechanics": {
+                    "type": "subclass_choice",
+                    "subclass_type": "conclave",
+                    "feature_levels": [3, 7, 11, 15]
                 }
             },
             {
                 "name": "Primeval Awareness",
-                "description": "You can use your action and expend a spell slot to focus your awareness on the region around you. For 1 minute per level of the spell slot you expend, you can sense whether the following types of creatures are present within 1 mile of you (or within up to 6 miles if you are in your favored terrain): aberrations, celestials, dragons, elementals, fey, fiends, and undead."
+                "description": "You can use your action and expend a spell slot to focus your awareness on the region around you. For 1 minute per level of the spell slot you expend, you can sense whether the following types of creatures are present within 1 mile of you (or within up to 6 miles if you are in your favored terrain): aberrations, celestials, dragons, elementals, fey, fiends, and undead.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "action",
+                    "resource": "spell_slot",
+                    "duration": "1_minute_per_spell_level",
+                    "range": {
+                        "base": "1 mile",
+                        "favored_terrain": "6 miles"
+                    },
+                    "effects": [
+                        {
+                            "type": "detection",
+                            "detects": ["aberrations", "celestials", "dragons", "elementals", "fey", "fiends", "undead"],
+                            "reveals": "presence_only"
+                        }
+                    ]
+                }
             }
         ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "5": [
             {
                 "name": "Extra Attack",
-                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+                "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "extra_attack",
+                            "attacks": 2,
+                            "trigger": "attack_action"
+                        }
+                    ]
+                }
             }
         ],
         "6": [
             {
-                "name": "Favored Enemy and Natural Explorer improvements",
-                "description": "You choose one additional favored enemy, as well as one additional favored terrain."
+                "name": "Favored Enemy and Natural Explorer Improvements",
+                "description": "You choose one additional favored enemy, as well as one additional favored terrain. The benefits of these features apply the same way as your first choices.",
+                "mechanics": {
+                    "type": "feature_improvement",
+                    "improves": ["Favored Enemy", "Natural Explorer"],
+                    "effect": {
+                        "type": "additional_choice",
+                        "count": 1,
+                        "for_each_feature": true
+                    }
+                }
             }
         ],
         "7": [
@@ -249,17 +521,73 @@
         "8": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             },
             {
                 "name": "Land's Stride",
-                "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard."
+                "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "movement_immunity",
+                            "immune_to": "nonmagical_difficult_terrain"
+                        },
+                        {
+                            "type": "movement_immunity",
+                            "immune_to": "nonmagical_plant_hindrance"
+                        },
+                        {
+                            "type": "damage_immunity",
+                            "immune_to": "nonmagical_plant_damage",
+                            "source": "thorns_spines_similar"
+                        }
+                    ]
+                }
+            }
+        ],
+        "9": [
+            {
+                "name": "Natural Awareness",
+                "description": "Your connection to nature grants you heightened awareness while in natural environments.",
+                "mechanics": {
+                    "type": "feature_placeholder",
+                    "note": "Level 9 typically has no new features for ranger - spellcasting progression only"
+                }
             }
         ],
         "10": [
             {
                 "name": "Hide in Plain Sight",
-                "description": "You can spend 1 minute creating camouflage for yourself. You must have access to fresh mud, dirt, plants, soot, and other naturally occurring materials with which to create your camouflage. Once you are camouflaged in this way, you can try to hide by pressing yourself up against a solid surface that is at least as tall and wide as you are. You gain a +10 bonus to Dexterity (Stealth) checks as long as you remain there without moving or taking actions."
+                "description": "You can spend 1 minute creating camouflage for yourself. You must have access to fresh mud, dirt, plants, soot, and other naturally occurring materials with which to create your camouflage. Once you are camouflaged in this way, you can try to hide by pressing yourself up against a solid surface that is at least as tall and wide as you are. You gain a +10 bonus to Dexterity (Stealth) checks as long as you remain there without moving or taking actions.",
+                "mechanics": {
+                    "type": "special_ability",
+                    "preparation_time": "1 minute",
+                    "requirements": "natural_materials",
+                    "position_requirement": "against_solid_surface_of_sufficient_size",
+                    "effects": [
+                        {
+                            "type": "skill_bonus",
+                            "skill": "Dexterity (Stealth)",
+                            "bonus": 10,
+                            "condition": "remain_still_no_actions"
+                        }
+                    ]
+                }
             }
         ],
         "11": [
@@ -271,17 +599,64 @@
         "12": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "13": [
+            {
+                "name": "Spellcasting Focus",
+                "description": "Your magical connection to nature deepens, enhancing your spellcasting abilities.",
+                "mechanics": {
+                    "type": "feature_placeholder",
+                    "note": "Level 13 typically has no new features for ranger - spellcasting progression only"
+                }
             }
         ],
         "14": [
             {
-                "name": "Favored Enemy improvement",
-                "description": "You choose one additional favored enemy."
+                "name": "Favored Enemy Improvement",
+                "description": "You choose one additional favored enemy.",
+                "mechanics": {
+                    "type": "feature_improvement",
+                    "improves": "Favored Enemy",
+                    "effect": {
+                        "type": "additional_choice",
+                        "count": 1
+                    }
+                }
             },
             {
                 "name": "Vanish",
-                "description": "You can use the Hide action as a bonus action on your turn. Also, you can't be tracked by nonmagical means, unless you choose to leave a trail."
+                "description": "You can use the Hide action as a bonus action on your turn. Also, you can't be tracked by nonmagical means, unless you choose to leave a trail.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "action_economy",
+                            "action": "Hide",
+                            "new_action_type": "bonus_action"
+                        },
+                        {
+                            "type": "immunity",
+                            "immune_to": "nonmagical_tracking",
+                            "exception": "if_choose_to_leave_trail"
+                        }
+                    ]
+                }
             }
         ],
         "15": [
@@ -293,32 +668,110 @@
         "16": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "17": [
+            {
+                "name": "Enhanced Spellcasting",
+                "description": "Your mastery of ranger magic reaches new heights.",
+                "mechanics": {
+                    "type": "feature_placeholder",
+                    "note": "Level 17 typically has no new features for ranger - spellcasting progression only"
+                }
             }
         ],
         "18": [
             {
                 "name": "Feral Senses",
-                "description": "You gain preternatural senses that help you fight creatures you can't see. When you attack a creature you can't see, your inability to see it doesn't impose disadvantage on your attack rolls against it. You are also aware of the location of any invisible creature within 30 feet of you, provided that the creature isn't hidden from you and you aren't blinded or deafened."
+                "description": "You gain preternatural senses that help you fight creatures you can't see. When you attack a creature you can't see, your inability to see it doesn't impose disadvantage on your attack rolls against it. You are also aware of the location of any invisible creature within 30 feet of you, provided that the creature isn't hidden from you and you aren't blinded or deafened.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "remove_disadvantage",
+                            "condition": "attacking_unseen_creature"
+                        },
+                        {
+                            "type": "detection",
+                            "detects": ["invisible_creatures"],
+                            "range": "30 feet",
+                            "reveals": "location",
+                            "requirements": ["not_hidden", "not_blinded", "not_deafened"]
+                        }
+                    ]
+                }
             }
         ],
         "19": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Foe Slayer",
-                "description": "You become an unparalleled hunter of your enemies. Once on each of your turns, you can add your Wisdom modifier to the attack roll or the damage roll of an attack you make against one of your favored enemies. You can choose to use this feature before or after the roll, but before any effects of the roll are applied."
+                "description": "You become an unparalleled hunter of your enemies. Once on each of your turns, you can add your Wisdom modifier to the attack roll or the damage roll of an attack you make against one of your favored enemies. You can choose to use this feature before or after the roll, but before any effects of the roll are applied.",
+                "mechanics": {
+                    "type": "resource",
+                    "uses": {
+                        "per_turn": 1
+                    },
+                    "target": "favored_enemy",
+                    "choice_timing": "before_or_after_roll_before_effects",
+                    "effects": [
+                        {
+                            "type": "attack_bonus",
+                            "bonus": "wisdom_modifier",
+                            "alternative": true
+                        },
+                        {
+                            "type": "damage_bonus",
+                            "bonus": "wisdom_modifier",
+                            "alternative": true
+                        }
+                    ]
+                }
             }
         ]
     },
     "spellcasting": {
         "ability": "wisdom",
-        "focus": ["druidic focus", "component_pouch"],
-        "spells_known": {
+        "focus": ["druidcraft focus", "component pouch"],
+        "spells_known": "known",
+        "preparation": "none_required",
+        "ritual_casting": false,
+        "cantrips_known": null,
+        "spells_known_per_level": {
             "1": 0,
             "2": 2,
             "3": 3,
@@ -451,25 +904,182 @@
                 "3": [
                     {
                         "name": "Hunter's Prey",
-                        "description": "Choose one of the following features: Colossus Slayer, Giant Killer, or Horde Breaker."
+                        "description": "At 3rd level, you gain one of the following features of your choice.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Colossus Slayer",
+                                    "description": "Your tenacity can wear down the most potent foes. When you hit a creature with a weapon attack, the creature takes an extra 1d8 damage if it's below its hit point maximum. You can deal this extra damage only once per turn.",
+                                    "effects": [
+                                        {
+                                            "type": "weapon_damage_bonus",
+                                            "damage": "1d8",
+                                            "condition": "target_below_max_hp",
+                                            "frequency": "once_per_turn"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Giant Killer",
+                                    "description": "When a Large or larger creature within 5 feet of you hits or misses you with an attack, you can use your reaction to attack that creature immediately after its attack, provided that you can see the creature.",
+                                    "effects": [
+                                        {
+                                            "type": "reaction_attack",
+                                            "action_type": "reaction",
+                                            "trigger": "large_or_larger_creature_attacks_within_5_feet",
+                                            "requirement": "can_see_creature"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Horde Breaker",
+                                    "description": "Once on each of your turns when you make a weapon attack, you can make another attack with the same weapon against a different creature that is within 5 feet of the original target and within range of your weapon.",
+                                    "effects": [
+                                        {
+                                            "type": "bonus_attack",
+                                            "frequency": "once_per_turn",
+                                            "trigger": "weapon_attack",
+                                            "target": "different_creature_within_5_feet_of_original",
+                                            "weapon": "same_weapon"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Defensive Tactics",
-                        "description": "Choose one of the following features: Escape the Horde, Multiattack Defense, or Steel Will."
+                        "description": "At 7th level, you gain one of the following features of your choice.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Escape the Horde",
+                                    "description": "Opportunity attacks against you are made with disadvantage.",
+                                    "effects": [
+                                        {
+                                            "type": "disadvantage_on_attacks_against_self",
+                                            "attack_type": "opportunity_attacks"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Multiattack Defense",
+                                    "description": "When a creature hits you with an attack, you gain a +4 bonus to AC against all subsequent attacks made by that creature for the rest of the turn.",
+                                    "effects": [
+                                        {
+                                            "type": "ac_bonus",
+                                            "bonus": 4,
+                                            "trigger": "hit_by_attack",
+                                            "against": "same_creature_subsequent_attacks",
+                                            "duration": "rest_of_turn"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Steel Will",
+                                    "description": "You have advantage on saving throws against being frightened.",
+                                    "effects": [
+                                        {
+                                            "type": "advantage",
+                                            "on": "saving_throws_against_frightened"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "11": [
                     {
                         "name": "Multiattack",
-                        "description": "Choose one of the following features: Volley or Whirlwind Attack."
+                        "description": "At 11th level, you gain one of the following features of your choice.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Volley",
+                                    "description": "You can use your action to make a ranged attack against any number of creatures within 10 feet of a point you can see within your weapon's range. You must have ammunition for each target, as normal, and you make a separate attack roll for each target.",
+                                    "effects": [
+                                        {
+                                            "type": "area_attack",
+                                            "action_type": "action",
+                                            "weapon_type": "ranged",
+                                            "area": "10_foot_radius",
+                                            "target": "any_number_of_creatures",
+                                            "ammunition_required": "per_target"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Whirlwind Attack",
+                                    "description": "You can use your action to make a melee attack against any number of creatures within 5 feet of you, with a separate attack roll for each target.",
+                                    "effects": [
+                                        {
+                                            "type": "area_attack",
+                                            "action_type": "action",
+                                            "weapon_type": "melee",
+                                            "area": "5_foot_radius",
+                                            "target": "any_number_of_creatures"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Superior Hunter's Defense",
-                        "description": "Choose one of the following features: Evasion, Stand Against the Tide, or Uncanny Dodge."
+                        "description": "At 15th level, you gain one of the following features of your choice.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Evasion",
+                                    "description": "When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail.",
+                                    "effects": [
+                                        {
+                                            "type": "evasion",
+                                            "save_type": "dexterity",
+                                            "success": "no_damage",
+                                            "failure": "half_damage"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Stand Against the Tide",
+                                    "description": "When a hostile creature misses you with a melee attack, you can use your reaction to force that creature to repeat the same attack against another creature (other than you) of your choice.",
+                                    "effects": [
+                                        {
+                                            "type": "redirect_attack",
+                                            "action_type": "reaction",
+                                            "trigger": "hostile_creature_misses_melee_attack",
+                                            "target": "another_creature_of_choice"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Uncanny Dodge",
+                                    "description": "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you.",
+                                    "effects": [
+                                        {
+                                            "type": "damage_reduction",
+                                            "action_type": "reaction",
+                                            "reduction": "half",
+                                            "trigger": "hit_by_attack_from_visible_attacker"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -482,25 +1092,70 @@
                 "3": [
                     {
                         "name": "Ranger's Companion",
-                        "description": "You gain a beast companion that accompanies you on your adventures and is trained to fight alongside you."
+                        "description": "You gain a beast companion that accompanies you on your adventures and is trained to fight alongside you. Choose a beast that is no larger than Medium and that has a challenge rating of 1/4 or lower. Add your proficiency bonus to the beast's AC, attack rolls, and damage rolls, as well as to any saving throws and skills it is proficient in. Its hit point maximum equals its normal maximum or four times your ranger level, whichever is higher.",
+                        "mechanics": {
+                            "type": "companion",
+                            "companion_type": "beast",
+                            "size_limit": "Medium",
+                            "cr_limit": "1/4",
+                            "bonuses": {
+                                "ac": "proficiency_bonus",
+                                "attack_rolls": "proficiency_bonus",
+                                "damage_rolls": "proficiency_bonus",
+                                "saving_throws": "proficiency_bonus_if_proficient",
+                                "skills": "proficiency_bonus_if_proficient"
+                            },
+                            "hit_points": "normal_maximum_or_4_times_ranger_level_whichever_higher"
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Exceptional Training",
-                        "description": "Your beast companion can use its action to Dash, Disengage, or Help as a bonus action."
+                        "description": "Beginning at 7th level, on any of your turns when your beast companion doesn't attack, you can use a bonus action to command the beast to take the Dash, Disengage, or Help action on its turn.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "condition": "beast_companion_doesnt_attack_this_turn",
+                            "effects": [
+                                {
+                                    "type": "command_companion",
+                                    "actions": ["Dash", "Disengage", "Help"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "11": [
                     {
                         "name": "Bestial Fury",
-                        "description": "When you command your beast companion to take the Attack action, the beast can make two attacks."
+                        "description": "Starting at 11th level, your beast companion can make two attacks when you command it to use the Attack action.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Ranger's Companion",
+                            "effect": {
+                                "type": "extra_attack",
+                                "attacks": 2,
+                                "trigger": "commanded_attack_action"
+                            }
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Share Spells",
-                        "description": "When you cast a spell targeting yourself, you can also affect your beast companion with the spell."
+                        "description": "Beginning at 15th level, when you cast a spell targeting yourself, you can also affect your beast companion with the spell if the beast is within 30 feet of you.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "spell_sharing",
+                                    "target": "beast_companion",
+                                    "range": "30 feet",
+                                    "trigger": "cast_spell_targeting_self"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -512,30 +1167,113 @@
             "features": {
                 "3": [
                     {
+                        "name": "Gloom Stalker Magic",
+                        "description": "You learn additional spells when you reach certain levels in this class. These spells count as ranger spells for you, but they don't count against the number of ranger spells you know.",
+                        "mechanics": {
+                            "type": "expanded_spell_list",
+                            "spells": {
+                                "3": ["disguise self"],
+                                "5": ["rope trick"],
+                                "9": ["fear"],
+                                "13": ["greater invisibility"],
+                                "17": ["seeming"]
+                            }
+                        }
+                    },
+                    {
                         "name": "Dread Ambusher",
-                        "description": "You gain extra speed and an additional attack on your first turn in combat, plus bonus damage."
+                        "description": "At 3rd level, you master the art of the ambush. You can give yourself a bonus to your initiative rolls equal to your Wisdom modifier. At the start of your first turn of each combat, your walking speed increases by 10 feet, which lasts until the end of that turn. If you take the Attack action on that turn, you can make one additional weapon attack as part of that action. If that attack hits, the target takes an extra 1d8 damage of the weapon's damage type.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "initiative_bonus",
+                                    "bonus": "wisdom_modifier"
+                                },
+                                {
+                                    "type": "speed_increase",
+                                    "bonus": 10,
+                                    "duration": "first_turn_of_combat"
+                                },
+                                {
+                                    "type": "bonus_attack",
+                                    "trigger": "attack_action_on_first_turn",
+                                    "damage_bonus": "1d8"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Umbral Sight",
-                        "description": "You gain darkvision and are invisible to creatures that rely on darkvision to see you in darkness."
+                        "description": "At 3rd level, you gain darkvision out to a range of 60 feet. If you already have darkvision from your race, its range increases by 30 feet. You are also adept at evading creatures that rely on darkvision. While in darkness, you are invisible to any creature that relies on darkvision to see you in that darkness.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "darkvision",
+                                    "range": "60 feet",
+                                    "improvement": "30 feet if already have darkvision"
+                                },
+                                {
+                                    "type": "conditional_invisibility",
+                                    "condition": "in_darkness",
+                                    "against": "creatures_using_darkvision"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Iron Mind",
-                        "description": "You gain proficiency in Wisdom saving throws."
+                        "description": "By 7th level, you have honed your ability to resist the mind-altering powers of your prey. You gain proficiency in Wisdom saving throws. If you already have this proficiency, you instead gain proficiency in Intelligence or Charisma saving throws (your choice).",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "saving_throws": ["wisdom"],
+                            "alternative": {
+                                "if_already_proficient": {
+                                    "choice": ["intelligence", "charisma"]
+                                }
+                            }
+                        }
                     }
                 ],
                 "11": [
                     {
                         "name": "Stalker's Flurry",
-                        "description": "When you miss with an attack, you can make an additional attack as part of the same action."
+                        "description": "At 11th level, you learn to attack with such unexpected speed that you can turn a miss into another strike. Once on each of your turns when you miss with a weapon attack, you can make another weapon attack as part of the same action.",
+                        "mechanics": {
+                            "type": "resource",
+                            "uses": {
+                                "per_turn": 1
+                            },
+                            "trigger": "miss_with_weapon_attack",
+                            "effects": [
+                                {
+                                    "type": "bonus_attack",
+                                    "weapon": "weapon_attack",
+                                    "timing": "same_action"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Shadowy Dodge",
-                        "description": "When a creature attacks you and doesn't have advantage, you can use your reaction to impose disadvantage."
+                        "description": "Starting at 15th level, you can dodge in unforeseen ways, with wisps of supernatural shadow around you. Whenever a creature makes an attack roll against you and doesn't have advantage on the roll, you can use your reaction to impose disadvantage on it. You must use this feature before you know the outcome of the attack roll.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "reaction",
+                            "trigger": "attacked_without_advantage",
+                            "timing": "before_knowing_outcome",
+                            "effects": [
+                                {
+                                    "type": "impose_disadvantage",
+                                    "on": "attack_roll"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -547,30 +1285,117 @@
             "features": {
                 "3": [
                     {
+                        "name": "Horizon Walker Magic",
+                        "description": "You learn additional spells when you reach certain levels in this class. These spells count as ranger spells for you, but they don't count against the number of ranger spells you know.",
+                        "mechanics": {
+                            "type": "expanded_spell_list",
+                            "spells": {
+                                "3": ["protection from evil and good"],
+                                "5": ["misty step"],
+                                "9": ["haste"],
+                                "13": ["banishment"],
+                                "17": ["teleportation circle"]
+                            }
+                        }
+                    },
+                    {
                         "name": "Detect Portal",
-                        "description": "You can use an action to detect the distance and direction to the closest planar portal."
+                        "description": "At 3rd level, you gain the ability to magically sense the presence of a planar portal. As an action, you detect the distance and direction to the closest planar portal within 1 mile of you. Once you use this feature, you can't use it again until you finish a short or long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "range": "1 mile",
+                            "uses": {
+                                "per_rest": "short",
+                                "amount": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "detection",
+                                    "detects": ["planar_portals"],
+                                    "reveals": "distance_and_direction"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Planar Warrior",
-                        "description": "As a bonus action, choose a creature. Your attacks against it deal extra force damage and become magical."
+                        "description": "At 3rd level, you learn to draw on the energy of the multiverse to augment your attacks. As a bonus action, choose one creature you can see within 30 feet of you. The next time you hit that creature on this turn with a weapon attack, all damage dealt by the attack becomes force damage, and the creature takes an extra 1d8 force damage. When you reach 11th level in this class, the extra damage increases to 2d8.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "range": "30 feet",
+                            "duration": "this_turn",
+                            "effects": [
+                                {
+                                    "type": "damage_type_change",
+                                    "new_type": "force"
+                                },
+                                {
+                                    "type": "damage_bonus",
+                                    "damage": {
+                                        "3": "1d8",
+                                        "11": "2d8"
+                                    },
+                                    "damage_type": "force"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "7": [
                     {
                         "name": "Ethereal Step",
-                        "description": "You can cast etherealness with this feature, without expending a spell slot."
+                        "description": "At 7th level, you learn to step through the Ethereal Plane. As a bonus action, you can cast the etherealness spell with this feature, without expending a spell slot, but the spell ends at the end of the current turn. Once you use this feature, you can't use it again until you finish a short or long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "spell": "etherealness",
+                            "duration": "end_of_current_turn",
+                            "uses": {
+                                "per_rest": "short",
+                                "amount": 1
+                            }
+                        }
                     }
                 ],
                 "11": [
                     {
                         "name": "Distant Strike",
-                        "description": "You can teleport before each attack and can attack an additional creature if each attack targets a different one."
+                        "description": "At 11th level, you gain the ability to pass between the planes in a blink of an eye. When you use the Attack action, you can teleport up to 10 feet before each attack to an unoccupied space you can see. If you attack at least two different creatures with the action, you can make one additional attack with it against a third creature.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "attack_action",
+                            "effects": [
+                                {
+                                    "type": "teleport_before_attack",
+                                    "distance": "10 feet",
+                                    "target": "unoccupied_space_you_can_see"
+                                },
+                                {
+                                    "type": "bonus_attack",
+                                    "condition": "attack_at_least_two_different_creatures",
+                                    "target": "third_creature"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "15": [
                     {
                         "name": "Spectral Defense",
-                        "description": "When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage."
+                        "description": "At 15th level, your ability to move between planes enables you to slip through the multiverse to avoid an enemy's attack. When you take damage from an attack, you can use your reaction to give yourself resistance to all of that attack's damage on this turn.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "reaction",
+                            "trigger": "take_damage_from_attack",
+                            "effects": [
+                                {
+                                    "type": "damage_resistance",
+                                    "applies_to": "all_damage_from_triggering_attack"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

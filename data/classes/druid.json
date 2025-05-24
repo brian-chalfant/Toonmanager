@@ -69,43 +69,384 @@
         "1": [
             {
                 "name": "Druidic",
-                "description": "You know Druidic, the secret language of druids."
+                "description": "You know Druidic, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message's presence with a successful DC 15 Wisdom (Perception) check but can't decipher it without magic.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "language_proficiency",
+                            "languages": ["Druidic"]
+                        },
+                        {
+                            "type": "special_ability",
+                            "name": "hidden_messages",
+                            "description": "Can leave and read hidden messages in Druidic"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Spellcasting",
-                "description": "You can cast prepared druid spells using Wisdom as your spellcasting ability. You use a druidic focus as a spellcasting focus."
+                "description": "You can cast prepared druid spells using Wisdom as your spellcasting ability. You use a druidic focus as a spellcasting focus.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "wisdom",
+                    "focus": ["druidic focus"],
+                    "preparation": "prepared",
+                    "ritual_casting": true
+                }
             }
         ],
         "2": [
             {
                 "name": "Wild Shape",
-                "description": "You can use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest. (See PHB for full limitations and progression.)"
+                "description": "You can use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "action",
+                    "uses": {
+                        "per_short_rest": 2
+                    },
+                    "progression": {
+                        "max_cr": {
+                            "2": 0.25,
+                            "4": 0.5,
+                            "8": 1
+                        },
+                        "swim_speed": {
+                            "4": true
+                        },
+                        "fly_speed": {
+                            "8": true
+                        }
+                    },
+                    "restrictions": [
+                        "No fly speed before 8th level",
+                        "No swim speed before 4th level",
+                        "Cannot transform into beast with CR higher than listed"
+                    ]
+                }
             },
             {
                 "name": "Druid Circle",
                 "description": "You choose to identify with a circle of druids, gaining features at 2nd, 6th, 10th, and 14th level."
             }
         ],
+        "3": [
+            {
+                "name": "Wild Shape (CR 1/4)",
+                "description": "You can now transform into beasts with a challenge rating of 1/4 or lower that do not have a flying or swimming speed.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Wild Shape",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 0.25
+                    }
+                }
+            }
+        ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            },
+            {
+                "name": "Wild Shape (Swimming)",
+                "description": "You can now transform into beasts that have a swimming speed.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Wild Shape",
+                    "effect": {
+                        "type": "allow_swimming_forms",
+                        "description": "Can now transform into beasts with swimming speed"
+                    }
+                }
+            }
+        ],
+        "5": [
+            {
+                "name": "Wild Shape (CR 1/2)",
+                "description": "You can now transform into beasts with a challenge rating of 1/2 or lower.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Wild Shape",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 0.5
+                    }
+                }
+            }
+        ],
+        "6": [
+            {
+                "name": "Druid Circle Feature",
+                "description": "You gain a feature from your Druid Circle."
+            }
+        ],
+        "7": [
+            {
+                "name": "Wild Shape (CR 1/2)",
+                "description": "Your Wild Shape improves - no new mechanics, but preparation for next level.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "preparation",
+                            "description": "Preparing for level 8 Wild Shape improvement"
+                        }
+                    ]
+                }
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            },
+            {
+                "name": "Wild Shape (CR 1, Flying)",
+                "description": "You can now transform into beasts with a challenge rating of 1 or lower, and beasts that have a flying speed.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Wild Shape",
+                    "effects": [
+                        {
+                            "type": "increase_max_cr",
+                            "new_max_cr": 1
+                        },
+                        {
+                            "type": "allow_flying_forms",
+                            "description": "Can now transform into beasts with flying speed"
+                        }
+                    ]
+                }
+            }
+        ],
+        "9": [
+            {
+                "name": "Wild Shape (CR 1)",
+                "description": "Your mastery of Wild Shape continues to grow.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "mastery_growth",
+                            "description": "Continued mastery of Wild Shape abilities"
+                        }
+                    ]
+                }
+            }
+        ],
+        "10": [
+            {
+                "name": "Druid Circle Feature",
+                "description": "You gain a feature from your Druid Circle."
+            }
+        ],
+        "11": [
+            {
+                "name": "Wild Shape (CR 1)",
+                "description": "Your Wild Shape mastery continues.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "mastery_continuation",
+                            "description": "Continued development of Wild Shape mastery"
+                        }
+                    ]
+                }
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "13": [
+            {
+                "name": "Wild Shape (CR 1)",
+                "description": "Your Wild Shape abilities continue to develop.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "continued_development",
+                            "description": "Ongoing development of Wild Shape mastery"
+                        }
+                    ]
+                }
+            }
+        ],
+        "14": [
+            {
+                "name": "Druid Circle Feature",
+                "description": "You gain a feature from your Druid Circle."
+            }
+        ],
+        "15": [
+            {
+                "name": "Wild Shape (CR 1)",
+                "description": "Your Wild Shape mastery reaches new heights.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "heightened_mastery",
+                            "description": "Wild Shape mastery reaches new levels"
+                        }
+                    ]
+                }
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "17": [
+            {
+                "name": "Wild Shape (CR 1)",
+                "description": "You approach the pinnacle of Wild Shape mastery.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "approaching_pinnacle",
+                            "description": "Approaching the ultimate mastery of Wild Shape"
+                        }
+                    ]
+                }
             }
         ],
         "18": [
             {
                 "name": "Timeless Body",
-                "description": "You age more slowly. For every 10 years that pass, your body ages only 1 year."
+                "description": "The primal magic that you wield causes you to age more slowly. For every 10 years that pass, your body ages only 1 year.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "slow_aging",
+                            "rate": "1_year_per_10_years"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Beast Spells",
-                "description": "You can cast many of your druid spells in any shape you assume using Wild Shape."
+                "description": "You can cast many of your druid spells in any shape you assume using Wild Shape. You can perform the somatic and verbal components of a druid spell while in a beast shape, but you aren't able to provide material components.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Wild Shape",
+                    "effects": [
+                        {
+                            "type": "spellcasting_in_form",
+                            "allows": ["verbal", "somatic"],
+                            "restricts": ["material_components"]
+                        }
+                    ]
+                }
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Archdruid",
-                "description": "You can use Wild Shape an unlimited number of times. Additionally, you can ignore the verbal and somatic components of druid spells, as well as any material components that lack a cost and aren't consumed by the spell, while in Wild Shape."
+                "description": "You can use Wild Shape an unlimited number of times. Additionally, you can ignore the verbal and somatic components of druid spells, as well as any material components that lack a cost and aren't consumed by the spell. You gain this benefit in both your normal shape and your beast shape from Wild Shape.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": ["Wild Shape", "Spellcasting"],
+                    "effects": [
+                        {
+                            "type": "unlimited_uses",
+                            "applies_to": "Wild Shape"
+                        },
+                        {
+                            "type": "ignore_components",
+                            "components": ["verbal", "somatic"],
+                            "material_restriction": "no_cost_and_not_consumed"
+                        }
+                    ]
+                }
             }
         ]
     },
@@ -280,33 +621,173 @@
                 "2": [
                     {
                         "name": "Bonus Cantrip",
-                        "description": "You learn one additional druid cantrip of your choice."
+                        "description": "You learn one additional druid cantrip of your choice.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "bonus_cantrip",
+                                    "source": "druid",
+                                    "choose": 1
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Natural Recovery",
-                        "description": "You can regain some spell slots during a short rest (see PHB for details)."
+                        "description": "You can regain some of your magical energy by sitting in meditation and communing with nature. During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level (rounded up), and none of the slots can be 6th level or higher.",
+                        "mechanics": {
+                            "type": "resource",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "timing": "short_rest",
+                            "recovery": {
+                                "type": "spell_slots",
+                                "formula": "half_druid_level_rounded_up",
+                                "max_slot_level": 5
+                            }
+                        }
                     },
                     {
                         "name": "Circle Spells",
-                        "description": "You gain additional druid spells based on your chosen land type (see PHB for the full list)."
+                        "description": "Your mystical connection to the land infuses you with the ability to cast certain spells. You gain access to circle spells based on your chosen land type. These spells are always prepared and don't count against the number of spells you can prepare each day.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Arctic",
+                                    "spells": {
+                                        "3": ["hold person", "spike growth"],
+                                        "5": ["sleet storm", "slow"],
+                                        "7": ["freedom of movement", "ice storm"],
+                                        "9": ["commune with nature", "cone of cold"]
+                                    }
+                                },
+                                {
+                                    "name": "Coast",
+                                    "spells": {
+                                        "3": ["mirror image", "misty step"],
+                                        "5": ["water breathing", "water walk"],
+                                        "7": ["control water", "freedom of movement"],
+                                        "9": ["conjure elemental", "scrying"]
+                                    }
+                                },
+                                {
+                                    "name": "Desert",
+                                    "spells": {
+                                        "3": ["blur", "silence"],
+                                        "5": ["create food and water", "protection from energy"],
+                                        "7": ["blight", "hallucinatory terrain"],
+                                        "9": ["insect plague", "wall of stone"]
+                                    }
+                                },
+                                {
+                                    "name": "Forest",
+                                    "spells": {
+                                        "3": ["barkskin", "spider climb"],
+                                        "5": ["call lightning", "plant growth"],
+                                        "7": ["divination", "freedom of movement"],
+                                        "9": ["commune with nature", "tree stride"]
+                                    }
+                                },
+                                {
+                                    "name": "Grassland",
+                                    "spells": {
+                                        "3": ["invisibility", "pass without trace"],
+                                        "5": ["daylight", "haste"],
+                                        "7": ["divination", "freedom of movement"],
+                                        "9": ["dream", "insect plague"]
+                                    }
+                                },
+                                {
+                                    "name": "Mountain",
+                                    "spells": {
+                                        "3": ["spider climb", "spike growth"],
+                                        "5": ["lightning bolt", "meld into stone"],
+                                        "7": ["stone shape", "stoneskin"],
+                                        "9": ["passwall", "wall of stone"]
+                                    }
+                                },
+                                {
+                                    "name": "Swamp",
+                                    "spells": {
+                                        "3": ["darkness", "Melf's acid arrow"],
+                                        "5": ["water walk", "stinking cloud"],
+                                        "7": ["freedom of movement", "locate creature"],
+                                        "9": ["insect plague", "scrying"]
+                                    }
+                                },
+                                {
+                                    "name": "Underdark",
+                                    "spells": {
+                                        "3": ["spider climb", "web"],
+                                        "5": ["gaseous form", "stinking cloud"],
+                                        "7": ["greater invisibility", "stone shape"],
+                                        "9": ["cloudkill", "insect plague"]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Land's Stride",
-                        "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed."
+                        "description": "Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "movement",
+                                    "benefit": "ignore_nonmagical_difficult_terrain"
+                                },
+                                {
+                                    "type": "movement", 
+                                    "benefit": "pass_through_nonmagical_plants_without_hindrance"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "10": [
                     {
                         "name": "Nature's Ward",
-                        "description": "You can't be charmed or frightened by elementals or fey, and you are immune to poison and disease."
+                        "description": "You can't be charmed or frightened by elementals or fey, and you are immune to poison and disease.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "immunity",
+                                    "to": ["charmed_by_elementals", "charmed_by_fey", "frightened_by_elementals", "frightened_by_fey"]
+                                },
+                                {
+                                    "type": "immunity",
+                                    "to": ["poison", "disease"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Nature's Sanctuary",
-                        "description": "Creatures of the natural world are hesitant to attack you. When a beast or plant creature attacks you, it must make a Wisdom saving throw or choose a different target."
+                        "description": "Creatures of the natural world sense your connection to nature and become hesitant to attack you. When a beast or plant creature attacks you, that creature must make a Wisdom saving throw against your spell save DC. On a failed save, the creature must choose a different target, or the attack automatically misses.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "attacked_by_beast_or_plant",
+                            "save": {
+                                "ability": "wisdom",
+                                "dc": "spell_save_dc"
+                            },
+                            "effects": [
+                                {
+                                    "type": "forced_retarget_or_miss",
+                                    "on_failed_save": true
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -318,29 +799,99 @@
                 "2": [
                     {
                         "name": "Combat Wild Shape",
-                        "description": "You can use Wild Shape as a bonus action. Additionally, you can use a bonus action to expend a spell slot to regain 1d8 hit points per level of the spell slot expended while in Wild Shape."
+                        "description": "You can use Wild Shape as a bonus action, rather than as an action. Additionally, while you are transformed by Wild Shape, you can use a bonus action to expend one spell slot to regain 1d8 hit points per level of the spell slot expended.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Wild Shape",
+                            "effects": [
+                                {
+                                    "type": "change_action_type",
+                                    "from": "action",
+                                    "to": "bonus_action"
+                                },
+                                {
+                                    "type": "healing_option",
+                                    "action_type": "bonus_action",
+                                    "cost": "spell_slot",
+                                    "healing": "1d8_per_slot_level",
+                                    "condition": "while_in_wild_shape"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Circle Forms",
-                        "description": "You can transform into more dangerous animal forms, including those with a challenge rating as high as 1 (and higher as you gain levels)."
+                        "description": "The rites of your circle grant you the ability to transform into more dangerous animal forms. You can transform into a beast with a challenge rating as high as 1. You ignore the Max CR restriction of the Beast Shapes table, but must abide by the other limitations there.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Wild Shape",
+                            "effects": [
+                                {
+                                    "type": "increase_max_cr",
+                                    "progression": {
+                                        "2": 1,
+                                        "4": 1,
+                                        "6": 2,
+                                        "8": 2,
+                                        "10": 3,
+                                        "12": 3,
+                                        "14": 4,
+                                        "16": 4,
+                                        "18": 5,
+                                        "20": 6
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Primal Strike",
-                        "description": "Your attacks in beast form count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage."
+                        "description": "Starting at 6th level, your attacks in beast form count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Wild Shape",
+                            "effects": [
+                                {
+                                    "type": "magical_attacks",
+                                    "condition": "while_in_beast_form"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "10": [
                     {
                         "name": "Elemental Wild Shape",
-                        "description": "You can expend two uses of Wild Shape at the same time to transform into an air, earth, fire, or water elemental."
+                        "description": "You can expend two uses of Wild Shape at the same time to transform into an air elemental, an earth elemental, a fire elemental, or a water elemental.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "cost": "2_wild_shape_uses",
+                            "effects": [
+                                {
+                                    "type": "elemental_transformation",
+                                    "options": ["air_elemental", "earth_elemental", "fire_elemental", "water_elemental"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Thousand Forms",
-                        "description": "You can cast alter self at will, without expending a spell slot."
+                        "description": "You have learned to use magic to alter your physical form in more subtle ways. You can cast the alter self spell at will.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "at_will_spell",
+                                    "spell": "alter self",
+                                    "no_slot_required": true
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -416,29 +967,133 @@
                 "2": [
                     {
                         "name": "Halo of Spores",
-                        "description": "You can deal necrotic damage to a creature within 10 feet of you as a reaction."
+                        "description": "You are surrounded by invisible, necrotic spores that are harmless until you unleash them on a creature nearby. When a creature you can see moves into a space within 10 feet of you or starts its turn there, you can use your reaction to deal 1d4 necrotic damage to that creature unless it succeeds on a Constitution saving throw against your spell save DC. The necrotic damage increases to 1d6 at 6th level, 1d8 at 10th level, and 1d10 at 14th level.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "action_type": "reaction",
+                            "range": 10,
+                            "trigger": "creature_enters_or_starts_turn_within_range",
+                            "save": {
+                                "ability": "constitution",
+                                "dc": "spell_save_dc"
+                            },
+                            "damage": {
+                                "type": "necrotic",
+                                "progression": {
+                                    "2": "1d4",
+                                    "6": "1d6",
+                                    "10": "1d8",
+                                    "14": "1d10"
+                                }
+                            }
+                        }
                     },
                     {
                         "name": "Symbiotic Entity",
-                        "description": "You can use your Wild Shape to enhance your spores, gaining temporary hit points and additional damage."
+                        "description": "You gain the ability to channel magic into your spores. As an action, you can expend a use of your Wild Shape feature to awaken those spores, rather than transforming into a beast form, and you gain 4 temporary hit points for each level you have in this class. While this feature is active, you gain benefits and your Halo of Spores damage increases by 1 die.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "cost": "1_wild_shape_use",
+                            "duration": {
+                                "value": 10,
+                                "unit": "minutes"
+                            },
+                            "effects": [
+                                {
+                                    "type": "temporary_hit_points",
+                                    "formula": "4_per_druid_level"
+                                },
+                                {
+                                    "type": "damage_enhancement",
+                                    "enhances": "Halo of Spores",
+                                    "bonus": "1_additional_die"
+                                },
+                                {
+                                    "type": "melee_weapon_damage_bonus",
+                                    "damage": "necrotic",
+                                    "amount": "1d6"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "6": [
                     {
                         "name": "Fungal Infestation",
-                        "description": "When a humanoid dies near you, you can animate it as a zombie temporarily using your reaction."
+                        "description": "Your spores gain the ability to infest a humanoid corpse and animate it. If a beast or a humanoid that is Small or Medium dies within 10 feet of you, you can use your reaction to animate it, causing it to stand up immediately with 1 hit point. The creature uses the zombie stat block in the Monster Manual. It remains animate for 1 hour, after which time it collapses and dies.",
+                        "mechanics": {
+                            "type": "reaction",
+                            "action_type": "reaction",
+                            "range": 10,
+                            "trigger": "small_or_medium_beast_or_humanoid_dies_within_range",
+                            "uses": {
+                                "per_long_rest": "wisdom_modifier"
+                            },
+                            "effects": [
+                                {
+                                    "type": "animate_creature",
+                                    "stat_block": "zombie",
+                                    "hit_points": 1,
+                                    "duration": {
+                                        "value": 1,
+                                        "unit": "hour"
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "10": [
                     {
                         "name": "Spreading Spores",
-                        "description": "You gain the ability to create spore clouds that harm your enemies and create difficult terrain."
+                        "description": "You gain the ability to seed an area with deadly spores. As a bonus action while your Symbiotic Entity feature is active, you can hurl spores up to 30 feet away, where they swirl in a 10-foot cube for 1 minute. The spores disappear early if you use this feature again, if you dismiss them as a bonus action, or if your Symbiotic Entity feature is no longer active.",
+                        "mechanics": {
+                            "type": "bonus_action",
+                            "action_type": "bonus_action",
+                            "range": 30,
+                            "area": "10_foot_cube",
+                            "duration": {
+                                "value": 1,
+                                "unit": "minute"
+                            },
+                            "condition": "symbiotic_entity_active",
+                            "effects": [
+                                {
+                                    "type": "difficult_terrain",
+                                    "area": "10_foot_cube"
+                                },
+                                {
+                                    "type": "damage_on_entry",
+                                    "damage": "2d8",
+                                    "damage_type": "necrotic",
+                                    "save": {
+                                        "ability": "constitution",
+                                        "dc": "spell_save_dc",
+                                        "success": "half_damage"
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "14": [
                     {
                         "name": "Fungal Body",
-                        "description": "You gain immunity to critical hits and resistance to bludgeoning, piercing, and slashing damage."
+                        "description": "The fungal spores in your body alter you: you can't be blinded, deafened, frightened, or poisoned, and any critical hit against you counts as a normal hit instead, unless you're incapacitated.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "immunity",
+                                    "to": ["blinded", "deafened", "frightened", "poisoned"]
+                                },
+                                {
+                                    "type": "critical_hit_negation",
+                                    "condition": "not_incapacitated"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

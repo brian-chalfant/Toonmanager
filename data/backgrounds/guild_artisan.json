@@ -1,0 +1,119 @@
+{
+    "name": "Guild Artisan",
+    "description": "You are a member of an artisan's guild, skilled in a particular field and closely associated with other artisans.",
+    "feature": {
+        "name": "Guild Membership",
+        "description": "As an established and respected member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities and towns, a guildhall offers a central place to meet other members of your profession, which can be a good place to meet potential patrons, allies, or hirelings. Guilds often wield tremendous political power. If you are accused of a crime, your guild will support you if a good case can be made for your innocence or the crime is justifiable. You can also gain access to powerful political figures through the guild, if you are a member in good standing. Such connections might require the donation of money or magic items to the guild's coffers. You must pay dues of 5 gp per month to the guild. If you miss payments, you must make up back dues to remain in the guild's good graces."
+    },
+    "proficiency_grants": {
+        "skills": [
+            "Insight",
+            "Persuasion"
+        ],
+        "languages": {
+            "count": 1,
+            "type": "choice",
+            "description": "One language of your choice"
+        },
+        "tools": [
+            {
+                "type": "artisan's tools",
+                "quantity": 1,
+                "description": "One type of artisan's tools"
+            }
+        ]
+    },
+    "equipment_grants": {
+        "fixed": [
+            {
+                "item": "Artisan's Tools",
+                "quantity": 1,
+                "description": "A set of artisan's tools (one of your choice)"
+            },
+            {
+                "item": "Letter of Introduction",
+                "quantity": 1,
+                "description": "A letter of introduction from your guild"
+            },
+            {
+                "item": "Traveler's Clothes",
+                "quantity": 1,
+                "description": "A set of traveler's clothes"
+            }
+        ],
+        "currency": {
+            "gold": 15
+        }
+    },
+    "personality": {
+        "personality_traits": {
+            "suggestions": [
+                "I believe that anything worth doing is worth doing right. I can't help it— I'm a perfectionist.",
+                "I'm a snob who looks down on those who can't appreciate fine art.",
+                "I always want to know how things work and what makes people tick.",
+                "I'm full of witty aphorisms and have a proverb for every occasion.",
+                "I'm rude to people who lack my commitment to hard work and fair play.",
+                "I like to talk at length about my profession.",
+                "I don't part with my money easily and will haggle tirelessly to get the best deal possible.",
+                "I'm well known for my work, and I want to make sure everyone appreciates it. I'm always taken aback when people haven't heard of me."
+            ],
+            "count": 2,
+            "type": "choice"
+        },
+        "ideals": {
+            "suggestions": [
+                {
+                    "ideal": "Community. It is the duty of all civilized people to strengthen the bonds of community and the security of civilization.",
+                    "alignment": "Lawful"
+                },
+                {
+                    "ideal": "Generosity. My talents were given to me so that I could use them to benefit the world.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Freedom. Everyone should be free to pursue his or her own livelihood.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Greed. I'm only in it for the money.",
+                    "alignment": "Evil"
+                },
+                {
+                    "ideal": "People. I'm committed to the people I care about, not to ideals.",
+                    "alignment": "Neutral"
+                },
+                {
+                    "ideal": "Aspiration. I work hard to be the best there is at my craft.",
+                    "alignment": "Any"
+                }
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "bonds": {
+            "suggestions": [
+                "The workshop where I learned my trade is the most important place in the world to me.",
+                "I created a great work for someone, and then found them unworthy to receive it. I'm still looking for someone worthy.",
+                "I owe my guild a great debt for forging me into the person I am today.",
+                "I pursue wealth to secure someone's love.",
+                "One day I will return to my guild and prove that I am the greatest artisan of them all.",
+                "I will get revenge on the evil forces that destroyed my place of business and ruined my livelihood."
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "flaws": {
+            "suggestions": [
+                "I'll do anything to get my hands on something rare or priceless.",
+                "I'm quick to assume that someone is trying to cheat me.",
+                "No one must ever learn that I once stole money from guild coffers.",
+                "I'm never satisfied with what I have— I always want more.",
+                "I would kill to acquire a noble title.",
+                "I'm horribly jealous of anyone who can outshine my handiwork. Everywhere I go, I'm surrounded by rivals."
+            ],
+            "count": 1,
+            "type": "choice"
+        }
+    },
+    "suggested_characteristics": "Guild artisans are among the most ordinary people in the world—until they set down their tools and take up an adventuring career. They understand the value of hard work and the importance of community, but they're vulnerable to sins of greed and covetousness."
+} 

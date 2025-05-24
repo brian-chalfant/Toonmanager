@@ -58,23 +58,74 @@
         "1": [
             {
                 "name": "Spellcasting",
-                "description": "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power. You can cast wizard spells using Intelligence as your spellcasting ability. You use your Intelligence whenever a spell refers to your spellcasting ability."
+                "description": "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power. You can cast wizard spells using Intelligence as your spellcasting ability. You use your Intelligence whenever a spell refers to your spellcasting ability. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "intelligence",
+                    "focus": ["arcane focus", "component pouch"],
+                    "preparation": "prepared",
+                    "ritual_casting": true,
+                    "spell_list": "wizard",
+                    "spellbook": {
+                        "initial_spells": 6,
+                        "spells_per_level": 2,
+                        "copying_rules": {
+                            "time_per_spell_level": "2 hours",
+                            "cost_per_spell_level": "50 gp"
+                        }
+                    }
+                }
             },
             {
                 "name": "Arcane Recovery",
-                "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher."
+                "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.",
+                "mechanics": {
+                    "type": "resource",
+                    "uses": {
+                        "per_rest": "long",
+                        "amount": 1
+                    },
+                    "trigger": "short_rest",
+                    "effects": [
+                        {
+                            "type": "recover_spell_slots",
+                            "max_total_levels": "half_wizard_level_rounded_up",
+                            "max_individual_slot_level": 5,
+                            "choice": "player_chooses_combination"
+                        }
+                    ]
+                }
             }
         ],
         "2": [
             {
                 "name": "Arcane Tradition",
-                "description": "You choose an arcane tradition, shaping your practice of magic through one of eight schools: Abjuration, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, or Transmutation. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level."
+                "description": "When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through one of several schools such as Evocation or Abjuration. The tradition you choose grants you features at 2nd level and again at 6th, 10th, and 14th level.",
+                "mechanics": {
+                    "type": "subclass_choice",
+                    "subclass_type": "tradition",
+                    "feature_levels": [2, 6, 10, 14]
+                }
             }
         ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "6": [
@@ -86,7 +137,21 @@
         "8": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "10": [
@@ -98,7 +163,21 @@
         "12": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "14": [
@@ -110,36 +189,121 @@
         "16": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "18": [
             {
                 "name": "Spell Mastery",
-                "description": "You have achieved such mastery over certain spells that you can cast them at will. Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal."
+                "description": "At 18th level, you have achieved such mastery over certain spells that you can cast them at will. Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal. By spending 8 hours in study, you can exchange one or both of the spells you chose for different spells of the same levels.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 2,
+                    "options": [
+                        {
+                            "name": "1st-level spell",
+                            "description": "Choose a 1st-level wizard spell from your spellbook",
+                            "requirements": ["spell_in_spellbook", "1st_level_wizard_spell"]
+                        },
+                        {
+                            "name": "2nd-level spell",
+                            "description": "Choose a 2nd-level wizard spell from your spellbook",
+                            "requirements": ["spell_in_spellbook", "2nd_level_wizard_spell"]
+                        }
+                    ],
+                    "effects": [
+                        {
+                            "type": "at_will_casting",
+                            "spells": "chosen_spells",
+                            "spell_level": "lowest_level",
+                            "condition": "spell_prepared",
+                            "higher_levels": "requires_spell_slot"
+                        }
+                    ],
+                    "change_option": {
+                        "time_required": "8 hours",
+                        "description": "Can exchange one or both spells for different spells of same levels"
+                    }
+                }
             }
         ],
         "19": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Signature Spells",
-                "description": "You gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest."
+                "description": "When you reach 20th level, you gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 2,
+                    "from": "3rd_level_wizard_spells_in_spellbook",
+                    "effects": [
+                        {
+                            "type": "always_prepared",
+                            "spells": "chosen_signature_spells",
+                            "preparation_limit": "doesnt_count_against_limit"
+                        },
+                        {
+                            "type": "free_casting",
+                            "spells": "chosen_signature_spells",
+                            "spell_level": 3,
+                            "uses": {
+                                "per_rest": "short",
+                                "amount": 1,
+                                "per_spell": true
+                            }
+                        }
+                    ]
+                }
             }
         ]
     },
     "spellcasting": {
         "ability": "intelligence",
-        "focus": ["arcane_focus", "component_pouch"],
+        "focus": ["arcane focus", "component pouch"],
+        "spells_known": "prepared",
+        "preparation": "prepared",
+        "ritual_casting": true,
         "cantrips_known": {
             "1": 3,
             "4": 4,
-            "10": 5,
-            "20": 5
+            "10": 5
+        },
+        "spells_prepared": {
+            "formula": "wizard_level + intelligence_modifier",
+            "minimum": 1
         },
         "spellbook_rules": {
             "initial_spells": 6,
@@ -301,73 +465,225 @@
         }
     },
     "subclass_level": 2,
-    "subclasses": {
-        "name": "Arcane Tradition",
-        "options": [
+    "subclasses": [
             {
                 "name": "School of Abjuration",
-                "description": "The School of Abjuration emphasizes magic that blocks, banishes, or protects.",
+                "description": "The School of Abjuration emphasizes magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation.",
+                "source": "PHB",
                 "features": {
                     "2": [
                         {
                             "name": "Abjuration Savant",
-                            "description": "The gold and time you must spend to copy an abjuration spell into your spellbook is halved."
+                            "description": "Beginning when you select this school at 2nd level, the gold and time you must spend to copy an abjuration spell into your spellbook is halved.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "spell_copying_discount",
+                                        "school": "abjuration",
+                                        "cost_multiplier": 0.5,
+                                        "time_multiplier": 0.5
+                                    }
+                                ]
+                            }
                         },
                         {
                             "name": "Arcane Ward",
-                            "description": "You can weave magic around yourself for protection. When you cast an abjuration spell of 1st level or higher, you can simultaneously use a strand of the spell's magic to create a magical ward on yourself that lasts until you finish a long rest. The ward has hit points equal to twice your wizard level + your Intelligence modifier."
+                            "description": "Starting at 2nd level, you can weave magic around yourself for protection. When you cast an abjuration spell of 1st level or higher, you can simultaneously use a strand of the spell's magic to create a magical ward on yourself that lasts until you finish a long rest. The ward has hit points equal to twice your wizard level + your Intelligence modifier. When the ward has 0 hit points, it can't absorb damage, but its magic remains. Whenever you cast an abjuration spell of 1st level or higher, the ward regains a number of hit points equal to twice the level of the spell. Once you create the ward, you can't create it again until you finish a long rest.",
+                            "mechanics": {
+                                "type": "resource",
+                                "trigger": "cast_abjuration_spell_1st_level_or_higher",
+                                "duration": "until_long_rest",
+                                "uses": {
+                                    "per_rest": "long",
+                                    "amount": 1
+                                },
+                                "hit_points": {
+                                    "formula": "2 * wizard_level + intelligence_modifier",
+                                    "regeneration": {
+                                        "trigger": "cast_abjuration_spell_1st_level_or_higher",
+                                        "amount": "2 * spell_level"
+                                    }
+                                },
+                                "effects": [
+                                    {
+                                        "type": "damage_absorption",
+                                        "absorbs_damage_to_self": true,
+                                        "condition": "ward_has_hit_points"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Projected Ward",
-                            "description": "When a creature that you can see within 30 feet of you takes damage, you can use your reaction to cause your Arcane Ward to absorb that damage."
+                            "description": "Starting at 6th level, when a creature that you can see within 30 feet of you takes damage, you can use your reaction to cause your Arcane Ward to absorb that damage instead of you taking it.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "reaction",
+                                "range": "30 feet",
+                                "trigger": "creature_you_can_see_takes_damage",
+                                "requirements": ["arcane_ward_active"],
+                                "effects": [
+                                    {
+                                        "type": "redirect_damage_absorption",
+                                        "from": "self",
+                                        "to": "target_creature",
+                                        "absorbed_by": "arcane_ward"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "Improved Abjuration",
-                            "description": "When you cast an abjuration spell that requires you to make an ability check as part of casting that spell, you add your proficiency bonus to that ability check."
+                            "description": "Beginning at 10th level, when you cast an abjuration spell that requires you to make an ability check as part of casting that spell (as in counterspell and dispel magic), you add your proficiency bonus to that ability check.",
+                            "mechanics": {
+                                "type": "passive",
+                                "trigger": "cast_abjuration_spell_requiring_ability_check",
+                                "effects": [
+                                    {
+                                        "type": "ability_check_bonus",
+                                        "bonus": "proficiency_bonus",
+                                        "applies_to": "ability_checks_as_part_of_spell_casting",
+                                        "school": "abjuration"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Spell Resistance",
-                            "description": "You have advantage on saving throws against spells. Furthermore, you have resistance against the damage of spells."
+                            "description": "Starting at 14th level, you have advantage on saving throws against spells. Furthermore, you have resistance against the damage of spells.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "advantage",
+                                        "on": "saving_throws_against_spells"
+                                    },
+                                    {
+                                        "type": "damage_resistance",
+                                        "damage_source": "spells"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
             },
             {
                 "name": "School of Evocation",
-                "description": "You focus your study on magic that creates powerful elemental effects.",
+                "description": "You focus your study on magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid.",
+                "source": "PHB",
                 "features": {
                     "2": [
                         {
                             "name": "Evocation Savant",
-                            "description": "The gold and time you must spend to copy an evocation spell into your spellbook is halved."
+                            "description": "Beginning when you select this school at 2nd level, the gold and time you must spend to copy an evocation spell into your spellbook is halved.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "spell_copying_discount",
+                                        "school": "evocation",
+                                        "cost_multiplier": 0.5,
+                                        "time_multiplier": 0.5
+                                    }
+                                ]
+                            }
                         },
                         {
                             "name": "Sculpt Spells",
-                            "description": "You can create pockets of relative safety within the effects of your evocation spells. When you cast an evocation spell that affects other creatures that you can see, you can choose a number of them equal to 1 + the spell's level. The chosen creatures automatically succeed on their saving throws against the spell, and they take no damage if they would normally take half damage on a successful save."
+                            "description": "Beginning at 2nd level, you can create pockets of relative safety within the effects of your evocation spells. When you cast an evocation spell that affects other creatures that you can see, you can choose a number of them equal to 1 + the spell's level. The chosen creatures automatically succeed on their saving throws against the spell, and they take no damage if they would normally take half damage on a successful save.",
+                            "mechanics": {
+                                "type": "passive",
+                                "trigger": "cast_evocation_spell_affecting_creatures",
+                                "target_selection": {
+                                    "formula": "1 + spell_level",
+                                    "from": "creatures_affected_by_spell_you_can_see"
+                                },
+                                "effects": [
+                                    {
+                                        "type": "automatic_save_success",
+                                        "applies_to": "chosen_creatures"
+                                    },
+                                    {
+                                        "type": "no_damage",
+                                        "condition": "would_normally_take_half_on_save",
+                                        "applies_to": "chosen_creatures"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Potent Cantrip",
-                            "description": "Your damaging cantrips affect even creatures that avoid the brunt of the effect. When a creature succeeds on a saving throw against your cantrip, the creature takes half the cantrip's damage (if any) but suffers no additional effect from the cantrip."
+                            "description": "Starting at 6th level, your damaging cantrips affect even creatures that avoid the brunt of the effect. When a creature succeeds on a saving throw against your cantrip, the creature takes half the cantrip's damage (if any) but suffers no additional effect from the cantrip.",
+                            "mechanics": {
+                                "type": "passive",
+                                "trigger": "creature_succeeds_save_against_your_cantrip",
+                                "effects": [
+                                    {
+                                        "type": "half_damage_on_successful_save",
+                                        "applies_to": "damaging_cantrips",
+                                        "additional_effects": "negated"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "Empowered Evocation",
-                            "description": "You can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast."
+                            "description": "Beginning at 10th level, you can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast.",
+                            "mechanics": {
+                                "type": "passive",
+                                "trigger": "cast_wizard_evocation_spell",
+                                "effects": [
+                                    {
+                                        "type": "damage_bonus",
+                                        "bonus": "intelligence_modifier",
+                                        "applies_to": "one_damage_roll_per_spell",
+                                        "school": "evocation",
+                                        "spells": "wizard_spells_only"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Overchannel",
-                            "description": "You can increase the power of your simpler spells. When you cast a wizard spell of 1st through 5th level that deals damage, you can deal maximum damage with that spell. The first time you do so, you suffer no adverse effect. If you use this feature again before you finish a long rest, you take 2d12 necrotic damage for each level of the spell, immediately after you cast it. Each time you use this feature again before finishing a long rest, the necrotic damage per spell level increases by 1d12."
+                            "description": "Starting at 14th level, you can increase the power of your simpler spells. When you cast a wizard spell of 1st through 5th level that deals damage, you can deal maximum damage with that spell. The first time you do so, you suffer no adverse effect. If you use this feature again before you finish a long rest, you take 2d12 necrotic damage for each level of the spell, immediately after you cast it. Each time you use this feature again before finishing a long rest, the necrotic damage per spell level increases by 1d12. This damage can't be reduced or prevented in any way.",
+                            "mechanics": {
+                                "type": "resource",
+                                "trigger": "cast_wizard_damage_spell_1st_through_5th_level",
+                                "tracking": "uses_since_long_rest",
+                                "effects": [
+                                    {
+                                        "type": "maximum_damage",
+                                        "applies_to": "spell_damage"
+                                    }
+                                ],
+                                "consequences": [
+                                    {
+                                        "condition": "first_use",
+                                        "effect": "no_adverse_effect"
+                                    },
+                                    {
+                                        "condition": "second_use_onward",
+                                        "damage": "2d12 + (1d12 * (uses_beyond_first - 1)) per spell level",
+                                        "damage_type": "necrotic",
+                                        "timing": "immediately_after_casting",
+                                        "prevention": "cannot_be_reduced_or_prevented"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -409,42 +725,121 @@
             },
             {
                 "name": "School of Divination",
-                "description": "The counsel of diviners is sought by royalty and commoners alike, for all seek to know what the future holds.",
+                "description": "The counsel of diviners is sought by royalty and commoners alike, for all seek to know what the future holds. As a diviner, you strive to part the veils of space, time, and consciousness so that you can see clearly. You work to master spells of discernment, remote viewing, supernatural knowledge, and foresight.",
                 "source": "PHB",
                 "features": {
                     "2": [
                         {
                             "name": "Divination Savant",
-                            "description": "The gold and time you must spend to copy a divination spell into your spellbook is halved."
+                            "description": "Beginning when you select this school at 2nd level, the gold and time you must spend to copy a divination spell into your spellbook is halved.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "spell_copying_discount",
+                                        "school": "divination",
+                                        "cost_multiplier": 0.5,
+                                        "time_multiplier": 0.5
+                                    }
+                                ]
+                            }
                         },
                         {
                             "name": "Portent",
-                            "description": "When you finish a long rest, roll two d20s and record the numbers rolled. You can replace any attack roll, saving throw, or ability check made by you or a creature that you can see with one of these foretelling rolls."
+                            "description": "Starting at 2nd level, glimpses of the future begin to press in on your awareness. When you finish a long rest, roll two d20s and record the numbers rolled. You can replace any attack roll, saving throw, or ability check made by you or a creature that you can see with one of these foretelling rolls. You must choose to do so before the roll, and you can replace a roll in this way only once per turn. Each foretelling roll can be used only once. When you finish a long rest, you lose any unused foretelling rolls.",
+                            "mechanics": {
+                                "type": "resource",
+                                "trigger": "finish_long_rest",
+                                "uses": {
+                                    "per_rest": "long",
+                                    "amount": {
+                                        "2": 2,
+                                        "14": 3
+                                    }
+                                },
+                                "generation": {
+                                    "roll": "2d20",
+                                    "record": "actual_numbers_rolled"
+                                },
+                                "usage": {
+                                    "timing": "before_roll_is_made",
+                                    "target": "attack_roll_saving_throw_or_ability_check",
+                                    "scope": "you_or_creature_you_can_see",
+                                    "frequency": "once_per_turn",
+                                    "consumption": "each_roll_usable_once"
+                                }
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Expert Divination",
-                            "description": "When you cast a divination spell of 2nd level or higher using a spell slot, you regain one expended spell slot of a lower level."
+                            "description": "Beginning at 6th level, casting divination spells comes so easily to you that it expends only a fraction of your spellcasting efforts. When you cast a divination spell of 2nd level or higher using a spell slot, you regain one expended spell slot. The slot you regain must be of a level lower than the spell you cast and can't be higher than 5th level.",
+                            "mechanics": {
+                                "type": "passive",
+                                "trigger": "cast_divination_spell_2nd_level_or_higher_using_spell_slot",
+                                "effects": [
+                                    {
+                                        "type": "regain_spell_slot",
+                                        "slot_level": "lower_than_cast_spell",
+                                        "max_slot_level": 5
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "The Third Eye",
-                            "description": "You can use your action to gain one of the following benefits: darkvision, ethereal sight, greater comprehension, or see invisibility."
+                            "description": "Starting at 10th level, you can use your action to increase your powers of perception. When you do so, choose one of the following benefits, which lasts until you are incapacitated or you take a short or long rest. You can't use the feature again until you finish a rest.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "action",
+                                "uses": {
+                                    "per_rest": "short",
+                                    "amount": 1
+                                },
+                                "duration": "until_incapacitated_or_rest",
+                                "options": [
+                                    {
+                                        "name": "Darkvision",
+                                        "description": "You gain darkvision out to a range of 60 feet"
+                                    },
+                                    {
+                                        "name": "Ethereal Sight",
+                                        "description": "You can see into the Ethereal Plane within 60 feet of you"
+                                    },
+                                    {
+                                        "name": "Greater Comprehension",
+                                        "description": "You can read any language"
+                                    },
+                                    {
+                                        "name": "See Invisibility",
+                                        "description": "You can see invisible creatures and objects within 10 feet of you that are within line of sight"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Greater Portent",
-                            "description": "You roll three d20s for your Portent feature, instead of two."
+                            "description": "Starting at 14th level, the visions in your dreams intensify and paint a more accurate picture of what is to come. You roll three d20s for your Portent feature, rather than two.",
+                            "mechanics": {
+                                "type": "passive_enhancement",
+                                "enhances": "Portent",
+                                "effect": {
+                                    "type": "increase_uses",
+                                    "new_amount": 3
+                                }
+                            }
                         }
                     ]
                 }
             },
             {
-                "name": "School of Enchantment",
-                "description": "You have honed your ability to magically entrance and beguile other people and monsters.",
+                "name": "School of Enchantment", 
+                "description": "As a member of the School of Enchantment, you have honed your ability to magically entrance and beguile other people and monsters. Some enchanters are peacemakers who bewitch the violent to lay down their arms and charm the cruel into showing mercy. Others are tyrants who magically bind the unwilling into their service.",
                 "source": "PHB",
                 "features": {
                     "2": [
@@ -514,35 +909,137 @@
             },
             {
                 "name": "School of Necromancy",
-                "description": "You focus your study on magic that creates powerful necrotic effects and manipulates the energies of life and death.",
+                "description": "The School of Necromancy explores the cosmic forces of life, death, and undeath. As you focus your studies in this tradition, you learn to manipulate the energy that animates all living things. As you progress, you learn to sap the life force from a creature as your magic destroys its body, transforming that vital energy into magical power you can manipulate.",
                 "source": "PHB",
                 "features": {
                     "2": [
                         {
                             "name": "Necromancy Savant",
-                            "description": "The gold and time you must spend to copy a necromancy spell into your spellbook is halved."
+                            "description": "Beginning when you select this school at 2nd level, the gold and time you must spend to copy a necromancy spell into your spellbook is halved.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "spell_copying_discount",
+                                        "school": "necromancy",
+                                        "cost_multiplier": 0.5,
+                                        "time_multiplier": 0.5
+                                    }
+                                ]
+                            }
                         },
                         {
                             "name": "Grim Harvest",
-                            "description": "Once per turn when you kill one or more creatures with a spell of 1st level or higher, you regain hit points equal to twice the spell's level, or three times its level if the spell belongs to the School of Necromancy."
+                            "description": "At 2nd level, you gain the ability to reap life energy from creatures you kill with your spells. Once per turn when you kill one or more creatures with a spell of 1st level or higher, you regain hit points equal to twice the spell's level, or three times its level if the spell belongs to the School of Necromancy. You don't gain this benefit for killing constructs or undead.",
+                            "mechanics": {
+                                "type": "passive",
+                                "frequency": "once_per_turn",
+                                "trigger": "kill_creature_with_spell_1st_level_or_higher",
+                                "exclusions": ["constructs", "undead"],
+                                "effects": [
+                                    {
+                                        "type": "regain_hit_points",
+                                        "amount": "2 * spell_level",
+                                        "condition": "non_necromancy_spell"
+                                    },
+                                    {
+                                        "type": "regain_hit_points", 
+                                        "amount": "3 * spell_level",
+                                        "condition": "necromancy_spell"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Undead Thralls",
-                            "description": "You add animate dead to your spellbook if you don't already have it. When you cast animate dead, you can target one additional corpse or pile of bones, creating another zombie or skeleton, as appropriate."
+                            "description": "At 6th level, you add the animate dead spell to your spellbook if it is not there already. When you cast animate dead, you can target one additional corpse or pile of bones, creating another zombie or skeleton, as appropriate. Whenever you create an undead using a necromancy spell, it has additional benefits: The creature's hit point maximum is increased by an amount equal to your wizard level. The creature adds your proficiency bonus to its weapon damage rolls.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "add_spell_to_spellbook",
+                                        "spell": "animate dead",
+                                        "condition": "if_not_already_known"
+                                    },
+                                    {
+                                        "type": "animate_dead_enhancement",
+                                        "benefit": "target_one_additional_corpse"
+                                    },
+                                    {
+                                        "type": "undead_creation_enhancement",
+                                        "applies_to": "undead_created_with_necromancy_spells",
+                                        "bonuses": [
+                                            {
+                                                "type": "hit_point_maximum_increase",
+                                                "amount": "wizard_level"
+                                            },
+                                            {
+                                                "type": "weapon_damage_bonus",
+                                                "bonus": "proficiency_bonus"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "Inured to Undeath",
-                            "description": "You have resistance to necrotic damage, and your hit point maximum can't be reduced."
+                            "description": "Beginning at 10th level, you have resistance to necrotic damage, and your hit point maximum can't be reduced. You have spent so much time dealing with undead and the forces that animate them that you have become inured to some of their worst effects.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "damage_resistance",
+                                        "damage_type": "necrotic"
+                                    },
+                                    {
+                                        "type": "immunity",
+                                        "immunity_type": "hit_point_maximum_reduction"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Command Undead",
-                            "description": "You can use magic to bring undead under your control, even those created by other wizards."
+                            "description": "Starting at 14th level, you can use magic to bring undead under your control, even those created by other wizards. As an action, you can choose one undead that you can see within 60 feet of you. That creature must make a Charisma saving throw against your wizard spell save DC. If it succeeds, you can't use this feature on it again. If it fails, it becomes friendly to you and obeys your commands until you use this feature again. Intelligent undead are harder to control in this way. If the target has an Intelligence of 8 or higher, it has advantage on the saving throw. If it has an Intelligence of 12 or higher, it can repeat the saving throw at the end of every hour until it succeeds and breaks free.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "action",
+                                "range": "60 feet",
+                                "target": "one_undead_you_can_see",
+                                "save": {
+                                    "ability": "charisma",
+                                    "dc": "wizard_spell_save_dc"
+                                },
+                                "duration": "until_use_feature_again",
+                                "effects": [
+                                    {
+                                        "type": "charm_undead",
+                                        "condition": "failed_save",
+                                        "effect": "becomes_friendly_and_obeys_commands"
+                                    }
+                                ],
+                                "special_rules": [
+                                    {
+                                        "condition": "intelligence_8_or_higher",
+                                        "effect": "advantage_on_save"
+                                    },
+                                    {
+                                        "condition": "intelligence_12_or_higher",
+                                        "effect": "repeat_save_every_hour"
+                                    },
+                                    {
+                                        "condition": "target_succeeds_save",
+                                        "effect": "cannot_target_again"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -584,70 +1081,251 @@
             },
             {
                 "name": "School of War Magic",
-                "description": "A tradition of wizardry that blends the practices of evocation and abjuration to create a potent combination of defensive and offensive spellcasting.",
+                "description": "A variety of arcane colleges specialize in training wizards for war. The tradition of War Magic blends principles of evocation and abjuration, rather than specializing in either school. It teaches techniques that empower a caster's spells, while also providing methods for wizards to bolster their own defenses.",
                 "source": "XGE",
                 "features": {
                     "2": [
                         {
                             "name": "Arcane Deflection",
-                            "description": "When you are hit by an attack or fail a saving throw, you can use your reaction to gain a bonus to AC or saving throw."
+                            "description": "At 2nd level, you have learned to weave your magic to fortify yourself against harm. When you are hit by an attack or you fail a saving throw, you can use your reaction to gain a +2 bonus to your AC against that attack or a +4 bonus to that saving throw. When you use this feature, you can't cast spells other than cantrips until the end of your next turn.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "reaction",
+                                "trigger": "hit_by_attack_or_fail_saving_throw",
+                                "effects": [
+                                    {
+                                        "type": "ac_bonus",
+                                        "bonus": 2,
+                                        "condition": "against_triggering_attack"
+                                    },
+                                    {
+                                        "type": "saving_throw_bonus",
+                                        "bonus": 4,
+                                        "condition": "against_triggering_save"
+                                    }
+                                ],
+                                "restrictions": [
+                                    {
+                                        "type": "spell_casting_limitation",
+                                        "limitation": "cantrips_only",
+                                        "duration": "until_end_of_next_turn"
+                                    }
+                                ]
+                            }
                         },
                         {
                             "name": "Tactical Wit",
-                            "description": "You gain a bonus to your initiative equal to your Intelligence modifier."
+                            "description": "Starting at 2nd level, your keen ability to assess tactical situations allows you to act quickly in battle. You gain a bonus to your initiative rolls equal to your Intelligence modifier.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "initiative_bonus",
+                                        "bonus": "intelligence_modifier"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Power Surge",
-                            "description": "You can store magical energy when you counter or dispel magic, which you can release to empower your damaging spells."
+                            "description": "Starting at 6th level, you can store magical energy within yourself to later empower your damaging spells. In its stored form, this energy is called a power surge. You can store a maximum number of power surges equal to your Intelligence modifier (minimum of one). Whenever you finish a long rest, your number of power surges resets to one. Whenever you successfully end a spell with dispel magic or counterspell, you gain one power surge, as you steal magic from the spell you foiled. If you end a spell with dispel magic, you gain a power surge only if that spell is of 4th level or higher. When you deal damage to a creature or object with a wizard spell, you can spend one power surge to deal extra force damage to that target. The extra damage equals half your wizard level.",
+                            "mechanics": {
+                                "type": "resource",
+                                "max_amount": "intelligence_modifier",
+                                "minimum": 1,
+                                "reset": {
+                                    "trigger": "long_rest",
+                                    "amount": 1
+                                },
+                                "generation": [
+                                    {
+                                        "trigger": "successfully_counterspell",
+                                        "amount": 1
+                                    },
+                                    {
+                                        "trigger": "successfully_dispel_magic_4th_level_or_higher",
+                                        "amount": 1
+                                    }
+                                ],
+                                "usage": {
+                                    "trigger": "deal_damage_with_wizard_spell",
+                                    "cost": 1,
+                                    "effect": {
+                                        "type": "extra_damage",
+                                        "damage": "half_wizard_level",
+                                        "damage_type": "force"
+                                    }
+                                }
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "Durable Magic",
-                            "description": "While you maintain concentration on a spell, you gain a bonus to AC and all saving throws."
+                            "description": "Beginning at 10th level, the magic you channel helps ward off harm. While you maintain concentration on a spell, you have a +2 bonus to AC and all saving throws.",
+                            "mechanics": {
+                                "type": "passive",
+                                "condition": "concentrating_on_spell",
+                                "effects": [
+                                    {
+                                        "type": "ac_bonus",
+                                        "bonus": 2
+                                    },
+                                    {
+                                        "type": "saving_throw_bonus",
+                                        "bonus": 2,
+                                        "applies_to": "all_saving_throws"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Deflecting Shroud",
-                            "description": "When you use Arcane Deflection, you can cause magical energy to arc from you to nearby creatures."
+                            "description": "At 14th level, your Arcane Deflection becomes infused with deadly magic. When you use your Arcane Deflection feature, you can cause magical energy to arc from you. Up to three creatures of your choice that you can see within 60 feet of you each take force damage equal to half your wizard level.",
+                            "mechanics": {
+                                "type": "passive_enhancement",
+                                "enhances": "Arcane Deflection",
+                                "trigger": "use_arcane_deflection",
+                                "range": "60 feet",
+                                "target_selection": {
+                                    "amount": "up_to_3",
+                                    "choice": "your_choice",
+                                    "requirement": "you_can_see"
+                                },
+                                "effects": [
+                                    {
+                                        "type": "damage",
+                                        "damage": "half_wizard_level",
+                                        "damage_type": "force",
+                                        "applies_to": "chosen_targets"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
             },
             {
                 "name": "School of Bladesinging",
-                "description": "A tradition of wizardry that incorporates swordplay and dance, practiced by elves.",
+                "description": "Bladesingers are elves who bravely defend their people and lands. They are elf wizards who master a school of sword fighting grounded in a tradition of arcane magic. In combat, a bladesinger uses a series of intricate, elegant maneuvers that fend off harm and allow the bladesinger to channel magic into devastating attacks and a cunning defense.",
                 "source": "XGE",
                 "features": {
                     "2": [
                         {
                             "name": "Training in War and Song",
-                            "description": "You gain proficiency with light armor, one type of one-handed melee weapon of your choice, and the Performance skill."
+                            "description": "When you adopt this tradition at 2nd level, you gain proficiency with light armor, and you gain proficiency with one type of one-handed melee weapon of your choice. You also gain proficiency in the Performance skill if you don't already have it.",
+                            "mechanics": {
+                                "type": "proficiencies",
+                                "armor": ["light armor"],
+                                "weapons": {
+                                    "choose": 1,
+                                    "from": "one_handed_melee_weapons"
+                                },
+                                "skills": ["Performance"]
+                            }
                         },
                         {
                             "name": "Bladesong",
-                            "description": "You can invoke a secret elven magic called the Bladesong, enhancing your combat abilities."
+                            "description": "Starting at 2nd level, you can invoke a secret elven magic called the Bladesong, provided that you aren't wearing medium or heavy armor or using a shield. It grips you in a battle trance that can last for 1 minute. It ends early if you are incapacitated, if you don medium or heavy armor or a shield, or if you use two hands to make an attack with a weapon. You can also dismiss the Bladesong at any time (no action required). While your Bladesong is active, you gain the following benefits: You gain a bonus to your AC equal to your Intelligence modifier (minimum of +1). Your walking speed increases by 10 feet. You have advantage on Dexterity (Acrobatics) checks. You gain a bonus to any Constitution saving throw you make to maintain your concentration on a spell. The bonus equals your Intelligence modifier (minimum of +1). You can use this feature a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "bonus_action",
+                                "uses": {
+                                    "per_rest": "long",
+                                    "amount": "proficiency_bonus"
+                                },
+                                "duration": "1 minute",
+                                "requirements": [
+                                    "not_wearing_medium_or_heavy_armor",
+                                    "not_using_shield"
+                                ],
+                                "ending_conditions": [
+                                    "incapacitated",
+                                    "don_medium_or_heavy_armor_or_shield",
+                                    "use_two_hands_for_weapon_attack"
+                                ],
+                                "benefits": [
+                                    {
+                                        "type": "ac_bonus",
+                                        "bonus": "intelligence_modifier",
+                                        "minimum": 1
+                                    },
+                                    {
+                                        "type": "speed_bonus",
+                                        "bonus": 10,
+                                        "movement_type": "walking"
+                                    },
+                                    {
+                                        "type": "advantage",
+                                        "on": "Dexterity (Acrobatics) checks"
+                                    },
+                                    {
+                                        "type": "concentration_save_bonus",
+                                        "bonus": "intelligence_modifier",
+                                        "minimum": 1
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "6": [
                         {
                             "name": "Extra Attack",
-                            "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+                            "description": "Starting at 6th level, you can attack twice, instead of once, whenever you take the Attack action on your turn. Moreover, you can cast one of your cantrips in place of one of those attacks.",
+                            "mechanics": {
+                                "type": "passive",
+                                "effects": [
+                                    {
+                                        "type": "extra_attack",
+                                        "attacks": 2,
+                                        "trigger": "take_attack_action"
+                                    },
+                                    {
+                                        "type": "cantrip_substitution",
+                                        "description": "Can cast cantrip in place of one attack"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "10": [
                         {
                             "name": "Song of Defense",
-                            "description": "You can direct your magic to absorb damage while your Bladesong is active."
+                            "description": "Beginning at 10th level, you can direct your magic to absorb damage while your Bladesong is active. When you take damage, you can use your reaction to expend one spell slot and reduce that damage to you by an amount equal to five times the spell slot's level.",
+                            "mechanics": {
+                                "type": "resource",
+                                "action_type": "reaction",
+                                "trigger": "take_damage",
+                                "requirements": ["bladesong_active"],
+                                "cost": "one_spell_slot",
+                                "effects": [
+                                    {
+                                        "type": "damage_reduction",
+                                        "amount": "5 * spell_slot_level"
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "14": [
                         {
                             "name": "Song of Victory",
-                            "description": "You add your Intelligence modifier to the damage of your melee weapon attacks while your Bladesong is active."
+                            "description": "Starting at 14th level, you add your Intelligence modifier to the damage of your melee weapon attacks while your Bladesong is active.",
+                            "mechanics": {
+                                "type": "passive",
+                                "condition": "bladesong_active",
+                                "effects": [
+                                    {
+                                        "type": "weapon_damage_bonus",
+                                        "bonus": "intelligence_modifier",
+                                        "applies_to": "melee_weapon_attacks"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -753,9 +1431,8 @@
                     ]
                 }
             }
-        ]
-    },
+        ],
     "version": "5E",
-    "homebrew": false,
-    "last_updated": "2024-05-15"
+    "source": "PHB",
+    "source_page": 112
 } 

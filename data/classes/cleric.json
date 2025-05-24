@@ -69,7 +69,14 @@
         "1": [
             {
                 "name": "Spellcasting",
-                "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability. You use a holy symbol as a spellcasting focus."
+                "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability. You use a holy symbol as a spellcasting focus.",
+                "mechanics": {
+                    "type": "spellcasting",
+                    "ability": "wisdom",
+                    "focus": ["holy symbol"],
+                    "preparation": "prepared",
+                    "ritual_casting": true
+                }
             },
             {
                 "name": "Divine Domain",
@@ -79,19 +86,259 @@
         "2": [
             {
                 "name": "Channel Divinity (1/rest)",
-                "description": "You can channel divine energy to fuel magical effects. You start with one effect determined by your domain and the Turn Undead effect."
+                "description": "You can channel divine energy to fuel magical effects. You start with one effect determined by your domain and the Turn Undead effect.",
+                "mechanics": {
+                    "type": "resource",
+                    "uses": {
+                        "per_rest": "short",
+                        "amount": {
+                            "2": 1,
+                            "6": 2,
+                            "18": 3
+                        }
+                    },
+                    "effects": [
+                        {
+                            "name": "Turn Undead",
+                            "description": "Present holy symbol and speak prayer; each undead within 30 feet must make Wisdom save or be turned",
+                            "save_dc": "8 + proficiency + wisdom_modifier",
+                            "range": "30 feet",
+                            "action_type": "action"
+                        }
+                    ]
+                }
+            }
+        ],
+        "4": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "5": [
             {
                 "name": "Destroy Undead (CR 1/2)",
-                "description": "When an undead fails its saving throw against your Turn Undead feature, it is instantly destroyed if its CR is at or below 1/2."
+                "description": "When an undead fails its saving throw against your Turn Undead feature, it is instantly destroyed if its CR is at or below 1/2.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Turn Undead",
+                    "effect": {
+                        "type": "destroy",
+                        "target": "undead",
+                        "max_cr": {
+                            "5": 0.5,
+                            "8": 1,
+                            "11": 2,
+                            "14": 3,
+                            "17": 4
+                        }
+                    }
+                }
+            }
+        ],
+        "6": [
+            {
+                "name": "Channel Divinity (2/rest)",
+                "description": "You can use your Channel Divinity twice between rests, and you regain all expended uses when you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource_improvement",
+                    "improves": "Channel Divinity",
+                    "new_amount": 2
+                }
+            }
+        ],
+        "8": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            },
+            {
+                "name": "Destroy Undead (CR 1)",
+                "description": "Your Destroy Undead feature now affects undead of CR 1 or lower.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Destroy Undead",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 1
+                    }
+                }
             }
         ],
         "10": [
             {
                 "name": "Divine Intervention",
-                "description": "You can call on your deity to intervene on your behalf when your need is great."
+                "description": "You can call on your deity to intervene on your behalf when your need is great.",
+                "mechanics": {
+                    "type": "special_ability",
+                    "action_type": "action",
+                    "uses": {
+                        "per_rest": "long",
+                        "amount": 1
+                    },
+                    "success_chance": {
+                        "formula": "cleric_level",
+                        "die": "d100",
+                        "success_condition": "roll_less_than_or_equal"
+                    },
+                    "success_effect": "DM chooses appropriate divine intervention",
+                    "failure_effect": "Cannot use again for 7 days"
+                }
+            }
+        ],
+        "11": [
+            {
+                "name": "Destroy Undead (CR 2)",
+                "description": "Your Destroy Undead feature now affects undead of CR 2 or lower.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Destroy Undead",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 2
+                    }
+                }
+            }
+        ],
+        "12": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "14": [
+            {
+                "name": "Destroy Undead (CR 3)",
+                "description": "Your Destroy Undead feature now affects undead of CR 3 or lower.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Destroy Undead",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 3
+                    }
+                }
+            }
+        ],
+        "16": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "17": [
+            {
+                "name": "Destroy Undead (CR 4)",
+                "description": "Your Destroy Undead feature now affects undead of CR 4 or lower.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Destroy Undead",
+                    "effect": {
+                        "type": "increase_max_cr",
+                        "new_max_cr": 4
+                    }
+                }
+            }
+        ],
+        "18": [
+            {
+                "name": "Channel Divinity (3/rest)",
+                "description": "You can use your Channel Divinity three times between rests, and you regain all expended uses when you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource_improvement",
+                    "improves": "Channel Divinity",
+                    "new_amount": 3
+                }
+            }
+        ],
+        "19": [
+            {
+                "name": "Ability Score Improvement",
+                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
+            }
+        ],
+        "20": [
+            {
+                "name": "Divine Intervention Improvement",
+                "description": "Your call for intervention succeeds automatically, no roll required.",
+                "mechanics": {
+                    "type": "passive_enhancement",
+                    "enhances": "Divine Intervention",
+                    "effect": {
+                        "type": "automatic_success",
+                        "description": "No roll required, intervention always succeeds"
+                    }
+                }
             }
         ]
     },
@@ -266,17 +513,72 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Blessings of Knowledge",
-                        "description": "You learn two languages of your choice and gain proficiency in your choice of two of the following skills: Arcana, History, Nature, or Religion. Your proficiency bonus is doubled for any ability check you make that uses either of those skills."
+                        "description": "You learn two languages of your choice and gain proficiency in your choice of two of the following skills: Arcana, History, Nature, or Religion. Your proficiency bonus is doubled for any ability check you make that uses either of those skills.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 2,
+                            "options": [
+                                {
+                                    "name": "Language",
+                                    "description": "Learn a language of your choice",
+                                    "effects": [
+                                        {
+                                            "type": "language_proficiency",
+                                            "choice": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Skill Expertise",
+                                    "description": "Choose two skills to gain proficiency and expertise",
+                                    "effects": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "skills": ["Arcana", "History", "Nature", "Religion"],
+                                            "choose": 2
+                                        },
+                                        {
+                                            "type": "expertise",
+                                            "applies_to": "chosen_skills"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [
                     {
                         "name": "Channel Divinity: Knowledge of the Ages",
-                        "description": "You can use Channel Divinity to gain proficiency in any skill or tool for 10 minutes."
+                        "description": "You can use Channel Divinity to gain proficiency in any skill or tool for 10 minutes.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "resource": {
+                                "uses": "channel_divinity"
+                            },
+                            "duration": {
+                                "value": 10,
+                                "unit": "minutes"
+                            },
+                            "effect": {
+                                "type": "temporary_proficiency",
+                                "choice": "any_skill_or_tool"
+                            }
+                        }
                     }
                 ],
                 "6": [
@@ -306,21 +608,58 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Bonus Proficiency",
-                        "description": "You gain proficiency with heavy armor."
+                        "description": "You gain proficiency with heavy armor.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["heavy armor"]
+                        }
                     },
                     {
                         "name": "Disciple of Life",
-                        "description": "Whenever you use a spell of 1st level or higher to restore hit points, the creature regains additional hit points equal to 2 + the spell's level."
+                        "description": "Whenever you use a spell of 1st level or higher to restore hit points, the creature regains additional hit points equal to 2 + the spell's level.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "healing_bonus",
+                                    "formula": "2 + spell_level",
+                                    "trigger": "healing spell of 1st level or higher"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [
                     {
                         "name": "Channel Divinity: Preserve Life",
-                        "description": "You can use Channel Divinity to heal a number of hit points equal to five times your cleric level, divided as you choose among any creatures within 30 feet of you."
+                        "description": "You can use Channel Divinity to heal a number of hit points equal to five times your cleric level, divided as you choose among any creatures within 30 feet of you.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "range": 30,
+                            "resource": {
+                                "uses": "channel_divinity"
+                            },
+                            "effect": {
+                                "type": "healing",
+                                "formula": "5 * cleric_level",
+                                "distribution": "divided_among_targets",
+                                "target": "creatures_within_range"
+                            }
+                        }
                     }
                 ],
                 "6": [
@@ -332,7 +671,22 @@
                 "8": [
                     {
                         "name": "Divine Strike",
-                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 radiant damage. At 14th level, this increases to 2d8."
+                        "description": "Once on each of your turns when you hit a creature with a weapon attack, you can deal an extra 1d8 radiant damage. At 14th level, this increases to 2d8.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "weapon_damage_bonus",
+                                    "damage": {
+                                        "8": "1d8",
+                                        "14": "2d8"
+                                    },
+                                    "damage_type": "radiant",
+                                    "frequency": "once_per_turn",
+                                    "trigger": "weapon_attack_hit"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
@@ -350,15 +704,47 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Bonus Cantrip",
-                        "description": "You gain the light cantrip if you don't already know it."
+                        "description": "You gain the light cantrip if you don't already know it.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "bonus_cantrip",
+                                    "cantrip": "light"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Warding Flare",
-                        "description": "When you are attacked by a creature that can be blinded within 30 feet, you can use your reaction to impose disadvantage on the attack roll."
+                        "description": "When you are attacked by a creature that can be blinded within 30 feet, you can use your reaction to impose disadvantage on the attack roll.",
+                        "mechanics": {
+                            "action_type": "reaction",
+                            "range": 30,
+                            "uses": {
+                                "per_long_rest": "wisdom_modifier"
+                            },
+                            "trigger": "attacked_by_creature_that_can_be_blinded",
+                            "effects": [
+                                {
+                                    "type": "impose_disadvantage",
+                                    "on": "attack_roll"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [
@@ -394,15 +780,56 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Acolyte of Nature",
-                        "description": "You learn one druid cantrip and become proficient in either Animal Handling, Nature, or Survival."
+                        "description": "You learn one druid cantrip and become proficient in either Animal Handling, Nature, or Survival.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 2,
+                            "options": [
+                                {
+                                    "name": "Druid Cantrip",
+                                    "description": "Learn one druid cantrip",
+                                    "effects": [
+                                        {
+                                            "type": "bonus_cantrip",
+                                            "source": "druid",
+                                            "choose": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Skill Proficiency",
+                                    "description": "Gain proficiency in one skill",
+                                    "effects": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "skills": ["Animal Handling", "Nature", "Survival"],
+                                            "choose": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Bonus Proficiency",
-                        "description": "You gain proficiency with heavy armor."
+                        "description": "You gain proficiency with heavy armor.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["heavy armor"]
+                        }
                     }
                 ],
                 "2": [
@@ -438,15 +865,44 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Bonus Proficiency",
-                        "description": "You gain proficiency with martial weapons and heavy armor."
+                        "description": "You gain proficiency with martial weapons and heavy armor.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["heavy armor"],
+                            "weapons": ["martial weapons"]
+                        }
                     },
                     {
                         "name": "Wrath of the Storm",
-                        "description": "When a creature within 5 feet of you hits you with an attack, you can use your reaction to deal lightning or thunder damage to the attacker. They must make a Dexterity saving throw, taking 2d8 damage on a failed save, or half on a success. Uses equal to your Wisdom modifier per long rest."
+                        "description": "When a creature within 5 feet of you hits you with an attack, you can use your reaction to deal lightning or thunder damage to the attacker. They must make a Dexterity saving throw, taking 2d8 damage on a failed save, or half on a success. Uses equal to your Wisdom modifier per long rest.",
+                        "mechanics": {
+                            "action_type": "reaction",
+                            "range": 5,
+                            "uses": {
+                                "per_long_rest": "wisdom_modifier"
+                            },
+                            "trigger": "hit_by_attack_within_range",
+                            "save": {
+                                "ability": "dexterity",
+                                "dc": "8 + proficiency + wisdom_modifier"
+                            },
+                            "damage": "2d8",
+                            "damage_type": ["lightning", "thunder"],
+                            "save_effect": "half_damage"
+                        }
                     }
                 ],
                 "2": [
@@ -482,11 +938,35 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Blessing of the Trickster",
-                        "description": "You can touch a willing creature other than yourself to give it advantage on Dexterity (Stealth) checks for 1 hour."
+                        "description": "You can touch a willing creature other than yourself to give it advantage on Dexterity (Stealth) checks for 1 hour.",
+                        "mechanics": {
+                            "action_type": "action",
+                            "range": "touch",
+                            "target": "willing_creature_other_than_self",
+                            "duration": {
+                                "value": 1,
+                                "unit": "hour"
+                            },
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Dexterity (Stealth)"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [
@@ -522,15 +1002,47 @@
                 "1": [
                     {
                         "name": "Domain Spells",
-                        "description": "You gain additional spells at specific levels, always prepared."
+                        "description": "You gain additional spells at specific levels, always prepared.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "additional_spells",
+                                    "description": "Gain domain spells that are always prepared"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Bonus Proficiency",
-                        "description": "You gain proficiency with martial weapons and heavy armor."
+                        "description": "You gain proficiency with martial weapons and heavy armor.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["heavy armor"],
+                            "weapons": ["martial weapons"]
+                        }
                     },
                     {
                         "name": "War Priest",
-                        "description": "When you take the Attack action, you can make one weapon attack as a bonus action a number of times equal to your Wisdom modifier per long rest (minimum of once)."
+                        "description": "When you take the Attack action, you can make one weapon attack as a bonus action a number of times equal to your Wisdom modifier per long rest (minimum of once).",
+                        "mechanics": {
+                            "type": "combat_option",
+                            "activation": {
+                                "timing": "after_attack_action",
+                                "cost": "bonus_action"
+                            },
+                            "uses": {
+                                "per_long_rest": "wisdom_modifier",
+                                "minimum": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "bonus_action",
+                                    "action": "weapon_attack",
+                                    "trigger": "after_taking_attack_action"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [
@@ -566,11 +1078,29 @@
                 "1": [
                     {
                         "name": "Bonus Proficiencies",
-                        "description": "You gain proficiency with heavy armor and smith's tools."
+                        "description": "You gain proficiency with heavy armor and smith's tools.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "armor": ["heavy armor"],
+                            "tools": ["smith's tools"]
+                        }
                     },
                     {
                         "name": "Blessing of the Forge",
-                        "description": "At the end of a long rest, you can touch one nonmagical weapon or armor and turn it into a magical item with a +1 bonus until your next long rest."
+                        "description": "At the end of a long rest, you can touch one nonmagical weapon or armor and turn it into a magical item with a +1 bonus until your next long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "timing": "end_of_long_rest",
+                            "target": "nonmagical_weapon_or_armor",
+                            "effect": {
+                                "type": "temporary_magic_item",
+                                "bonus": "+1",
+                                "duration": "until_next_long_rest"
+                            }
+                        }
                     }
                 ],
                 "2": [
@@ -686,11 +1216,66 @@
                 "1": [
                     {
                         "name": "Implement of Peace",
-                        "description": "You gain proficiency in Insight, Performance, or Persuasion."
+                        "description": "You gain proficiency in Insight, Performance, or Persuasion.",
+                        "mechanics": {
+                            "type": "choice",
+                            "choose": 1,
+                            "options": [
+                                {
+                                    "name": "Insight",
+                                    "description": "Gain proficiency in Insight",
+                                    "effects": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "skills": ["Insight"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Performance",
+                                    "description": "Gain proficiency in Performance",
+                                    "effects": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "skills": ["Performance"]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Persuasion",
+                                    "description": "Gain proficiency in Persuasion",
+                                    "effects": [
+                                        {
+                                            "type": "skill_proficiency",
+                                            "skills": ["Persuasion"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Emboldening Bond",
-                        "description": "You can choose a number of willing creatures equal to your proficiency bonus to create a magical bond that helps them protect each other."
+                        "description": "You can choose a number of willing creatures equal to your proficiency bonus to create a magical bond that helps them protect each other.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "uses": {
+                                "per_long_rest": 1
+                            },
+                            "targets": "proficiency_bonus",
+                            "duration": {
+                                "value": 10,
+                                "unit": "minutes"
+                            },
+                            "effects": [
+                                {
+                                    "type": "magical_bond",
+                                    "benefit": "1d4 bonus to attack rolls, ability checks, and saving throws",
+                                    "range": "30 feet"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "2": [

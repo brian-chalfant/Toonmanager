@@ -68,69 +68,210 @@
         "1": [
             {
                 "name": "Expertise",
-                "description": "Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+                "description": "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 2,
+                    "options": [
+                        {
+                            "type": "skill_proficiency",
+                            "description": "Choose any skill you are proficient in"
+                        },
+                        {
+                            "type": "tool_proficiency", 
+                            "description": "Choose thieves' tools if proficient"
+                        }
+                    ],
+                    "effects": [
+                        {
+                            "type": "expertise",
+                            "applies_to": "chosen_proficiencies",
+                            "description": "Double proficiency bonus for chosen skills/tools"
+                        }
+                    ]
+                }
             },
             {
                 "name": "Sneak Attack",
-                "description": "Once per turn, you can deal extra damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of your target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll. The extra damage is 1d6 at 1st level, and increases as you gain levels in this class.",
-                "damage_progression": {
-                    "1": "1d6",
-                    "3": "2d6",
-                    "5": "3d6",
-                    "7": "4d6",
-                    "9": "5d6",
-                    "11": "6d6",
-                    "13": "7d6",
-                    "15": "8d6",
-                    "17": "9d6",
-                    "19": "10d6"
+                "description": "Beginning at 1st level, you know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll. The amount of the extra damage increases as you gain levels in this class.",
+                "mechanics": {
+                    "type": "passive",
+                    "frequency": "once_per_turn",
+                    "requirements": [
+                        "finesse_or_ranged_weapon",
+                        "advantage_or_ally_within_5_feet_of_target",
+                        "no_disadvantage"
+                    ],
+                    "damage_progression": {
+                        "1": "1d6",
+                        "3": "2d6", 
+                        "5": "3d6",
+                        "7": "4d6",
+                        "9": "5d6",
+                        "11": "6d6",
+                        "13": "7d6",
+                        "15": "8d6",
+                        "17": "9d6",
+                        "19": "10d6"
+                    },
+                    "effects": [
+                        {
+                            "type": "weapon_damage_bonus",
+                            "damage_type": "same_as_weapon",
+                            "scaling": "by_level"
+                        }
+                    ]
                 }
             },
             {
                 "name": "Thieves' Cant",
-                "description": "During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages."
+                "description": "During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "language_proficiency",
+                            "language": "thieves_cant",
+                            "description": "Secret communication method"
+                        },
+                        {
+                            "type": "hidden_message",
+                            "duration_multiplier": 4,
+                            "detection": "only_by_other_thieves_cant_speakers"
+                        }
+                    ]
+                }
             }
         ],
         "2": [
             {
                 "name": "Cunning Action",
-                "description": "Your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action."
+                "description": "Starting at 2nd level, your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "bonus_action_options",
+                            "action_type": "bonus_action",
+                            "options": ["Dash", "Disengage", "Hide"],
+                            "frequency": "each_turn_in_combat"
+                        }
+                    ]
+                }
             }
         ],
         "3": [
             {
                 "name": "Roguish Archetype",
-                "description": "You choose an archetype that you emulate in the exercise of your rogue abilities. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level."
+                "description": "At 3rd level, you choose an archetype that you emulate in the exercise of your rogue abilities: Thief, Assassin, or Arcane Trickster, all detailed at the end of the class description. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.",
+                "mechanics": {
+                    "type": "subclass_choice",
+                    "subclass_type": "archetype",
+                    "feature_levels": [3, 9, 13, 17]
+                }
             }
         ],
         "4": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double", 
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "5": [
             {
                 "name": "Uncanny Dodge",
-                "description": "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you."
+                "description": "Starting at 5th level, when an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you.",
+                "mechanics": {
+                    "type": "resource",
+                    "action_type": "reaction",
+                    "trigger": "hit_by_attack_from_visible_attacker",
+                    "effects": [
+                        {
+                            "type": "damage_reduction",
+                            "reduction": "half",
+                            "timing": "when_hit"
+                        }
+                    ]
+                }
             }
         ],
         "6": [
             {
                 "name": "Expertise",
-                "description": "Choose two more of your skill proficiencies, or one more of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies."
+                "description": "At 6th level, you can choose two more of your skill proficiencies, or one more of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.",
+                "mechanics": {
+                    "type": "choice",
+                    "choose": 2,
+                    "options": [
+                        {
+                            "type": "skill_proficiency",
+                            "description": "Choose any skill you are proficient in"
+                        },
+                        {
+                            "type": "tool_proficiency",
+                            "description": "Choose thieves' tools if proficient"
+                        }
+                    ],
+                    "effects": [
+                        {
+                            "type": "expertise",
+                            "applies_to": "chosen_proficiencies",
+                            "description": "Double proficiency bonus for chosen skills/tools"
+                        }
+                    ]
+                }
             }
         ],
         "7": [
             {
                 "name": "Evasion",
-                "description": "When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail."
+                "description": "Beginning at 7th level, you can nimbly dodge out of the way of certain area effects, such as a red dragon's fiery breath or an ice storm spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "evasion",
+                            "save_type": "dexterity",
+                            "success": "no_damage",
+                            "failure": "half_damage",
+                            "applies_to": "area_effects"
+                        }
+                    ]
+                }
             }
         ],
         "8": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "9": [
@@ -142,19 +283,58 @@
         "10": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "11": [
             {
                 "name": "Reliable Talent",
-                "description": "Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10."
+                "description": "By 11th level, you have refined your chosen skills until they approach perfection. Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10.",
+                "mechanics": {
+                    "type": "passive",
+                    "effects": [
+                        {
+                            "type": "minimum_roll",
+                            "minimum": 10,
+                            "applies_to": "ability_checks_with_proficiency",
+                            "condition": "roll_9_or_lower"
+                        }
+                    ]
+                }
             }
         ],
         "12": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "13": [
@@ -166,19 +346,50 @@
         "14": [
             {
                 "name": "Blindsense",
-                "description": "If you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you."
+                "description": "Starting at 14th level, if you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you.",
+                "mechanics": {
+                    "type": "passive",
+                    "range": "10 feet",
+                    "requirements": ["able_to_hear"],
+                    "effects": [
+                        {
+                            "type": "detection",
+                            "detects": ["hidden_creatures", "invisible_creatures"],
+                            "reveals": "location",
+                            "notes": "Does not reveal exact position for targeting"
+                        }
+                    ]
+                }
             }
         ],
         "15": [
             {
                 "name": "Slippery Mind",
-                "description": "You have acquired greater mental strength. You gain proficiency in Wisdom saving throws."
+                "description": "By 15th level, you have acquired greater mental strength. You gain proficiency in Wisdom saving throws.",
+                "mechanics": {
+                    "type": "proficiencies",
+                    "saving_throws": ["wisdom"]
+                }
             }
         ],
         "16": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "17": [
@@ -190,21 +401,180 @@
         "18": [
             {
                 "name": "Elusive",
-                "description": "You are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren't incapacitated."
+                "description": "Beginning at 18th level, you are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren't incapacitated.",
+                "mechanics": {
+                    "type": "passive",
+                    "condition": "not_incapacitated",
+                    "effects": [
+                        {
+                            "type": "negate_advantage",
+                            "applies_to": "attack_rolls_against_you"
+                        }
+                    ]
+                }
             }
         ],
         "19": [
             {
                 "name": "Ability Score Improvement",
-                "description": "You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. You can't increase an ability score above 20 using this feature."
+                "description": "When you reach 4th level, and again at 8th, 10th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
+                "mechanics": {
+                    "type": "ability_score_improvement",
+                    "options": [
+                        {
+                            "type": "single",
+                            "amount": 2
+                        },
+                        {
+                            "type": "double",
+                            "amount": 1
+                        }
+                    ],
+                    "max_score": 20
+                }
             }
         ],
         "20": [
             {
                 "name": "Stroke of Luck",
-                "description": "You have an uncanny knack for succeeding when you need to. If your attack misses a target within range, you can turn the miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20. Once you use this feature, you can't use it again until you finish a short or long rest."
+                "description": "At 20th level, you have an uncanny knack for succeeding when you need to. If your attack misses a target within range, you can turn the miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20. Once you use this feature, you can't use it again until you finish a short or long rest.",
+                "mechanics": {
+                    "type": "resource",
+                    "uses": {
+                        "per_rest": "short",
+                        "amount": 1
+                    },
+                    "options": [
+                        {
+                            "name": "Turn Miss into Hit",
+                            "trigger": "attack_miss_within_range",
+                            "effect": "convert_to_hit"
+                        },
+                        {
+                            "name": "Perfect Ability Check",
+                            "trigger": "failed_ability_check",
+                            "effect": "treat_d20_as_20"
+                        }
+                    ]
+                }
             }
         ]
+    },
+    "spellcasting": {
+        "ability": "intelligence",
+        "focus": ["arcane focus", "component pouch"],
+        "spells_known": "known",
+        "preparation": "none_required",
+        "ritual_casting": false,
+        "available_to": ["Arcane Trickster"],
+        "cantrips_known": {
+            "3": 3,
+            "10": 4
+        },
+        "spells_known_per_level": {
+            "1": 0,
+            "2": 0,
+            "3": 3,
+            "4": 4,
+            "5": 4,
+            "6": 4,
+            "7": 5,
+            "8": 6,
+            "9": 6,
+            "10": 7,
+            "11": 8,
+            "12": 8,
+            "13": 9,
+            "14": 10,
+            "15": 10,
+            "16": 11,
+            "17": 11,
+            "18": 11,
+            "19": 12,
+            "20": 13
+        },
+        "spell_slots_per_level": {
+            "1": {},
+            "2": {},
+            "3": {
+                "1": 2
+            },
+            "4": {
+                "1": 3
+            },
+            "5": {
+                "1": 3
+            },
+            "6": {
+                "1": 3
+            },
+            "7": {
+                "1": 4,
+                "2": 2
+            },
+            "8": {
+                "1": 4,
+                "2": 2
+            },
+            "9": {
+                "1": 4,
+                "2": 2
+            },
+            "10": {
+                "1": 4,
+                "2": 3
+            },
+            "11": {
+                "1": 4,
+                "2": 3
+            },
+            "12": {
+                "1": 4,
+                "2": 3
+            },
+            "13": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "14": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "15": {
+                "1": 4,
+                "2": 3,
+                "3": 2
+            },
+            "16": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "17": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "18": {
+                "1": 4,
+                "2": 3,
+                "3": 3
+            },
+            "19": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            },
+            "20": {
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "4": 1
+            }
+        }
     },
     "subclass_level": 3,
     "subclasses": [
@@ -216,29 +586,89 @@
                 "3": [
                     {
                         "name": "Fast Hands",
-                        "description": "You can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action."
+                        "description": "Starting at 3rd level, you can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Cunning Action",
+                            "effects": [
+                                {
+                                    "type": "additional_bonus_action_options",
+                                    "options": [
+                                        "Dexterity (Sleight of Hand) check",
+                                        "Use thieves' tools to disarm trap",
+                                        "Use thieves' tools to open lock",
+                                        "Use an Object action"
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Second-Story Work",
-                        "description": "You gain the ability to climb faster than normal; climbing no longer costs you extra movement. Additionally, when you make a running jump, the distance you cover increases by a number of feet equal to your Dexterity modifier."
+                        "description": "When you choose this archetype at 3rd level, you gain the ability to climb faster than normal; climbing no longer costs you extra movement. In addition, when you make a running jump, the distance you cover increases by a number of feet equal to your Dexterity modifier.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "movement_enhancement",
+                                    "enhancement": "climbing_no_extra_movement"
+                                },
+                                {
+                                    "type": "jump_enhancement",
+                                    "bonus": "dexterity_modifier",
+                                    "applies_to": "running_jump"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "9": [
                     {
                         "name": "Supreme Sneak",
-                        "description": "You have advantage on a Dexterity (Stealth) check if you move no more than half your speed on the same turn."
+                        "description": "Starting at 9th level, you have advantage on a Dexterity (Stealth) check if you move no more than half your speed on the same turn.",
+                        "mechanics": {
+                            "type": "passive",
+                            "condition": "move_half_speed_or_less",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": "Dexterity (Stealth) checks"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "13": [
                     {
                         "name": "Use Magic Device",
-                        "description": "You ignore all class, race, and level requirements on the use of magic items."
+                        "description": "By 13th level, you have learned enough about the workings of magic that you can improvise the use of items even when they are not intended for you. You ignore all class, race, and level requirements on the use of magic items.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "ignore_requirements",
+                                    "applies_to": "magic_items",
+                                    "requirements": ["class", "race", "level"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
                     {
                         "name": "Thief's Reflexes",
-                        "description": "You can take two turns during the first round of any combat. You take your second turn at your initiative minus 10."
+                        "description": "When you reach 17th level, you have become adept at laying ambushes and quickly escaping danger. You can take two turns during the first round of any combat. You take your first turn at your normal initiative and your second turn at your initiative minus 10. You can't use this feature when you are surprised.",
+                        "mechanics": {
+                            "type": "passive",
+                            "condition": "not_surprised",
+                            "effects": [
+                                {
+                                    "type": "additional_turn",
+                                    "when": "first_round_of_combat",
+                                    "initiative": "normal_initiative_minus_10"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -251,29 +681,92 @@
                 "3": [
                     {
                         "name": "Bonus Proficiencies",
-                        "description": "You gain proficiency with the disguise kit and the poisoner's kit."
+                        "description": "When you choose this archetype at 3rd level, you gain proficiency with the disguise kit and the poisoner's kit.",
+                        "mechanics": {
+                            "type": "proficiencies",
+                            "tools": ["disguise kit", "poisoner's kit"]
+                        }
                     },
                     {
                         "name": "Assassinate",
-                        "description": "You have advantage on attack rolls against any creature that hasn't taken a turn in the combat yet. In addition, any hit you score against a creature that is surprised is a critical hit."
+                        "description": "Starting at 3rd level, you are at your deadliest when you get the drop on your enemies. You have advantage on attack rolls against any creature that hasn't taken a turn in the combat yet. In addition, any hit you score against a creature that is surprised is a critical hit.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": "attack_rolls",
+                                    "condition": "target_hasnt_taken_turn_yet"
+                                },
+                                {
+                                    "type": "automatic_critical_hit",
+                                    "condition": "target_is_surprised"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "9": [
                     {
                         "name": "Infiltration Expertise",
-                        "description": "You can create false identities for yourself. You must spend seven days and 25 gp to establish the history, profession, and affiliations for an identity."
+                        "description": "Starting at 9th level, you can unfailingly create false identities for yourself. You must spend seven days and 25 gp to establish the history, profession, and affiliations for an identity. You can't establish an identity that belongs to someone else. For example, you might acquire appropriate clothing, letters of introduction, and official-looking certification to establish yourself as a member of a trading house from a remote city so you can insinuate yourself into the company of other wealthy merchants.",
+                        "mechanics": {
+                            "type": "special_ability",
+                            "cost": {
+                                "time": "7 days",
+                                "gold": 25
+                            },
+                            "effects": [
+                                {
+                                    "type": "create_false_identity",
+                                    "includes": ["history", "profession", "affiliations"],
+                                    "limitations": "cannot_impersonate_existing_person"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "13": [
                     {
                         "name": "Impostor",
-                        "description": "You gain the ability to unerringly mimic another person's speech, writing, and behavior. You must spend at least three hours studying these three components of the person's behavior."
+                        "description": "At 13th level, you gain the ability to unerringly mimic another person's speech, writing, and behavior. You must spend at least three hours studying these three components of the person's behavior, listening to speech, examining handwriting, and observing mannerisms. Your ruse is indiscernible to the casual observer. If a wary creature suspects something is amiss, you have advantage on any Charisma (Deception) check you make to avoid detection.",
+                        "mechanics": {
+                            "type": "special_ability",
+                            "preparation_time": "3 hours",
+                            "requirements": ["study_speech", "study_handwriting", "study_mannerisms"],
+                            "effects": [
+                                {
+                                    "type": "perfect_mimicry",
+                                    "aspects": ["speech", "writing", "behavior"],
+                                    "detection": "indiscernible_to_casual_observer"
+                                },
+                                {
+                                    "type": "advantage",
+                                    "on": "Charisma (Deception) checks",
+                                    "condition": "avoiding_detection_from_suspicious_creature"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
                     {
                         "name": "Death Strike",
-                        "description": "When you hit a surprised creature, it must make a Constitution saving throw. On a failed save, double the damage of your attack against the creature."
+                        "description": "Starting at 17th level, you become a master of instant death. When you attack and hit a creature that is surprised, it must make a Constitution saving throw (DC 8 + your Dexterity modifier + your proficiency bonus). On a failed save, double the damage of your attack against the creature.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "hit_surprised_creature",
+                            "save": {
+                                "ability": "constitution",
+                                "dc": "8 + dexterity_modifier + proficiency_bonus"
+                            },
+                            "effects": [
+                                {
+                                    "type": "double_damage",
+                                    "condition": "failed_save"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -286,29 +779,113 @@
                 "3": [
                     {
                         "name": "Spellcasting",
-                        "description": "You gain the ability to cast spells. Your spells focus on the schools of enchantment and illusion."
+                        "description": "When you reach 3rd level, you gain the ability to cast spells. You learn three wizard cantrips of your choice, two of which must be from the enchantment and illusion schools. You learn additional spells as shown on the Arcane Trickster Spellcasting table. Your spellcasting ability is Intelligence.",
+                        "mechanics": {
+                            "type": "spellcasting",
+                            "ability": "intelligence",
+                            "focus": ["arcane focus", "component pouch"],
+                            "preparation": "known",
+                            "ritual_casting": false,
+                            "spell_list": "wizard",
+                            "restrictions": {
+                                "schools": ["enchantment", "illusion"],
+                                "exceptions": "3rd, 8th, 14th, 20th level spells can be from any school"
+                            }
+                        }
                     },
                     {
                         "name": "Mage Hand Legerdemain",
-                        "description": "When you cast mage hand, you can make the spectral hand invisible, and you can perform additional tasks with it."
+                        "description": "Starting at 3rd level, when you cast mage hand, you can make the spectral hand invisible, and you can perform the following additional tasks with it: You can stow one object the hand is holding in a container worn or carried by another creature. You can retrieve an object in a container worn or carried by another creature. You can use thieves' tools to pick locks and disarm traps at range.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "mage hand cantrip",
+                            "effects": [
+                                {
+                                    "type": "invisibility",
+                                    "applies_to": "spectral_hand"
+                                },
+                                {
+                                    "type": "additional_abilities",
+                                    "abilities": [
+                                        "stow_object_in_other_creature_container",
+                                        "retrieve_object_from_other_creature_container",
+                                        "use_thieves_tools_at_range"
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "9": [
                     {
                         "name": "Magical Ambush",
-                        "description": "If you are hidden from a creature when you cast a spell on it, the creature has disadvantage on any saving throw it makes against the spell this turn."
+                        "description": "Starting at 9th level, if you are hidden from a creature when you cast a spell on it, the creature has disadvantage on any saving throw it makes against the spell this turn.",
+                        "mechanics": {
+                            "type": "passive",
+                            "condition": "hidden_from_target_when_casting",
+                            "effects": [
+                                {
+                                    "type": "disadvantage",
+                                    "on": "saving_throws_against_your_spells",
+                                    "duration": "this_turn"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "13": [
                     {
                         "name": "Versatile Trickster",
-                        "description": "You gain the ability to distract targets with your mage hand. As a bonus action, you can designate a creature within 5 feet of the spectral hand created by the spell. Doing so gives you advantage on attack rolls against that creature until the end of the turn."
+                        "description": "At 13th level, you gain the ability to distract targets with your mage hand. As a bonus action on your turn, you can designate a creature within 5 feet of the spectral hand created by the spell. Doing so gives you advantage on attack rolls against that creature until the end of the turn.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "range": "5 feet from mage hand",
+                            "duration": "end_of_turn",
+                            "requirements": ["mage_hand_active"],
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": "attack_rolls_against_designated_creature"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
                     {
                         "name": "Spell Thief",
-                        "description": "You gain the ability to magically steal the knowledge of how to cast a spell from another spellcaster."
+                        "description": "At 17th level, you gain the ability to magically steal the knowledge of how to cast a spell from another spellcaster. Immediately after a creature casts a spell that targets you or includes you in its area of effect, you can use your reaction to force the creature to make a saving throw with its spellcasting ability modifier. The DC equals your spell save DC. On a failed save, you negate the spell's effect against you, and you steal the knowledge of the spell if it is at least 1st level and of a level you can cast. For the next 8 hours, you know the spell and can cast it using your spell slots. The creature can't cast that spell until the 8 hours have passed. Once you use this feature, you can't use it again until you finish a long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "reaction",
+                            "trigger": "targeted_by_spell_or_in_area",
+                            "uses": {
+                                "per_rest": "long",
+                                "amount": 1
+                            },
+                            "save": {
+                                "ability": "spellcasting_ability_of_caster",
+                                "dc": "your_spell_save_dc"
+                            },
+                            "effects": [
+                                {
+                                    "type": "negate_spell_effect_against_you",
+                                    "condition": "failed_save"
+                                },
+                                {
+                                    "type": "steal_spell_knowledge",
+                                    "duration": "8 hours",
+                                    "requirements": ["1st_level_or_higher", "level_you_can_cast"],
+                                    "condition": "failed_save"
+                                },
+                                {
+                                    "type": "prevent_caster_from_using_spell",
+                                    "duration": "8 hours",
+                                    "condition": "failed_save"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -321,33 +898,114 @@
                 "3": [
                     {
                         "name": "Ear for Deceit",
-                        "description": "When you make a Wisdom (Insight) check to determine whether a creature is lying, treat a roll of 7 or lower on the d20 as an 8."
+                        "description": "Starting at 3rd level, you have a supernatural ability to discern lies. Whenever you make a Wisdom (Insight) check to determine whether a creature is lying, treat a roll of 7 or lower on the d20 as an 8.",
+                        "mechanics": {
+                            "type": "passive",
+                            "applies_to": "Wisdom (Insight) checks to detect lies",
+                            "effects": [
+                                {
+                                    "type": "minimum_roll",
+                                    "minimum": 8,
+                                    "condition": "roll_7_or_lower"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Eye for Detail",
-                        "description": "You can use a bonus action to make a Wisdom (Perception) check to spot a hidden creature or object or to make an Intelligence (Investigation) check to uncover or decipher clues."
+                        "description": "Starting at 3rd level, you can use a bonus action to make a Wisdom (Perception) check to spot a hidden creature or object or to make an Intelligence (Investigation) check to uncover or decipher clues.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "bonus_action_options",
+                                    "action_type": "bonus_action",
+                                    "options": [
+                                        "Wisdom (Perception) check to spot hidden",
+                                        "Intelligence (Investigation) check for clues"
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Insightful Fighting",
-                        "description": "As a bonus action, you can make a Wisdom (Insight) check against a creature you can see that isn't incapacitated, contested by the target's Charisma (Deception) check. If you succeed, you can use your Sneak Attack against that target even if you don't have advantage on the attack roll, but not if you have disadvantage on it."
+                        "description": "At 3rd level, you gain the ability to decipher an opponent's tactics and develop a counter to them. As a bonus action, you can make a Wisdom (Insight) check against a creature you can see that isn't incapacitated, contested by the target's Charisma (Deception) check. If you succeed, you can use your Sneak Attack against that target even if you don't have advantage on the attack roll, but not if you have disadvantage on it. This benefit lasts until the end of your turn.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "range": "can see target",
+                            "requirements": ["target_not_incapacitated"],
+                            "contest": {
+                                "your_check": "Wisdom (Insight)",
+                                "target_check": "Charisma (Deception)"
+                            },
+                            "duration": "end_of_turn",
+                            "effects": [
+                                {
+                                    "type": "sneak_attack_without_advantage",
+                                    "condition": "successful_contest_and_no_disadvantage"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "9": [
                     {
                         "name": "Steady Eye",
-                        "description": "You gain advantage on any Wisdom (Perception) or Intelligence (Investigation) check if you move no more than half your speed on the same turn."
+                        "description": "Starting at 9th level, you have advantage on any Wisdom (Perception) or Intelligence (Investigation) check if you move no more than half your speed on the same turn.",
+                        "mechanics": {
+                            "type": "passive",
+                            "condition": "move_half_speed_or_less",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": ["Wisdom (Perception) checks", "Intelligence (Investigation) checks"]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "13": [
                     {
                         "name": "Unerring Eye",
-                        "description": "Your senses are almost impossible to foil. As an action, you can sense the presence of illusions, shapechangers not in their original form, and other magic designed to deceive the senses within 30 feet of you, provided you aren't blinded or deafened."
+                        "description": "Beginning at 13th level, your senses are almost impossible to foil. As an action, you can sense the presence of illusions, shapechangers not in their original form, and other magic designed to deceive the senses within 30 feet of you, provided that you aren't blinded or deafened. You sense that an effect is attempting to trick you, but you gain no special insight into what is hidden or into the nature of the illusion. You can use this feature a number of times equal to your Wisdom modifier (minimum of once), and you regain all expended uses when you finish a long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "range": "30 feet",
+                            "requirements": ["not_blinded", "not_deafened"],
+                            "uses": {
+                                "per_rest": "long",
+                                "amount": "wisdom_modifier",
+                                "minimum": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "detection",
+                                    "detects": ["illusions", "shapechangers_not_original_form", "deceptive_magic"],
+                                    "reveals": "presence_only"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
                     {
                         "name": "Eye for Weakness",
-                        "description": "You learn to exploit a creature's weaknesses by carefully studying its tactics and movement. While your Insightful Fighting feature applies to a creature, your Sneak Attack damage against that creature increases by 3d6."
+                        "description": "At 17th level, you learn to exploit a creature's weaknesses by carefully studying its tactics and movement. While your Insightful Fighting feature applies to a creature, your Sneak Attack damage against that creature increases by 3d6.",
+                        "mechanics": {
+                            "type": "passive_enhancement",
+                            "enhances": "Sneak Attack",
+                            "condition": "insightful_fighting_active_on_target",
+                            "effects": [
+                                {
+                                    "type": "damage_bonus",
+                                    "bonus": "3d6",
+                                    "damage_type": "same_as_sneak_attack"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
@@ -430,29 +1088,108 @@
                 "3": [
                     {
                         "name": "Fancy Footwork",
-                        "description": "When you make a melee attack against a creature, that creature can't make opportunity attacks against you for the rest of your turn."
+                        "description": "When you choose this archetype at 3rd level, you learn how to land a strike and then slip away without reprisal. During your turn, if you make a melee attack against a creature, that creature can't make opportunity attacks against you for the rest of your turn.",
+                        "mechanics": {
+                            "type": "passive",
+                            "trigger": "make_melee_attack_against_creature",
+                            "duration": "rest_of_turn",
+                            "effects": [
+                                {
+                                    "type": "prevent_opportunity_attacks",
+                                    "from": "attacked_creature"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "Rakish Audacity",
-                        "description": "You can give yourself a bonus to your initiative rolls equal to your Charisma modifier. You also don't need advantage on your attack roll to use your Sneak Attack if no creature other than your target is within 5 feet of you."
+                        "description": "Starting at 3rd level, your confidence propels you into battle. You can give yourself a bonus to your initiative rolls equal to your Charisma modifier. You also gain an additional way to use your Sneak Attack; you don't need advantage on the attack roll to use your Sneak Attack against a creature if you are within 5 feet of it, no other creatures are within 5 feet of you, and you don't have disadvantage on the attack roll. All the other rules for Sneak Attack still apply to you.",
+                        "mechanics": {
+                            "type": "passive",
+                            "effects": [
+                                {
+                                    "type": "initiative_bonus",
+                                    "bonus": "charisma_modifier"
+                                },
+                                {
+                                    "type": "sneak_attack_alternative_condition",
+                                    "requirements": [
+                                        "within_5_feet_of_target",
+                                        "no_other_creatures_within_5_feet_of_you",
+                                        "no_disadvantage"
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 ],
                 "9": [
                     {
                         "name": "Panache",
-                        "description": "Your charm becomes extraordinarily beguiling. As an action, you can make a Charisma (Persuasion) check contested by a creature's Wisdom (Insight) check. The creature must be able to hear you, and the two of you must share a language."
+                        "description": "At 9th level, your charm becomes extraordinarily beguiling. As an action, you can make a Charisma (Persuasion) check contested by a creature's Wisdom (Insight) check. The creature must be able to hear you, and the two of you must share a language. If you succeed on the check and the creature is hostile to you, it has disadvantage on attack rolls against targets other than you and can't make opportunity attacks against targets other than you. This effect lasts for 1 minute, until one of your companions attacks the target or affects it with a spell, or until you and the target are more than 60 feet apart. If you succeed on the check and the creature isn't hostile to you, it is charmed by you for 1 minute. While charmed, it regards you as a friendly acquaintance. This effect ends immediately if you or your companions do anything harmful to it.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "action",
+                            "range": "can hear you",
+                            "requirements": ["shared_language"],
+                            "contest": {
+                                "your_check": "Charisma (Persuasion)",
+                                "target_check": "Wisdom (Insight)"
+                            },
+                            "effects": [
+                                {
+                                    "type": "hostile_creature_limitation",
+                                    "condition": "target_hostile_and_contest_success",
+                                    "duration": "1 minute or until conditions break",
+                                    "limitations": [
+                                        "disadvantage_on_attacks_vs_others",
+                                        "no_opportunity_attacks_vs_others"
+                                    ]
+                                },
+                                {
+                                    "type": "charm",
+                                    "condition": "target_not_hostile_and_contest_success",
+                                    "duration": "1 minute or until harmed"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "13": [
                     {
                         "name": "Elegant Maneuver",
-                        "description": "You can use a bonus action on your turn to gain advantage on the next Dexterity (Acrobatics) or Strength (Athletics) check you make during the same turn."
+                        "description": "Starting at 13th level, you can use a bonus action on your turn to gain advantage on the next Dexterity (Acrobatics) or Strength (Athletics) check you make during the same turn.",
+                        "mechanics": {
+                            "type": "resource",
+                            "action_type": "bonus_action",
+                            "duration": "same_turn",
+                            "effects": [
+                                {
+                                    "type": "advantage",
+                                    "on": "next Dexterity (Acrobatics) or Strength (Athletics) check"
+                                }
+                            ]
+                        }
                     }
                 ],
                 "17": [
                     {
                         "name": "Master Duelist",
-                        "description": "When you miss with an attack roll, you can roll it again with advantage. Once you do so, you can't use this feature again until you finish a short or long rest."
+                        "description": "Beginning at 17th level, your mastery of the blade lets you turn failure into success in combat. If you miss with an attack roll, you can roll it again with advantage. Once you do so, you can't use this feature again until you finish a short or long rest.",
+                        "mechanics": {
+                            "type": "resource",
+                            "trigger": "miss_with_attack_roll",
+                            "uses": {
+                                "per_rest": "short",
+                                "amount": 1
+                            },
+                            "effects": [
+                                {
+                                    "type": "reroll_with_advantage",
+                                    "applies_to": "missed_attack_roll"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

@@ -1,0 +1,118 @@
+{
+    "name": "Charlatan",
+    "description": "You have always had a way with people. You know what makes them tick, you can tease out their hearts' desires after a few minutes of conversation, and with a few leading questions you can read them like they were children's books.",
+    "feature": {
+        "name": "False Identity",
+        "description": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
+    },
+    "proficiency_grants": {
+        "skills": [
+            "Deception",
+            "Sleight of Hand"
+        ],
+        "languages": [],
+        "tools": [
+            {
+                "type": "disguise kit",
+                "quantity": 1
+            },
+            {
+                "type": "forgery kit",
+                "quantity": 1
+            }
+        ]
+    },
+    "equipment_grants": {
+        "fixed": [
+            {
+                "item": "Disguise Kit",
+                "quantity": 1,
+                "description": "A set of disguise kit"
+            },
+            {
+                "item": "Con Tools",
+                "quantity": 1,
+                "description": "Tools of the con of your choice (ten stoppered bottles filled with colored liquid, a set of weighted dice, a deck of marked cards, or a signet ring of an imaginary noble)"
+            },
+            {
+                "item": "Fine Clothes",
+                "quantity": 1,
+                "description": "A set of fine clothes"
+            }
+        ],
+        "currency": {
+            "gold": 15
+        }
+    },
+    "personality": {
+        "personality_traits": {
+            "suggestions": [
+                "I fall in and out of love easily, and am always pursuing someone.",
+                "I have a joke for every occasion, especially occasions where humor is inappropriate.",
+                "Flattery is my preferred trick for getting what I want.",
+                "I'm a born gambler who can't resist taking a risk for a potential payoff.",
+                "I lie about almost everything, even when there's no good reason to.",
+                "Sarcasm and insults are my weapons of choice.",
+                "I keep multiple holy symbols on me and invoke whatever deity might come in useful at any given moment.",
+                "I pocket anything I see that might have some value."
+            ],
+            "count": 2,
+            "type": "choice"
+        },
+        "ideals": {
+            "suggestions": [
+                {
+                    "ideal": "Independence. I am a free spirit—no one tells me what to do.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Fairness. I never target people who can't afford to lose a few coins.",
+                    "alignment": "Lawful"
+                },
+                {
+                    "ideal": "Charity. I distribute the money I acquire to the people who really need it.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Creativity. I never run the same con twice.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Friendship. Material goods come and go. Bonds of friendship last forever.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Aspiration. I'm determined to make something of myself.",
+                    "alignment": "Any"
+                }
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "bonds": {
+            "suggestions": [
+                "I fleeced the wrong person and must work to ensure that this individual never crosses paths with me or those I care about.",
+                "I owe everything to my mentor—a horrible person who's probably rotting in jail somewhere.",
+                "Somewhere out there, I have a child who doesn't know me. I'm making the world better for him or her.",
+                "I come from a noble family, and one day I'll reclaim my lands and title from those who stole them from me.",
+                "A powerful person killed someone I love. Some day soon, I'll have my revenge.",
+                "I swindled and ruined a person who didn't deserve it. I seek to atone for my misdeeds but might never be able to forgive myself."
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "flaws": {
+            "suggestions": [
+                "I can't resist a pretty face.",
+                "I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in.",
+                "I'm convinced that no one could ever fool me the way I fool others.",
+                "I'm too greedy for my own good. I can't resist taking a risk if there's money involved.",
+                "I can't resist swindling people who are more powerful than me.",
+                "I hate to admit it and will hate myself for it, but I'll run and preserve my own hide if the going gets tough."
+            ],
+            "count": 1,
+            "type": "choice"
+        }
+    },
+    "suggested_characteristics": "Charlatans are colorful characters who conceal their true selves behind the masks they construct. They reflect what people want to see, what they want to believe, and how they see the world. But their true selves are sometimes plagued by an uneasy conscience, an old enemy, or deep-seated trust issues."
+}

@@ -560,6 +560,12 @@
             padding: 32px 36px;
             min-height: 240px;
             box-shadow: var(--ttui_box-shadow-1);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .tab-content > div {
+            height: 100%;
+            overflow-y: auto;
         }
         /* GENERAL */
         @media (max-width: 1400px) {
@@ -1386,6 +1392,117 @@
             font-size: 0.9rem;
             font-weight: 500;
         }
+        .feature-mechanics {
+            margin-top: 8px;
+            padding: 8px;
+            background: var(--ttui_parchment-50);
+            border-radius: 6px;
+            border: 1px solid var(--ttui_parchment-200);
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        /* Toggle mechanics visibility */
+        .hide-mechanics .feature-mechanics {
+            display: none;
+        }
+
+        /* Mechanics toggle container */
+        .mechanics-toggle-container {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--ttui_parchment-100);
+            border-radius: 8px;
+            border: 1px solid var(--ttui_parchment-200);
+        }
+
+        .mechanics-toggle-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--ttui_grey-700);
+            cursor: pointer;
+            user-select: none;
+            font-weight: 500;
+        }
+
+        .mechanics-toggle-checkbox {
+            margin-right: 8px;
+            cursor: pointer;
+            accent-color: var(--ttui_red-500);
+            transform: scale(1.1);
+        }
+        .mechanic-type {
+            font-weight: 700;
+            color: var(--ttui_red-700);
+            margin-bottom: 4px;
+        }
+        .mechanic-detail {
+            color: var(--ttui_grey-800);
+            font-size: 0.98rem;
+            margin-bottom: 2px;
+            line-height: 1.4;
+        }
+        .mechanic-option {
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid var(--ttui_grey-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .mechanic-option:hover {
+            background-color: var(--ttui_grey-50);
+        }
+        .mechanic-description {
+            margin: 8px 0;
+            color: var(--ttui_grey-700);
+            font-size: 0.95em;
+        }
+        .mechanic-effects {
+            margin-top: 8px;
+            color: var(--ttui_grey-800);
+        }
+        .mechanic-effect {
+            margin: 4px 0;
+            padding-left: 12px;
+        }
+        .mechanic-type {
+            font-weight: bold;
+            color: var(--ttui_red-500);
+            margin-bottom: 12px;
+        }
+        .feature-list li {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--ttui_parchment-200);
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .mechanic-option.selected {
+            background: var(--ttui_yellow-100);
+            border-color: var(--ttui_yellow-500);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .selection-notification {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ttui_green-500);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            animation: fadeOut 2s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1403,6 +1520,20 @@
         });
         // Show only the first tab content by default
         tabContents.forEach((c, i) => c.style.display = (i === 0) ? 'block' : 'none');
+
+        // Mechanics toggle functionality
+        const mechanicsToggle = document.getElementById('hide-mechanics-checkbox');
+        if (mechanicsToggle) {
+            mechanicsToggle.addEventListener('change', function() {
+                // Target the features tab content container directly
+                const featuresContainer = document.getElementById('features-tab-content');
+                if (this.checked) {
+                    featuresContainer.classList.add('hide-mechanics');
+                } else {
+                    featuresContainer.classList.remove('hide-mechanics');
+                }
+            });
+        }
 
         // Background subtabs system
         const bgTabCard = document.querySelector('.background-tab-card');
@@ -1592,6 +1723,38 @@
             });
         });
     });
+
+    function selectFeatureOption(element, featureName, optionName) {
+        // Remove selected class from all options in this feature
+        const featureOptions = element.parentElement.getElementsByClassName('mechanic-option');
+        Array.from(featureOptions).forEach(opt => opt.classList.remove('selected'));
+        
+        // Add selected class to clicked option
+        element.classList.add('selected');
+        
+        // Store the selection
+        const selections = JSON.parse(localStorage.getItem('featureSelections') || '{}');
+        selections[featureName] = optionName;
+        localStorage.setItem('featureSelections', JSON.stringify(selections));
+        
+        // Visual feedback
+        const notification = document.createElement('div');
+        notification.className = 'selection-notification';
+        notification.textContent = `Selected ${optionName}`;
+        element.appendChild(notification);
+        setTimeout(() => notification.remove(), 2000);
+    }
+
+    // Load saved selections on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const selections = JSON.parse(localStorage.getItem('featureSelections') || '{}');
+        Object.entries(selections).forEach(([feature, option]) => {
+            const optionElement = document.querySelector(`[data-feature="${feature}"][data-option="${option}"]`);
+            if (optionElement) {
+                optionElement.classList.add('selected');
+            }
+        });
+    });
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1640,7 +1803,7 @@
                 <div class="portrait" style="background-image:url('https://www.dndbeyond.com/avatars/thumbnails/1/10/420/618/636376331930210099.png');"></div>
                 <div class="header-info">
                     <span class="character-name">{{ character.name }} <button class="manage-btn">MANAGE</button></span>
-                    <span class="character-meta">{{ character.race }} | {% for class_name, level in character.class_levels.items() %}{{ class_name }} {{ level }}{% if not loop.last %}, {% endif %}{% endfor %} | Level {{ character.level }}</span>
+                    <span class="character-meta">{{ character.race }} | {% for class_name, level in character.class_levels.items() %}{{ class_name|replace('CollegeOf', 'College of ')|replace('College', 'College ')|replace('Of', ' of ')|replace('  ', ' ') }} {{ level }}{% if not loop.last %}, {% endif %}{% endfor %} | Level {{ character.level }}</span>
                     <span class="character-meta">{{ character.background }} | {{ character.alignment }}</span>
                 </div>
             </div>
@@ -1974,21 +2137,419 @@
                         {% endif %}
                     </div>
                     <!-- Features & Traits Tab Content -->
-                    <div>
+                    <div id="features-tab-content">
+                        <div class="mechanics-toggle-container">
+                            <label for="hide-mechanics-checkbox" class="mechanics-toggle-label">
+                                <input type="checkbox" id="hide-mechanics-checkbox" class="mechanics-toggle-checkbox">
+                                Hide detailed mechanics
+                            </label>
+                        </div>
                         <h3>Class Features</h3>
                         <ul class="feature-list">
                             {% for level, features in character.class_features.items() %}
                                 {% for feature in features %}
+                                    {% if feature.mechanics and not (feature.mechanics.type == "subclass_feature") %}
                                     <li>
                                         <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
                                         <span>
                                             <strong>{{feature.name}} (Level {{level}})</strong>: 
                                             {{feature.description}}
-                                            {% if feature.mechanics %}
-                                                <br><em>Mechanics: {{ feature.mechanics|tojson }}</em>
-                                            {% endif %}
+                                            {% if feature.mechanics and (feature.mechanics.action_type or feature.mechanics.type) %}
+                                                <div class="feature-mechanics">
+                                                    {% if feature.mechanics.action_type %}
+                                                        <div class="mechanic-type">
+                                                            {% set action_text = feature.mechanics.action_type|replace('_', ' ')|title %}
+                                                            {% if action_text.endswith('Action') %}{{ action_text }}{% else %}{{ action_text }} Action{% endif %}
+                                                        </div>
+                                                        {% if feature.mechanics.duration %}
+                                                            <div class="mechanic-detail">Duration: 
+                                                                {% if feature.mechanics.duration.value %}{{feature.mechanics.duration.value}}{% elif feature.mechanics.duration.amount %}{{feature.mechanics.duration.amount}}{% else %}?{% endif %} 
+                                                                {% if feature.mechanics.duration.unit %}{{feature.mechanics.duration.unit|replace('_', ' ')}}{% elif feature.mechanics.duration.amount and feature.mechanics.duration.amount != feature.mechanics.duration.value %}{{feature.mechanics.duration.amount|replace('_', ' ')}}{% else %}unit{% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if feature.mechanics.uses %}
+                                                            <div class="mechanic-detail">Uses:
+                                                                {% if feature.mechanics.uses.per_day %}
+                                                                    {% for level, uses in feature.mechanics.uses.per_day.items() %}
+                                                                        Level {{level}}: {{uses}}{% if not loop.last %}, {% endif %}
+                                                                    {% endfor %} per day
+                                                                {% elif feature.mechanics.uses.per_long_rest %}
+                                                                    {{feature.mechanics.uses.per_long_rest}} per long rest
+                                                                {% elif feature.mechanics.uses.per_short_rest %}
+                                                                    {{feature.mechanics.uses.per_short_rest}} per short rest
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if feature.mechanics.damage_bonus %}
+                                                            <div class="mechanic-detail">Damage Bonus:
+                                                                {% for level, bonus in feature.mechanics.damage_bonus.items() %}
+                                                                    Level {{level}}: +{{bonus}}{% if not loop.last %}, {% endif %}
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if feature.mechanics.effects %}
+                                                            {% for effect in feature.mechanics.effects %}
+                                                                <div class="mechanic-detail">
+                                                                    {% if effect.type == "advantage" %}
+                                                                        • Advantage on {{effect.on|join(' and ')|replace('_', ' ')|title}}
+                                                                    {% elif effect.type == "resistance" %}
+                                                                        • Resistance to {{effect.to|join(', ')|replace('_', ' ')|title}} damage
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        {% if feature.mechanics.conditions %}
+                                                            <div class="mechanic-type">Conditions</div>
+                                                            {% for condition in feature.mechanics.conditions %}
+                                                                <div class="mechanic-detail">• {{condition}}</div>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    {% elif feature.mechanics.type %}
+                                                        {% if feature.mechanics.type == "passive" %}
+                                                            <div class="mechanic-type">Passive Effect</div>
+                                                            {% if feature.mechanics.effects %}
+                                                                {% for effect in feature.mechanics.effects %}
+                                                                    <div class="mechanic-detail">
+                                                                        {% if effect.name and effect.effects %}
+                                                                            <!-- Nested effects with name (like Storm Soul) -->
+                                                                            • <strong>{{effect.name}}:</strong>
+                                                                            {% for nested_effect in effect.effects %}
+                                                                                <div style="margin-left: 20px;">
+                                                                                    {% if nested_effect.type == "resistance" %}
+                                                                                        - Resistance to {{nested_effect.to|join(', ')}}
+                                                                                    {% elif nested_effect.type == "immunity" %}
+                                                                                        - Immunity to {{nested_effect.to|join(', ')|replace('_', ' ')}}
+                                                                                    {% elif nested_effect.type == "water_breathing" %}
+                                                                                        - Water breathing
+                                                                                    {% else %}
+                                                                                        - {{nested_effect.type|replace('_', ' ')|title}}
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            {% endfor %}
+                                                                        {% elif effect.type == "advantage" %}
+                                                                            • Advantage on {{effect.on|replace('_', ' ')|title}}
+                                                                        {% elif effect.type == "resistance" %}
+                                                                            • Resistance to {{effect.to|join(', ')}}
+                                                                        {% elif effect.type == "speed_bonus" %}
+                                                                            • Speed bonus: +{{effect.amount}} {{effect.unit}}
+                                                                        {% elif effect.type == "additional_attack" %}
+                                                                            • Additional Attack: +{{effect.amount}}
+                                                                        {% elif effect.type == "special" %}
+                                                                            • {{effect.name|replace('_', ' ')|title}}: {{effect.description}}
+                                                                        {% elif effect.type == "critical_hit_bonus" %}
+                                                                            • Critical Hit Bonus: +{{effect.additional_dice.values()|list|first}} damage dice
+                                                                        {% elif effect.type == "modify_feature" %}
+                                                                            • Modifies {{effect.feature}} feature
+                                                                        {% elif effect.type == "ability_check_minimum" %}
+                                                                            • {{effect.ability|title}} check minimum: {{effect.minimum|replace('_', ' ')}}
+                                                                        {% elif effect.type == "ability_score_increase" %}
+                                                                            • Ability Score Increase: {{effect.abilities|join(', ')|title}} +{{effect.amount}}
+                                                                        {% elif effect.type == "ability_score_maximum" %}
+                                                                            • Ability Score Maximum: {{effect.abilities|join(', ')|title}} ({{effect.new_maximum}})
+                                                                        {% else %}
+                                                                            • {{effect.type|replace('_', ' ')|title}}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "combat_option" %}
+                                                            <div class="mechanic-type">Combat Option</div>
+                                                            {% if feature.mechanics.activation %}
+                                                                <div class="mechanic-detail">
+                                                                    Activation: {{feature.mechanics.activation.timing|replace('_', ' ')|title}}
+                                                                    {% if feature.mechanics.activation.cost and feature.mechanics.activation.cost != "free" %}
+                                                                        ({{feature.mechanics.activation.cost|replace('_', ' ')|title}})
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.effects %}
+                                                                {% for effect in feature.mechanics.effects %}
+                                                                    <div class="mechanic-detail">
+                                                                        {% if effect.type == "bonus_action" %}
+                                                                            • Bonus Action: {{effect.action|replace('_', ' ')|title}}
+                                                                            {% if effect.duration %}
+                                                                                (Duration: {{effect.duration}})
+                                                                            {% endif %}
+                                                                        {% elif effect.type == "condition" %}
+                                                                            • Gain {{effect.condition|title}}
+                                                                            {% if effect.level %}
+                                                                                (Level {{effect.level}})
+                                                                            {% endif %}
+                                                                            {% if effect.timing %}
+                                                                                {{effect.timing|replace('_', ' ')}}
+                                                                            {% endif %}
+                                                                        {% else %}
+                                                                            • {{effect.type|replace('_', ' ')|title}}
+                                                                            {% if effect.on %}
+                                                                                : {{effect.on|replace('_', ' ')|title}}
+                                                                            {% endif %}
+                                                                            {% if effect.duration %}
+                                                                                ({{effect.duration|replace('_', ' ')|title}})
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "choice" %}
+                                                            <div class="mechanic-type">Choose {{feature.mechanics.choose|default(1)}}</div>
+                                                            {% if feature.mechanics.options %}
+                                                                {% for option in feature.mechanics.options %}
+                                                                    <div class="mechanic-option" 
+                                                                         onclick="selectFeatureOption(this, '{{feature.name}}', '{{option.name}}')"
+                                                                         data-feature="{{feature.name}}"
+                                                                         data-option="{{option.name}}">
+                                                                        <strong>{{option.name}}</strong>
+                                                                        {% if option.description %}
+                                                                            <div class="mechanic-detail">{{option.description}}</div>
+                                                                        {% endif %}
+                                                                        {% if option.effects %}
+                                                                            <div class="mechanic-effects">
+                                                                                {% for effect in option.effects %}
+                                                                                    <div class="mechanic-effect">
+                                                                                        {% if effect.type == "advantage" %}
+                                    • Advantage on {{effect.on}}
+                                {% elif effect.type == "resistance" %}
+                                    • Resistance to {{effect.to|join(', ')}}
+                                    {% if effect.conditions %}
+                                        {{effect.conditions|join(', ')}}
+                                    {% endif %}
+                                {% elif effect.type == "grant advantage" %}
+                                    • Grant advantage on {{effect.to}}
+                                    {% if effect.target %}
+                                        for {{effect.target}}
+                                    {% endif %}
+                                    {% if effect.conditions %}
+                                        when {{effect.conditions|join(' and ')}}
+                                    {% endif %}
+                                                                                        {% endif %}
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "resource" %}
+                                                            <div class="mechanic-type">Resource Feature</div>
+                                                            {% if feature.mechanics.action_type %}
+                                                                <div class="mechanic-detail">
+                                                                    Action: {{feature.mechanics.action_type|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.range %}
+                                                                <div class="mechanic-detail">
+                                                                    Range: {{feature.mechanics.range}} feet
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.resource %}
+                                                                {% if feature.mechanics.resource.uses %}
+                                                                    <div class="mechanic-detail">
+                                                                        Uses: {{feature.mechanics.resource.uses.per_long_rest}} per long rest
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.resource.die %}
+                                                                    <div class="mechanic-detail">
+                                                                        Die: {{feature.mechanics.resource.die.values()|list|first}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if feature.mechanics.effect %}
+                                                                <div class="mechanic-detail">
+                                                                    Effect: {{feature.mechanics.effect.type|replace('_', ' ')|title}}
+                                                                    {% if feature.mechanics.effect.duration %}
+                                                                        for {{feature.mechanics.effect.duration|replace('_', ' ')}}
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "expertise" %}
+                                                            <div class="mechanic-type">Expertise</div>
+                                                            {% if feature.mechanics.choices %}
+                                                                {% for level, choice in feature.mechanics.choices.items() %}
+                                                                    <div class="mechanic-detail">
+                                                                        Level {{level}}: Choose {{choice.choose}} skills to gain expertise
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "short_rest_healing" %}
+                                                            <div class="mechanic-type">Short Rest Healing</div>
+                                                            {% if feature.mechanics.healing %}
+                                                                {% if feature.mechanics.healing.die %}
+                                                                    <div class="mechanic-detail">
+                                                                        Extra healing: {{feature.mechanics.healing.die.values()|list|first}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if feature.mechanics.target %}
+                                                                <div class="mechanic-detail">
+                                                                    Target: {{feature.mechanics.target.type|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "subclass_choice" %}
+                                                            <div class="mechanic-type">Subclass Feature</div>
+                                                            {% if feature.mechanics.feature_levels %}
+                                                                <div class="mechanic-detail">
+                                                                    Gains features at levels: {{feature.mechanics.feature_levels|join(', ')}}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "update_resource" %}
+                                                            <div class="mechanic-type">Resource Update</div>
+                                                            {% if feature.mechanics.resource %}
+                                                                <div class="mechanic-detail">
+                                                                    Updates {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.die %}
+                                                                <div class="mechanic-detail">
+                                                                    Die becomes: {{feature.mechanics.die}}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                                                                                    {% if feature.mechanics.type == "resource_recovery" %}
+                                                                <div class="mechanic-type">Resource Recovery</div>
+                                                                {% if feature.mechanics.resource %}
+                                                                    <div class="mechanic-detail">
+                                                                        Affects: {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.recovery %}
+                                                                    <div class="mechanic-detail">
+                                                                        Recovery: {{feature.mechanics.recovery.type|replace('_', ' ')|title}} uses on {{feature.mechanics.recovery.trigger|join(' or ')|replace('_', ' ')}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "proficiencies" %}
+                                                                <div class="mechanic-type">Grants Proficiencies</div>
+                                                                {% if feature.mechanics.armor %}
+                                                                    <div class="mechanic-detail">
+                                                                        Armor: {{feature.mechanics.armor|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.weapons %}
+                                                                    <div class="mechanic-detail">
+                                                                        Weapons: {{feature.mechanics.weapons|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.tools %}
+                                                                    <div class="mechanic-detail">
+                                                                        Tools: {{feature.mechanics.tools|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "modify_resource" %}
+                                                                <div class="mechanic-type">Modifies {{feature.mechanics.resource|replace('_', ' ')|title}}</div>
+                                                                {% if feature.mechanics.additional_uses %}
+                                                                    <div class="mechanic-detail">Additional uses:</div>
+                                                                    {% for use in feature.mechanics.additional_uses %}
+                                                                        <div class="mechanic-detail">
+                                                                            • {{use.type|replace('_', ' ')|title}}
+                                                                            {% if use.trigger %}({{use.trigger|replace('_', ' ')|title}}){% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "extra_attack" %}
+                                                                <div class="mechanic-type">Extra Attack</div>
+                                                                <div class="mechanic-detail">
+                                                                    Total attacks per turn: {{feature.mechanics.attacks}}
+                                                                </div>
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "action_with_effect" or (feature.mechanics.type == "action" and feature.mechanics.effect) %}
+                                                                <div class="mechanic-type">Action</div>
+                                                                {% if feature.mechanics.effect %}
+                                                                    {% if feature.mechanics.effect.type == "grant_advantage" %}
+                                                                        <div class="mechanic-detail">
+                                                                            Grants advantage on {{feature.mechanics.effect.on|join(' and ')|replace('_', ' ')|title}}
+                                                                        </div>
+                                                                        {% if feature.mechanics.effect.target %}
+                                                                            <div class="mechanic-detail">
+                                                                                Target: {{feature.mechanics.effect.target.type|join(', ')|replace('_', ' ')|title}}
+                                                                                {% if feature.mechanics.effect.target.range %}
+                                                                                    within {{feature.mechanics.effect.target.range}}ft
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                        {% if feature.mechanics.effect.duration %}
+                                                                            <div class="mechanic-detail">
+                                                                                Duration: {{feature.mechanics.effect.duration|replace('_', ' ')|title}}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "modify_feature" %}
+                                                            <div class="mechanic-type">Modifies {{feature.mechanics.feature|replace('_', ' ')|title}}</div>
+                                                            {% if feature.mechanics.trigger %}
+                                                                <div class="mechanic-detail">
+                                                                    Trigger: {{feature.mechanics.trigger|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.additional_effect %}
+                                                                <div class="mechanic-detail">
+                                                                    Additional effect: {{feature.mechanics.additional_effect.type|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "minimum_roll" %}
+                                                            <div class="mechanic-type">Minimum Roll</div>
+                                                            <div class="mechanic-detail">
+                                                                Minimum {{feature.mechanics.value}} on {{feature.mechanics.applies_to|join(' and ')|replace('_', ' ')|title}} checks
+                                                            </div>
+                                                        {% endif %}
+
+                                                        {% if feature.mechanics.type == "combat_feature" %}
+                                                            <div class="mechanic-type">Combat Feature</div>
+                                                            {% if feature.mechanics.resource %}
+                                                                <div class="mechanic-detail">
+                                                                    Uses: {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.options %}
+                                                                {% for option in feature.mechanics.options %}
+                                                                    <div class="mechanic-detail">
+                                                                        <strong>{{option.name}}</strong>
+                                                                        {% if option.trigger %}
+                                                                            - {{option.trigger|replace('_', ' ')|title}}
+                                                                        {% endif %}
+                                                                        {% if option.effects %}
+                                                                            {% for effect in option.effects %}
+                                                                                <div style="margin-left: 12px;">
+                                                                                    • {{effect.type|replace('_', ' ')|title}}
+                                                                                    {% if effect.amount %}: {{effect.amount|replace('_', ' ')|title}}{% endif %}
+                                                                                    {% if effect.duration %} ({{effect.duration|replace('_', ' ')|title}}){% endif %}
+                                                                                </div>
+                                                                            {% endfor %}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
                                         </span>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             {% endfor %}
                         </ul>
@@ -2003,24 +2564,544 @@
                                             <span>
                                                 <strong>{{feature.name}} (Level {{level}})</strong>: 
                                                 {{feature.description}}
-                                                {% if feature.mechanics %}
-                                                    <br><em>Mechanics: {{ feature.mechanics|tojson }}</em>
+                                                {% if feature.mechanics and (feature.mechanics.action_type or feature.mechanics.type) %}
+                                                    <div class="feature-mechanics">
+                                                        {% if feature.mechanics.action_type %}
+                                                            <div class="mechanic-type">
+                                                                {% set action_text = feature.mechanics.action_type|replace('_', ' ')|title %}
+                                                                {% if action_text.endswith('Action') %}{{ action_text }}{% else %}{{ action_text }} Action{% endif %}
+                                                            </div>
+                                                            {% if feature.mechanics.duration %}
+                                                                <div class="mechanic-detail">Duration: 
+                                                                    {% if feature.mechanics.duration.value %}{{feature.mechanics.duration.value}}{% elif feature.mechanics.duration.amount %}{{feature.mechanics.duration.amount}}{% else %}?{% endif %} 
+                                                                    {% if feature.mechanics.duration.unit %}{{feature.mechanics.duration.unit|replace('_', ' ')}}{% elif feature.mechanics.duration.amount and feature.mechanics.duration.amount != feature.mechanics.duration.value %}{{feature.mechanics.duration.amount|replace('_', ' ')}}{% else %}unit{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.uses %}
+                                                                <div class="mechanic-detail">Uses:
+                                                                    {% if feature.mechanics.uses.per_day %}
+                                                                        {% for level, uses in feature.mechanics.uses.per_day.items() %}
+                                                                            Level {{level}}: {{uses}}{% if not loop.last %}, {% endif %}
+                                                                        {% endfor %} per day
+                                                                    {% elif feature.mechanics.uses.per_long_rest %}
+                                                                        {{feature.mechanics.uses.per_long_rest}} per long rest
+                                                                    {% elif feature.mechanics.uses.per_short_rest %}
+                                                                        {{feature.mechanics.uses.per_short_rest}} per short rest
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.damage_bonus %}
+                                                                <div class="mechanic-detail">Damage Bonus:
+                                                                    {% for level, bonus in feature.mechanics.damage_bonus.items() %}
+                                                                        Level {{level}}: +{{bonus}}{% if not loop.last %}, {% endif %}
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if feature.mechanics.effects %}
+                                                                {% for effect in feature.mechanics.effects %}
+                                                                    <div class="mechanic-detail">
+                                                                        {% if effect.type == "advantage" %}
+                                                                            • Advantage on {{effect.on|join(' and ')|replace('_', ' ')|title}}
+                                                                        {% elif effect.type == "resistance" %}
+                                                                            • Resistance to {{effect.to|join(', ')|replace('_', ' ')|title}} damage
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                            {% if feature.mechanics.conditions %}
+                                                                <div class="mechanic-type">Conditions</div>
+                                                                {% for condition in feature.mechanics.conditions %}
+                                                                    <div class="mechanic-detail">• {{condition}}</div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% elif feature.mechanics.type %}
+                                                            {% if feature.mechanics.type == "passive" %}
+                                                                <div class="mechanic-type">Passive Effect</div>
+                                                                {% if feature.mechanics.effects %}
+                                                                    {% for effect in feature.mechanics.effects %}
+                                                                        <div class="mechanic-detail">
+                                                                            {% if effect.name and effect.effects %}
+                                                                                <!-- Nested effects with name (like Storm Soul) -->
+                                                                                • <strong>{{effect.name}}:</strong>
+                                                                                {% for nested_effect in effect.effects %}
+                                                                                    <div style="margin-left: 20px;">
+                                                                                        {% if nested_effect.type == "resistance" %}
+                                                                                            - Resistance to {{nested_effect.to|join(', ')}}
+                                                                                        {% elif nested_effect.type == "immunity" %}
+                                                                                            - Immunity to {{nested_effect.to|join(', ')|replace('_', ' ')}}
+                                                                                        {% elif nested_effect.type == "water_breathing" %}
+                                                                                            - Water breathing
+                                                                                        {% else %}
+                                                                                            - {{nested_effect.type|replace('_', ' ')|title}}
+                                                                                        {% endif %}
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            {% elif effect.type == "advantage" %}
+                                                                                • Advantage on {{effect.on|replace('_', ' ')|title}}
+                                                                            {% elif effect.type == "resistance" %}
+                                                                                • Resistance to {{effect.to|join(', ')|replace('_', ' ')|title}}
+                                                                                {% if effect.conditions %}
+                                                                                    ({{effect.conditions|join(', ')}})
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "immunity" %}
+                                                                                • Immunity to {{effect.to|join(', ')|replace('_', ' ')|title}}
+                                                                                {% if effect.conditions %}
+                                                                                    ({{effect.conditions|join(', ')}})
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "grant_advantage" %}
+                                                                                • Grant advantage on {{effect.to|replace('_', ' ')|title}}
+                                                                                {% if effect.target %}
+                                                                                    for {{effect.target|replace('_', ' ')|title}}
+                                                                                {% endif %}
+                                                                                {% if effect.conditions %}
+                                                                                    when {{effect.conditions|join(' and ')}}
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "aura" %}
+                                                                                • {{effect.range}}ft aura: {{effect.effect|replace('_', ' ')|title}}
+                                                                                {% if effect.damage %}
+                                                                                    ({{effect.damage.amount}} {{effect.damage.type}} damage)
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "natural_weapon" %}
+                                                                                • Natural weapon: {{effect.weapon.damage}} {{effect.weapon.damage_type}} damage
+                                                                                {% if effect.weapon.special %}
+                                                                                    - {{effect.weapon.special}}
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "speed_bonus" %}
+                                                                                • Speed +{{effect.amount}}ft
+                                                                                {% if effect.conditions %}
+                                                                                    ({{effect.conditions|join(', ')}})
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "flying_speed" %}
+                                                                                • Flying speed equal to {{effect.speed|replace('_', ' ')}}
+                                                                            {% elif effect.type == "swimming_speed" %}
+                                                                                • Swimming speed equal to {{effect.speed|replace('_', ' ')}}
+                                                                            {% elif effect.type == "climbing_speed" %}
+                                                                                • Climbing speed equal to {{effect.speed|replace('_', ' ')}}
+                                                                            {% else %}
+                                                                                • {{effect.type|replace('_', ' ')|title}}
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "combat_option" %}
+                                                                <div class="mechanic-type">Combat Option</div>
+                                                                {% if feature.mechanics.activation %}
+                                                                    <div class="mechanic-detail">
+                                                                        Activation: {{feature.mechanics.activation.timing|replace('_', ' ')|title}}
+                                                                        {% if feature.mechanics.activation.cost and feature.mechanics.activation.cost != "free" %}
+                                                                            ({{feature.mechanics.activation.cost|replace('_', ' ')|title}})
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.effects %}
+                                                                    {% for effect in feature.mechanics.effects %}
+                                                                        <div class="mechanic-detail">
+                                                                            {% if effect.type == "bonus_action" %}
+                                                                                • Bonus Action: {{effect.action|replace('_', ' ')|title}}
+                                                                                {% if effect.duration %}
+                                                                                    (Duration: {{effect.duration}})
+                                                                                {% endif %}
+                                                                            {% elif effect.type == "condition" %}
+                                                                                • Gain {{effect.condition|title}}
+                                                                                {% if effect.level %}
+                                                                                    (Level {{effect.level}})
+                                                                                {% endif %}
+                                                                                {% if effect.timing %}
+                                                                                    {{effect.timing|replace('_', ' ')}}
+                                                                                {% endif %}
+                                                                            {% else %}
+                                                                                • {{effect.type|replace('_', ' ')|title}}
+                                                                                {% if effect.on %}
+                                                                                    : {{effect.on|replace('_', ' ')|title}}
+                                                                                {% endif %}
+                                                                                {% if effect.duration %}
+                                                                                    ({{effect.duration|replace('_', ' ')|title}})
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "choice" %}
+                                                                <div class="mechanic-type">Choose {{feature.mechanics.choose|default(1)}}</div>
+                                                                {% if feature.mechanics.options %}
+                                                                    {% for option in feature.mechanics.options %}
+                                                                        <div class="mechanic-option" 
+                                                                             onclick="selectFeatureOption(this, '{{feature.name}}', '{{option.name}}')"
+                                                                             data-feature="{{feature.name}}"
+                                                                             data-option="{{option.name}}">
+                                                                            <strong>{{option.name}}</strong>
+                                                                            {% if option.description %}
+                                                                                <div class="mechanic-detail">{{option.description}}</div>
+                                                                            {% endif %}
+                                                                            {% if option.effects %}
+                                                                                <div class="mechanic-effects">
+                                                                                    {% for effect in option.effects %}
+                                                                                        <div class="mechanic-effect">
+                                                                                            {% if effect.type == "advantage" %}
+                                                                                                • Advantage on {{effect.on}}
+                                                                                            {% elif effect.type == "resistance" %}
+                                                                                                • Resistance to {{effect.to|join(', ')}}
+                                                                                                {% if effect.conditions %}
+                                                                                                    {{effect.conditions|join(', ')}}
+                                                                                                {% endif %}
+                                                                                            {% elif effect.type == "grant_advantage" %}
+                                                                                                • Grant advantage on {{effect.to}}
+                                                                                                {% if effect.target %}
+                                                                                                    for {{effect.target}}
+                                                                                                {% endif %}
+                                                                                                {% if effect.conditions %}
+                                                                                                    when {{effect.conditions|join(' and ')}}
+                                                                                                {% endif %}
+                                                                                            {% elif effect.type == "dash" %}
+                                                                                                • Can use Dash as {{effect.as}}
+                                                                                            {% elif effect.type == "carrying capacity" %}
+                                                                                                • Carrying capacity doubled
+                                                                                            {% elif effect.type == "vision" %}
+                                                                                                • Extended vision: {{effect.range}}
+                                                                                            {% elif effect.type == "no disadvantage" %}
+                                                                                                • No disadvantage on {{effect.on}} in {{effect.in}}
+                                                                                            {% elif effect.type == "tracking" %}
+                                                                                                • Enhanced tracking abilities
+                                                                                            {% elif effect.type == "stealth" %}
+                                                                                                • Can move stealthily at {{effect.bonus}}
+                                                                                            {% elif effect.type == "water_breathing" %}
+                                                                                                • Can breathe underwater
+                                                                                            {% elif effect.type == "aura" %}
+                                                                                                • {{effect.range}}ft aura effect
+                                                                                            {% else %}
+                                                                                                • {{effect.type|replace('_', ' ')|title}}
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    {% endfor %}
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "reaction" %}
+                                                                <div class="mechanic-type">Reaction</div>
+                                                                {% if feature.mechanics.trigger %}
+                                                                    <div class="mechanic-detail">
+                                                                        Trigger: {{feature.mechanics.trigger|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.effects %}
+                                                                    {% for effect in feature.mechanics.effects %}
+                                                                        <div class="mechanic-detail">
+                                                                            • {{effect.type|replace('_', ' ')|title}}
+                                                                            {% if effect.target %}
+                                                                                against {{effect.target|replace('_', ' ')|title}}
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "action" and not feature.mechanics.action_type %}
+                                                                <div class="mechanic-type">Action</div>
+                                                                {% if feature.mechanics.duration %}
+                                                                    <div class="mechanic-detail">
+                                                                        Duration: {{feature.mechanics.duration.amount}} {{feature.mechanics.duration.unit}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.uses %}
+                                                                    <div class="mechanic-detail">
+                                                                        Uses: {{feature.mechanics.uses.per_long_rest}} per long rest
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.target %}
+                                                                    <div class="mechanic-detail">
+                                                                        Target: {{feature.mechanics.target.type|replace('_', ' ')|title}}
+                                                                        {% if feature.mechanics.target.range %}
+                                                                            ({{feature.mechanics.target.range}}ft)
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.effect %}
+                                                                    {% if feature.mechanics.effect.type == "saving_throw" %}
+                                                                        <div class="mechanic-detail">
+                                                                            Saving throw: {{feature.mechanics.effect.ability|title}} (DC 8 + prof + {{feature.mechanics.effect.dc.modifiers|join(' + ')|replace('_', ' ')}})}
+                                                                            {% if feature.mechanics.effect.on_fail %}
+                                                                                <br>On failure: {{feature.mechanics.effect.on_fail.condition|replace('_', ' ')|title}}
+                                                                                {% if feature.mechanics.effect.on_fail.duration %}
+                                                                                    for {{feature.mechanics.effect.on_fail.duration|replace('_', ' ')}}
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "bonus_action" %}
+                                                                <div class="mechanic-type">Bonus Action</div>
+                                                                {% if feature.mechanics.effects %}
+                                                                    {% for effect in feature.mechanics.effects %}
+                                                                        <div class="mechanic-detail">
+                                                                            • {{effect.type|replace('_', ' ')|title}}
+                                                                            {% if effect.target %}
+                                                                                for {{effect.target.type}} within {{effect.target.range}}ft
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                                {% if feature.mechanics.uses %}
+                                                                    <div class="mechanic-detail">
+                                                                        Uses: {{feature.mechanics.uses.per_long_rest}} per long rest
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "spellcasting" %}
+                                                                <div class="mechanic-type">Spellcasting</div>
+                                                                {% if feature.mechanics.spells %}
+                                                                    {% for spell in feature.mechanics.spells %}
+                                                                        <div class="mechanic-detail">
+                                                                            • {{spell.name}}
+                                                                            {% if spell.ritual_only %}
+                                                                                (ritual only)
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "special_attack" %}
+                                                                <div class="mechanic-type">Special Attack</div>
+                                                                {% if feature.mechanics.trigger %}
+                                                                    <div class="mechanic-detail">
+                                                                        Trigger: {{feature.mechanics.trigger|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.uses %}
+                                                                    <div class="mechanic-detail">
+                                                                        Uses: {{feature.mechanics.uses.per_rage}} per rage
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "resource" %}
+                                                                <div class="mechanic-type">Resource Feature</div>
+                                                                {% if feature.mechanics.action_type %}
+                                                                    <div class="mechanic-detail">
+                                                                        Action: {{feature.mechanics.action_type|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.range %}
+                                                                    <div class="mechanic-detail">
+                                                                        Range: {{feature.mechanics.range}} feet
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.resource %}
+                                                                    {% if feature.mechanics.resource.uses %}
+                                                                        <div class="mechanic-detail">
+                                                                            Uses: {{feature.mechanics.resource.uses.per_long_rest}} per long rest
+                                                                        </div>
+                                                                    {% endif %}
+                                                                    {% if feature.mechanics.resource.die %}
+                                                                        <div class="mechanic-detail">
+                                                                            Die: {{feature.mechanics.resource.die.values()|list|first}}
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {% if feature.mechanics.effect %}
+                                                                    <div class="mechanic-detail">
+                                                                        Effect: {{feature.mechanics.effect.type|replace('_', ' ')|title}}
+                                                                        {% if feature.mechanics.effect.duration %}
+                                                                            for {{feature.mechanics.effect.duration|replace('_', ' ')}}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "expertise" %}
+                                                                <div class="mechanic-type">Expertise</div>
+                                                                {% if feature.mechanics.choices %}
+                                                                    {% for level, choice in feature.mechanics.choices.items() %}
+                                                                        <div class="mechanic-detail">
+                                                                            Level {{level}}: Choose {{choice.choose}} skills to gain expertise
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "short_rest_healing" %}
+                                                                <div class="mechanic-type">Short Rest Healing</div>
+                                                                {% if feature.mechanics.healing %}
+                                                                    {% if feature.mechanics.healing.die %}
+                                                                        <div class="mechanic-detail">
+                                                                            Extra healing: {{feature.mechanics.healing.die.values()|list|first}}
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {% if feature.mechanics.target %}
+                                                                    <div class="mechanic-detail">
+                                                                        Target: {{feature.mechanics.target.type|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "subclass_choice" %}
+                                                                <div class="mechanic-type">Subclass Feature</div>
+                                                                {% if feature.mechanics.feature_levels %}
+                                                                    <div class="mechanic-detail">
+                                                                        Gains features at levels: {{feature.mechanics.feature_levels|join(', ')}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "update_resource" %}
+                                                                <div class="mechanic-type">Resource Update</div>
+                                                                {% if feature.mechanics.resource %}
+                                                                    <div class="mechanic-detail">
+                                                                        Updates {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.die %}
+                                                                    <div class="mechanic-detail">
+                                                                        Die becomes: {{feature.mechanics.die}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "resource_recovery" %}
+                                                                <div class="mechanic-type">Resource Recovery</div>
+                                                                {% if feature.mechanics.resource %}
+                                                                    <div class="mechanic-detail">
+                                                                        Affects: {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.recovery %}
+                                                                    <div class="mechanic-detail">
+                                                                        Recovery: {{feature.mechanics.recovery.type|replace('_', ' ')|title}} uses on {{feature.mechanics.recovery.trigger|join(' or ')|replace('_', ' ')}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "proficiencies" %}
+                                                                <div class="mechanic-type">Grants Proficiencies</div>
+                                                                {% if feature.mechanics.armor %}
+                                                                    <div class="mechanic-detail">
+                                                                        Armor: {{feature.mechanics.armor|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.weapons %}
+                                                                    <div class="mechanic-detail">
+                                                                        Weapons: {{feature.mechanics.weapons|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.tools %}
+                                                                    <div class="mechanic-detail">
+                                                                        Tools: {{feature.mechanics.tools|join(', ')|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "modify_resource" %}
+                                                                <div class="mechanic-type">Modifies {{feature.mechanics.resource|replace('_', ' ')|title}}</div>
+                                                                {% if feature.mechanics.additional_uses %}
+                                                                    <div class="mechanic-detail">Additional uses:</div>
+                                                                    {% for use in feature.mechanics.additional_uses %}
+                                                                        <div class="mechanic-detail">
+                                                                            • {{use.type|replace('_', ' ')|title}}
+                                                                            {% if use.trigger %}({{use.trigger|replace('_', ' ')|title}}){% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "extra_attack" %}
+                                                                <div class="mechanic-type">Extra Attack</div>
+                                                                <div class="mechanic-detail">
+                                                                    Total attacks per turn: {{feature.mechanics.attacks}}
+                                                                </div>
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "action_with_effect" or (feature.mechanics.type == "action" and feature.mechanics.effect) %}
+                                                                <div class="mechanic-type">Action</div>
+                                                                {% if feature.mechanics.effect %}
+                                                                    {% if feature.mechanics.effect.type == "grant_advantage" %}
+                                                                        <div class="mechanic-detail">
+                                                                            Grants advantage on {{feature.mechanics.effect.on|join(' and ')|replace('_', ' ')|title}}
+                                                                        </div>
+                                                                        {% if feature.mechanics.effect.target %}
+                                                                            <div class="mechanic-detail">
+                                                                                Target: {{feature.mechanics.effect.target.type|join(', ')|replace('_', ' ')|title}}
+                                                                                {% if feature.mechanics.effect.target.range %}
+                                                                                    within {{feature.mechanics.effect.target.range}}ft
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                        {% if feature.mechanics.effect.duration %}
+                                                                            <div class="mechanic-detail">
+                                                                                Duration: {{feature.mechanics.effect.duration|replace('_', ' ')|title}}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "modify_feature" %}
+                                                                <div class="mechanic-type">Modifies {{feature.mechanics.feature|replace('_', ' ')|title}}</div>
+                                                                {% if feature.mechanics.trigger %}
+                                                                    <div class="mechanic-detail">
+                                                                        Trigger: {{feature.mechanics.trigger|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.additional_effect %}
+                                                                    <div class="mechanic-detail">
+                                                                        Additional effect: {{feature.mechanics.additional_effect.type|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "minimum_roll" %}
+                                                                <div class="mechanic-type">Minimum Roll</div>
+                                                                <div class="mechanic-detail">
+                                                                    Minimum {{feature.mechanics.value}} on {{feature.mechanics.applies_to|join(' and ')|replace('_', ' ')|title}} checks
+                                                                </div>
+                                                            {% endif %}
+
+                                                            {% if feature.mechanics.type == "combat_feature" %}
+                                                                <div class="mechanic-type">Combat Feature</div>
+                                                                {% if feature.mechanics.resource %}
+                                                                    <div class="mechanic-detail">
+                                                                        Uses: {{feature.mechanics.resource|replace('_', ' ')|title}}
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if feature.mechanics.options %}
+                                                                    {% for option in feature.mechanics.options %}
+                                                                        <div class="mechanic-detail">
+                                                                            <strong>{{option.name}}</strong>
+                                                                            {% if option.trigger %}
+                                                                                - {{option.trigger|replace('_', ' ')|title}}
+                                                                            {% endif %}
+                                                                            {% if option.effects %}
+                                                                                {% for effect in option.effects %}
+                                                                                    <div style="margin-left: 12px;">
+                                                                                        • {{effect.type|replace('_', ' ')|title}}
+                                                                                        {% if effect.amount %}: {{effect.amount|replace('_', ' ')|title}}{% endif %}
+                                                                                        {% if effect.duration %} ({{effect.duration|replace('_', ' ')|title}}){% endif %}
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </div>
                                                 {% endif %}
                                             </span>
                                         </li>
                                     {% endfor %}
                                 {% endfor %}
                             {% endif %}
-                        </ul>
-
-                        <h3>Other Features & Traits</h3>
-                        <ul class="feature-list">
-                            {% for feature in character.other_features %}
-                                <li>
-                                    <svg class="feature-icon" viewBox="0 0 20 20"><polygon points="10,2 12.59,7.36 18.51,7.64 13.97,11.47 15.45,17.27 10,14.13 4.55,17.27 6.03,11.47 1.49,7.64 7.41,7.36"/></svg>
-                                    <span><strong>{{feature.name}}</strong>: {{feature.description}}</span>
-                                </li>
-                            {% endfor %}
                         </ul>
                     </div>
                     <!-- Background Tab Content -->
@@ -2034,11 +3115,47 @@
                         <!-- ALL TAB (read-only) -->
                         <div class="background-tab-content" style="display: block;">
                             <div class="background-section">
-                                <div class="background-title">{{ character.background|title }} <span class="background-slash">/</span> <span class="background-sub">Spy</span></div>
+                                <div class="background-title">{{ character.background|title }}</div>
+                                {% for feature in character.other_features %}
                                 <div class="background-feature">
-                                    <span class="feature-label">Feature: Criminal Contact</span><br>
-                                    <span class="feature-desc">You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</span>
+                                    <span class="feature-label">Feature: {{feature.name}}</span><br>
+                                    <span class="feature-desc">{{feature.description}}</span>
+                                    {% if feature.mechanics %}
+                                    <div class="feature-mechanics">
+                                        {% if feature.mechanics.type == "passive" %}
+                                            <div class="mechanic-type">Passive Effect</div>
+                                            {% if feature.mechanics.effects %}
+                                                {% for effect in feature.mechanics.effects %}
+                                                    <div class="mechanic-detail">
+                                                        {% if effect.type == "advantage" %}
+                                                            Advantage on {{effect.on|replace('_', ' ')|title}}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "skill_proficiency" %}
+                                            <div class="mechanic-type">Skill Proficiencies</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.skills|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "tool_proficiency" %}
+                                            <div class="mechanic-type">Tool Proficiencies</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.tools|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "language_proficiency" %}
+                                            <div class="mechanic-type">Languages</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.languages|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
                                 </div>
+                                {% endfor %}
                             </div>
                             <div class="characteristics-section">
                                 <div class="characteristics-title">CHARACTERISTICS</div>
@@ -2121,15 +3238,51 @@
                         <!-- BACKGROUND TAB (display only) -->
                         <div class="background-tab-content" style="display: none;">
                             <div class="background-section">
-                                <div class="background-title">{{ character.background|title }} <span class="background-slash">/</span> <span class="background-sub">Spy</span></div>
+                                <div class="background-title">{{ character.background|title }}</div>
+                                {% for feature in character.other_features %}
                                 <div class="background-feature">
-                                    <span class="feature-label">Feature: Criminal Contact</span><br>
-                                    <span class="feature-desc">You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</span>
+                                    <span class="feature-label">Feature: {{feature.name}}</span><br>
+                                    <span class="feature-desc">{{feature.description}}</span>
+                                    {% if feature.mechanics %}
+                                    <div class="feature-mechanics">
+                                        {% if feature.mechanics.type == "passive" %}
+                                            <div class="mechanic-type">Passive Effect</div>
+                                            {% if feature.mechanics.effects %}
+                                                {% for effect in feature.mechanics.effects %}
+                                                    <div class="mechanic-detail">
+                                                        {% if effect.type == "advantage" %}
+                                                            Advantage on {{effect.on|replace('_', ' ')|title}}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "skill_proficiency" %}
+                                            <div class="mechanic-type">Skill Proficiencies</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.skills|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "tool_proficiency" %}
+                                            <div class="mechanic-type">Tool Proficiencies</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.tools|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                        {% if feature.mechanics.type == "language_proficiency" %}
+                                            <div class="mechanic-type">Languages</div>
+                                            <div class="mechanic-detail">
+                                                {{feature.mechanics.languages|join(', ')}}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
                                 </div>
+                                {% endfor %}
                             </div>
                             <div class="background-desc">
                                 <strong>Description:</strong><br>
-                                <span>A criminal background gives you a history of lawbreaking, underworld contacts, and a knack for surviving on the wrong side of the law. (You can expand this section in your Python app.)</span>
+                                <span>{{ character.background_description }}</span>
                             </div>
                         </div>
                         <!-- APPEARANCE TAB (display only) -->

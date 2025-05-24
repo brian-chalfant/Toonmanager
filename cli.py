@@ -232,6 +232,40 @@ def handle_pending_choices(toon: Toon):
                 toon.properties["proficiencies"]["languages"].append(lang)
             del toon.properties["pending_choices"]["languages"]
             
+        # Handle racial spell choices
+        racial_spell_choices = {k: v for k, v in pending.items() if k.startswith("racial_spells_")}
+        for choice_key, choice_data in racial_spell_choices.items():
+            print(f"\n{choice_data.get('description', 'Choose racial spells:')}")
+            
+            if choice_data["type"] == "cantrips":
+                print("\nChoose cantrip(s):")
+                # For now, we'll handle wizard cantrips specifically
+                if "wizard_cantrips" in choice_key:
+                    wizard_cantrips = [
+                        "Acid Splash", "Blade Ward", "Booming Blade", "Chill Touch", "Control Flames",
+                        "Create Bonfire", "Dancing Lights", "Fire Bolt", "Friends", "Frostbite",
+                        "Green-Flame Blade", "Guidance", "Gust", "Light", "Mage Hand", "Mending",
+                        "Message", "Minor Illusion", "Mold Earth", "Poison Spray", "Prestidigitation",
+                        "Ray of Frost", "Resistance", "Shape Water", "Shocking Grasp", "Sword Burst",
+                        "Thunderclap", "Toll the Dead", "True Strike"
+                    ]
+                    
+                    chosen_cantrips = []
+                    for i in range(choice_data["count"]):
+                        available = [c for c in wizard_cantrips if c not in chosen_cantrips]
+                        cantrip = prompt_user(f"Select cantrip {i+1}/{choice_data['count']}", available)
+                        chosen_cantrips.append(cantrip)
+                        
+                        # Add to character's cantrips
+                        toon.properties["spells"]["cantrips"].append({
+                            "name": cantrip,
+                            "source": "racial",
+                            "level": 0,
+                            "description": f"Racial cantrip from {choice_data['ability']} spellcasting"
+                        })
+            
+            del toon.properties["pending_choices"][choice_key]
+        
         # Handle spell choices
         if "spells" in pending:
             spell_choice = pending["spells"]

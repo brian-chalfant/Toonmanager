@@ -1,0 +1,126 @@
+{
+    "name": "Soldier",
+    "description": "War has been your life for as long as you care to remember. You trained as a youth, studied the use of weapons and armor, learned basic survival techniques, including how to stay alive on the battlefield.",
+    "feature": {
+        "name": "Military Rank",
+        "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+    },
+    "proficiency_grants": {
+        "skills": [
+            "Athletics",
+            "Intimidation"
+        ],
+        "languages": {
+            "count": 0,
+            "type": "none",
+            "description": ""
+        },
+        "tools": [
+            "One type of gaming set",
+            "Vehicles (land)"
+        ]
+    },
+    "equipment_grants": {
+        "fixed": [
+            {
+                "item": "Insignia of Rank",
+                "quantity": 1,
+                "description": "An insignia of rank"
+            },
+            {
+                "item": "Trophy",
+                "quantity": 1,
+                "description": "A trophy taken from a fallen enemy"
+            },
+            {
+                "item": "Playing Cards",
+                "quantity": 1,
+                "description": "A deck of playing cards"
+            },
+            {
+                "item": "Common Clothes",
+                "quantity": 1,
+                "description": "A set of common clothes"
+            },
+            {
+                "item": "Belt Pouch",
+                "quantity": 1,
+                "description": "A belt pouch"
+            }
+        ],
+        "currency": {
+            "gold": 10
+        }
+    },
+    "personality": {
+        "personality_traits": {
+            "suggestions": [
+                "I'm always polite and respectful.",
+                "I'm haunted by memories of war. I can't get the images of violence out of my mind.",
+                "I've lost too many friends, and I'm slow to make new ones.",
+                "I'm full of inspiring and cautionary tales from my military experience relevant to almost every combat situation.",
+                "I can stare down a hell hound without flinching.",
+                "I enjoy being strong and like breaking things.",
+                "I have a crude sense of humor.",
+                "I face problems head-on. A simple, direct solution is the best path to success."
+            ],
+            "count": 2,
+            "type": "choice"
+        },
+        "ideals": {
+            "suggestions": [
+                {
+                    "ideal": "Greater Good. Our lot is to lay down our lives in defense of others.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Responsibility. I do what I must and obey just authority.",
+                    "alignment": "Lawful"
+                },
+                {
+                    "ideal": "Independence. When people follow orders blindly, they embrace a kind of tyranny.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Might. In life as in war, the stronger force wins.",
+                    "alignment": "Evil"
+                },
+                {
+                    "ideal": "Live and Let Live. Ideals aren't worth killing over or going to war for.",
+                    "alignment": "Neutral"
+                },
+                {
+                    "ideal": "Nation. My city, nation, or people are all that matter.",
+                    "alignment": "Any"
+                }
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "bonds": {
+            "suggestions": [
+                "I would still lay down my life for the people I served with.",
+                "Someone saved my life on the battlefield. To this day, I will never leave a friend behind.",
+                "My honor is my life.",
+                "I'll never forget the crushing defeat my company suffered or the enemies who dealt it.",
+                "Those who fight beside me are those worth dying for.",
+                "I fight for those who cannot fight for themselves."
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "flaws": {
+            "suggestions": [
+                "The monstrous enemy we faced in battle still leaves me quivering with fear.",
+                "I have little respect for anyone who is not a proven warrior.",
+                "I made a terrible mistake in battle that cost many lives—and I would do anything to keep that mistake secret.",
+                "My hatred of my enemies is blind and unreasoning.",
+                "I obey the law, even if the law causes misery.",
+                "I'd rather eat my armor than admit when I'm wrong."
+            ],
+            "count": 1,
+            "type": "choice"
+        }
+    },
+    "suggested_characteristics": "The horrors of war combined with the rigid discipline of military service leave their mark on all soldiers, shaping their ideals, creating strong bonds, and often leaving them scarred and vulnerable to fear, shame, and hatred."
+} 

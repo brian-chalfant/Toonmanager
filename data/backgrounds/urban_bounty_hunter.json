@@ -1,0 +1,117 @@
+{
+    "name": "Urban Bounty Hunter",
+    "description": "Before you became an adventurer, your life was already full of conflict and excitement, because you made a living tracking down people for pay. Unlike some people who collect bounties, though, you aren't a savage who follows quarry into or through the wilderness. You're involved in a lucrative trade, in the place where you lived, that routinely tests your skills and survival instincts.",
+    "feature": {
+        "name": "Ear to the Ground",
+        "description": "You are in frequent contact with people in the segment of society that your chosen quarries move through. These people might be associated with the criminal underworld, the rough-and-tumble folk of the streets, or members of high society. This connection comes in the form of a contact in any city you visit, a person who can be relied upon to provide information about the people and places of the local area."
+    },
+    "proficiency_grants": {
+        "skills": {
+            "choose": 2,
+            "from": [
+                "Deception",
+                "Insight",
+                "Persuasion",
+                "Stealth"
+            ]
+        },
+        "languages": [],
+        "tools": [
+            {
+                "type": "gaming set or musical instrument",
+                "quantity": 2,
+                "description": "Choose your instruments from among disguise kit, forgery kit, one gaming set, and one musical instrument"
+            }
+        ]
+    },
+    "equipment_grants": {
+        "fixed": [
+            {
+                "item": "Clothes",
+                "quantity": 1,
+                "description": "A set of clothes appropriate to your duties"
+            },
+            {
+                "item": "Belt Pouch",
+                "quantity": 1,
+                "description": "A belt pouch"
+            }
+        ],
+        "currency": {
+            "gold": 20
+        }
+    },
+    "personality": {
+        "personality_traits": {
+            "suggestions": [
+                "I always have a plan for what to do when things go wrong.",
+                "I am always calm, no matter what the situation. I never raise my voice or let my emotions control me.",
+                "The first thing I do in a new place is note the locations of everything valuable—or where such things could be hidden.",
+                "I would rather make a new friend than a new enemy.",
+                "I am incredibly slow to trust. Those who seem the fairest often have the most to hide.",
+                "I don't pay attention to the risks in a situation. Never tell me the odds.",
+                "The best way to get me to do something is to tell me I can't do it.",
+                "I blow up at the slightest insult."
+            ],
+            "count": 2,
+            "type": "choice"
+        },
+        "ideals": {
+            "suggestions": [
+                {
+                    "ideal": "Independence. I am a free spirit—no one tells me what to do.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Fairness. I never target people who can't afford to lose a few coins.",
+                    "alignment": "Lawful"
+                },
+                {
+                    "ideal": "Charity. I distribute the money I acquire to the people who really need it.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Creativity. I never run the same con twice.",
+                    "alignment": "Chaotic"
+                },
+                {
+                    "ideal": "Friendship. Material goods come and go. Bonds of friendship last forever.",
+                    "alignment": "Good"
+                },
+                {
+                    "ideal": "Aspiration. I'm determined to make something of myself.",
+                    "alignment": "Any"
+                }
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "bonds": {
+            "suggestions": [
+                "I fleeced the wrong person and must work to ensure that this individual never crosses paths with me or those I care about.",
+                "I owe everything to my mentor—a horrible person who's probably rotting in jail somewhere.",
+                "Somewhere out there, I have a child who doesn't know me. I'm making the world better for him or her.",
+                "I come from a noble family, and one day I'll reclaim my lands and title from those who stole them from me.",
+                "A powerful person killed someone I love. Some day soon, I'll have my revenge.",
+                "I swindled and ruined a person who didn't deserve it. I seek to atone for my misdeeds but might never be able to forgive myself."
+            ],
+            "count": 1,
+            "type": "choice"
+        },
+        "flaws": {
+            "suggestions": [
+                "I can't resist a pretty face.",
+                "I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in.",
+                "I'm convinced that no one could ever fool me the way I fool others.",
+                "I'm too greedy for my own good. I can't resist taking a risk if there's money involved.",
+                "I can't resist swindling people who are more powerful than me.",
+                "I hate to admit it and will hate myself for it, but I'll run and preserve my own hide if the going gets tough."
+            ],
+            "count": 1,
+            "type": "choice"
+        }
+    },
+    "suggested_characteristics": "Use the tables for the charlatan background as the basis for your traits and motivations, modifying the entries when appropriate to suit your identity as a bounty hunter.",
+    "source": "Sword Coast Adventurer's Guide",
+    "source_page": 153
+} 
