@@ -3,3 +3,7 @@ testing/
 venv/
 characters/*
 __pycache__
+/test_character_sheets/
+/test_output/
+/sample_character_sheets/
+
